@@ -1,0 +1,27 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+# ignore all warnings from all pods
+inhibit_all_warnings!
+use_frameworks!
+
+target 'SjekkUt' do
+pod 'AFNetworking', '~> 2.5.0'
+pod 'HockeySDK', '~> 4.0.1'
+pod 'NSURLRequest-cURL', '~> 0.0.1'
+pod 'DateTools', '~> 1.5.0'
+pod 'FontAwesome+iOS', '~> 0.1.4'
+pod 'SSKeychain', '~> 1.4.0'
+pod 'OCMock', '~> 3.3'
+pod 'Alamofire', '~> 3.4'
+end
+
+target 'SjekkUtTests' do
+pod 'Kiwi', '~> 2.3.1'
+pod 'Alamofire', '~> 3.4'
+end
+
+post_install do | installer |
+  require 'fileutils'
+  FileUtils.cp_r('Pods/Target Support Files/Pods-SjekkUt/Pods-SjekkUt-acknowledgements.plist', 'SjekkUT/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
+end

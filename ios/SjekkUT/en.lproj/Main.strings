@@ -1,0 +1,75 @@
+
+/* Class = "UILabel"; text = "county, altitude"; ObjectID = "3Xd-S5-Acu"; */
+"3Xd-S5-Acu.text" = "county, altitude";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "6BL-4R-YAG"; */
+"6BL-4R-YAG.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "county, elevation"; ObjectID = "6pE-DR-y7O"; */
+"6pE-DR-y7O.text" = "county, elevation";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "75k-d1-Gl6"; */
+"75k-d1-Gl6.title" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "BES-ZN-c87"; */
+"BES-ZN-c87.normalTitle" = "Check in!";
+
+/* Class = "UILabel"; text = "name"; ObjectID = "HGd-kH-adL"; */
+"HGd-kH-adL.text" = "name";
+
+/* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "IBq-T2-jaY"; */
+"IBq-T2-jaY.normalTitle" = "Check in!";
+
+/* Class = "UIButton"; normalTitle = "Click here to join!"; ObjectID = "Kxj-xj-gTr"; */
+"Kxj-xj-gTr.normalTitle" = "Click here to join!";
+
+/* Class = "UILabel"; text = "climber count"; ObjectID = "N6j-fg-bgj"; */
+"N6j-fg-bgj.text" = "climber count";
+
+/* Class = "UILabel"; text = "Congratulations! You have summited all 24 summits! This is totally awesome and you rock!"; ObjectID = "OXH-wX-4GR"; */
+"OXH-wX-4GR.text" = "Congratulations! You have summited all 24 summits! This is totally awesome and you rock!";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "R5u-WJ-Jhc"; */
+"R5u-WJ-Jhc.text" = "Distance";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "VUz-fz-7Ol"; */
+"VUz-fz-7Ol.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UINavigationItem"; title = "Opptur"; ObjectID = "X32-B9-KX4"; */
+"X32-B9-KX4.title" = "Opptur";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "XHg-Uz-lpr"; */
+"XHg-Uz-lpr.text" = "Description";
+
+/* Class = "UILabel"; text = "Not climbed"; ObjectID = "Y7P-p5-GVc"; */
+"Y7P-p5-GVc.text" = "Not climbed";
+
+/* Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "bGD-Db-PQW"; */
+"bGD-Db-PQW.normalTitle" = "Read more on our web";
+
+/* Class = "UILabel"; text = "climb count"; ObjectID = "bfX-bI-S5E"; */
+"bfX-bI-S5E.text" = "climb count";
+
+/* Class = "UIButton"; normalTitle = "SH"; ObjectID = "hQM-Dp-f9c"; */
+"hQM-Dp-f9c.normalTitle" = "SH";
+
+/* Class = "UILabel"; text = "No Challenge"; ObjectID = "hY6-0v-phf"; */
+"hY6-0v-phf.text" = "No Challenge";
+
+/* Class = "UILabel"; text = "Summit Name"; ObjectID = "iDh-5N-jVo"; */
+"iDh-5N-jVo.text" = "Summit Name";
+
+/* Class = "UIButton"; normalTitle = "FB"; ObjectID = "oJ6-8u-0f3"; */
+"oJ6-8u-0f3.normalTitle" = "FB";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "tEg-Wm-Uvi"; */
+"tEg-Wm-Uvi.title" = " ";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "vCl-Zk-4Rc"; */
+"vCl-Zk-4Rc.text" = "Distance";
+
+/* Class = "UILabel"; text = "Finding your location..."; ObjectID = "y2A-QB-aS5"; */
+"y2A-QB-aS5.text" = "Finding your location...";
+
+/* Class = "UILabel"; text = "Checkins"; ObjectID = "z17-1s-HLU"; */
+"z17-1s-HLU.text" = "Checkins";

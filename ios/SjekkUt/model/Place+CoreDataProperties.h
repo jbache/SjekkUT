@@ -1,0 +1,33 @@
+//
+//  Place+CoreDataProperties.h
+//  SjekkUt
+//
+//  Created by Henrik Hartz on 27/07/16.
+//  Copyright © 2016 Den Norske Turistforening. All rights reserved.
+//
+//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
+//  to delete and recreate this implementation file for your updated model.
+//
+
+#import "Place.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Place (CoreDataProperties)
+
+@property (nullable, nonatomic, retain) NSString *identifier;
+@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSSet<Project *> *projects;
+
+@end
+
+@interface Place (CoreDataGeneratedAccessors)
+
+- (void)addProjectsObject:(Project *)value;
+- (void)removeProjectsObject:(Project *)value;
+- (void)addProjects:(NSSet<Project *> *)values;
+- (void)removeProjects:(NSSet<Project *> *)values;
+
+@end
+
+NS_ASSUME_NONNULL_END

@@ -1,0 +1,5 @@
+secret/README
+secret/api.nasjonalturbase.no.api_key
+secret/dev.nasjonalturbase.no.api_key
+secret/www.dnt.no.client_id
+secret/www.dnt.no.client_secret

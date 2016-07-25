@@ -1,0 +1,8 @@
+/keyrings/live/pubring.gpg~
+/keyrings/live/pubring.kbx~
+/keyrings/live/secring.gpg
+/secret/README
+/secret/api.nasjonalturbase.no.api_key
+/secret/dev.nasjonalturbase.no.api_key
+/secret/www.dnt.no.client_id
+/secret/www.dnt.no.client_secret

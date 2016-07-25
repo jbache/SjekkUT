@@ -1,0 +1,60 @@
+
+/* Class = "IBUILabel"; text = "county, elevation"; ObjectID = "6pE-DR-y7O"; */
+"6pE-DR-y7O.text" = "fylke, høyde";
+
+/* Class = "IBUILabel"; text = "name"; ObjectID = "HGd-kH-adL"; */
+"HGd-kH-adL.text" = "navn";
+
+/* Class = "IBUILabel"; text = "Not climbed"; ObjectID = "Y7P-p5-GVc"; */
+"Y7P-p5-GVc.text" = "Ikke besteget";
+
+/* Class = "IBUILabel"; text = "climb count"; ObjectID = "bfX-bI-S5E"; */
+"bfX-bI-S5E.text" = "toppturer";
+
+/* Class = "IBUILabel"; text = "description"; ObjectID = "q9S-nQ-5Bm"; */
+"q9S-nQ-5Bm.text" = "beskrivelse";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "vCl-Zk-4Rc"; */
+"vCl-Zk-4Rc.text" = "Label";
+
+/* Class = "IBUILabel"; text = "Finding your location..."; ObjectID = "y2A-QB-aS5"; */
+"y2A-QB-aS5.text" = "Finner posisjonen din...";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "R5u-WJ-Jhc"; */
+"R5u-WJ-Jhc.text" = "Distance";
+
+/* Class = "UINavigationItem"; title = "Opptur"; ObjectID = "X32-B9-KX4"; */
+"X32-B9-KX4.title" = "UT på tur";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "XHg-Uz-lpr"; */
+"XHg-Uz-lpr.text" = "Beskrivelse";
+
+/* Class = "UILabel"; text = "Summit Name"; ObjectID = "iDh-5N-jVo"; */
+"iDh-5N-jVo.text" = "Toppnavn";
+
+/* Class = "UILabel"; text = "checkins body"; ObjectID = "pUq-Yw-OsJ"; */
+"pUq-Yw-OsJ.text" = "innsjekkinger tekst";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "tEg-Wm-Uvi"; */
+"tEg-Wm-Uvi.title" = " ";
+
+/* Class = "UILabel"; text = "Checkins"; ObjectID = "z17-1s-HLU"; */
+"z17-1s-HLU.text" = "Innsjekkinger";
+
+/* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "BES-ZN-c87"; */
+"BES-ZN-c87.normalTitle" = "Sjekk inn!";
+
+/* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "IBq-T2-jaY"; */
+"IBq-T2-jaY.normalTitle" = "Sjekk inn!";
+
+/* Class = "UIButton"; normalTitle = "Click here to join!"; ObjectID = "Kxj-xj-gTr"; */
+"Kxj-xj-gTr.normalTitle" = "Trykk her for å bli med!";
+
+/* Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "bGD-Db-PQW"; */
+"bGD-Db-PQW.normalTitle" = "Les mer på våre websider";
+
+/* Class = "UILabel"; text = "Congratulations! You have summited all 24 summits! This is totally awesome and you rock!"; ObjectID = "OXH-wX-4GR"; */
+"OXH-wX-4GR.text" = "Gratulerer! Du har besteget alle toppene!";
+
+/* Class = "UILabel"; text = "No Challenge"; ObjectID = "hY6-0v-phf"; */
+"hY6-0v-phf.text" = "Ingen utfordinger";
