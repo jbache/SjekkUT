@@ -76,7 +76,7 @@
         SummitView *summitView = segue.destinationViewController;
         if ([sender isKindOfClass:[Summit class]])
         {
-            summitView.summit = sender;
+            summitView.place = sender;
         }
         if ([sender isKindOfClass:[Checkin class]])
         {

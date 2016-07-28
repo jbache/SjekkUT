@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest *)fetchRequest;
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
+- (void)updateDistance;
+- (NSString *)distanceDescription;
 
 @end
 

@@ -10,17 +10,31 @@ import Foundation
 import Alamofire
 import SSKeychain
 
+class DntUser {
+    let firstName:String
+    let lastName:String
+    let dntId:Double
+
+    init(jsonData:[String: AnyObject]) {
+        firstName = jsonData["fornavn"] as! String
+        lastName = jsonData["etternavn"] as! String
+        dntId = jsonData["sherpa_id"] as! Double
+    }
+}
+
 class DntApi: Alamofire.Manager {
     let baseUrl = "https://www.dnt.no/api"
+    var user:DntUser? = nil
 
     func updateMemberDetailsOrFail( aFailureHandler : () -> Void ) {
-        let headers = ["Authorization":"Bearer " + SSKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)]
-        self.request(.GET, baseUrl + "/oauth/medlemsdata/", headers: headers)
+        let aToken = SSKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+        let someHeaders = ["Authorization":"Bearer " + aToken]
+        self.request(.GET, baseUrl + "/oauth/medlemsdata/", headers: someHeaders)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
                 case .Success:
-                    print("Validation Successful")
+                    self.user = DntUser(jsonData: response.result.value as! [String: AnyObject])
                 case .Failure(let error):
                     print("Validation failed: \(error)")
                     aFailureHandler()

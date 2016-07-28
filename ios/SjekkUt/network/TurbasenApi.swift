@@ -43,10 +43,10 @@ public class TurbasenApi: Alamofire.Manager {
             .responseJSON { response in
                 if let aJSON = response.result.value {
                     // iterate over all entities
-                    let someProjects = aJSON["documents"] as! [[NSObject: NSObject]]
+                    let someProjects = aJSON["documents"] as! [[String: AnyObject]]
                     // update or insert entities from API
                     for aProject in someProjects {
-                        Project.insertOrUpdate(aProject as! [NSString: NSObject])
+                        Project.insertOrUpdate(aProject)
                     }
                     // save the local database
                     ModelController.instance().save()
@@ -55,19 +55,11 @@ public class TurbasenApi: Alamofire.Manager {
     }
 
     public func getProjectAndPlaces(projectId:String) {
-        self.request(.GET, baseUrl() + "/lister/" + projectId, parameters: ["api_key": api_key, "fields":"steder", "expand":"steder"])
+        self.request(.GET, baseUrl() + "/lister/" + projectId, parameters: ["api_key": api_key, "fields":"steder,geojson", "expand":"steder"])
             .responseJSON { response in
                 if let aJSON = response.result.value {
                     // update or insert project from API
-                    let aProject:Project = Project.insertOrUpdate(aJSON as! [NSObject : AnyObject])
-                    // update or insert places from API
-                    let projectPlaces = NSMutableOrderedSet()
-                    for aPlaceJson in aJSON["steder"] as! [[NSObject: NSObject]] {
-                        let aPlace:Place = Place.insertOrUpdate(aPlaceJson)
-                        projectPlaces.addObject(aPlace)
-                    }
-                    // add places to project
-                    aProject.places = projectPlaces
+                    Project.insertOrUpdate(aJSON as! [String : AnyObject])
                     // save the local database
                     ModelController.instance().save()
                 }

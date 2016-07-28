@@ -9,8 +9,9 @@
 import Foundation
 
 var kObserveProjectPlaces = 0
+var kObserveLocation = 0
 
-class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
     let turbasen:TurbasenApi?
     var project:Project? = nil
@@ -27,41 +28,110 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     override func viewDidLoad() {
-        turbasen?.getProjectAndPlaces(self.project!.identifier!)
+        self.setupCheckinButton()
+        self.setupTable()
     }
+
+// MARK: private
+
+    func setupCheckinButton() {
+        self.checkinButton.titleLabel?.lineBreakMode = .ByWordWrapping
+        self.checkinButton.titleLabel?.numberOfLines = 2
+        self.checkinButton.titleLabel?.textAlignment = .Center
+    }
+
+    func setupTable() {
+        let placesFetch = Place.fetchRequest()
+        placesFetch.predicate = NSPredicate(format: "%@ IN projects", self.project!)
+        placesFetch.sortDescriptors = [ NSSortDescriptor.init(key: "distance", ascending: true) ]
+        self.places = NSFetchedResultsController(fetchRequest: placesFetch, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        do {
+            try self.places!.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+    }
+
+    func updateData() {
+        turbasen?.getProjectAndPlaces(self.project!.identifier!)
+        Location.instance().getSingleUpdate(nil)
+    }
+
+    func didCheckInTo(notification:NSNotification) {
+        let aCheckin = notification.object as Checkin
+        let aPlace = aCheckin.place as Place
+        let checkinText = String(format:NSLocalizedString("Yay! Checked in to %@", comment: "check in notification text"), place.name
+    }
+
+
+// MARK: view controller
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.project!.addObserver(self, forKeyPath: "places", options: .Initial, context: &kObserveProjectPlaces)
+        self.startObserving()
+        self.updateData()
     }
 
     override func viewWillDisappear(animated: Bool) {
-        self.project!.removeObserver(self, forKeyPath: "places", context: &kObserveProjectPlaces)
+        super.viewWillDisappear(animated)
+        self.stopObserving()
     }
 
-    // MARK: table data
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if (context == &kObserveProjectPlaces) {
-            self.placesTable.reloadData()
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showPlace") {
+            let placeView = segue.destinationViewController as! SummitView
+            placeView.place = sender as! Place
         }
     }
+
+// MARK: observing
+
+    func startObserving() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didCheckInTo), name: SjekkUtCheckedInNotification, object: nil)
+        Location.instance().addObserver(self, forKeyPath: "currentLocation", options: .Initial, context: &kObserveLocation)
+    }
+
+    func stopObserving() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        Location.instance().removeObserver(self, forKeyPath: "currentLocation")
+    }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if (context == &kObserveLocation && Location.instance().currentLocation != nil) {
+            self.project!.updateDistance()
+        }
+    }
+
+// MARK: table data
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.project!.places!.count
+        return (self.places?.fetchedObjects?.count)!
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let aPlace = self.project!.places!.objectAtIndex(indexPath.row) as! Place
+        let aPlace = self.places?.objectAtIndexPath(indexPath) as! Place
         let aPlaceCell = tableView.dequeueReusableCellWithIdentifier("PlaceCell") as! PlaceCell
         aPlaceCell.place = aPlace
         return aPlaceCell
     }
 
-    // MARK: table interaction
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.placesTable.reloadData()
+    }
 
+// MARK: table interaction
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var aPlace = self.places?.objectAtIndexPath(indexPath)
+        self.performSegueWithIdentifier("showPlace", sender: aPlace)
+    }
 
 }

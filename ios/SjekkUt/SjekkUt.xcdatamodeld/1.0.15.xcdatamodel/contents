@@ -30,7 +30,11 @@
         <relationship name="summit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Summit" inverseName="comments" inverseEntity="Summit" syncable="YES"/>
     </entity>
     <entity name="Place" representedClassName="Place" syncable="YES">
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="elevation" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="identifier" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="places" inverseEntity="Project" syncable="YES"/>
     </entity>
@@ -63,7 +67,7 @@
         <element name="Checkin" positionX="187" positionY="-1" width="128" height="118"/>
         <element name="CheckinStatistics" positionX="259" positionY="171" width="128" height="105"/>
         <element name="Comment" positionX="214" positionY="312" width="128" height="75"/>
-        <element name="Place" positionX="27" positionY="72" width="128" height="90"/>
+        <element name="Place" positionX="27" positionY="72" width="128" height="150"/>
         <element name="Project" positionX="160" positionY="192" width="128" height="90"/>
         <element name="Summit" positionX="16" positionY="-81" width="128" height="300"/>
     </elements>

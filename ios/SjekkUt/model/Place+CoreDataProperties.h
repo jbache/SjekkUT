@@ -2,7 +2,7 @@
 //  Place+CoreDataProperties.h
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 27/07/16.
+//  Created by Henrik Hartz on 28/07/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSString *identifier;
 @property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSNumber *latitude;
+@property (nullable, nonatomic, retain) NSNumber *longitude;
+@property (nullable, nonatomic, retain) NSNumber *elevation;
+@property (nullable, nonatomic, retain) NSNumber *distance;
 @property (nullable, nonatomic, retain) NSSet<Project *> *projects;
 
 @end

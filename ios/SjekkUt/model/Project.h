@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest *)fetchRequest;
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 
+- (void)updateDistance;
+
 @end
 
 NS_ASSUME_NONNULL_END

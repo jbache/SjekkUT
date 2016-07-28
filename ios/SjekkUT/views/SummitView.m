@@ -31,7 +31,7 @@ static BOOL toggle = NO;
     BOOL justCheckedIn;
 }
 
-@synthesize summit;
+@synthesize place;
 
 #pragma mark UIViewController
 

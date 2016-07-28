@@ -94,12 +94,6 @@
 
 - (void)updateDistance
 {
-    for (Summit *summit in results.fetchedObjects)
-    {
-        [summit updateDistance];
-    }
-    [model save];
-    [self.tableView reloadData];
 }
 
 - (void)updateCheckinButton
@@ -120,7 +114,7 @@
     if ([segue.identifier isEqualToString:@"showSummit"] && [sender isKindOfClass:[Summit class]])
     {
         SummitView *summitView = segue.destinationViewController;
-        summitView.summit = sender;
+        summitView.place = sender;
     }
 }
 

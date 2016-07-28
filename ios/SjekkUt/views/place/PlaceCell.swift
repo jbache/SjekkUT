@@ -8,13 +8,49 @@
 
 import Foundation
 
+
 class PlaceCell: UITableViewCell {
 
+    var isObserving = false
+    var kObserveDistance = 0
+
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var climbCountLabel: UILabel!
+    @IBOutlet weak var countyElevationLabel: UILabel!
+    @IBOutlet weak var placeImageView: UIImageView!
 
     var place:Place? {
         didSet {
+            self.stopObserving()
             self.nameLabel.text = self.place?.name
+            self.startObserving()
+        }
+    }
+
+    deinit {
+        self.stopObserving()
+    }
+
+// MARK: observing
+
+    func startObserving() {
+        if (isObserving == false) {
+            self.place?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObserveDistance)
+            isObserving = true
+        }
+    }
+
+    func stopObserving() {
+        if (isObserving == true) {
+            self.place?.removeObserver(self, forKeyPath: "distance")
+            isObserving = false
+        }
+    }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if (context == &kObserveDistance) {
+            self.distanceLabel.text = self.place?.distanceDescription()
         }
     }
 }

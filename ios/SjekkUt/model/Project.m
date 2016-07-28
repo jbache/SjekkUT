@@ -7,6 +7,7 @@
 //
 
 #import "ModelController.h"
+#import "Place.h"
 #import "Project.h"
 
 @implementation Project
@@ -53,6 +54,26 @@
 {
     self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
     self.name = json[@"navn"];
+
+    if ([json objectForKey:@"steder"] != nil)
+    {
+        NSMutableOrderedSet *places = [NSMutableOrderedSet orderedSet];
+        for (NSDictionary *aPlaceDict in json[@"steder"])
+        {
+            Place *aPlace = [Place insertOrUpdate:aPlaceDict];
+            [places addObject:aPlace];
+        }
+        self.places = places;
+    }
+}
+
+- (void)updateDistance
+{
+    for (Place *place in self.places)
+    {
+        [place updateDistance];
+    }
+    [model save];
 }
 
 @end

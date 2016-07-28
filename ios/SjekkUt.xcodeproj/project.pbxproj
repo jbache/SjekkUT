@@ -58,6 +58,7 @@
 		6CA3E13E1D49EF57003BA194 /* api.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */; };
 		6CA3E13F1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */; };
 		6CA3E1401D49EF57003BA194 /* www.dnt.no.client_id in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */; };
+		6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3E1421D4A4908003BA194 /* PlaceView.swift */; };
 		6CB04DC01D48C9AC0024DE11 /* SjekkUtApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */; };
 		6CB40DF81D460D260030433D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
 		6CDE75931AEA50F10067110C /* CheckinStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE758D1AEA50F00067110C /* CheckinStatistics.m */; };
@@ -187,6 +188,7 @@
 		6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = api.nasjonalturbase.no.api_key; path = ../../secret/api.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
 		6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dev.nasjonalturbase.no.api_key; path = ../../secret/dev.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
 		6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = www.dnt.no.client_id; path = ../../secret/www.dnt.no.client_id; sourceTree = "<group>"; };
+		6CA3E1421D4A4908003BA194 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceView.swift; path = views/PlaceView.swift; sourceTree = "<group>"; };
 		6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SjekkUtApi.swift; path = network/SjekkUtApi.swift; sourceTree = "<group>"; };
 		6CB40DF51D460D250030433D /* SjekkUt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SjekkUt-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CB40DF71D460D260030433D /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = views/LoginView.swift; sourceTree = "<group>"; };
@@ -336,8 +338,10 @@
 		6C6FE17A1A823B5A002B5DD5 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				6CE076321D475388000ACAAA /* places */,
+				6CB40DF71D460D260030433D /* LoginView.swift */,
 				6CE076311D47537A000ACAAA /* projects */,
+				6CE076321D475388000ACAAA /* places */,
+				6CA3E1411D4A48EB003BA194 /* place */,
 				6C72A3FC1A8B833600A47AEE /* style */,
 				6C6FE15A1A82332C002B5DD5 /* Main.storyboard */,
 				6C6FE1771A823B53002B5DD5 /* Summits.m */,
@@ -352,7 +356,6 @@
 				6C36A1241B0C798C00169E98 /* ChallengeCell.m */,
 				6C1409A21B3000F700392F64 /* RulesView.h */,
 				6C1409A31B3000F700392F64 /* RulesView.m */,
-				6CB40DF71D460D260030433D /* LoginView.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -440,6 +443,14 @@
 				6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */,
 			);
 			name = secret;
+			sourceTree = "<group>";
+		};
+		6CA3E1411D4A48EB003BA194 /* place */ = {
+			isa = PBXGroup;
+			children = (
+				6CA3E1421D4A4908003BA194 /* PlaceView.swift */,
+			);
+			name = place;
 			sourceTree = "<group>";
 		};
 		6CE0760B1D474C89000ACAAA /* SjekkUtTests */ = {
@@ -756,6 +767,7 @@
 				6C7C027F1D48A34100853166 /* PlaceCell.swift in Sources */,
 				6C70643B1A82B70100291137 /* Summit+Extension.m in Sources */,
 				6C7064551A83824E00291137 /* SummitView.m in Sources */,
+				6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */,
 				6CB40DF81D460D260030433D /* LoginView.swift in Sources */,
 				6C7064321A82AEA300291137 /* Backend.m in Sources */,
 				6C5FDB161D48CFE300B7D25E /* DntApi.swift in Sources */,

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Den Norske Turistforening. All rights reserved.
 //
 
-#import "Summit+Extension.h"
+#import "Place.h"
 
 #import <UIKit/UIKit.h>
 
@@ -19,7 +19,7 @@ typedef enum {
 
 @interface SummitView : UITableViewController <UITextViewDelegate>
 
-@property (weak, nonatomic) Summit *summit;
+@property (weak, nonatomic) Place *place;
 @property (weak, nonatomic) Checkin *checkin;
 @property (readonly, nonatomic) SjekkUtSummitState state;
 @property (weak, nonatomic) IBOutlet UIImageView *iconView;
