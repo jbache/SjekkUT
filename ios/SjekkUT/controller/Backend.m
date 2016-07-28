@@ -193,7 +193,6 @@
 
 - (BOOL)isLoggedIn
 {
-    NSLog(@"%@", [SSKeychain passwordForService:SjekkUtKeychainServiceName account:kSjekkUtDefaultsToken]);
     return [SSKeychain passwordForService:SjekkUtKeychainServiceName account:kSjekkUtDefaultsToken].length > 0;
 }
 

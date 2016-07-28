@@ -24,8 +24,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     override func viewDidLoad() {
         // delay table setup if Core Data isn't finished loading
         if (ModelController.instance().managedObjectContext == nil) {
-            print("delaying table setup")
-            NSNotificationCenter.defaultCenter() .addObserver(self, selector: #selector(setupTable), name: SjekkUtDatabaseModelReadyNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setupTable), name: SjekkUtDatabaseModelReadyNotification, object: nil)
         }
         else {
             self.setupTable()
@@ -48,8 +47,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     // MARK: table data
     func setupTable() {
-        print("setting up table")
-
+        
         // set up datasource
         projects = projectResults()
         projects?.delegate = self
