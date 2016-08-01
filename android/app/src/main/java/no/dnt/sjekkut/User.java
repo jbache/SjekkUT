@@ -1,4 +1,4 @@
-package no.dnt.opptur;
+package no.dnt.sjekkut;
 
 /**
  * Created by espen on 21.05.2015.

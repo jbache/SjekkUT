@@ -1,4 +1,4 @@
-package no.dnt.opptur;
+package no.dnt.sjekkut;
 
 /**
  * Copyright Den Norske Turistforening 2015

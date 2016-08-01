@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">UT på tur</string>
+    <string name="app_name">SjekkUT</string>
     <string name="hello_world">Hello world!</string>
     <string name="county_and_height">%1$s, %2$.0f moh.</string>
     <string name="summits">Besteget %d ganger</string>

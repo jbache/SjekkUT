@@ -1,4 +1,4 @@
-package no.dnt.opptur;
+package no.dnt.sjekkut;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "no.dnt.opptur"
+        applicationId "no.dnt.sjekkut"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 10014
