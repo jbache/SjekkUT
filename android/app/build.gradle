@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "no.dnt.sjekkut"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
-        versionCode 10014
-        versionName "1.0.14"
+        versionCode 100
+        versionName "0.1.0"
     }
 
     compileOptions {
