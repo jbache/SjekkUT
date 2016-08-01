@@ -181,24 +181,4 @@
     }
 }
 
-- (void)login:(NSString *)authorization
-{
-    // store token in keychain
-    [SSKeychain setPassword:authorization
-                 forService:SjekkUtKeychainServiceName
-                    account:kSjekkUtDefaultsToken];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationLogin object:nil];
-}
-
-- (BOOL)isLoggedIn
-{
-    return [SSKeychain passwordForService:SjekkUtKeychainServiceName account:kSjekkUtDefaultsToken].length > 0;
-}
-
-- (void)logout
-{
-    [SSKeychain deletePasswordForService:SjekkUtKeychainServiceName account:kSjekkUtDefaultsToken];
-}
-
 @end

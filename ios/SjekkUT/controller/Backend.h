@@ -30,9 +30,4 @@
 - (NSURLSessionDataTask *)updateCheckins;
 - (NSURLSessionDataTask *)joinChallenge:(Challenge *)challenge;
 
-- (void)login:(NSString *)authorization;
-- (BOOL)isLoggedIn;
-- (void)logout;
-
-- (void)registerUserAnd:(void (^)())pFunction;
 @end

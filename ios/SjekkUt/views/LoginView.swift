@@ -10,9 +10,6 @@ import UIKit
 import WebKit
 
 private var kProgressContext = 0
-private let aClientId = "TdgJwdd6zvYlM2lZC933wWKVFb6nCvDqXa0EP9MP"
-private let aClientSecret = "CMR7PYsfsQL9Vyh9RrFYmK5DD8Vb12jpyEMwQCCoTLz9tZClaICHXGVQHucp2oA4hBxOtDumf96utRAuBqRCTwbJj4tNvwQdfRo3OruPxg26Q2TSzPzj7iTYsxqvY6fG"
-
 
 class LoginView: UIViewController, WKNavigationDelegate {
 
@@ -21,23 +18,48 @@ class LoginView: UIViewController, WKNavigationDelegate {
 
     @IBOutlet weak var progressView: UIProgressView!
 
+    // MARK: viewcontroller
+
     override func viewDidLoad() {
-        self.setupLoginForm()
-        if (Backend.instance().isLoggedIn()) {
-            self.performSegueWithIdentifier("showProjectsImmediately", sender: nil)
-            dntApi.updateMemberDetailsOrFail {
-                Backend.instance().logout()
-                self.navigationController?.popToViewController(self, animated: true)
+        self.setupLogin()
+        if (dntApi.isExpired) {
+            dntApi.refreshTokenOrFail {
                 self.loadLoginForm()
             }
         }
+        else if (dntApi.isLoggedIn) {
+            self.performSegueWithIdentifier("showProjectsImmediately", sender: nil)
+            dntApi.updateMemberDetailsOrFail {
+                self.dntApi.logout()
+            }
+        }
         else {
-            self.loadLoginForm()
+            loadLoginForm()
         }
     }
 
+    // MARK: setup
+
+    func setupLogin() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLoginForm), name:kSjekkUtNotificationLoggedOut, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showProjectsView), name:kSjekkUtNotificationLogin, object: nil)
+
+        self.setupLoginForm()
+    }
+
     func setupLoginForm() {
-        self.webView = WKWebView(frame: self.view.bounds)
+        // set up config with non-persistent datastore to prevent persistent login
+        let webConfig = WKWebViewConfiguration()
+        if #available(iOS 9.0, *) {
+            webConfig.websiteDataStore = WKWebsiteDataStore.nonPersistentDataStore()
+        } else {
+            let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+            for cookie in storage.cookies! {
+                storage.deleteCookie(cookie)
+            }
+        }
+
+        self.webView = WKWebView(frame: self.view.bounds, configuration: webConfig)
         self.webView?.navigationDelegate = self
         self.webView?.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
         self.webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .Initial, context: &kProgressContext)
@@ -45,10 +67,24 @@ class LoginView: UIViewController, WKNavigationDelegate {
         self.view.insertSubview(self.webView!, atIndex: 0)
     }
 
+    // MARK: actions
+
+    // jumps back to this view when client is logged out
+    func showLoginForm() {
+        self.navigationController?.popToViewController(self, animated: true)
+        self.loadLoginForm()
+    }
+
     func loadLoginForm() {
-        let urlRequest = self.authorizeRequest()
+        let urlRequest = self.dntApi.authorizeRequest()
         self.webView?.loadRequest(urlRequest)
     }
+
+    func showProjectsView() {
+        self.performSegueWithIdentifier("showProjects", sender: nil)
+    }
+
+    // MARK: observe
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &kProgressContext {
@@ -59,51 +95,29 @@ class LoginView: UIViewController, WKNavigationDelegate {
         }
     }
 
-    // MARK: -
-    // MARK: authorization
-    func authorizeRequest() -> NSURLRequest {
-        let loginUrl = "https://www.dnt.no/o/authorize/?" +
-        "client_id=\(aClientId)&" +
-        "client_secret=\(aClientSecret)&" +
-        "response_type=token"
-        let aRequest = NSURLRequest(URL: NSURL(string:loginUrl )!)
-        return aRequest
-    }
+    // MARK: webkit
 
-//    // not using this with implicit authorization
-//    func tokenRequest(withAuthorizationCode code:NSString?) -> NSURLRequest {
-//        let tokenUrl = "https://www.dnt.no/o/token/?" +
-//            "client_id=\(aClientId)&" +
-//            "client_secret=\(aClientSecret)&" +
-//            "grant_type=authorization_code&" +
-//            "code=\(code!)"
-//        let urlRequest = NSURLRequest(URL: NSURL(string:tokenUrl)!)
-//        return urlRequest
-//    }
-
-    // MARK: -
-    // MARK: WebKit
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
     {
         // if the URL is a callback with the access_token, log in
         let navigationUrl = navigationAction.request.URL?.absoluteString
-        if navigationUrl!.containsString("callback") && navigationUrl!.containsString("access_token=") {
+        if navigationUrl!.containsString("callback") && navigationUrl!.containsString("code=") {
             decisionHandler(.Cancel)
-            let authCode = (navigationUrl?.componentsSeparatedByString("access_token=").last!)?.componentsSeparatedByString("&").first
-            let backendInstance:Backend = Backend.instance()
-            backendInstance.login(authCode)
-            self.performSegueWithIdentifier("showProjects", sender: nil)
+            let authCode = (navigationUrl?.componentsSeparatedByString("code=").last!)?.componentsSeparatedByString("&").first
+            self.dntApi.getTokenOrFail(authCode:authCode!, failure:{
+                self.dntApi.logout()
+            })
         }
         else {
             decisionHandler(.Allow)
         }
     }
 
-// for SSL pinning
-//    func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
-//    func webView(webView: WKWebView, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
-//        print("got challenge: \(challenge)")
-//        comple
-//    }
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        print("failed navigation: \(error)")
+    }
 
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        print("failed provisional navigation: \(error)")
+    }
 }

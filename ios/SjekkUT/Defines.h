@@ -13,6 +13,9 @@
 
 static NSString *__nonnull kSjekkUtNotificationLogin = @"com.dnt.sjekkut.notification.login";
 static NSString *__nonnull kSjekkUtDefaultsToken = @"com.dnt.sjekkut.defaults.token";
+static NSString *__nonnull kSjekkUtDefaultsTokenExpiry = @"com.dnt.sjekkut.defaults.tokenexpiry";
+static NSString *__nonnull kSjekkUtDefaultsRefreshToken = @"com.dnt.sjekkut.defaults.refreshtoken";
+static NSString *__nonnull kSjekkUtNotificationLoggedOut = @"com.dnt.sjekkut.notification.loggedout";
 
 #define defaultNotifyer [NSNotificationCenter defaultCenter]
 
