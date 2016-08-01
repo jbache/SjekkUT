@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/image"
+        android:layout_width="@dimen/mountain_imagesize"
+        android:layout_height="@dimen/mountain_imagesize"
+        android:layout_marginLeft="4sp"
+        android:layout_marginRight="4sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/cd_mountain_image" />
+
+    <LinearLayout
+        android:id="@+id/checkinContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/checkin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:checked="true"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <TextView
+            android:id="@+id/checkinText"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/margin_micro"
+            android:layout_marginRight="@dimen/margin_micro"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="3"
+            tools:text="Status"
+            android:textSize="@dimen/textsize_nano" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/layout_mountaininfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/image"
+        android:layout_toLeftOf="@id/checkinContainer"
+        android:layout_toRightOf="@id/image"
+        android:layout_toStartOf="@id/checkinContainer" />
+
+</RelativeLayout>

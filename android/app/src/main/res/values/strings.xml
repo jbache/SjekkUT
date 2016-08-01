@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UT på tur</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="county_and_height">%1$s, %2$.0f moh.</string>
+    <string name="summits">Besteget %d ganger</string>
+    <string name="action_feedback">Gi tilbakemelding</string>
+    <string name="action_share">Del turen</string>
+    <string name="unknown_mountain_name">Ukjent topp</string>
+    <string name="unknown_mountain_county">Ukjent fylke</string>
+    <string name="checkin_button">Sjekk inn</string>
+    <string name="checkin_back">OK</string>
+    <string name="checkin_distance_to_mountain">Din avstand til %1$s er %2$.0fm.</string>
+    <string name="distance_meters">%1$.0f m</string>
+    <string name="distance_km">%1$.1f km</string>
+    <string name="checkin_no_mountain">Vi fant ikke noe fjell.</string>
+    <string name="share_choose_title">Del din tur på</string>
+    <string name="share_text">Jeg besteg %1$s med %2$s, %3$s!</string>
+    <string name="gps_warning">Denne appen trenger GPS posisjonering med høy nøyaktighet. Vennligst skru det på i Innstillinger.</string>
+    <string name="network_error">Problemer med nettverkstilkoblingen.</string>
+    <string name="http_error">Problemer med å kommunisere med server.</string>
+    <string name="conversion_error">Problemer å tolke svar fra server.</string>
+    <string name="checkin_success">Du sjekket inn på %1$s %2$s.</string>
+    <string name="checkin_never">Du har aldri sjekket inn på %1$s!</string>
+    <string name="unknown_mountain_description">Ukjent beskrivelse</string>
+    <string name="not_available">n/a</string>
+    <string name="checkin_personal_count_zero">Du har aldri sjekket inn her.</string>
+    <plurals name="checkin_personal_count">
+        <item quantity="one">Du har sjekket inn her en gang.</item>
+        <item quantity="other">Du har sjekket inn her %d ganger.</item>
+    </plurals>
+    <string name="checkin_total_count_zero">Ingen har sjekket inn her noensinne.</string>
+    <plurals name="checkin_total_count">
+        <item quantity="one">Totalt har det blitt sjekket inn her kun en gang.</item>
+        <item quantity="other">Totalt har det blitt sjekket inn her %d ganger.</item>
+    </plurals>
+    <string name="checkin_dailycount_zero">Ingen har sjekket inn her idag.</string>
+    <string name="callback_checkin_in">Sjekker inn</string>
+    <string name="callback_checkins_and_statistics">Henter innsjekkinger</string>
+    <string name="callback_finding_closest_mountain">Finner nærmeste fjell</string>
+    <string name="callback_finding_posisjon">Finner din posisjon</string>
+    <string name="error_did_not_find_position">Vi fant ikke din posisjon</string>
+    <string name="error_did_not_find_checkins">Fant ikke checkins</string>
+    <string name="error_did_not_find_statistics">Fant ikke statistikk</string>
+    <string name="description_separator">Turbeskrivelse</string>
+    <string name="checkin_separator_title">Innsjekkinger</string>
+    <string name="checkin_data_missing">Ingen innsjekkningsdata tilgjengelig</string>
+    <string name="checkin_available">Du kan sjekke inn</string>
+    <string name="checkin_not_available_because_distance_and_timespan">Du må være maks 200 meter nærme punktet og vente 24 timer før du kan sjekke inn.</string>
+    <string name="checkin_not_available_because_distance">Du må være maks 200 meter fra punktet for å sjekke inn.</string>
+    <string name="checkin_not_available_because_timespan">Du må vente 24 timer før du kan sjekke inn.</string>
+    <string name="cd_challenge_footer">footer</string>
+    <string name="challenge_readmore">Les mer på våre websider</string>
+    <string name="challenge_joined_completed">Gratulerer du har besteget alle %d toppene!</string>
+    <string name="challenge_joined_progress_of_total">Du har besteget %1$d av %2$d topper så langt!</string>
+    <string name="challenge_joined_pleasejoin"><![CDATA[<u>TRYKK HER</u> for å bli med!]]></string>
+    <string name="register_name_hint">navn</string>
+    <string name="register_email_hint">email</string>
+    <string name="dialog_name_and_email_title">Registrer navn og email</string>
+    <string name="okbutton">OK</string>
+    <string name="cancelbutton">Avbryt</string>
+    <string name="dialog_name_and_email_message">Vi trenger denne informasjonen slik at vi kan dele ut premier til dem som når alle toppene</string>
+    <string name="no_mountains_found">Fant ingen fjelltopper</string>
+    <string name="challenge_joined_progress">Du har besteget %d topper</string>
+    <string name="challenge_joined_toast">Du deltar nå i %s</string>
+    <string name="distance_to_you">Din avstand: %s</string>
+    <string name="cd_mountain_image">mountain image</string>
+    <plurals name="checkin_daily_count">
+        <item quantity="one">Kun en person har sjekket inn her idag.</item>
+        <item quantity="other">%d personer har sjekket inn her idag.</item>
+    </plurals>
+
+</resources>

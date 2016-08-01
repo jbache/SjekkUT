@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- DNT official colors-->
+    <color name="dntLightGray">#bcbdbf</color>
+    <color name="dntLightGray30">#22bcbdbf</color>
+    <color name="dntDarkGray">#4c4d4f</color>
+    <color name="dntRed">#d82d20</color>
+    <color name="dntBlue">#0072b4</color>
+
+    <!-- Other -->
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+
+    <color name="splashBackground">#95bdc6</color>
+    <color name="background">@color/white</color>
+    <color name="text_main">@color/black</color>
+    <color name="text_additional">@color/dntDarkGray</color>
+
+    <color name="fab_normal">@color/dntRed</color>
+    <color name="fab_pressed">#f84d60</color>
+    <color name="fab_ripple">@color/fab_pressed</color>
+
+    <color name="todo">#00ff00</color>
+    <color name="background_checkin" >@color/dntLightGray30</color>
+
+</resources>
