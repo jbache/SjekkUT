@@ -268,17 +268,17 @@
         [Challenge insertOrUpdate:responseObject];
         [model save];
     }
-        failure:^(NSURLSessionDataTask *task, NSError *error) {
-            if ([(NSHTTPURLResponse *)task.response statusCode] == 403)
-            {
-                [backend registerUserAnd:^{
-                    [weakSelf joinChallenge:challenge];
-                }];
-            }
-            else
-            {
-                network.failHandler(task, error);
-            }
+        failure:^(NSURLSessionDataTask *task, NSError *error){
+            //            if ([(NSHTTPURLResponse *)task.response statusCode] == 403)
+            //            {
+            //                [backend registerUserAnd:^{
+            //                    [weakSelf joinChallenge:challenge];
+            //                }];
+            //            }
+            //            else
+            //            {
+            //                network.failHandler(task, error);
+            //            }
         }];
     return task;
 }

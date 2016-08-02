@@ -32,7 +32,7 @@ PODS:
   - SSKeychain (1.4.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.5.0)
+  - AFNetworking (~> 2.5)
   - Alamofire (~> 3.4)
   - DateTools (~> 1.5.0)
   - FontAwesome+iOS (~> 0.1.4)
@@ -40,7 +40,7 @@ DEPENDENCIES:
   - Kiwi (~> 2.3.1)
   - NSURLRequest-cURL (~> 0.0.1)
   - OCMock (~> 3.3)
-  - SSKeychain (~> 1.4.0)
+  - SSKeychain (~> 1.4)
 
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
@@ -53,6 +53,6 @@ SPEC CHECKSUMS:
   OCMock: d68685bde31f69cb61d518dcb39269080c78b5ed
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
 
-PODFILE CHECKSUM: 7b5aca72c34edc81aa9a2a964db5a5eb14fdcc4b
+PODFILE CHECKSUM: 5d6e4d745df86e5b87caf014df42e2750bed6907
 
 COCOAPODS: 1.0.1

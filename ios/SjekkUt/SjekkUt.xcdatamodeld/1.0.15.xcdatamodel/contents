@@ -17,7 +17,7 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitute" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="summit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Summit" inverseName="checkins" inverseEntity="Summit" syncable="YES"/>
+        <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="checkins" inverseEntity="Place" syncable="YES"/>
     </entity>
     <entity name="CheckinStatistics" representedClassName="CheckinStatistics" syncable="YES">
         <attribute name="dailyCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -36,6 +36,7 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="place" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="places" inverseEntity="Project" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
@@ -58,16 +59,16 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="typeName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="challenge" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Challenge" inverseName="summits" inverseEntity="Challenge" syncable="YES"/>
-        <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="summit" inverseEntity="Checkin" syncable="YES"/>
+        <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" syncable="YES"/>
         <relationship name="comments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comment" inverseName="summit" inverseEntity="Comment" syncable="YES"/>
         <relationship name="statistics" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CheckinStatistics" inverseName="summit" inverseEntity="CheckinStatistics" syncable="YES"/>
     </entity>
     <elements>
         <element name="Challenge" positionX="-180" positionY="-27" width="128" height="195"/>
-        <element name="Checkin" positionX="187" positionY="-1" width="128" height="118"/>
+        <element name="Checkin" positionX="187" positionY="-1" width="128" height="120"/>
         <element name="CheckinStatistics" positionX="259" positionY="171" width="128" height="105"/>
         <element name="Comment" positionX="214" positionY="312" width="128" height="75"/>
-        <element name="Place" positionX="27" positionY="72" width="128" height="150"/>
+        <element name="Place" positionX="27" positionY="72" width="128" height="165"/>
         <element name="Project" positionX="160" positionY="192" width="128" height="90"/>
         <element name="Summit" positionX="16" positionY="-81" width="128" height="300"/>
     </elements>

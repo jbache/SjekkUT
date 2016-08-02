@@ -24,7 +24,7 @@ class DntUser {
 }
 
 class DntApi: Alamofire.Manager {
-    let baseUrl = "https://www.dnt.no"
+    var baseUrl:String?
     var user:DntUser? = nil
     var clientId:String?
     var clientSecret:String?
@@ -46,14 +46,16 @@ class DntApi: Alamofire.Manager {
         }
     }
 
-    init () {
-        super.init()
-        self.setupCredentials()
+    convenience init(forDomain aDomain:String) {
+        self.init()
+        baseUrl = "https://" + aDomain
+        setupCredentials(domain:aDomain)
     }
 
-    func setupCredentials() {
-        self.clientId = self.loadFileContents("www.dnt.no.client_id")
-        self.clientSecret = self.loadFileContents("www.dnt.no.client_secret")
+    // MARK: setup
+    func setupCredentials(domain aDomain:String) {
+        clientId = loadFileContents(aDomain + ".client_id")
+        clientSecret = loadFileContents(aDomain + ".client_secret")
     }
 
     func loadFileContents(fileUrl:String) -> String? {
@@ -69,29 +71,14 @@ class DntApi: Alamofire.Manager {
         return fileContents
     }
 
+    // MARK: Oauth 2
+
     func authorizeRequest() -> NSURLRequest {
-        let loginUrl = "https://www.dnt.no/o/authorize/?" +
-            "client_id=\(self.clientId!)&" +
+        let loginUrl = baseUrl! + "/o/authorize/?" +
+            "client_id=\(clientId!)&" +
             "response_type=code"
         let aRequest = NSURLRequest(URL: NSURL(string:loginUrl )!)
         return aRequest
-    }
-
-
-    func updateMemberDetailsOrFail( aFailureHandler : () -> Void ) {
-        let aToken = SSKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
-        let someHeaders = ["Authorization":"Bearer " + aToken]
-        self.request(.GET, baseUrl + "/api/oauth/medlemsdata/", headers: someHeaders)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                switch response.result {
-                case .Success:
-                    self.user = DntUser(jsonData: response.result.value as! [String: AnyObject])
-                case .Failure(let error):
-                    print("Validation failed: \(error)")
-                    aFailureHandler()
-                }
-            }
     }
 
     func getTokenOrFail(authCode aCode:String, failure aFailureHandler: () -> Void) {
@@ -99,11 +86,10 @@ class DntApi: Alamofire.Manager {
             "grant_type": "authorization_code",
             "code": aCode,
             "redirect_uri": "https://localhost/callback",
-            "client_id" : self.clientId!,
-            "client_secret" : self.clientSecret!
+            "client_id" : clientId!,
+            "client_secret" : clientSecret!
         ]
-
-        self.request(.POST, baseUrl + "/o/token/", parameters:someParameters, encoding: .URL)
+        self.request(.POST, baseUrl! + "/o/token/", parameters:someParameters, encoding: .URL)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -132,7 +118,8 @@ class DntApi: Alamofire.Manager {
             "client_id" : self.clientId!,
             "client_secret" : self.clientSecret!
         ]
-        self.request(.POST, baseUrl + "/o/token/", parameters:someParameters, encoding: .URL)
+
+        self.request(.POST, baseUrl! + "/o/token/", parameters:someParameters, encoding: .URL)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -150,6 +137,8 @@ class DntApi: Alamofire.Manager {
                 }
         }
     }
+
+    // MARK: login and logout
 
     func login(authenticationCode:String, refreshToken aRefreshToken:String? = nil, expiry aTokenExpiry:Double? = nil) {
 
@@ -179,6 +168,30 @@ class DntApi: Alamofire.Manager {
 
     func logout() {
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+        SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(kSjekkUtDefaultsTokenExpiry)
+        NSUserDefaults.standardUserDefaults().synchronize()
+
         NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationLoggedOut, object: nil)
+    }
+
+    // MARK: REST api
+
+    func updateMemberDetailsOrFail( aFailureHandler : () -> Void ) {
+
+        let aToken = SSKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+        let someHeaders = ["Authorization":"Bearer " + aToken]
+
+        self.request(.GET, baseUrl! + "/api/oauth/medlemsdata/", headers: someHeaders)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .Success:
+                    self.user = DntUser(jsonData: response.result.value as! [String: AnyObject])
+                case .Failure(let error):
+                    print("Validation failed: \(error)")
+                    aFailureHandler()
+                }
+        }
     }
 }

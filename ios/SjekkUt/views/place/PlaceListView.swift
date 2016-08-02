@@ -58,9 +58,9 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func didCheckInTo(notification:NSNotification) {
-        let aCheckin = notification.object as Checkin
-        let aPlace = aCheckin.place as Place
-        let checkinText = String(format:NSLocalizedString("Yay! Checked in to %@", comment: "check in notification text"), place.name
+//        let aCheckin = notification.object as Checkin
+//        let aPlace = aCheckin.place as Place
+//        let checkinText = String(format:NSLocalizedString("Yay! Checked in to %@", comment: "check in notification text"), place.name)
     }
 
 
@@ -79,8 +79,8 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showPlace") {
-            let placeView = segue.destinationViewController as! SummitView
-            placeView.place = sender as! Place
+//            let placeView = segue.destinationViewController as! SummitView
+//            placeView.place = sender as! Place
         }
     }
 
@@ -130,7 +130,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var aPlace = self.places?.objectAtIndexPath(indexPath)
+        let aPlace = self.places?.objectAtIndexPath(indexPath)
         self.performSegueWithIdentifier("showPlace", sender: aPlace)
     }
 

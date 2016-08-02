@@ -38,6 +38,10 @@
                BlueprintName = "SjekkUtTests"
                ReferencedContainer = "container:SjekkUt.xcodeproj">
             </BuildableReference>
+            <LocationScenarioReference
+               identifier = "../position-gpx/cutehacks.gpx"
+               referenceType = "0">
+            </LocationScenarioReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -39,7 +39,6 @@
 		6C70643B1A82B70100291137 /* Summit+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70643A1A82B70100291137 /* Summit+Extension.m */; };
 		6C7064431A835ED700291137 /* SummitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064421A835ED700291137 /* SummitCell.m */; };
 		6C7064511A8381FA00291137 /* SummitSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064501A8381FA00291137 /* SummitSearch.m */; };
-		6C7064551A83824E00291137 /* SummitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064541A83824E00291137 /* SummitView.m */; };
 		6C70645D1A83838700291137 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70645C1A83838700291137 /* Location.m */; };
 		6C70646F1A84CEBF00291137 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70646D1A84CEBF00291137 /* NetworkController.m */; };
 		6C70A5371AFA4C150032187D /* DntRedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70A5361AFA4C150032187D /* DntRedView.m */; };
@@ -69,7 +68,7 @@
 		6CE076221D474D7A000ACAAA /* BackendTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064331A82AF5700291137 /* BackendTest.m */; };
 		6CE076231D474D7A000ACAAA /* NetworkTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C08F6661A88BB990091D70A /* NetworkTest.m */; };
 		6CE076251D474E03000ACAAA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CE076241D474E03000ACAAA /* Info.plist */; };
-		6CE076281D474F76000ACAAA /* TestLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076271D474F76000ACAAA /* TestLoginView.swift */; };
+		6CE076281D474F76000ACAAA /* TestDntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076271D474F76000ACAAA /* TestDntApi.swift */; };
 		6CE076291D475061000ACAAA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
 		6CE0762A1D47512D000ACAAA /* Backend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064301A82AEA300291137 /* Backend.m */; };
 		6CE0762B1D47513E000ACAAA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70645C1A83838700291137 /* Location.m */; };
@@ -82,6 +81,20 @@
 		6CE0763C1D4763B8000ACAAA /* Project+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076391D4763B8000ACAAA /* Project+CoreDataProperties.m */; };
 		6CE0763D1D4763B8000ACAAA /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763B1D4763B8000ACAAA /* Project.m */; };
 		6CE0763F1D4775DF000ACAAA /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */; };
+		6CE526821D506DC000D3419B /* DntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FDB151D48CFE300B7D25E /* DntApi.swift */; };
+		6CE526831D50720F00D3419B /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70642E1A82AE3000291137 /* ModelController.m */; };
+		6CE526841D50721500D3419B /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C02801D48A36A00853166 /* PlaceListView.swift */; };
+		6CE526851D50721C00D3419B /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763B1D4763B8000ACAAA /* Project.m */; };
+		6CE526861D50722500D3419B /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */; };
+		6CE526871D5072AC00D3419B /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C027E1D48A34100853166 /* PlaceCell.swift */; };
+		6CE526881D50730D00D3419B /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A13E1B0C99B100169E98 /* Challenge.m */; };
+		6CE526891D50731400D3419B /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F11461B1084D90003DD2B /* Checkin.m */; };
+		6CE5268A1D50731900D3419B /* EntityScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5421461AC98FDE00F8315F /* EntityScaffold.m */; };
+		6CE5268B1D50731F00D3419B /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C027B1D48A00600853166 /* Place.m */; };
+		6CE5268C1D50744600D3419B /* www.dnt.no.client_id in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */; };
+		6CE5268D1D50744900D3419B /* www.dnt.no.client_secret in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */; };
+		6CE5268E1D50744C00D3419B /* api.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */; };
+		6CE5268F1D50745000D3419B /* dev.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,7 +215,7 @@
 		6CE0760C1D474C89000ACAAA /* SjekkUtTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SjekkUtTests.m; sourceTree = "<group>"; };
 		6CE076241D474E03000ACAAA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE076261D474F76000ACAAA /* SjekkUtTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SjekkUtTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		6CE076271D474F76000ACAAA /* TestLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestLoginView.swift; sourceTree = "<group>"; };
+		6CE076271D474F76000ACAAA /* TestDntApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDntApi.swift; sourceTree = "<group>"; };
 		6CE0762E1D4751E8000ACAAA /* ProjectListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectListView.swift; path = views/ProjectListView.swift; sourceTree = "<group>"; };
 		6CE076331D475520000ACAAA /* 1.0.15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.15.xcdatamodel; sourceTree = "<group>"; };
 		6CE076351D4757EA000ACAAA /* TurbasenApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TurbasenApi.swift; path = network/TurbasenApi.swift; sourceTree = "<group>"; };
@@ -437,10 +450,10 @@
 		6CA3E1381D49EF3F003BA194 /* secret */ = {
 			isa = PBXGroup;
 			children = (
+				6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */,
 				6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */,
 				6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */,
 				6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */,
-				6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */,
 			);
 			name = secret;
 			sourceTree = "<group>";
@@ -462,7 +475,7 @@
 				6C7064331A82AF5700291137 /* BackendTest.m */,
 				6C08F6661A88BB990091D70A /* NetworkTest.m */,
 				6CE0760C1D474C89000ACAAA /* SjekkUtTests.m */,
-				6CE076271D474F76000ACAAA /* TestLoginView.swift */,
+				6CE076271D474F76000ACAAA /* TestDntApi.swift */,
 				6CE076261D474F76000ACAAA /* SjekkUtTests-Bridging-Header.h */,
 			);
 			path = SjekkUtTests;
@@ -568,6 +581,7 @@
 					};
 					6CE076091D474C89000ACAAA = {
 						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 6C6FE1491A82332C002B5DD5;
 					};
 				};
 			};
@@ -621,6 +635,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE076251D474E03000ACAAA /* Info.plist in Resources */,
+				6CE5268E1D50744C00D3419B /* api.nasjonalturbase.no.api_key in Resources */,
+				6CE5268D1D50744900D3419B /* www.dnt.no.client_secret in Resources */,
+				6CE5268F1D50745000D3419B /* dev.nasjonalturbase.no.api_key in Resources */,
+				6CE5268C1D50744600D3419B /* www.dnt.no.client_id in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,7 +784,6 @@
 				6C70A5371AFA4C150032187D /* DntRedView.m in Sources */,
 				6C7C027F1D48A34100853166 /* PlaceCell.swift in Sources */,
 				6C70643B1A82B70100291137 /* Summit+Extension.m in Sources */,
-				6C7064551A83824E00291137 /* SummitView.m in Sources */,
 				6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */,
 				6CB40DF81D460D260030433D /* LoginView.swift in Sources */,
 				6C7064321A82AEA300291137 /* Backend.m in Sources */,
@@ -787,17 +804,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE0762D1D475148000ACAAA /* Summit.m in Sources */,
+				6CE526881D50730D00D3419B /* Challenge.m in Sources */,
 				6CE076221D474D7A000ACAAA /* BackendTest.m in Sources */,
 				6CE076291D475061000ACAAA /* LoginView.swift in Sources */,
+				6CE5268A1D50731900D3419B /* EntityScaffold.m in Sources */,
 				6CE076211D474D7A000ACAAA /* ModelTest.m in Sources */,
 				6CE076301D4751E8000ACAAA /* ProjectListView.swift in Sources */,
+				6CE526821D506DC000D3419B /* DntApi.swift in Sources */,
 				6CE076371D4757EA000ACAAA /* TurbasenApi.swift in Sources */,
 				6CE076231D474D7A000ACAAA /* NetworkTest.m in Sources */,
 				6CE0762C1D475141000ACAAA /* NetworkController.m in Sources */,
 				6CE0762B1D47513E000ACAAA /* Location.m in Sources */,
+				6CE526841D50721500D3419B /* PlaceListView.swift in Sources */,
 				6CE0762A1D47512D000ACAAA /* Backend.m in Sources */,
+				6CE526891D50731400D3419B /* Checkin.m in Sources */,
 				6CE076201D474D7A000ACAAA /* LocationTest.m in Sources */,
-				6CE076281D474F76000ACAAA /* TestLoginView.swift in Sources */,
+				6CE526861D50722500D3419B /* ProjectCell.swift in Sources */,
+				6CE526871D5072AC00D3419B /* PlaceCell.swift in Sources */,
+				6CE526831D50720F00D3419B /* ModelController.m in Sources */,
+				6CE5268B1D50731F00D3419B /* Place.m in Sources */,
+				6CE076281D474F76000ACAAA /* TestDntApi.swift in Sources */,
+				6CE526851D50721C00D3419B /* Project.m in Sources */,
 				6CE0760D1D474C89000ACAAA /* SjekkUtTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -975,6 +1002,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A0CFA57E75EA2B927443816 /* Pods-SjekkUtTests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -988,6 +1016,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SjekkUtTests/SjekkUtTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SjekkUt.app/SjekkUt";
 			};
 			name = Debug;
 		};
@@ -995,6 +1024,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BABDD852E1611202A6E0BF98 /* Pods-SjekkUtTests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1007,6 +1037,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cutehacks.SjekkUtTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SjekkUtTests/SjekkUtTests-Bridging-Header.h";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SjekkUt.app/SjekkUt";
 			};
 			name = Release;
 		};

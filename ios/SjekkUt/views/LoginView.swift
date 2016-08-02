@@ -14,7 +14,7 @@ private var kProgressContext = 0
 class LoginView: UIViewController, WKNavigationDelegate {
 
     var webView:WKWebView?
-    let dntApi = DntApi()
+    let dntApi = DntApi(forDomain:"www.dnt.no")
 
     @IBOutlet weak var progressView: UIProgressView!
 
@@ -53,10 +53,7 @@ class LoginView: UIViewController, WKNavigationDelegate {
         if #available(iOS 9.0, *) {
             webConfig.websiteDataStore = WKWebsiteDataStore.nonPersistentDataStore()
         } else {
-            let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-            for cookie in storage.cookies! {
-                storage.deleteCookie(cookie)
-            }
+            // Fallback on earlier versions
         }
 
         self.webView = WKWebView(frame: self.view.bounds, configuration: webConfig)

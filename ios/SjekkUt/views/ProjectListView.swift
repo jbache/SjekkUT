@@ -10,14 +10,14 @@ import Foundation
 
 class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    let turbasen:TurbasenApi
+    let turbasen = TurbasenApi()
+    let dntApi = DntApi(forDomain:"www.dnt.no")
     var projects:NSFetchedResultsController?
 
     @IBOutlet weak var projectsTable: UITableView!
 
     // MARK: view controller
     required init?(coder aDecoder: NSCoder) {
-        turbasen = TurbasenApi()
         super.init(coder: aDecoder)
     }
 
@@ -34,9 +34,10 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        let aProject:Project = Project.insertTemporary() as! Project
-        aProject.name = "hello"
-        ModelController.instance().save()
+//        let aProject:Project = Project.insertTemporary() as! Project
+//        aProject.name = "hello"
+//        ModelController.instance().save()
+        dntApi.logout()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
