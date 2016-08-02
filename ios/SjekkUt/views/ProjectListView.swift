@@ -10,7 +10,7 @@ import Foundation
 
 class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    let turbasen = TurbasenApi()
+    let turbasen = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
     let dntApi = DntApi(forDomain:"www.dnt.no")
     var projects:NSFetchedResultsController?
 
@@ -34,9 +34,6 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-//        let aProject:Project = Project.insertTemporary() as! Project
-//        aProject.name = "hello"
-//        ModelController.instance().save()
         dntApi.logout()
     }
 

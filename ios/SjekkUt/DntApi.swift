@@ -39,6 +39,7 @@ class DntApi: Alamofire.Manager {
     var isExpired:Bool {
         get {
             if let expiryDate = NSUserDefaults.standardUserDefaults().objectForKey(kSjekkUtDefaultsTokenExpiry) as? NSDate {
+                print("token expires \(expiryDate)")
                 return expiryDate.compare(NSDate()) == .OrderedAscending
             }
 
@@ -54,21 +55,8 @@ class DntApi: Alamofire.Manager {
 
     // MARK: setup
     func setupCredentials(domain aDomain:String) {
-        clientId = loadFileContents(aDomain + ".client_id")
-        clientSecret = loadFileContents(aDomain + ".client_secret")
-    }
-
-    func loadFileContents(fileUrl:String) -> String? {
-        let fileURL = NSBundle(forClass: self.dynamicType).URLForResource(fileUrl, withExtension: nil, subdirectory: nil)
-        var fileContents:String?
-        do {
-            try fileContents = NSString(contentsOfURL: fileURL!, encoding: NSUTF8StringEncoding) as String
-            fileContents = fileContents!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        }
-        catch {
-            print("failed to load file %@: %@", fileUrl, error)
-        }
-        return fileContents
+        clientId = (aDomain + ".client_id").loadFileContents(inClass: self.dynamicType)
+        clientSecret = (aDomain + ".client_secret").loadFileContents(inClass: self.dynamicType)
     }
 
     // MARK: Oauth 2
