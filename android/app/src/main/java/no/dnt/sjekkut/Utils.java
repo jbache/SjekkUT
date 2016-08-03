@@ -18,12 +18,17 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Copyright Den Norske Turistforening 2015
- *
+ * <p>
  * Created by espen on 09.02.2015.
  */
 public class Utils {
@@ -185,4 +190,18 @@ public class Utils {
         return 156543.03392d * Math.cos(location.getLatitude() * Math.PI / 180) / Math.pow(2, zoomLevel);
     }
 
+    public static String extractUrlArgument(String url, String name, String defaultValue) {
+        if (url != null && name != null) {
+            try {
+                List<NameValuePair> valuePairs = URLEncodedUtils.parse(new URI(url), "UTF-8");
+                for (NameValuePair pair : valuePairs) {
+                    if (name.equals(pair.getName())) {
+                        return pair.getValue();
+                    }
+                }
+            } catch (URISyntaxException ignored) {
+            }
+        }
+        return defaultValue;
+    }
 }

@@ -10,6 +10,8 @@ android {
         targetSdkVersion 22
         versionCode 100
         versionName "0.1.0"
+        resValue "string", "client_id", new File('../secret/www.dnt.no.client_id').text
+        resValue "string", "client_secret", new File('../secret/www.dnt.no.client_secret').text
     }
 
     compileOptions {
