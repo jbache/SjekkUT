@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.h
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 27/07/16.
+//  Created by Henrik Hartz on 03/08/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -11,19 +11,30 @@
 
 #import "Project.h"
 
-@class Place;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Project (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *identifier;
+@property (nullable, nonatomic, retain) NSString *infoUrl;
 @property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSOrderedSet<DntImage *> *images;
 @property (nullable, nonatomic, retain) NSOrderedSet<Place *> *places;
 
 @end
 
 @interface Project (CoreDataGeneratedAccessors)
+
+- (void)insertObject:(DntImage *)value inImagesAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromImagesAtIndex:(NSUInteger)idx;
+- (void)insertImages:(NSArray<DntImage *> *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeImagesAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInImagesAtIndex:(NSUInteger)idx withObject:(DntImage *)value;
+- (void)replaceImagesAtIndexes:(NSIndexSet *)indexes withImages:(NSArray<DntImage *> *)values;
+- (void)addImagesObject:(DntImage *)value;
+- (void)removeImagesObject:(DntImage *)value;
+- (void)addImages:(NSOrderedSet<DntImage *> *)values;
+- (void)removeImages:(NSOrderedSet<DntImage *> *)values;
 
 - (void)insertObject:(Place *)value inPlacesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromPlacesAtIndex:(NSUInteger)idx;

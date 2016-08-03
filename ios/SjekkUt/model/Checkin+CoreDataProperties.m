@@ -1,5 +1,5 @@
 //
-//  Place+CoreDataProperties.m
+//  Checkin+CoreDataProperties.m
 //  SjekkUt
 //
 //  Created by Henrik Hartz on 03/08/16.
@@ -9,17 +9,14 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Place+CoreDataProperties.h"
+#import "Checkin+CoreDataProperties.h"
 
-@implementation Place (CoreDataProperties)
+@implementation Checkin (CoreDataProperties)
 
-@dynamic distance;
-@dynamic elevation;
+@dynamic date;
 @dynamic identifier;
-@dynamic latitude;
+@dynamic latitute;
 @dynamic longitude;
-@dynamic name;
-@dynamic checkins;
-@dynamic projects;
+@dynamic place;
 
 @end

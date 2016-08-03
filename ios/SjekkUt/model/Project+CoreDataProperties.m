@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.m
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 27/07/16.
+//  Created by Henrik Hartz on 03/08/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,7 +14,9 @@
 @implementation Project (CoreDataProperties)
 
 @dynamic identifier;
+@dynamic infoUrl;
 @dynamic name;
+@dynamic images;
 @dynamic places;
 
 @end

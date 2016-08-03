@@ -12,7 +12,6 @@
 
 @property (readonly) NSString *timeAgo;
 
-+ (Checkin *)mock;
 + (Checkin *)insertOrUpdate:(NSDictionary *)json;
 
 @end

@@ -1,8 +1,8 @@
 //
-//  Place.h
+//  DntImage.h
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 27/07/16.
+//  Created by Henrik Hartz on 03/08/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 
@@ -15,16 +15,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Place : EntityScaffold
+@interface DntImage : EntityScaffold
 
-+ (NSFetchRequest *)fetchRequest;
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
-+ (instancetype)findWithId:(id)identifier;
-- (void)updateDistance;
-- (NSString *)distanceDescription;
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "Place+CoreDataProperties.h"
+#import "DntImage+CoreDataProperties.h"

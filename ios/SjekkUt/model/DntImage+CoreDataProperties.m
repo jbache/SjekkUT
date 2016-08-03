@@ -1,5 +1,5 @@
 //
-//  Place+CoreDataProperties.m
+//  DntImage+CoreDataProperties.m
 //  SjekkUt
 //
 //  Created by Henrik Hartz on 03/08/16.
@@ -9,17 +9,15 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Place+CoreDataProperties.h"
+#import "DntImage+CoreDataProperties.h"
 
-@implementation Place (CoreDataProperties)
+@implementation DntImage (CoreDataProperties)
 
-@dynamic distance;
-@dynamic elevation;
 @dynamic identifier;
-@dynamic latitude;
-@dynamic longitude;
-@dynamic name;
-@dynamic checkins;
+@dynamic url;
+@dynamic width;
+@dynamic height;
+@dynamic data;
 @dynamic projects;
 
 @end

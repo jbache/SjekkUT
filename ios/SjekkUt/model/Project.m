@@ -6,6 +6,7 @@
 //
 //
 
+#import "DntImage.h"
 #import "ModelController.h"
 #import "Place.h"
 #import "Project.h"
@@ -54,17 +55,44 @@
 {
     self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
     self.name = json[@"navn"];
+    self.places = [self parsePlaces:json[@"steder"]];
+    self.images = [self parseImages:json[@"bilder"]];
+}
 
-    if ([json objectForKey:@"steder"] != nil)
+- (NSOrderedSet *)parsePlaces:(NSArray *)places
+{
+    if (places == nil)
     {
-        NSMutableOrderedSet *places = [NSMutableOrderedSet orderedSet];
-        for (NSDictionary *aPlaceDict in json[@"steder"])
-        {
-            Place *aPlace = [Place insertOrUpdate:aPlaceDict];
-            [places addObject:aPlace];
-        }
-        self.places = places;
+        return nil;
     }
+
+    NSMutableOrderedSet *orderedPlaces = [NSMutableOrderedSet orderedSet];
+
+    for (NSDictionary *aPlaceDict in places)
+    {
+        Place *aPlace = [Place insertOrUpdate:aPlaceDict];
+        [orderedPlaces addObject:aPlace];
+    }
+
+    return orderedPlaces;
+}
+
+- (NSOrderedSet *)parseImages:(NSArray *)images
+{
+    if (images == nil)
+    {
+        return nil;
+    }
+
+    NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
+
+    for (NSDictionary *anImageDict in images)
+    {
+        DntImage *anImage = [DntImage insertOrUpdate:anImageDict];
+        [orderedImages addObject:anImage];
+    }
+
+    return orderedImages;
 }
 
 - (void)updateDistance

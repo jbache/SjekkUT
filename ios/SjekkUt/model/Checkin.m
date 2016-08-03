@@ -1,34 +1,18 @@
 //
-//  Checkin+Extension.m
+//  Checkin.m
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 09/02/15.
-//  Copyright (c) 2015 Den Norske Turistforening. All rights reserved.
+//  Created by Henrik Hartz on 03/08/16.
+//  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 
-#import <UIKit/UIDevice.h>
-
-#import "Checkin+Extension.h"
-#import "CheckinStatistics+Extension.h"
-#import "ModelController.h"
+#import "Checkin.h"
 #import "NSDate+DateTools.h"
-#import "Summit+Extension.h"
+#import "Place.h"
 
-@implementation Checkin (Extension)
+#import "ModelController.h"
 
-#pragma mark initialization
-
-+ (Checkin *)mock
-{
-    Checkin *_mock = [[Checkin alloc] initWithEntity:self.entity
-                      insertIntoManagedObjectContext:model.managedObjectContext];
-
-    _mock.identifier = [NSString stringWithFormat:@"%@", @(random())];
-    _mock.name = @"mock checkin";
-    _mock.date = [NSDate date];
-
-    return _mock;
-}
+@implementation Checkin
 
 + (Checkin *)insertOrUpdate:(NSDictionary *)json
 {
@@ -67,9 +51,9 @@
     self.identifier = json[@"id"];
     self.date = [dateFormatter dateFromString:json[@"timestamp"]];
     NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"mountainId"]];
-    if (!self.summit && mountainId.length > 0)
+    if (!self.place && mountainId.length > 0)
     {
-        self.summit = [Summit findWithId:mountainId];
+        self.place = [Place findWithId:mountainId];
     }
     self.latitute = json[@"location"][@"Lat"];
     self.longitude = json[@"location"][@"Lng"];
