@@ -1,5 +1,6 @@
 package no.dnt.sjekkut;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,14 +18,17 @@ public class LoginActivity extends ActionBarActivity {
     private String client_id;
     private String client_secret;
     private Callback<AuthorizationToken> authorizeCallback;
-    private Callback<AuthorizationToken> refreshCallback;
-    private Callback<MemberData> memberCallback;
 
     private boolean gettingToken = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (PreferenceUtils.hasAccessToken(this)) {
+            finishAndStartMain();
+            return;
+        }
 
         gettingToken = false;
         client_id = getResources().getString(R.string.client_id);
@@ -40,38 +44,13 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void success(AuthorizationToken authorizationToken, Response response) {
                 Utils.showToast(LoginActivity.this, "Authorization success");
-                DNTApi.call().refreshToken("refresh_token", authorizationToken.refresh_token, redirectURL, client_id, client_secret, refreshCallback);
-                DNTApi.call().getMember(authorizationToken.token_type + " " + authorizationToken.access_token, memberCallback);
+                PreferenceUtils.setAccessToken(LoginActivity.this, authorizationToken.access_token);
+                finishAndStartMain();
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Utils.showToast(LoginActivity.this, "Authorization failed");
-            }
-        };
-
-        refreshCallback = new Callback<AuthorizationToken>() {
-
-            @Override
-            public void success(AuthorizationToken authorizationToken, Response response) {
-                Utils.showToast(LoginActivity.this, "Refresh token success");
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Utils.showToast(LoginActivity.this, "Refresh token failed");
-            }
-        };
-
-        memberCallback = new Callback<MemberData>() {
-            @Override
-            public void success(MemberData memberData, Response response) {
-                Utils.showToast(LoginActivity.this, "getMember success");
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Utils.showToast(LoginActivity.this, "getMember failed");
             }
         };
 
@@ -103,5 +82,9 @@ public class LoginActivity extends ActionBarActivity {
         webview.loadUrl(authorizationUrl);
     }
 
-
+    private void finishAndStartMain() {
+        startActivity(new Intent(this, MainActivity.class));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
+    }
 }

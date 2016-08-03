@@ -28,6 +28,10 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
@@ -36,6 +40,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private static final String DIALOG_ERROR = "dialog_error";
     private boolean mResolvingError = false;
     private ArrayList<Pair<LocationListener, LocationRequest>> mPendingListener = new ArrayList<>();
+    private Callback<MemberData> mMemberCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,18 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+
+        mMemberCallback = new Callback<MemberData>() {
+            @Override
+            public void success(MemberData memberData, Response response) {
+                Utils.showToast(MainActivity.this, "Got member data");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Utils.showToast(MainActivity.this, "Failed to get member data");
+            }
+        };
 
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
@@ -80,6 +97,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         checkForUpdates();
+        DNTApi.call().getMember(PreferenceUtils.getBearerAuthorization(this), mMemberCallback);
     }
 
     @Override
