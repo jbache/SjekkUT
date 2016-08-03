@@ -5,7 +5,7 @@ package no.dnt.sjekkut;
  * <p>
  * Created by espen on 03.08.2016.
  */
-public class DNTConnectToken {
+public class AuthorizationToken {
     public String expires_in;
     public String access_token;
     public String scope;

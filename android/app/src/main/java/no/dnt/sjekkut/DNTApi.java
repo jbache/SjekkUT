@@ -4,6 +4,8 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 
 /**
@@ -11,12 +13,12 @@ import retrofit.http.POST;
  * <p>
  * Created by espen on 03.08.2016.
  */
-public class DNTConnect {
-    private static DNTConnect ourInstance = new DNTConnect();
+public class DNTApi {
+    private static DNTApi ourInstance = new DNTApi();
 
     public final Endpoints api;
 
-    private DNTConnect() {
+    private DNTApi() {
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint("https://www.dnt.no/")
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -25,7 +27,7 @@ public class DNTConnect {
         api = adapter.create(Endpoints.class);
     }
 
-    public static DNTConnect getInstance() {
+    public static DNTApi getInstance() {
         return ourInstance;
     }
 
@@ -38,7 +40,7 @@ public class DNTConnect {
                       @Field("redirect_uri") String redirect_uri,
                       @Field("client_id") String client_id,
                       @Field("client_secret") String client_secret,
-                      Callback<DNTConnectToken> cb);
+                      Callback<AuthorizationToken> callback);
 
         @FormUrlEncoded
         @POST("/o/token/")
@@ -47,6 +49,9 @@ public class DNTConnect {
                           @Field("redirect_uri") String redirect_uri,
                           @Field("client_id") String client_id,
                           @Field("client_secret") String client_secret,
-                          Callback<DNTConnectToken> cb);
+                          Callback<AuthorizationToken> callback);
+
+        @GET("/api/oauth/medlemsdata/")
+        void getMember(@Header("Authorization") String authorization, Callback<MemberData> callback);
     }
 }
