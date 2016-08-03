@@ -76,7 +76,15 @@ class LoginView: UIViewController, WKNavigationDelegate {
 
     func loadLoginForm() {
         let urlRequest = self.dntApi.authorizeRequest()
-        self.webView?.loadRequest(urlRequest)
+        if #available(iOS 9.0, *) {
+            // need to remove all data to prevent user from seeing the authorization again
+            // and instead see the login form
+            webView?.configuration.websiteDataStore.removeDataOfTypes(WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: NSDate.distantPast(), completionHandler: { 
+                self.webView?.loadRequest(urlRequest)
+            })
+        } else {
+            self.webView?.loadRequest(urlRequest)
+        }
     }
 
     func showProjectsView() {
@@ -100,12 +108,15 @@ class LoginView: UIViewController, WKNavigationDelegate {
     {
         // if the URL is a callback with the access_token, log in
         let navigationUrl = navigationAction.request.URL?.absoluteString
-        if navigationUrl!.containsString("callback") && navigationUrl!.containsString("code=") {
+        if navigationUrl!.containsString("callback") {
             decisionHandler(.Cancel)
-            let authCode = (navigationUrl?.componentsSeparatedByString("code=").last!)?.componentsSeparatedByString("&").first
-            self.dntApi.getTokenOrFail(authCode:authCode!, failure:{
-                self.dntApi.logout()
-            })
+            if navigationUrl!.containsString("code=") {
+                let authCode = (navigationUrl?.componentsSeparatedByString("code=").last!)?.componentsSeparatedByString("&").first
+                self.dntApi.getTokenOrFail(authCode:authCode!, failure:{ self.dntApi.logout()})
+            }
+            else {
+                dntApi.logout()
+            }
         }
         else {
             decisionHandler(.Allow)

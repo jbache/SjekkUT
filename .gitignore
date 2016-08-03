@@ -6,4 +6,4 @@
 /secret/dev.nasjonalturbase.no.api_key
 /secret/www.dnt.no.client_id
 /secret/www.dnt.no.client_secret
-/ios/../secret/maps.google.com.static.api_key
+/secret/maps.google.com.static.api_key

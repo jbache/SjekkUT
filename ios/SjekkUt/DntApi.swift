@@ -69,7 +69,8 @@ class DntApi: Alamofire.Manager {
         let loginUrl = baseUrl! + "/o/authorize/?" +
             "client_id=\(clientId!)&" +
             "response_type=code"
-        let aRequest = NSURLRequest(URL: NSURL(string:loginUrl )!)
+        let aRequest = NSMutableURLRequest(URL: NSURL(string:loginUrl )!)
+        aRequest.cachePolicy = .ReloadIgnoringLocalAndRemoteCacheData
         return aRequest
     }
 
@@ -167,11 +168,21 @@ class DntApi: Alamofire.Manager {
     }
 
     func logout() {
+        // clear out all cookies
+        let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in storage.cookies! {
+            storage.deleteCookie(cookie)
+        }
+
+        // remove tokens
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
+
+        // remove expiry
         NSUserDefaults.standardUserDefaults().removeObjectForKey(kSjekkUtDefaultsTokenExpiry)
         NSUserDefaults.standardUserDefaults().synchronize()
 
+        // tell the world
         NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationLoggedOut, object: nil)
     }
 
