@@ -81,10 +81,14 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let project = self.projects?.objectAtIndexPath(indexPath) as! Project
         let projectCell = tableView.dequeueReusableCellWithIdentifier("ProjectCell") as! ProjectCell
-        projectCell.project = project
         return projectCell
+    }
+
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let project = self.projects?.objectAtIndexPath(indexPath) as! Project
+        let projectCell = cell as! ProjectCell
+        projectCell.project = project
     }
 
     // MARK: data changes
