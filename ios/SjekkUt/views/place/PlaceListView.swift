@@ -13,7 +13,7 @@ var kObserveLocation = 0
 
 class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
-    let turbasen:TurbasenApi?
+    let turbasen = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
     var project:Project? = nil
     var places:NSFetchedResultsController? = nil
 
@@ -22,17 +22,12 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     @IBOutlet weak var feedbackButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
 
-    required init?(coder aDecoder: NSCoder) {
-        turbasen = TurbasenApi()
-        super.init(coder: aDecoder)
-    }
-
     override func viewDidLoad() {
         self.setupCheckinButton()
         self.setupTable()
     }
 
-// MARK: private
+    // MARK: private
 
     func setupCheckinButton() {
         self.checkinButton.titleLabel?.lineBreakMode = .ByWordWrapping
@@ -45,6 +40,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         placesFetch.predicate = NSPredicate(format: "%@ IN projects", self.project!)
         placesFetch.sortDescriptors = [ NSSortDescriptor.init(key: "distance", ascending: true) ]
         self.places = NSFetchedResultsController(fetchRequest: placesFetch, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.places?.delegate = self
         do {
             try self.places!.performFetch()
         } catch {
@@ -53,7 +49,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func updateData() {
-        turbasen?.getProjectAndPlaces(self.project!.identifier!)
+        turbasen.getProjectAndPlaces(self.project!.identifier!)
         Location.instance().getSingleUpdate(nil)
     }
 
@@ -84,7 +80,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
 
-// MARK: observing
+    // MARK: observing
 
     func startObserving() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didCheckInTo), name: SjekkUtCheckedInNotification, object: nil)
@@ -102,11 +98,23 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
 
-// MARK: table data
+    // MARK: table sections
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let projectCell = tableView.dequeueReusableCellWithIdentifier("ProjectHeader") as! ProjectHeader
+        projectCell.project = self.project
+        return projectCell
+    }
+
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 144
+    }
+
+    // MARK: table rows
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (self.places?.fetchedObjects?.count)!
@@ -123,7 +131,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.placesTable.reloadData()
     }
 
-// MARK: table interaction
+    // MARK: table interaction
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 80

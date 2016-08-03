@@ -14,6 +14,7 @@ pod 'FontAwesome+iOS', '~> 0.1.4'
 pod 'SSKeychain', '~> 1.4'
 pod 'OCMock', '~> 3.3'
 pod 'Alamofire', '~> 3.4'
+pod 'AlamofireImage', '~> 2.0'
 end
 
 target 'SjekkUtTests' do

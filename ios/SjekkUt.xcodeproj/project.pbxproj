@@ -58,6 +58,7 @@
 		6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3E1421D4A4908003BA194 /* PlaceView.swift */; };
 		6CB04DC01D48C9AC0024DE11 /* SjekkUtApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */; };
 		6CB40DF81D460D260030433D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
+		6CC799AF1D51E96800DFAF10 /* ProjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799AE1D51E96800DFAF10 /* ProjectHeader.swift */; };
 		6CC799BA1D51F5F700DFAF10 /* DntImage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799B71D51F5F700DFAF10 /* DntImage+CoreDataProperties.m */; };
 		6CC799BB1D51F5F700DFAF10 /* DntImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799B91D51F5F700DFAF10 /* DntImage.m */; };
 		6CC799C31D52110B00DFAF10 /* Checkin+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799C01D52110B00DFAF10 /* Checkin+CoreDataProperties.m */; };
@@ -205,6 +206,7 @@
 		6CB40DF51D460D250030433D /* SjekkUt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SjekkUt-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CB40DF71D460D260030433D /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = views/LoginView.swift; sourceTree = "<group>"; };
 		6CBF319C1AF7B63800B1ABFC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		6CC799AE1D51E96800DFAF10 /* ProjectHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectHeader.swift; path = views/project/ProjectHeader.swift; sourceTree = "<group>"; };
 		6CC799B61D51F5F700DFAF10 /* DntImage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DntImage+CoreDataProperties.h"; path = "model/DntImage+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6CC799B71D51F5F700DFAF10 /* DntImage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DntImage+CoreDataProperties.m"; path = "model/DntImage+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6CC799B81D51F5F700DFAF10 /* DntImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntImage.h; path = model/DntImage.h; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 			children = (
 				6CE0762E1D4751E8000ACAAA /* ProjectListView.swift */,
 				6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */,
+				6CC799AE1D51E96800DFAF10 /* ProjectHeader.swift */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -782,6 +785,7 @@
 				6CE526911D507BA700D3419B /* DntExtensionsString.swift in Sources */,
 				6C72A3FB1A8B80E700A47AEE /* SjekkUtStyle.m in Sources */,
 				6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */,
+				6CC799AF1D51E96800DFAF10 /* ProjectHeader.swift in Sources */,
 				6CDE75931AEA50F10067110C /* CheckinStatistics.m in Sources */,
 				6C54213F1AC98D8100F8315F /* CheckinStatistics+Extension.m in Sources */,
 				6C7064511A8381FA00291137 /* SummitSearch.m in Sources */,

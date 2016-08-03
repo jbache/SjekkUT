@@ -3,7 +3,9 @@
 //
 
 #import "Backend.h"
+#import "Checkin.h"
 #import "Defines.h"
+#import "DntImage.h"
 #import "Location.h"
 #import "ModelController.h"
 #import "Place.h"
