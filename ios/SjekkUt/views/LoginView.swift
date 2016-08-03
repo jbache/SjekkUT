@@ -22,12 +22,7 @@ class LoginView: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         self.setupLogin()
-        if (dntApi.isExpired) {
-            dntApi.refreshTokenOrFail {
-                self.loadLoginForm()
-            }
-        }
-        else if (dntApi.isLoggedIn) {
+        if (dntApi.isLoggedIn) {
             self.performSegueWithIdentifier("showProjectsImmediately", sender: nil)
             dntApi.updateMemberDetailsOrFail {
                 self.dntApi.logout()
