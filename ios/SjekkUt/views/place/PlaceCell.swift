@@ -22,17 +22,21 @@ class PlaceCell: UITableViewCell {
 
     var place:Place? {
         didSet {
-            self.stopObserving()
-            self.nameLabel.text = self.place?.name
-            self.startObserving()
+            stopObserving()
+            nameLabel.text = place?.name
+            startObserving()
         }
     }
 
     deinit {
-        self.stopObserving()
+        stopObserving()
     }
 
-// MARK: observing
+    override func prepareForReuse() {
+        stopObserving()
+    }
+
+    // MARK: observing
 
     func startObserving() {
         if (isObserving == false) {
