@@ -14,9 +14,10 @@ import retrofit.http.POST;
  * Created by espen on 03.08.2016.
  */
 public class DNTApi {
+
     private static DNTApi ourInstance = new DNTApi();
 
-    public final Endpoints api;
+    private final Endpoints api;
 
     private DNTApi() {
         RestAdapter adapter = new RestAdapter.Builder()
@@ -29,6 +30,10 @@ public class DNTApi {
 
     public static DNTApi getInstance() {
         return ourInstance;
+    }
+
+    public static Endpoints call() {
+        return getInstance().api;
     }
 
     public interface Endpoints {

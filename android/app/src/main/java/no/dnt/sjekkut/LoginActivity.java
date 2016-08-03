@@ -11,7 +11,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class OAuthActivity extends ActionBarActivity {
+public class LoginActivity extends ActionBarActivity {
 
     private String redirectURL = "https://localhost/callback";
     private String client_id;
@@ -25,22 +25,28 @@ public class OAuthActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         gettingToken = false;
         client_id = getResources().getString(R.string.client_id);
         client_secret = getResources().getString(R.string.client_secret);
+        String authorizationUrl = Uri.parse("https://www.dnt.no/o/authorize/")
+                .buildUpon()
+                .appendQueryParameter("client_id", client_id)
+                .appendQueryParameter("response_type", "code")
+                .build().toString();
 
         authorizeCallback = new Callback<AuthorizationToken>() {
 
             @Override
             public void success(AuthorizationToken authorizationToken, Response response) {
-                Utils.showToast(OAuthActivity.this, "Authorization success");
-                DNTApi.getInstance().api.refreshToken("refresh_token", authorizationToken.refresh_token, redirectURL, client_id, client_secret, refreshCallback);
-                DNTApi.getInstance().api.getMember(authorizationToken.token_type + " " + authorizationToken.access_token, memberCallback);
+                Utils.showToast(LoginActivity.this, "Authorization success");
+                DNTApi.call().refreshToken("refresh_token", authorizationToken.refresh_token, redirectURL, client_id, client_secret, refreshCallback);
+                DNTApi.call().getMember(authorizationToken.token_type + " " + authorizationToken.access_token, memberCallback);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Utils.showToast(OAuthActivity.this, "Authorization failed");
+                Utils.showToast(LoginActivity.this, "Authorization failed");
             }
         };
 
@@ -48,31 +54,31 @@ public class OAuthActivity extends ActionBarActivity {
 
             @Override
             public void success(AuthorizationToken authorizationToken, Response response) {
-                Utils.showToast(OAuthActivity.this, "Refresh token success");
+                Utils.showToast(LoginActivity.this, "Refresh token success");
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Utils.showToast(OAuthActivity.this, "Refresh token failed");
+                Utils.showToast(LoginActivity.this, "Refresh token failed");
             }
         };
 
         memberCallback = new Callback<MemberData>() {
             @Override
             public void success(MemberData memberData, Response response) {
-                Utils.showToast(OAuthActivity.this, "getMember success");
+                Utils.showToast(LoginActivity.this, "getMember success");
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Utils.showToast(OAuthActivity.this, "getMember failed");
+                Utils.showToast(LoginActivity.this, "getMember failed");
             }
         };
 
         WebView webview = new WebView(this);
+        setContentView(webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setVisibility(View.VISIBLE);
-        setContentView(webview);
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -86,19 +92,16 @@ public class OAuthActivity extends ActionBarActivity {
                     if (!gettingToken) {
                         gettingToken = true;
                         String code = Utils.extractUrlArgument(url, "code", "");
-                        DNTApi.getInstance().api.getToken("authorization_code", code, redirectURL, client_id, client_secret, authorizeCallback);
+                        DNTApi.call().getToken("authorization_code", code, redirectURL, client_id, client_secret, authorizeCallback);
                     }
                 } else {
                     webView.setVisibility(View.VISIBLE);
                 }
             }
         });
-
-        String authorizationUrl = Uri.parse("https://www.dnt.no/o/authorize/")
-                .buildUpon()
-                .appendQueryParameter("client_id", client_id)
-                .appendQueryParameter("response_type", "code")
-                .build().toString();
+        Utils.clearCookies(this);
         webview.loadUrl(authorizationUrl);
     }
+
+
 }

@@ -16,6 +16,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
@@ -203,5 +205,22 @@ public class Utils {
             }
         }
         return defaultValue;
+    }
+
+    // credit http://stackoverflow.com/a/31950789/1666063
+    @SuppressWarnings("deprecation")
+    public static void clearCookies(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            CookieManager.getInstance().removeAllCookies(null);
+            CookieManager.getInstance().flush();
+        } else {
+            CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(context);
+            cookieSyncManager.startSync();
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.removeAllCookie();
+            cookieManager.removeSessionCookie();
+            cookieSyncManager.stopSync();
+            cookieSyncManager.sync();
+        }
     }
 }
