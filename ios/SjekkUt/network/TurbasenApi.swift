@@ -10,6 +10,9 @@ import Foundation
 import Alamofire
 
 public class TurbasenApi: Alamofire.Manager {
+
+    static let instance = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
+
     var baseUrl:String = ""
     var api_key = ""
 
@@ -40,7 +43,12 @@ public class TurbasenApi: Alamofire.Manager {
     }
 
     public func getProjectAndPlaces(projectId:String) {
-        self.request(.GET, baseUrl + "/lister/" + projectId, parameters: ["api_key": api_key, "fields":"steder,geojson", "expand":"steder"])
+        let requestUrl = NSURL(string: baseUrl + "/lister/" + projectId)!
+        let urlRequest = NSMutableURLRequest(URL: requestUrl)
+        urlRequest.HTTPMethod = "GET"
+        urlRequest.cachePolicy = .ReloadIgnoringCacheData
+        let parameters = ["api_key": api_key, "fields":"steder,geojson,bilder,img", "expand":"steder,bilder"]
+        self.request(.GET, urlRequest, parameters:parameters)
             .responseJSON { response in
                 if let aJSON = response.result.value {
                     // update or insert project from API

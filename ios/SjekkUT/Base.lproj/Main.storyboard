@@ -8,7 +8,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.otf">
+        <mutableArray key="FontAwesome.ttf">
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -16,7 +16,7 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Opptur-->
+        <!--Place List View-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="PlaceListView" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,13 +51,16 @@
                                                                 <constraint firstAttribute="width" secondItem="nFO-ag-OJP" secondAttribute="height" id="l6U-sE-wTy"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzv-wr-uzJ">
-                                                            <rect key="frame" x="70" y="41" width="406" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzv-wr-uzJ">
+                                                            <rect key="frame" x="70" y="32" width="406" height="30"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                             <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                            <variation key="widthClass=compact" misplaced="YES">
+                                                                <rect key="frame" x="70" y="41" width="206" height="21"/>
+                                                            </variation>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bGD-Db-PQW">
                                                             <rect key="frame" x="484" y="0.0" width="100" height="62"/>
@@ -279,8 +282,10 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkButton" destination="Cir-jY-IXb" id="0vE-ZA-TUM"/>
                                             <outlet property="climbCountLabel" destination="uT5-Xn-xFE" id="GRj-UQ-qk7"/>
                                             <outlet property="countyElevationLabel" destination="Tpt-2q-Edn" id="AGQ-0X-kSI"/>
+                                            <outlet property="dateLabel" destination="ja8-RB-6dF" id="LZj-nd-dW3"/>
                                             <outlet property="distanceLabel" destination="25x-wa-zub" id="8og-ZO-NtK"/>
                                             <outlet property="nameLabel" destination="VRa-9U-b97" id="4nu-Vd-KKf"/>
                                             <outlet property="placeImageView" destination="M3d-4H-MyY" id="bZk-cj-FWi"/>
@@ -321,7 +326,7 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="IBq-T2-jaY" secondAttribute="bottom" constant="16" id="a3z-F7-0Yy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Opptur" id="X32-B9-KX4">
+                    <navigationItem key="navigationItem" id="X32-B9-KX4">
                         <rightBarButtonItems>
                             <barButtonItem id="8Y5-Nk-pUr">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CVA-0O-3fp">
@@ -357,7 +362,7 @@
                         <outlet property="feedbackButton" destination="oJ6-8u-0f3" id="pqs-IM-StD"/>
                         <outlet property="infoButton" destination="CVA-0O-3fp" id="oJu-E6-Aj4"/>
                         <outlet property="placesTable" destination="GnW-WU-cKB" id="LHw-82-Yrc"/>
-                        <segue destination="Jt5-sv-F5Z" kind="show" identifier="showSummit" id="TOc-wB-BP5"/>
+                        <segue destination="Jt5-sv-F5Z" kind="show" identifier="showPlace" id="TOc-wB-BP5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -436,8 +441,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="backgroundImage" destination="tRH-8b-OBM" id="Cg5-Qr-tbN"/>
                                     <outlet property="nameLabel" destination="zk1-jX-cbe" id="r7t-Gi-0iM"/>
-                                    <outlet property="projectImage" destination="tRH-8b-OBM" id="FZE-ve-fdJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -815,7 +820,7 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
-                                                        <action selector="checkinClicked" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="E50-yL-f1K"/>
+                                                        <action selector="checkinClicked:" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="Noc-aq-0i7"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -850,26 +855,26 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="shareClicked:" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="adB-JE-lYp"/>
+                                    <action selector="shareClicked:" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="AP7-Gu-Tz4"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="checkinButton" destination="BES-ZN-c87" id="w39-Jc-utj"/>
-                        <outlet property="checkinCell" destination="98B-3h-n0s" id="GLm-s9-Ugw"/>
-                        <outlet property="checkinLabel" destination="6BL-4R-YAG" id="Mgf-sH-gig"/>
-                        <outlet property="checkinTitle" destination="z17-1s-HLU" id="E0s-Wh-7iw"/>
-                        <outlet property="climberCountLabel" destination="N6j-fg-bgj" id="9Th-rp-6vc"/>
-                        <outlet property="countyAltitudeLabel" destination="3Xd-S5-Acu" id="kBQ-FS-1Lu"/>
-                        <outlet property="descriptionLabel" destination="VUz-fz-7Ol" id="3CO-hb-yKK"/>
-                        <outlet property="descriptionTitle" destination="XHg-Uz-lpr" id="nsg-yc-mAD"/>
-                        <outlet property="distanceLabel" destination="R5u-WJ-Jhc" id="vmQ-K5-yPW"/>
-                        <outlet property="iconView" destination="n26-mz-PzB" id="eEN-Wo-Xop"/>
-                        <outlet property="mapView" destination="Ooa-qg-Hjm" id="jjf-w2-W1S"/>
-                        <outlet property="nameLabel" destination="iDh-5N-jVo" id="O48-lX-qVY"/>
-                        <outlet property="progressView" destination="hei-ck-LVf" id="MHd-07-VWn"/>
-                        <outlet property="shareButton" destination="hQM-Dp-f9c" id="LM0-9N-dap"/>
+                        <outlet property="checkinButton" destination="BES-ZN-c87" id="lCR-q3-Q7F"/>
+                        <outlet property="checkinCell" destination="98B-3h-n0s" id="PnE-lj-vRO"/>
+                        <outlet property="checkinLabel" destination="6BL-4R-YAG" id="5e6-GX-guu"/>
+                        <outlet property="checkinTitle" destination="z17-1s-HLU" id="pgr-hZ-VLt"/>
+                        <outlet property="climberCountLabel" destination="N6j-fg-bgj" id="USi-kz-a00"/>
+                        <outlet property="countyAltitudeLabel" destination="3Xd-S5-Acu" id="PbN-Cn-wwh"/>
+                        <outlet property="descriptionLabel" destination="VUz-fz-7Ol" id="pSt-6H-CKg"/>
+                        <outlet property="descriptionTitle" destination="XHg-Uz-lpr" id="Zt1-fg-cBW"/>
+                        <outlet property="distanceLabel" destination="R5u-WJ-Jhc" id="eyj-Mf-LjM"/>
+                        <outlet property="iconView" destination="n26-mz-PzB" id="v4X-Zu-GY0"/>
+                        <outlet property="mapView" destination="Ooa-qg-Hjm" id="8Zi-On-Xff"/>
+                        <outlet property="nameLabel" destination="iDh-5N-jVo" id="0nf-Si-sOk"/>
+                        <outlet property="progressView" destination="hei-ck-LVf" id="OeI-vb-bBz"/>
+                        <outlet property="shareButton" destination="hQM-Dp-f9c" id="EG9-VI-HBV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1aY-Kb-5XL" userLabel="First Responder" sceneMemberID="firstResponder"/>

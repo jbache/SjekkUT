@@ -27,6 +27,7 @@
 + (Summit *)mock;
 + (NSArray *)allSummits;
 
+- (NSString *)checkinTimeAgo;
 - (NSURL *)mapURLForView:(UIView *)view;
 - (Checkin *)lastCheckin;
 - (void)updateDistance;

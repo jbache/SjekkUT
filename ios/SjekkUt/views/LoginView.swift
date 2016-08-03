@@ -14,7 +14,7 @@ private var kProgressContext = 0
 class LoginView: UIViewController, WKNavigationDelegate {
 
     var webView:WKWebView?
-    let dntApi = DntApi(forDomain:"www.dnt.no")
+    let dntApi = DntApi.instance
 
     @IBOutlet weak var progressView: UIProgressView!
 

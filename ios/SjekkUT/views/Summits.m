@@ -329,8 +329,7 @@
 - (void)didCheckInTo:(NSNotification *)notification
 {
     Checkin *checkin = notification.object;
-    Summit *summit = checkin.summit;
-    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Yay! Checked in to %@", @"check in notification text"), summit.name];
+    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Yay! Checked in to %@", @"check in notification text"), checkin.place.name];
     self.checkedInNotificationLabel.text = text;
     [self animateNotification];
 }

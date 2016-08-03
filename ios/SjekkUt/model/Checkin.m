@@ -44,19 +44,18 @@
 
 - (void)update:(NSDictionary *)json
 {
-    if (json.count != 6)
-        NSLog(@"!!! unhandled JSON keys !!!");
     NSDateFormatter *dateFormatter = [self dateFormatter];
-
-    self.identifier = json[@"id"];
-    self.date = [dateFormatter dateFromString:json[@"timestamp"]];
-    NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"mountainId"]];
+    NSDictionary *dataDict = json[@"data"];
+    self.identifier = dataDict[@"id"];
+    self.date = [dateFormatter dateFromString:dataDict[@"timestamp"]];
+    NSString *mountainId = [NSString stringWithFormat:@"%@", dataDict[@"ntb_steder_id"]];
     if (!self.place && mountainId.length > 0)
     {
         self.place = [Place findWithId:mountainId];
     }
-    self.latitute = json[@"location"][@"Lat"];
-    self.longitude = json[@"location"][@"Lng"];
+    NSArray *coordinates = dataDict[@"location"][@"coordinates"];
+    self.latitute = [coordinates objectAtIndex:1];
+    self.longitude = [coordinates objectAtIndex:0];
 }
 
 #pragma mark util

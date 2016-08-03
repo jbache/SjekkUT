@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AlamofireImage
 
 var kObservationContextImages = 0
 

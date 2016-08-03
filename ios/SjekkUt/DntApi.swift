@@ -24,6 +24,9 @@ class DntUser {
 }
 
 class DntApi: Alamofire.Manager {
+
+    static let instance = DntApi(forDomain:"www.dnt.no")
+
     var baseUrl:String?
     var user:DntUser? = nil
     var clientId:String?

@@ -10,8 +10,8 @@ import Foundation
 
 class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    let turbasen = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
-    let dntApi = DntApi(forDomain:"www.dnt.no")
+    let turbasen = TurbasenApi.instance
+    let dntApi = DntApi.instance
     var projects:NSFetchedResultsController?
 
     @IBOutlet weak var projectsTable: UITableView!

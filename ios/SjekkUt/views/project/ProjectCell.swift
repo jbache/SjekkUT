@@ -11,6 +11,7 @@ import Foundation
 class ProjectCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var backgroundImage: UIImageView!
 
     var project:Project? {
         didSet {
