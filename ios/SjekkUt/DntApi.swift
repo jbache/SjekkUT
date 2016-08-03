@@ -28,6 +28,7 @@ class DntApi: Alamofire.Manager {
     var user:DntUser? = nil
     var clientId:String?
     var clientSecret:String?
+    var loginBlock:( () -> Void) = {}
 
     var isLoggedIn:Bool {
         get {
@@ -99,6 +100,11 @@ class DntApi: Alamofire.Manager {
 
         let refreshToken = SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
 
+        if (refreshToken == nil) {
+            self.logout()
+            return
+        }
+
         let someParameters = [
             "grant_type": "refresh_token",
             "refresh_token": refreshToken,
@@ -120,7 +126,7 @@ class DntApi: Alamofire.Manager {
                         print("refreshed token: \(JSON)")
                     }
                 case .Failure(let anError):
-                    print("error: \(anError)")
+                    print("token refresh failed: \(anError)")
                     aFailHandler()
                 }
         }
@@ -129,6 +135,9 @@ class DntApi: Alamofire.Manager {
     // MARK: login and logout
 
     func login(authenticationCode:String, refreshToken aRefreshToken:String? = nil, expiry aTokenExpiry:Double? = nil) {
+
+        self.loginBlock()
+        self.loginBlock = {}
 
         // update or remove expiry
         if let tokenExpiry = aTokenExpiry {
@@ -177,8 +186,16 @@ class DntApi: Alamofire.Manager {
                 case .Success:
                     self.user = DntUser(jsonData: response.result.value as! [String: AnyObject])
                 case .Failure(let error):
-                    print("Validation failed: \(error)")
-                    aFailureHandler()
+                    if let httpStatusCode = response.response?.statusCode {
+                        switch httpStatusCode {
+                        case 403:
+                            self.loginBlock = { self.updateMemberDetailsOrFail{} }
+                            self.refreshTokenOrFail(aFailureHandler)
+                        default:
+                            print("Validation failed: \(error)")
+                            aFailureHandler()
+                        }
+                    }
                 }
         }
     }
