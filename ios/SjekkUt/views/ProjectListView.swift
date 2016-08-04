@@ -45,7 +45,11 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     // MARK: table data
     func setupTable() {
-        
+
+        dntApi.updateMemberDetailsOrFail {
+            self.dntApi.logout()
+        }
+
         // set up datasource
         projects = projectResults()
         projects?.delegate = self

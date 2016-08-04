@@ -21,25 +21,32 @@ class LoginView: UIViewController, WKNavigationDelegate {
     // MARK: viewcontroller
 
     override func viewDidLoad() {
-        self.setupLogin()
-        if (dntApi.isLoggedIn) {
-            self.performSegueWithIdentifier("showProjectsImmediately", sender: nil)
-            dntApi.updateMemberDetailsOrFail {
-                self.dntApi.logout()
-            }
-        }
-        else {
-            loadLoginForm()
-        }
+        setupLogin()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showProjectsView), name:kSjekkUtNotificationLogin, object: nil)
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kSjekkUtNotificationLogin, object: nil)
     }
 
     // MARK: setup
 
     func setupLogin() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLoginForm), name:kSjekkUtNotificationLoggedOut, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showProjectsView), name:kSjekkUtNotificationLogin, object: nil)
 
-        self.setupLoginForm()
+        setupLoginForm()
+
+        if (dntApi.isLoggedIn) {
+            performSegueWithIdentifier("showProjectsImmediately", sender: nil)
+        }
+        else {
+            dntApi.logout()
+        }
     }
 
     func setupLoginForm() {
