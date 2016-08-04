@@ -14,7 +14,6 @@
 		6C1409A41B3000F700392F64 /* RulesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1409A31B3000F700392F64 /* RulesView.m */; };
 		6C1F114A1B1087DA0003DD2B /* NSDateFormatter+instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */; };
 		6C2F4EF11AE6348400E12F4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2F4EEF1AE6348400E12F4E /* InfoPlist.strings */; };
-		6C36A1251B0C798C00169E98 /* ChallengeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A1241B0C798C00169E98 /* ChallengeCell.m */; };
 		6C36A12C1B0C855300169E98 /* Challenge+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A12B1B0C855300169E98 /* Challenge+Extension.m */; };
 		6C36A12F1B0C891300169E98 /* NSString+URL.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A12E1B0C891300169E98 /* NSString+URL.m */; };
 		6C36A13C1B0C99B100169E98 /* Summit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A13B1B0C99B100169E98 /* Summit.m */; };
@@ -31,11 +30,9 @@
 		6C6FE15C1A82332C002B5DD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C6FE15A1A82332C002B5DD5 /* Main.storyboard */; };
 		6C6FE15E1A82332C002B5DD5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C6FE15D1A82332C002B5DD5 /* Images.xcassets */; };
 		6C6FE1611A82332C002B5DD5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C6FE15F1A82332C002B5DD5 /* LaunchScreen.xib */; };
-		6C6FE1791A823B53002B5DD5 /* Summits.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6FE1771A823B53002B5DD5 /* Summits.m */; };
 		6C70642F1A82AE3000291137 /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70642E1A82AE3000291137 /* ModelController.m */; };
 		6C7064321A82AEA300291137 /* Backend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064301A82AEA300291137 /* Backend.m */; };
 		6C70643B1A82B70100291137 /* Summit+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70643A1A82B70100291137 /* Summit+Extension.m */; };
-		6C7064431A835ED700291137 /* SummitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064421A835ED700291137 /* SummitCell.m */; };
 		6C7064511A8381FA00291137 /* SummitSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064501A8381FA00291137 /* SummitSearch.m */; };
 		6C70645D1A83838700291137 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70645C1A83838700291137 /* Location.m */; };
 		6C70646F1A84CEBF00291137 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70646D1A84CEBF00291137 /* NetworkController.m */; };
@@ -128,8 +125,6 @@
 		6C1F11481B1087DA0003DD2B /* NSDateFormatter+instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+instance.h"; path = "utils/NSDateFormatter+instance.h"; sourceTree = "<group>"; };
 		6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+instance.m"; path = "utils/NSDateFormatter+instance.m"; sourceTree = "<group>"; };
 		6C2F4EF01AE6348400E12F4E /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6C36A1231B0C798C00169E98 /* ChallengeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChallengeCell.h; path = views/ChallengeCell.h; sourceTree = "<group>"; };
-		6C36A1241B0C798C00169E98 /* ChallengeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChallengeCell.m; path = views/ChallengeCell.m; sourceTree = "<group>"; };
 		6C36A1261B0C836300169E98 /* 1.0.10.31.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.10.31.xcdatamodel; sourceTree = "<group>"; };
 		6C36A12A1B0C855300169E98 /* Challenge+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Challenge+Extension.h"; path = "model/Challenge+Extension.h"; sourceTree = "<group>"; };
 		6C36A12B1B0C855300169E98 /* Challenge+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Challenge+Extension.m"; path = "model/Challenge+Extension.m"; sourceTree = "<group>"; };
@@ -157,8 +152,6 @@
 		6C6FE15B1A82332C002B5DD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6C6FE15D1A82332C002B5DD5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6C6FE1601A82332C002B5DD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		6C6FE1771A823B53002B5DD5 /* Summits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Summits.m; path = views/Summits.m; sourceTree = "<group>"; };
-		6C6FE1781A823B53002B5DD5 /* Summits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Summits.h; path = views/Summits.h; sourceTree = "<group>"; };
 		6C70642D1A82AE3000291137 /* ModelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelController.h; path = controller/ModelController.h; sourceTree = "<group>"; };
 		6C70642E1A82AE3000291137 /* ModelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelController.m; path = controller/ModelController.m; sourceTree = "<group>"; };
 		6C7064301A82AEA300291137 /* Backend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Backend.m; path = controller/Backend.m; sourceTree = "<group>"; };
@@ -167,8 +160,6 @@
 		6C7064391A82B70100291137 /* Summit+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Summit+Extension.h"; path = "model/Summit+Extension.h"; sourceTree = "<group>"; };
 		6C70643A1A82B70100291137 /* Summit+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Summit+Extension.m"; path = "model/Summit+Extension.m"; sourceTree = "<group>"; };
 		6C70643D1A82B72200291137 /* ModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelTest.m; sourceTree = "<group>"; };
-		6C7064411A835ED700291137 /* SummitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummitCell.h; path = views/SummitCell.h; sourceTree = "<group>"; };
-		6C7064421A835ED700291137 /* SummitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummitCell.m; path = views/SummitCell.m; sourceTree = "<group>"; };
 		6C70644D1A83792900291137 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Main.strings; sourceTree = "<group>"; };
 		6C70644E1A83792900291137 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6C70644F1A8381FA00291137 /* SummitSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummitSearch.h; path = views/SummitSearch.h; sourceTree = "<group>"; };
@@ -370,16 +361,10 @@
 				6CA3E1411D4A48EB003BA194 /* place */,
 				6C72A3FC1A8B833600A47AEE /* style */,
 				6C6FE15A1A82332C002B5DD5 /* Main.storyboard */,
-				6C6FE1771A823B53002B5DD5 /* Summits.m */,
-				6C6FE1781A823B53002B5DD5 /* Summits.h */,
-				6C7064411A835ED700291137 /* SummitCell.h */,
-				6C7064421A835ED700291137 /* SummitCell.m */,
 				6C70644F1A8381FA00291137 /* SummitSearch.h */,
 				6C7064501A8381FA00291137 /* SummitSearch.m */,
 				6C7064531A83824E00291137 /* SummitView.h */,
 				6C7064541A83824E00291137 /* SummitView.m */,
-				6C36A1231B0C798C00169E98 /* ChallengeCell.h */,
-				6C36A1241B0C798C00169E98 /* ChallengeCell.m */,
 				6C1409A21B3000F700392F64 /* RulesView.h */,
 				6C1409A31B3000F700392F64 /* RulesView.m */,
 			);
@@ -801,8 +786,6 @@
 				6CC799BB1D51F5F700DFAF10 /* DntImage.m in Sources */,
 				6CE0763D1D4763B8000ACAAA /* Project.m in Sources */,
 				6C70642F1A82AE3000291137 /* ModelController.m in Sources */,
-				6C6FE1791A823B53002B5DD5 /* Summits.m in Sources */,
-				6C36A1251B0C798C00169E98 /* ChallengeCell.m in Sources */,
 				6C36A12F1B0C891300169E98 /* NSString+URL.m in Sources */,
 				6C70A5371AFA4C150032187D /* DntRedView.m in Sources */,
 				6C7C027F1D48A34100853166 /* PlaceCell.swift in Sources */,
@@ -815,7 +798,6 @@
 				6C6FE1501A82332C002B5DD5 /* main.m in Sources */,
 				6C70646F1A84CEBF00291137 /* NetworkController.m in Sources */,
 				6C1409A41B3000F700392F64 /* RulesView.m in Sources */,
-				6C7064431A835ED700291137 /* SummitCell.m in Sources */,
 				6CC799C31D52110B00DFAF10 /* Checkin+CoreDataProperties.m in Sources */,
 				6C36A13F1B0C99B200169E98 /* Challenge.m in Sources */,
 				6C7C02811D48A36A00853166 /* PlaceListView.swift in Sources */,
