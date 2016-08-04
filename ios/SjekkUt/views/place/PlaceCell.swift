@@ -40,7 +40,7 @@ class PlaceCell: UITableViewCell {
         didSet {
             stopObserving()
             nameLabel.text = place?.name
-            countyElevationLabel.text = countyElevationText()
+            countyElevationLabel.text = place?.countyElevationText()
             climbCountLabel.text = place?.checkinCountDescription()
             startObserving()
         }
@@ -52,16 +52,7 @@ class PlaceCell: UITableViewCell {
 
     // MARK: private
 
-    func countyElevationText() -> String {
-        var countyElevationTexts = [String]()
-        if let countyText = place?.county {
-            countyElevationTexts.append(countyText)
-        }
-        if let elevationText = place?.elevationDescription() {
-            countyElevationTexts.append(elevationText)
-        }
-        return countyElevationTexts.joinWithSeparator(" ")
-    }
+    
 
     // MARK: cell
     override func prepareForReuse() {

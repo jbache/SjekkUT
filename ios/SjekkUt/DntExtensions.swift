@@ -31,3 +31,16 @@ func delay(delay:Double, closure:()->()) {
         ),
         dispatch_get_main_queue(), closure)
 }
+
+extension Place {
+    func countyElevationText() -> String {
+        var countyElevationTexts = [String]()
+        if let countyText = self.county {
+            countyElevationTexts.append(countyText)
+        }
+        if let elevationText:String = self.elevationDescription() {
+            countyElevationTexts.append(elevationText)
+        }
+        return countyElevationTexts.joinWithSeparator(" ")
+    }
+}

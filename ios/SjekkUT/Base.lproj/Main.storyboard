@@ -43,27 +43,43 @@
                                                     <rect key="frame" x="0.0" y="8" width="600" height="111"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sHN-Xx-ToT">
-                                                    <rect key="frame" x="8" y="8" width="584" height="62"/>
+                                                    <rect key="frame" x="8" y="8" width="584" height="103"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nFO-ag-OJP" userLabel="challenge logo">
-                                                            <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
+                                                            <rect key="frame" x="0.0" y="16" width="87" height="87"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="nFO-ag-OJP" secondAttribute="height" id="l6U-sE-wTy"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzv-wr-uzJ">
-                                                            <rect key="frame" x="70" y="32" width="406" height="30"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baseline guide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xB6-54-BY5">
+                                                            <rect key="frame" x="95" y="74" width="195" height="36"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzv-wr-uzJ">
+                                                            <rect key="frame" x="95" y="38" width="381" height="72"/>
+                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                             <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                                    <real key="value" value="0.80000000000000004"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <variation key="widthClass=compact" misplaced="YES">
                                                                 <rect key="frame" x="70" y="41" width="206" height="21"/>
                                                             </variation>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bGD-Db-PQW">
-                                                            <rect key="frame" x="484" y="0.0" width="100" height="62"/>
+                                                            <rect key="frame" x="484" y="0.0" width="100" height="103"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="100" id="9e5-nu-tq8"/>
                                                             </constraints>
@@ -80,63 +96,37 @@
                                                         <constraint firstAttribute="bottom" secondItem="bGD-Db-PQW" secondAttribute="bottom" id="0I1-zu-pj9"/>
                                                         <constraint firstAttribute="trailing" secondItem="bGD-Db-PQW" secondAttribute="trailing" id="3b7-8e-4XQ"/>
                                                         <constraint firstAttribute="bottom" secondItem="nFO-ag-OJP" secondAttribute="bottom" id="3oR-y2-Pfd"/>
-                                                        <constraint firstItem="xzv-wr-uzJ" firstAttribute="bottom" secondItem="nFO-ag-OJP" secondAttribute="bottom" id="9Jp-R5-j4d"/>
+                                                        <constraint firstItem="xB6-54-BY5" firstAttribute="baseline" secondItem="nFO-ag-OJP" secondAttribute="baseline" id="BrA-Fz-juC"/>
                                                         <constraint firstItem="nFO-ag-OJP" firstAttribute="leading" secondItem="sHN-Xx-ToT" secondAttribute="leading" id="KPW-GC-Pyw"/>
-                                                        <constraint firstItem="xzv-wr-uzJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="sHN-Xx-ToT" secondAttribute="top" id="KoQ-LR-zV9"/>
-                                                        <constraint firstItem="nFO-ag-OJP" firstAttribute="top" secondItem="sHN-Xx-ToT" secondAttribute="top" id="Tz6-11-dud"/>
+                                                        <constraint firstItem="xzv-wr-uzJ" firstAttribute="bottom" secondItem="xB6-54-BY5" secondAttribute="bottom" id="SuS-01-BKv"/>
+                                                        <constraint firstItem="xB6-54-BY5" firstAttribute="leading" secondItem="nFO-ag-OJP" secondAttribute="trailing" constant="8" id="THw-UF-dp9"/>
+                                                        <constraint firstItem="nFO-ag-OJP" firstAttribute="top" secondItem="sHN-Xx-ToT" secondAttribute="top" constant="16" id="Tz6-11-dud"/>
+                                                        <constraint firstItem="xzv-wr-uzJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nFO-ag-OJP" secondAttribute="top" id="Vdh-kb-3Pi"/>
                                                         <constraint firstItem="xzv-wr-uzJ" firstAttribute="leading" secondItem="nFO-ag-OJP" secondAttribute="trailing" constant="8" id="XR5-KX-2pm"/>
                                                         <constraint firstItem="bGD-Db-PQW" firstAttribute="leading" secondItem="xzv-wr-uzJ" secondAttribute="trailing" constant="8" id="eHP-LX-J1i"/>
                                                         <constraint firstItem="bGD-Db-PQW" firstAttribute="top" secondItem="sHN-Xx-ToT" secondAttribute="top" id="erH-3b-LFT"/>
-                                                        <constraint firstAttribute="height" constant="62" id="wCF-OP-o9q"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations! You have summited all 24 summits! This is totally awesome and you rock!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXH-wX-4GR">
-                                                    <rect key="frame" x="8" y="74" width="584" height="41"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="41" id="VZh-03-1FS"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kxj-xj-gTr">
-                                                    <rect key="frame" x="8" y="74" width="584" height="41"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="41" id="jco-Ur-lG5"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                    <state key="normal" title="Click here to join!">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="joinChallengeClicked:" destination="uVD-sz-A3H" eventType="touchUpInside" id="uS4-or-JZy"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="sHN-Xx-ToT" firstAttribute="top" secondItem="paa-ge-2rd" secondAttribute="top" constant="8" id="Bze-it-tDp"/>
-                                                <constraint firstItem="Kxj-xj-gTr" firstAttribute="leading" secondItem="paa-ge-2rd" secondAttribute="leading" constant="8" id="HOo-vH-0I2"/>
-                                                <constraint firstAttribute="bottom" secondItem="Kxj-xj-gTr" secondAttribute="bottom" constant="4" id="M6j-LH-95B"/>
-                                                <constraint firstAttribute="trailing" secondItem="OXH-wX-4GR" secondAttribute="trailing" constant="8" id="UP3-Ks-XKc"/>
                                                 <constraint firstAttribute="bottom" secondItem="2N7-Vs-5Hx" secondAttribute="bottom" id="Yf6-l4-NuK"/>
-                                                <constraint firstItem="OXH-wX-4GR" firstAttribute="leading" secondItem="paa-ge-2rd" secondAttribute="leading" constant="8" id="aeT-Vx-jwE"/>
                                                 <constraint firstItem="sHN-Xx-ToT" firstAttribute="leading" secondItem="paa-ge-2rd" secondAttribute="leading" constant="8" id="duZ-71-Rbk"/>
-                                                <constraint firstAttribute="bottom" secondItem="OXH-wX-4GR" secondAttribute="bottom" constant="4" id="nRH-bg-KKV"/>
+                                                <constraint firstAttribute="bottom" secondItem="sHN-Xx-ToT" secondAttribute="bottom" constant="8" id="k6q-Wj-wuS"/>
                                                 <constraint firstItem="2N7-Vs-5Hx" firstAttribute="leading" secondItem="paa-ge-2rd" secondAttribute="leading" id="nqQ-hC-H3h"/>
                                                 <constraint firstItem="2N7-Vs-5Hx" firstAttribute="top" secondItem="paa-ge-2rd" secondAttribute="topMargin" id="oKB-bR-iyP"/>
                                                 <constraint firstAttribute="trailing" secondItem="sHN-Xx-ToT" secondAttribute="trailing" constant="8" id="rxZ-s7-cLG"/>
-                                                <constraint firstAttribute="trailing" secondItem="Kxj-xj-gTr" secondAttribute="trailing" constant="8" id="z0G-M7-avX"/>
                                                 <constraint firstAttribute="trailing" secondItem="2N7-Vs-5Hx" secondAttribute="trailing" id="zvD-lv-DWl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="footerImage" destination="2N7-Vs-5Hx" id="dDC-78-xQK"/>
-                                            <outlet property="joinButton" destination="Kxj-xj-gTr" id="eEi-YE-IT4"/>
                                             <outlet property="nameLabel" destination="xzv-wr-uzJ" id="PBT-Rc-K9f"/>
                                             <outlet property="projectImage" destination="nFO-ag-OJP" id="bEi-i4-hBe"/>
                                             <outlet property="readMoreButton" destination="bGD-Db-PQW" id="daO-n0-Pi3"/>
-                                            <outlet property="statusLabel" destination="OXH-wX-4GR" id="udm-0h-44B"/>
+                                            <outlet property="readMoreSpacing" destination="eHP-LX-J1i" id="bYC-tx-4S1"/>
+                                            <outlet property="readMoreWidth" destination="9e5-nu-tq8" id="O3W-jh-Ibq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoChallengeHeader" textLabel="hY6-0v-phf" style="IBUITableViewCellStyleDefault" id="TDc-mr-qm5">
@@ -908,6 +898,6 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="DrC-zj-7wU"/>
+        <segue reference="TOc-wB-BP5"/>
     </inferredMetricsTieBreakers>
 </document>

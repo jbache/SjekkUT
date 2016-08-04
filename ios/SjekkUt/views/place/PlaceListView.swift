@@ -16,6 +16,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let turbasen = TurbasenApi.instance
     var project:Project? = nil
     var places:NSFetchedResultsController? = nil
+    var projectHeader:ProjectHeader? = nil
 
     @IBOutlet weak var placesTable: UITableView!
     @IBOutlet weak var checkinButton: UIButton!
@@ -46,6 +47,11 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         } catch {
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
+
+        // set a header on the table
+        projectHeader = self.placesTable.dequeueReusableCellWithIdentifier("ProjectHeader") as? ProjectHeader
+        projectHeader!.project = self.project
+        self.placesTable.tableHeaderView = projectHeader
     }
 
     func updateData() {
@@ -69,7 +75,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPlace" {
             let placeView = segue.destinationViewController as! PlaceView
-            placeView.place = sender as! Place
+            placeView.place = sender as? Place
         }
         else if segue.identifier == "startSearch" {
             let searchView = segue.destinationViewController as! PlaceSearch
@@ -99,19 +105,10 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return (places?.sections?.count)!
     }
 
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let projectCell = tableView.dequeueReusableCellWithIdentifier("ProjectHeader") as! ProjectHeader
-        return projectCell
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return project?.progressDescription()
     }
 
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let projectHeader = view as! ProjectHeader
-        projectHeader.project = project
-    }
-
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 120
-    }
 
     // MARK: table rows
 

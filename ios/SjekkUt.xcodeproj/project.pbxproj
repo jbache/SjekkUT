@@ -358,7 +358,7 @@
 			children = (
 				6CB40DF71D460D260030433D /* LoginView.swift */,
 				6CE076311D47537A000ACAAA /* projects */,
-				6CE076321D475388000ACAAA /* places */,
+				6CE076321D475388000ACAAA /* project/places */,
 				6CA3E1411D4A48EB003BA194 /* place */,
 				6C72A3FC1A8B833600A47AEE /* style */,
 				6C6FE15A1A82332C002B5DD5 /* Main.storyboard */,
@@ -496,14 +496,14 @@
 			name = projects;
 			sourceTree = "<group>";
 		};
-		6CE076321D475388000ACAAA /* places */ = {
+		6CE076321D475388000ACAAA /* project/places */ = {
 			isa = PBXGroup;
 			children = (
 				6C7C02801D48A36A00853166 /* PlaceListView.swift */,
 				6C7C027E1D48A34100853166 /* PlaceCell.swift */,
 				6C35DAAB1D535A930048114B /* PlaceSearch.swift */,
 			);
-			name = places;
+			name = project/places;
 			sourceTree = "<group>";
 		};
 		6CE076341D4757E0000ACAAA /* network */ = {

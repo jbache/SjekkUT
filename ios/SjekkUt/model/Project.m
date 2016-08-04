@@ -121,4 +121,12 @@
     return aPlace;
 }
 
+- (NSString *)progressDescription
+{
+    NSPredicate *checkinsPredicate = [NSPredicate predicateWithFormat:@"checkins.@count > 0"];
+    NSOrderedSet *checkins = [self.places filteredOrderedSetUsingPredicate:checkinsPredicate];
+    NSString *formatString = NSLocalizedString(@"You have summited %@ of %@ so far!", "count summits in challenge");
+    return [NSString stringWithFormat:formatString, @(checkins.count), @(self.places.count)];
+}
+
 @end

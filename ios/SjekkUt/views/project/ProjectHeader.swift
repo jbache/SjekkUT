@@ -10,6 +10,7 @@ import Foundation
 import AlamofireImage
 
 var kObservationContextImages = 0
+var kObservationContextPlaces = 0
 
 class ProjectHeader: UITableViewCell {
 
@@ -20,15 +21,18 @@ class ProjectHeader: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var readMoreButton: UIButton!
+    @IBOutlet weak var readMoreWidth: NSLayoutConstraint!
+    @IBOutlet weak var readMoreSpacing: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
 
     var project:Project? {
         didSet {
             stopObserving()
             nameLabel.text = project?.name
-            readMoreButton.alpha = project?.infoUrl?.characters.count>0 ? 1.0 : 0.0
-            statusLabel.text = projectProgress()
-            joinButton.alpha = 0
+            let showReadMore:CGFloat = project?.infoUrl?.characters.count>0 ? 1.0 : 0.0
+            readMoreButton.alpha = 1 * showReadMore
+            readMoreWidth.constant = 100 * showReadMore
+            readMoreSpacing.constant = 8 * showReadMore
             startObserving()
         }
     }
@@ -38,14 +42,6 @@ class ProjectHeader: UITableViewCell {
     }
 
     // MARK: private
-
-    func projectProgress() -> String {
-
-        let checkinsPredicate = NSPredicate(format: "checkins.@count > 0")
-        let checkins = project?.places?.filteredOrderedSetUsingPredicate(checkinsPredicate)
-
-        return NSLocalizedString("You have summited \(checkins!.count) of \((project?.places?.count)!) so far!", comment:"count summits in challenge")
-    }
 
 
     // MARK: actions
@@ -60,6 +56,7 @@ class ProjectHeader: UITableViewCell {
     func startObserving() {
         if (!isObserving) {
             project?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObservationContextImages)
+            project?.addObserver(self, forKeyPath: "places", options: .Initial, context: &kObservationContextPlaces)
             isObserving = true
         }
     }
@@ -82,11 +79,15 @@ class ProjectHeader: UITableViewCell {
                 break
             }
         }
+        else if(context == &kObserveProjectPlaces) {
+            self.statusLabel.text = project?.progressDescription()
+        }
     }
 
     func stopObserving() {
         if (isObserving) {
             project?.removeObserver(self, forKeyPath: "images")
+            project?.removeObserver(self, forKeyPath: "places")
             isObserving = false
         }
     }
