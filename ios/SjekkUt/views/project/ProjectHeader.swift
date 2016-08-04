@@ -24,9 +24,11 @@ class ProjectHeader: UITableViewCell {
 
     var project:Project? {
         didSet {
-            nameLabel.text = project?.name
             stopObserving()
+            nameLabel.text = project?.name
             readMoreButton.alpha = project?.infoUrl?.characters.count>0 ? 1.0 : 0.0
+            statusLabel.text = projectProgress()
+            joinButton.alpha = 0
             startObserving()
         }
     }
@@ -35,7 +37,15 @@ class ProjectHeader: UITableViewCell {
         stopObserving()
     }
 
-    // MARK: setup
+    // MARK: private
+
+    func projectProgress() -> String {
+
+        let checkinsPredicate = NSPredicate(format: "checkins.@count > 0")
+        let checkins = project?.places?.filteredOrderedSetUsingPredicate(checkinsPredicate)
+
+        return NSLocalizedString("You have summited \(checkins!.count) of \((project?.places?.count)!) so far!", comment:"count summits in challenge")
+    }
 
 
     // MARK: actions
