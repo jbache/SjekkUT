@@ -8,7 +8,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.otf">
+        <mutableArray key="FontAwesome.ttf">
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -542,10 +542,10 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
             </objects>
             <point key="canvasLocation" x="1809" y="-844"/>
         </scene>
-        <!--Summit Search-->
+        <!--Place Search-->
         <scene sceneID="Lk1-xu-eMU">
             <objects>
-                <viewController id="vp9-r5-EBP" customClass="SummitSearch" sceneMemberID="viewController">
+                <viewController id="vp9-r5-EBP" customClass="PlaceSearch" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xj7-vH-TNY"/>
                         <viewControllerLayoutGuide type="bottom" id="ISq-Tj-Slc"/>
@@ -574,9 +574,9 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="JBX-UF-8HP" id="Wda-h2-MCP"/>
-                        <outlet property="checkinLabel" destination="y2A-QB-aS5" id="Htc-V5-C1U"/>
-                        <segue destination="Jt5-sv-F5Z" kind="show" identifier="showSummit" id="DrC-zj-7wU"/>
+                        <outlet property="activityIndicator" destination="JBX-UF-8HP" id="8V1-lA-Bco"/>
+                        <outlet property="checkinLabel" destination="y2A-QB-aS5" id="lQk-Pc-T6h"/>
+                        <segue destination="Jt5-sv-F5Z" kind="show" identifier="showPlace" id="DrC-zj-7wU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSf-lL-oqK" userLabel="First Responder" sceneMemberID="firstResponder"/>

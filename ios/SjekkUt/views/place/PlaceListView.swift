@@ -67,9 +67,13 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "showPlace") {
+        if segue.identifier == "showPlace" {
             let placeView = segue.destinationViewController as! PlaceView
-            placeView.place = sender as? Place
+            placeView.place = sender as! Place
+        }
+        else if segue.identifier == "startSearch" {
+            let searchView = segue.destinationViewController as! PlaceSearch
+            searchView.project = self.project! as Project
         }
     }
 

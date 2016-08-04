@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 
 - (void)updateDistance;
+- (Place *)findNearest;
 
 @end
 

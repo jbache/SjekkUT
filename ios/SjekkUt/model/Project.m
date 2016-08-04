@@ -104,4 +104,21 @@
     [model save];
 }
 
+- (Place *)findNearest
+{
+    for (Place *aPlace in self.places)
+    {
+        [aPlace updateDistance];
+    }
+    [model save];
+
+    NSArray *sorts = @[ [NSSortDescriptor sortDescriptorWithKey:@"distance"
+                                                      ascending:NO] ];
+    NSArray *places = [self.places sortedArrayUsingDescriptors:sorts];
+
+    Place *aPlace = nil;
+    aPlace = [places lastObject];
+    return aPlace;
+}
+
 @end

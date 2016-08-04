@@ -39,7 +39,7 @@ class SjekkUtApi: Alamofire.Manager {
 
     }
 
-    func doPlaceVisit(aPlace:Place) {
+    func doPlaceVisit(aPlace:Place, finishHandler:(result:Result<AnyObject,NSError>)->()) {
         let currentLocation = Location.instance().currentLocation.coordinate
         let someParameters = [
             "lat":currentLocation.latitude,
@@ -65,6 +65,7 @@ class SjekkUtApi: Alamofire.Manager {
                     print("failed to visit place: \(error)")
 
                 }
+                finishHandler(result: response.result)
         }
 
         debugPrint(request)

@@ -38,7 +38,9 @@ class PlaceView : UITableViewController, UITextViewDelegate {
 
     // MARK: actions
     @IBAction func checkinClicked(sender: AnyObject) {
-        sjekkUtApi.doPlaceVisit(place!)
+        sjekkUtApi.doPlaceVisit(place!) { result in
+            
+        }
     }
 
     @IBAction func shareClicked(sender: AnyObject) {
