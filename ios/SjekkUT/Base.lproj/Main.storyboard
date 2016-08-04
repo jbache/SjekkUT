@@ -8,7 +8,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.ttf">
+        <mutableArray key="FontAwesome.otf">
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -907,7 +907,7 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
         <image name="challenge-footer" width="320" height="61"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TOc-wB-BP5"/>
         <segue reference="imk-vY-cVJ"/>
+        <segue reference="DrC-zj-7wU"/>
     </inferredMetricsTieBreakers>
 </document>
