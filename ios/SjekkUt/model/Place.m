@@ -8,6 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+#import "Defines.h"
 #import "Location.h"
 #import "ModelController.h"
 #import "Place.h"
@@ -68,8 +69,53 @@
             self.latitude = @([[coordinateArray objectAtIndex:0] doubleValue]);
     }
     self.county = json[@"kommune"];
+    self.descriptionText = json[@"beskrivelse"];
+
+    [self parseImages:json[@"bilder"]];
     [self updateDistance];
 }
+
+#pragma mark images
+
+- (void)parseImages:(NSArray *)images
+{
+    if (images == nil)
+    {
+        return;
+    }
+
+    if ([[images firstObject] isKindOfClass:NSString.class])
+    {
+        [self fetchImages:images];
+    }
+    else if ([[images firstObject] isKindOfClass:NSDictionary.class])
+    {
+        [self updateImages:images];
+    }
+
+    return;
+}
+
+- (void)fetchImages:(NSArray *)images
+{
+    // naive handover to SjekkUtApi in swift
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationGetPlace object:self];
+}
+
+- (void)updateImages:(NSArray *)images
+{
+    NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
+
+    for (NSDictionary *anImageDict in images)
+    {
+        DntImage *anImage = [DntImage insertOrUpdate:anImageDict];
+        [orderedImages addObject:anImage];
+    }
+
+    self.images = orderedImages;
+}
+
+#pragma mark location
 
 - (void)updateDistance
 {
@@ -91,6 +137,8 @@
                                         timestamp:[NSDate date]];
 }
 
+#pragma mark - checkin
+
 - (Checkin *)lastCheckin
 {
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date"
@@ -99,6 +147,55 @@
     NSArray *sortedCheckins = [self.checkins sortedArrayUsingDescriptors:sorts];
     Checkin *checkin = [sortedCheckins lastObject];
     return checkin;
+}
+
+- (BOOL)canCheckIn
+{
+    return [self canCheckinTime] && [self canCheckinDistance];
+}
+
+- (BOOL)canCheckinTime
+{
+    if (self.lastCheckin == nil)
+    {
+        return YES;
+    }
+
+    NSTimeInterval timeSinceLastCheckin = [[NSDate date] timeIntervalSinceDate:self.lastCheckin.date];
+    NSLog(@"time since last: %f", timeSinceLastCheckin);
+    return timeSinceLastCheckin > SjekkUtCheckinTimeLimit;
+}
+
+- (BOOL)canCheckinDistance
+{
+    if (locationBackend.currentLocation == nil)
+    {
+        return NO;
+    }
+    return [locationBackend.currentLocation distanceFromLocation:self.summitLocation] < SjekkUtCheckinDistanceLimit;
+}
+
+#pragma mark - map
+
+- (NSURL *)mapURLForView:(UIView *)view
+{
+    //  CGFloat uiScale = [UIScreen mainScreen].scale;
+    CGFloat maxWidth = 640.0f;
+    CGFloat pixelScale = maxWidth / view.frame.size.width;
+    CGFloat width = view.frame.size.width * pixelScale;
+    CGFloat height = view.frame.size.height * pixelScale;
+
+    NSString *apiKey = @"AIzaSyDSn0vYqHUuazbG5PPIYm-HYu-Wi2qbcCM";
+    NSMutableString *urlString = [@"https://maps.googleapis.com/maps/api/staticmap" mutableCopy];
+    [urlString appendFormat:@"?center=%@,%@&zoom=%.f&maptype=terrain&", self.latitude, self.longitude, SjekkUtMapZoomLevel];
+    [urlString appendFormat:@"size=%@x%@&scale=2&key=%@&", @((int)width), @((int)height), apiKey];
+    [urlString appendFormat:@"markers=%@,%@", self.latitude, self.longitude];
+    if (locationBackend.currentLocation && self.distance.intValue < 1000 && [[NSUserDefaults standardUserDefaults] boolForKey:SjekkUtShowOwnLocationOnMap])
+    {
+        [urlString appendString:@"&markers=color:green%7C"];
+        [urlString appendFormat:@"%@,%@", @(locationBackend.currentLocation.coordinate.latitude), @(locationBackend.currentLocation.coordinate.longitude)];
+    }
+    return [NSURL URLWithString:urlString];
 }
 
 #pragma mark - convenience descriptions
@@ -149,6 +246,37 @@
         return timeAgo;
     }
     return nil;
+}
+
+- (NSString *)checkinDescription
+{
+    NSMutableString *aCheckinDescription = [@"" mutableCopy];
+    //    if (self.statistics != nil)
+    //    {
+    //        [checkinDescription appendFormat:@"%@\n\n", self.summit.statistics.verboseDescription];
+    //    }
+
+    if ([self canCheckIn])
+    {
+        [aCheckinDescription appendString:NSLocalizedString(@"You can check in.", @"can check in")];
+    }
+    else
+    {
+        if (![self canCheckinTime] && ![self canCheckinDistance])
+        {
+            [aCheckinDescription appendString:NSLocalizedString(@"You have to be 200 meter from the summit and wait 24 hours before you can check in.", @"can't check in time and distance")];
+        }
+        else if (![self canCheckinTime])
+        {
+            [aCheckinDescription appendString:NSLocalizedString(@"You have to wait 24 hours before you can check in.", @"can't check in time")];
+        }
+        else if (![self canCheckinDistance])
+        {
+            [aCheckinDescription appendString:NSLocalizedString(@"You have to be 200 meter from the summit before you can check in.", @"can't check in distance")];
+        }
+    }
+
+    return aCheckinDescription;
 }
 
 @end

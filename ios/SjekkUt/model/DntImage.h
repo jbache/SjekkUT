@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 
+- (NSURL *)URL;
+
 @end
 
 NS_ASSUME_NONNULL_END

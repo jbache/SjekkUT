@@ -6,10 +6,11 @@
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-#import <Foundation/Foundation.h>
+@import CoreData;
+@import UIKit;
 
 #import "Checkin.h"
+#import "DntImage.h"
 #import "EntityScaffold.h"
 
 @class Project;
@@ -27,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *_Nonnull)elevationDescription;
 - (NSString *)checkinCountDescription;
 - (Checkin *)lastCheckin;
+- (NSURL *)mapURLForView:(UIView *)view;
+- (NSString *)checkinDescription;
 
 @end
 

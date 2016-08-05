@@ -52,4 +52,9 @@
     self.url = imageUrl;
 }
 
+- (NSURL *)URL
+{
+    return [NSURL URLWithString:self.url];
+}
+
 @end

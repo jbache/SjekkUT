@@ -35,6 +35,20 @@ class SjekkUtApi: Alamofire.Manager {
         }
     }
 
+    func getPlaceCheckins(aPlace:Place) {
+        let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/logg"
+        self.request(.GET, requestUrl)
+            .validate(statusCode:200..<300)
+            .responseJSON { response in
+                if let checkinsJson = response.result.value!["data"] as? [[String: AnyObject]] {
+                    for checkinJson in checkinsJson {
+                        _ = Checkin.insertOrUpdate(checkinJson)
+                    }
+                    ModelController.instance().save()
+                }
+        }
+    }
+
     func getPlaceLog(aPlace:Place) {
 
     }
@@ -56,7 +70,7 @@ class SjekkUtApi: Alamofire.Manager {
                 switch response.result {
                 case .Success:
                     if let json = response.result.value {
-                        let checkin = Checkin.insertOrUpdate(json as! [String : AnyObject])
+                        let checkin = Checkin.insertOrUpdate(json["data"] as! [String : AnyObject])
                         aPlace.addCheckinsObject(checkin)
                         ModelController.instance().save()
                         NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);

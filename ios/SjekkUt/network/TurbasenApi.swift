@@ -18,12 +18,33 @@ public class TurbasenApi: Alamofire.Manager {
 
     init() {
         super.init()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(getPlaceNotification), name: kSjekkUtNotificationGetPlace, object: nil)
     }
 
     convenience init(forDomain aDomain:String) {
         self.init()
         self.baseUrl = "https://" + aDomain
         self.api_key = (aDomain + ".api_key").loadFileContents(inClass:self.dynamicType)!
+    }
+
+    @objc func getPlaceNotification(aNotification:NSNotification) {
+        getPlace(aNotification.object as! Place)
+    }
+
+    func getPlace(aPlace:Place) {
+        let parameters = [
+            "api_key":api_key,
+            "expand":"bilder"
+        ]
+        self.request(.GET, baseUrl + "/steder/" + aPlace.identifier!, parameters: parameters)
+            .responseJSON { response in
+                if let aJSON = response.result.value {
+                    // iterate over all entities
+                    Place.insertOrUpdate(aJSON as! [NSObject : AnyObject])
+                    // save the local database
+                    ModelController.instance().save()
+                }
+        }
     }
 
     func getProjects() {
@@ -47,12 +68,17 @@ public class TurbasenApi: Alamofire.Manager {
         let urlRequest = NSMutableURLRequest(URL: requestUrl)
         urlRequest.HTTPMethod = "GET"
         urlRequest.cachePolicy = .ReloadIgnoringCacheData
-        let parameters = ["api_key": api_key, "fields":"steder,geojson,bilder,img", "expand":"steder,bilder"]
+        let parameters = ["api_key": api_key,
+                          "fields":"steder,geojson,bilder,img,kommune,beskrivelse",
+                          "expand":"steder,bilder"]
         self.request(.GET, urlRequest, parameters:parameters)
             .responseJSON { response in
                 if let aJSON = response.result.value {
                     // update or insert project from API
-                    Project.insertOrUpdate(aJSON as! [String : AnyObject])
+                    let aProject:Project = Project.insertOrUpdate(aJSON as! [String : AnyObject])
+                    for place in aProject.places! {
+                        SjekkUtApi.instance.getPlaceCheckins(place as! Place)
+                    }
                     // save the local database
                     ModelController.instance().save()
                 }

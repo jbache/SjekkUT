@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import AlamofireImage
 
 class PlaceView : UITableViewController, UITextViewDelegate {
 
     var place:Place? = nil
     var checkin:Checkin? = nil
+
     let sjekkUtApi:SjekkUtApi = SjekkUtApi.instance
 
     @IBOutlet weak var iconView: UIImageView!
@@ -36,6 +38,11 @@ class PlaceView : UITableViewController, UITextViewDelegate {
         _ = String(format:NSLocalizedString("Yay! Checked in to %@", comment: "check in notification text"), aPlace.name!)
     }
 
+    func fetchAndSetupMapImage() {
+        let imageRequest = NSURLRequest(URL: place!.mapURLForView(mapView), cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60)
+        mapView.af_setImageWithURLRequest(imageRequest, placeholderImage: nil, filter: nil, progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: false, completion:nil)
+    }
+
     // MARK: actions
     @IBAction func checkinClicked(sender: AnyObject) {
         sjekkUtApi.doPlaceVisit(place!) { result in
@@ -49,8 +56,24 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     // MARK: viewcontroller
     override func viewDidLoad() {
         if (place != nil) {
-            sjekkUtApi.getPlaceStats(place!)
+            sjekkUtApi.getPlaceCheckins(place!)
         }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        tableView.beginUpdates()
+        fetchAndSetupMapImage()
+
+        nameLabel.text = place?.name
+        countyAltitudeLabel.text = place?.countyElevationText()
+        climberCountLabel.text = place?.checkinCountDescription()
+
+        descriptionLabel.text = place?.descriptionText
+        descriptionLabel.sizeToFit()
+        checkinLabel.text = place?.checkinDescription()
+        checkinLabel.sizeToFit()
+
+        tableView.endUpdates()
     }
 
     // MARK: observing
@@ -63,6 +86,22 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     func stopObserving() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: SjekkUtCheckedInNotification, object: nil)
         Location.instance().removeObserver(self, forKeyPath: "currentLocation")
+    }
+
+    // MARK: table view
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row == 2) {
+            let sizeMax = CGSizeMake(self.descriptionLabel.frame.width, CGFloat.max)
+            return descriptionLabel.sizeThatFits(sizeMax).height + 16
+        }
+        else if (indexPath.row == 4) {
+            checkinCell.setNeedsLayout()
+            checkinCell.layoutIfNeeded()
+            let sizeMax = CGSizeMake(self.checkinLabel.frame.width, CGFloat.max)
+            return checkinLabel.sizeThatFits(sizeMax).height + 16
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
 
 }

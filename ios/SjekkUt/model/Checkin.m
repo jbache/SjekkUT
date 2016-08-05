@@ -45,15 +45,14 @@
 - (void)update:(NSDictionary *)json
 {
     NSDateFormatter *dateFormatter = [self dateFormatter];
-    NSDictionary *dataDict = json[@"data"];
-    self.identifier = dataDict[@"id"];
-    self.date = [dateFormatter dateFromString:dataDict[@"timestamp"]];
-    NSString *mountainId = [NSString stringWithFormat:@"%@", dataDict[@"ntb_steder_id"]];
+    self.identifier = json[@"id"];
+    self.date = [dateFormatter dateFromString:json[@"timestamp"]];
+    NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"ntb_steder_id"]];
     if (!self.place && mountainId.length > 0)
     {
         self.place = [Place findWithId:mountainId];
     }
-    NSArray *coordinates = dataDict[@"location"][@"coordinates"];
+    NSArray *coordinates = json[@"location"][@"coordinates"];
     self.latitute = [coordinates objectAtIndex:1];
     self.longitude = [coordinates objectAtIndex:0];
 }

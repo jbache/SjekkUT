@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AlamofireImage
 
 extension NSDate {
 
@@ -42,6 +43,9 @@ class PlaceCell: UITableViewCell {
             nameLabel.text = place?.name
             countyElevationLabel.text = place?.countyElevationText()
             climbCountLabel.text = place?.checkinCountDescription()
+            if let image = place!.images?.firstObject {
+                placeImageView.af_setImageWithURL(image.URL())
+            }
             startObserving()
         }
     }
