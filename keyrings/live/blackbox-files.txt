@@ -1,6 +1,8 @@
 ios/../secret/maps.google.com.static.api_key
-secret/README
+android/secret/release_keystore.jks
+android/secret/releasesigningconfig.gradle
 secret/api.nasjonalturbase.no.api_key
 secret/dev.nasjonalturbase.no.api_key
+secret/README
 secret/www.dnt.no.client_id
 secret/www.dnt.no.client_secret
