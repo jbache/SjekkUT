@@ -1,3 +1,4 @@
+ios/../secret/maps.google.com.static.api_key
 secret/README
 secret/api.nasjonalturbase.no.api_key
 secret/dev.nasjonalturbase.no.api_key
