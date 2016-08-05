@@ -8,18 +8,18 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends ActionBarActivity {
 
     private String redirectURL = "https://localhost/callback";
     private String client_id;
     private String client_secret;
-    private Callback<AuthorizationToken> authorizeCallback;
+    private Callback<AuthorizationToken> mAuthorizeCallback;
 
-    private boolean gettingToken = false;
+    private boolean mGettingToken = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class LoginActivity extends ActionBarActivity {
             return;
         }
 
-        gettingToken = false;
+        mGettingToken = false;
         client_id = getResources().getString(R.string.client_id);
         client_secret = getResources().getString(R.string.client_secret);
         String authorizationUrl = Uri.parse("https://www.dnt.no/o/authorize/")
@@ -39,18 +39,22 @@ public class LoginActivity extends ActionBarActivity {
                 .appendQueryParameter("response_type", "code")
                 .build().toString();
 
-        authorizeCallback = new Callback<AuthorizationToken>() {
+        mAuthorizeCallback = new Callback<AuthorizationToken>() {
 
             @Override
-            public void success(AuthorizationToken authorizationToken, Response response) {
-                Utils.showToast(LoginActivity.this, "Authorization success");
-                PreferenceUtils.setAccessToken(LoginActivity.this, authorizationToken.access_token);
-                finishAndStartMain();
+            public void onResponse(Call<AuthorizationToken> call, Response<AuthorizationToken> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(LoginActivity.this, "Authorization success");
+                    PreferenceUtils.setAccessToken(LoginActivity.this, response.body().access_token);
+                    finishAndStartMain();
+                } else {
+                    Utils.showToast(LoginActivity.this, "Authorization failed: " + response.code());
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                Utils.showToast(LoginActivity.this, "Authorization failed");
+            public void onFailure(Call<AuthorizationToken> call, Throwable t) {
+                Utils.showToast(LoginActivity.this, "Authorization failed: " + t.getLocalizedMessage());
             }
         };
 
@@ -68,10 +72,11 @@ public class LoginActivity extends ActionBarActivity {
             public void onPageFinished(final WebView webView, final String url) {
                 if (url.startsWith(redirectURL)) {
                     webView.setVisibility(View.INVISIBLE);
-                    if (!gettingToken) {
-                        gettingToken = true;
+                    if (!mGettingToken) {
+                        mGettingToken = true;
                         String code = Utils.extractUrlArgument(url, "code", "");
-                        DNTApi.call().getToken("authorization_code", code, redirectURL, client_id, client_secret, authorizeCallback);
+                        Call<AuthorizationToken> call = DNTApi.call().getToken("authorization_code", code, redirectURL, client_id, client_secret);
+                        call.enqueue(mAuthorizeCallback);
                     }
                 } else {
                     webView.setVisibility(View.VISIBLE);

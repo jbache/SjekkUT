@@ -1,12 +1,15 @@
 package no.dnt.sjekkut;
 
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.POST;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 
 /**
  * Copyright Den Norske Turistforening 2016
@@ -20,12 +23,21 @@ public class DNTApi {
     private final Endpoints api;
 
     private DNTApi() {
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("https://www.dnt.no/")
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        if (BuildConfig.DEBUG) {
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        } else {
+            interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        }
+        OkHttpClient httpClient = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://www.dnt.no/")
+                .client(httpClient)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        api = adapter.create(Endpoints.class);
+        api = retrofit.create(Endpoints.class);
     }
 
     public static DNTApi getInstance() {
@@ -39,24 +51,22 @@ public class DNTApi {
     public interface Endpoints {
 
         @FormUrlEncoded
-        @POST("/o/token/")
-        void getToken(@Field("grant_type") String grant_type,
-                      @Field("code") String code,
-                      @Field("redirect_uri") String redirect_uri,
-                      @Field("client_id") String client_id,
-                      @Field("client_secret") String client_secret,
-                      Callback<AuthorizationToken> callback);
+        @POST("o/token/")
+        Call<AuthorizationToken> getToken(@Field("grant_type") String grant_type,
+                                          @Field("code") String code,
+                                          @Field("redirect_uri") String redirect_uri,
+                                          @Field("client_id") String client_id,
+                                          @Field("client_secret") String client_secret);
 
         @FormUrlEncoded
-        @POST("/o/token/")
-        void refreshToken(@Field("grant_type") String grant_type,
-                          @Field("refresh_token") String refresh_token,
-                          @Field("redirect_uri") String redirect_uri,
-                          @Field("client_id") String client_id,
-                          @Field("client_secret") String client_secret,
-                          Callback<AuthorizationToken> callback);
+        @POST("o/token/")
+        Call<AuthorizationToken> refreshToken(@Field("grant_type") String grant_type,
+                                              @Field("refresh_token") String refresh_token,
+                                              @Field("redirect_uri") String redirect_uri,
+                                              @Field("client_id") String client_id,
+                                              @Field("client_secret") String client_secret);
 
-        @GET("/api/oauth/medlemsdata/")
-        void getMember(@Header("Authorization") String authorization, Callback<MemberData> callback);
+        @GET("api/oauth/medlemsdata/")
+        Call<MemberData> getMember(@Header("Authorization") String authorization);
     }
 }

@@ -28,9 +28,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -55,13 +55,17 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
 
         mMemberCallback = new Callback<MemberData>() {
             @Override
-            public void success(MemberData memberData, Response response) {
-                Utils.showToast(MainActivity.this, "Got member data");
+            public void onResponse(Call<MemberData> call, Response<MemberData> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(MainActivity.this, "Got member data");
+                } else {
+                    Utils.showToast(MainActivity.this, "Failed to get member data: " + response.code());
+                }
             }
 
             @Override
-            public void failure(RetrofitError error) {
-                Utils.showToast(MainActivity.this, "Failed to get member data");
+            public void onFailure(Call<MemberData> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get member data: " + t.getLocalizedMessage());
             }
         };
 
@@ -97,7 +101,8 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         checkForUpdates();
-        DNTApi.call().getMember(PreferenceUtils.getBearerAuthorization(this), mMemberCallback);
+        Call<MemberData> call = DNTApi.call().getMember(PreferenceUtils.getBearerAuthorization(this));
+        call.enqueue(mMemberCallback);
     }
 
     @Override
