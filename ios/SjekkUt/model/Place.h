@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *_Nonnull)elevationDescription;
 - (NSString *)checkinCountDescription;
 - (Checkin *)lastCheckin;
-- (NSURL *)mapURLForView:(UIView *)view;
+- (NSURL *)mapURLForView:(UIView *)view withKey:(NSString *)key;
 - (NSString *)checkinDescription;
 
 @end

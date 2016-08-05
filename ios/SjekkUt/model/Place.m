@@ -177,7 +177,7 @@
 
 #pragma mark - map
 
-- (NSURL *)mapURLForView:(UIView *)view
+- (NSURL *)mapURLForView:(UIView *)view withKey:(nonnull NSString *)apiKey
 {
     //  CGFloat uiScale = [UIScreen mainScreen].scale;
     CGFloat maxWidth = 640.0f;
@@ -185,7 +185,6 @@
     CGFloat width = view.frame.size.width * pixelScale;
     CGFloat height = view.frame.size.height * pixelScale;
 
-    NSString *apiKey = @"AIzaSyDSn0vYqHUuazbG5PPIYm-HYu-Wi2qbcCM";
     NSMutableString *urlString = [@"https://maps.googleapis.com/maps/api/staticmap" mutableCopy];
     [urlString appendFormat:@"?center=%@,%@&zoom=%.f&maptype=terrain&", self.latitude, self.longitude, SjekkUtMapZoomLevel];
     [urlString appendFormat:@"size=%@x%@&scale=2&key=%@&", @((int)width), @((int)height), apiKey];

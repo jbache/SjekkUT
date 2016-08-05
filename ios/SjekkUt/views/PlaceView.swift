@@ -39,7 +39,8 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     }
 
     func fetchAndSetupMapImage() {
-        let imageRequest = NSURLRequest(URL: place!.mapURLForView(mapView), cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60)
+        let mapApiKey = "maps.google.com.static.api_key".loadFileContents(inClass: self.dynamicType)
+        let imageRequest = NSURLRequest(URL: place!.mapURLForView(mapView, withKey: mapApiKey!), cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60)
         mapView.af_setImageWithURLRequest(imageRequest, placeholderImage: nil, filter: nil, progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: false, completion:nil)
     }
 

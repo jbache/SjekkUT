@@ -61,6 +61,7 @@
 		6CC799C31D52110B00DFAF10 /* Checkin+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799C01D52110B00DFAF10 /* Checkin+CoreDataProperties.m */; };
 		6CC799C41D52110B00DFAF10 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799C21D52110B00DFAF10 /* Checkin.m */; };
 		6CD3E3641D532DC900A90E12 /* DntColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD3E3631D532DC900A90E12 /* DntColor.swift */; };
+		6CDC3E0B1D54ABF2003A0F3B /* maps.google.com.static.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CDC3E0A1D54ABF2003A0F3B /* maps.google.com.static.api_key */; };
 		6CDE75931AEA50F10067110C /* CheckinStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE758D1AEA50F00067110C /* CheckinStatistics.m */; };
 		6CDE75951AEA50F10067110C /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE75911AEA50F10067110C /* Comment.m */; };
 		6CE0760D1D474C89000ACAAA /* SjekkUtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0760C1D474C89000ACAAA /* SjekkUtTests.m */; };
@@ -209,6 +210,7 @@
 		6CC799C11D52110B00DFAF10 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Checkin.h; path = model/Checkin.h; sourceTree = "<group>"; };
 		6CC799C21D52110B00DFAF10 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Checkin.m; path = model/Checkin.m; sourceTree = "<group>"; };
 		6CD3E3631D532DC900A90E12 /* DntColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DntColor.swift; sourceTree = "<group>"; };
+		6CDC3E0A1D54ABF2003A0F3B /* maps.google.com.static.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = maps.google.com.static.api_key; path = ../../secret/maps.google.com.static.api_key; sourceTree = "<group>"; };
 		6CDE75891AEA4F0B0067110C /* 1.0.7.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.7.0.xcdatamodel; sourceTree = "<group>"; };
 		6CDE758C1AEA50F00067110C /* CheckinStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckinStatistics.h; path = model/CheckinStatistics.h; sourceTree = "<group>"; };
 		6CDE758D1AEA50F00067110C /* CheckinStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinStatistics.m; path = model/CheckinStatistics.m; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */,
 				6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */,
 				6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */,
+				6CDC3E0A1D54ABF2003A0F3B /* maps.google.com.static.api_key */,
 			);
 			name = secret;
 			sourceTree = "<group>";
@@ -633,6 +636,7 @@
 				6CA3E13D1D49EF57003BA194 /* www.dnt.no.client_secret in Resources */,
 				6C6FE15E1A82332C002B5DD5 /* Images.xcassets in Resources */,
 				6C740AB11B187FA600176D2E /* dnt-logo.png in Resources */,
+				6CDC3E0B1D54ABF2003A0F3B /* maps.google.com.static.api_key in Resources */,
 				6C740AB71B1888F700176D2E /* ut-name.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
