@@ -34,13 +34,23 @@ import retrofit2.Response;
 
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    private GoogleApiClient mGoogleApiClient;
     private static final int REQUEST_RESOLVE_ERROR = 1001;
-    private static final long MAX_LOCATION_TIME_DELTA_MS = 60*1000;
+    private static final long MAX_LOCATION_TIME_DELTA_MS = 60 * 1000;
     private static final String DIALOG_ERROR = "dialog_error";
+    private GoogleApiClient mGoogleApiClient;
     private boolean mResolvingError = false;
     private ArrayList<Pair<LocationListener, LocationRequest>> mPendingListener = new ArrayList<>();
     private Callback<MemberData> mMemberCallback;
+
+    public static void showFeedbackActivity(Activity activity) {
+        if (activity == null)
+            return;
+
+        FeedbackManager.register(activity);
+        FeedbackManager.showFeedbackActivity(activity);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +85,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
                     .add(R.id.container, new SummitListFragment())
                     .commit();
         }
+        checkForUpdates();
     }
 
     @Override
@@ -100,7 +111,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     public void onResume() {
         super.onResume();
         checkForCrashes();
-        checkForUpdates();
         Call<MemberData> call = DNTApi.call().getMember(PreferenceUtils.getBearerAuthorization(this));
         call.enqueue(mMemberCallback);
     }
@@ -112,6 +122,18 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             mGoogleApiClient.disconnect();
         }
         super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterManagers();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterManagers();
     }
 
     @Override
@@ -172,24 +194,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         mResolvingError = false;
     }
 
-    public static class ErrorDialogFragment extends DialogFragment {
-        public ErrorDialogFragment() {
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            int errorCode = this.getArguments().getInt(DIALOG_ERROR);
-            return GooglePlayServicesUtil.getErrorDialog(errorCode,
-                    this.getActivity(), REQUEST_RESOLVE_ERROR);
-        }
-
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            ((MainActivity) getActivity()).onDialogDismissed();
-        }
-    }
-
     public void startLocationUpdates(LocationListener listener, LocationRequest locationRequest) {
         if (mGoogleApiClient.isConnected()) {
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -214,19 +218,33 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     }
 
     private void checkForCrashes() {
-        CrashManager.register(this, "a87641b00a6012bad617ba8f0a217b32");
+        CrashManager.register(this);
     }
 
     private void checkForUpdates() {
         // TODO: Remove this for store builds!
-        UpdateManager.register(this, "a87641b00a6012bad617ba8f0a217b32");
+        UpdateManager.register(this);
     }
 
-    public static void showFeedbackActivity(Activity activity) {
-        if (activity == null)
-            return;
+    private void unregisterManagers() {
+        UpdateManager.unregister();
+    }
 
-        FeedbackManager.register(activity, "a87641b00a6012bad617ba8f0a217b32", null);
-        FeedbackManager.showFeedbackActivity(activity);
+    public static class ErrorDialogFragment extends DialogFragment {
+        public ErrorDialogFragment() {
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int errorCode = this.getArguments().getInt(DIALOG_ERROR);
+            return GooglePlayServicesUtil.getErrorDialog(errorCode,
+                    this.getActivity(), REQUEST_RESOLVE_ERROR);
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            ((MainActivity) getActivity()).onDialogDismissed();
+        }
     }
 }
