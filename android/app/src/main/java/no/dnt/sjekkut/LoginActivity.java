@@ -14,7 +14,6 @@ import retrofit2.Response;
 
 public class LoginActivity extends ActionBarActivity {
 
-    private String redirectURL = "https://localhost/callback";
     private String client_id;
     private String client_secret;
     private Callback<AuthorizationToken> mAuthorizeCallback;
@@ -45,7 +44,8 @@ public class LoginActivity extends ActionBarActivity {
             public void onResponse(Call<AuthorizationToken> call, Response<AuthorizationToken> response) {
                 if (response.isSuccessful()) {
                     Utils.showToast(LoginActivity.this, "Authorization success");
-                    PreferenceUtils.setAccessToken(LoginActivity.this, response.body().access_token);
+                    AuthorizationToken token = response.body();
+                    PreferenceUtils.setAccessAndRefreshToken(LoginActivity.this, token.access_token, token.refresh_token);
                     finishAndStartMain();
                 } else {
                     Utils.showToast(LoginActivity.this, "Authorization failed: " + response.code());
@@ -70,12 +70,12 @@ public class LoginActivity extends ActionBarActivity {
 
             @Override
             public void onPageFinished(final WebView webView, final String url) {
-                if (url.startsWith(redirectURL)) {
+                if (url.startsWith(DNTApi.OAUTH2_REDIRECT_URL)) {
                     webView.setVisibility(View.INVISIBLE);
                     if (!mGettingToken) {
                         mGettingToken = true;
                         String code = Utils.extractUrlArgument(url, "code", "");
-                        Call<AuthorizationToken> call = DNTApi.call().getToken("authorization_code", code, redirectURL, client_id, client_secret);
+                        Call<AuthorizationToken> call = DNTApi.call().getToken("authorization_code", code, DNTApi.OAUTH2_REDIRECT_URL, client_id, client_secret);
                         call.enqueue(mAuthorizeCallback);
                     }
                 } else {
