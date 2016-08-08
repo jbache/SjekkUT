@@ -11,9 +11,14 @@
 
 @implementation EntityScaffold
 
++ (NSString *)entityName
+{
+    return NSStringFromClass([self class]);
+}
+
 + (NSEntityDescription *)entity
 {
-    return [NSEntityDescription entityForName:NSStringFromClass([self class])
+    return [NSEntityDescription entityForName:self.entityName
                        inManagedObjectContext:model.managedObjectContext];
 }
 
@@ -63,6 +68,29 @@
         return @[];
     }
     return entitiesWithPredicate;
+}
+
++ (void)deleteAll
+{
+    if (model.managedObjectContext == nil)
+    {
+        return;
+    }
+    NSFetchRequest *allEntities = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:self.entityName
+                                                         inManagedObjectContext:model.managedObjectContext];
+    [allEntities setEntity:entityDescription];
+    [allEntities setIncludesPropertyValues:NO];
+
+    NSError *error = nil;
+    NSArray *allObjects = [model.managedObjectContext executeFetchRequest:allEntities
+                                                                    error:&error];
+    //error handling goes here
+    for (NSManagedObject *anObject in allObjects)
+    {
+        [model.managedObjectContext deleteObject:anObject];
+    }
+    [model save];
 }
 
 @end

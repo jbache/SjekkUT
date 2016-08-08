@@ -174,6 +174,12 @@ class DntApi: Alamofire.Manager {
             storage.deleteCookie(cookie)
         }
 
+        // delete all database entities
+        Project.deleteAll()
+        Place.deleteAll()
+        Checkin.deleteAll()
+        DntImage.deleteAll()
+
         // remove tokens
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
