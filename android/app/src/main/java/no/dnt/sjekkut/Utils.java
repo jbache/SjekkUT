@@ -223,4 +223,11 @@ public class Utils {
             cookieSyncManager.sync();
         }
     }
+
+    public static void logout(Context context) {
+        PreferenceUtils.clearLoginInformation(context);
+        Intent loginActivity = new Intent(context, LoginActivity.class);
+        loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(loginActivity);
+    }
 }

@@ -17,7 +17,6 @@ public class LoginActivity extends ActionBarActivity {
     private String client_id;
     private String client_secret;
     private Callback<AuthorizationToken> mAuthorizeCallback;
-
     private boolean mGettingToken = false;
 
     @Override
@@ -74,9 +73,13 @@ public class LoginActivity extends ActionBarActivity {
                     webView.setVisibility(View.INVISIBLE);
                     if (!mGettingToken) {
                         mGettingToken = true;
-                        String code = Utils.extractUrlArgument(url, "code", "");
-                        Call<AuthorizationToken> call = DNTApi.call().getToken("authorization_code", code, DNTApi.OAUTH2_REDIRECT_URL, client_id, client_secret);
-                        call.enqueue(mAuthorizeCallback);
+                        String code = Utils.extractUrlArgument(url, "code", null);
+                        if (code != null) {
+                            Call<AuthorizationToken> call = DNTApi.call().getToken("authorization_code", code, DNTApi.OAUTH2_REDIRECT_URL, client_id, client_secret);
+                            call.enqueue(mAuthorizeCallback);
+                        } else {
+                            Utils.logout(LoginActivity.this);
+                        }
                     }
                 } else {
                     webView.setVisibility(View.VISIBLE);

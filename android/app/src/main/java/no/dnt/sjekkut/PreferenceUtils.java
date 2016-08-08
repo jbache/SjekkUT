@@ -41,4 +41,11 @@ public class PreferenceUtils {
     private static SharedPreferences getPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
+
+    public static void clearLoginInformation(Context context) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.remove(ACCESS_TOKEN);
+        editor.remove(REFRESH_TOKEN);
+        editor.apply();
+    }
 }
