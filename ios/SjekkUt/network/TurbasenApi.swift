@@ -78,6 +78,7 @@ public class TurbasenApi: Alamofire.Manager {
                     let aProject:Project = Project.insertOrUpdate(aJSON as! [String : AnyObject])
                     for place in aProject.places! {
                         SjekkUtApi.instance.getPlaceCheckins(place as! Place)
+                        self.getPlace(place as! Place)
                     }
                     // save the local database
                     ModelController.instance().save()

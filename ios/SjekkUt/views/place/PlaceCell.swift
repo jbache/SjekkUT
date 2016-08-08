@@ -28,6 +28,7 @@ class PlaceCell: UITableViewCell {
     var isObserving = false
     var kObserveDistance = 0
     var kObserveCheckins = 0
+    var kObserveImages = 0
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -43,9 +44,6 @@ class PlaceCell: UITableViewCell {
             nameLabel.text = place?.name
             countyElevationLabel.text = place?.countyElevationText()
             climbCountLabel.text = place?.checkinCountDescription()
-            if let image = place!.images?.firstObject {
-                placeImageView.af_setImageWithURL(image.URL())
-            }
             startObserving()
         }
     }
@@ -61,6 +59,12 @@ class PlaceCell: UITableViewCell {
     // MARK: cell
     override func prepareForReuse() {
         stopObserving()
+        placeImageView.image = nil
+        nameLabel.text = ""
+        distanceLabel.text = ""
+        climbCountLabel.text = ""
+        countyElevationLabel.text = ""
+        dateLabel.text = ""
     }
 
     // MARK: observing
@@ -69,6 +73,7 @@ class PlaceCell: UITableViewCell {
         if (isObserving == false) {
             place?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObserveDistance)
             place?.addObserver(self, forKeyPath: "checkins", options: .Initial, context: &kObserveCheckins)
+            place?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObserveImages)
             isObserving = true
         }
     }
@@ -77,6 +82,7 @@ class PlaceCell: UITableViewCell {
         if (isObserving == true) {
             place?.removeObserver(self, forKeyPath: "distance")
             place?.removeObserver(self, forKeyPath: "checkins")
+            place?.removeObserver(self, forKeyPath: "images")
             isObserving = false
         }
     }
@@ -97,6 +103,11 @@ class PlaceCell: UITableViewCell {
                 checkButton.setTitle("\(Character(UnicodeScalar(0xf096)))", forState: .Normal)
                 checkButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
                 dateLabel.text = NSLocalizedString("Not climbed", comment:"no checkin label")
+            }
+        }
+        if (context == &kObserveImages) {
+            if let image = place!.images?.firstObject {
+                placeImageView.af_setImageWithURL(image.URL())
             }
         }
     }
