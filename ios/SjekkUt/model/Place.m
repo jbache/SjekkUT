@@ -64,9 +64,9 @@
         case 3:
             self.elevation = @([[coordinateArray objectAtIndex:2] doubleValue]);
         case 2:
-            self.longitude = @([[coordinateArray objectAtIndex:1] doubleValue]);
+            self.latitude = @([[coordinateArray objectAtIndex:1] doubleValue]);
         case 1:
-            self.latitude = @([[coordinateArray objectAtIndex:0] doubleValue]);
+            self.longitude = @([[coordinateArray objectAtIndex:0] doubleValue]);
     }
     self.county = json[@"kommune"];
     self.descriptionText = json[@"beskrivelse"];
