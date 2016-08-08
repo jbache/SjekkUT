@@ -140,9 +140,6 @@ class DntApi: Alamofire.Manager {
 
     func login(authenticationCode:String, refreshToken aRefreshToken:String? = nil, expiry aTokenExpiry:Double? = nil) {
 
-        self.loginBlock()
-        self.loginBlock = {}
-
         // update or remove expiry
         if let tokenExpiry = aTokenExpiry {
             let expiry =  NSDate().dateByAddingTimeInterval(NSTimeInterval(tokenExpiry))
@@ -164,6 +161,10 @@ class DntApi: Alamofire.Manager {
         }
 
         SSKeychain.setPassword(authenticationCode, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+
+        self.loginBlock()
+        self.loginBlock = {}
+
         NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationLogin, object: nil)
     }
 
