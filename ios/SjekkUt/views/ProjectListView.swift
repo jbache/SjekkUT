@@ -22,19 +22,17 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     override func viewDidLoad() {
-        // delay table setup if Core Data isn't finished loading
-        if (ModelController.instance().managedObjectContext == nil) {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setupTable), name: SjekkUtDatabaseModelReadyNotification, object: nil)
+        self.navigationItem.hidesBackButton = true
+
+        dntApi.updateMemberDetailsOrFail {
+            self.dntApi.logout()
         }
-        else {
+
+        // only setup and load the table when core data is ready. in some cases this method will be hit before
+        // core data has finished populating the database (e.g. in the case of migrations)
+        ModelController.instance().delayUntilReady { 
             self.setupTable()
         }
-
-        self.navigationItem.hidesBackButton = true
-    }
-
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        dntApi.logout()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -42,17 +40,11 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         projectView.project = sender as? Project
     }
 
-
     // MARK: table data
     func setupTable() {
 
-        dntApi.updateMemberDetailsOrFail {
-            self.dntApi.logout()
-        }
-
-        // set up datasource
+        // set up result controller
         projects = projectResults()
-        projects?.delegate = self
 
         // load data in table
         self.projectsTable.reloadData()
@@ -70,18 +62,25 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
 
+        someResults.delegate = self
+
         return someResults
     }
 
+    // MARK: sections
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return (projects?.sections?.count)!
     }
 
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.projects?.sections![section].indexTitle == "1" ? NSLocalizedString("My projects", comment: "section header with checkins")
+        :  NSLocalizedString("Other projects", comment: "section header without checkins")
+    }
+
+    // MARK: rows
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.projects == nil) {
-            return 0
-        }
-        return (self.projects?.fetchedObjects?.count)!
+        return (self.projects?.sections![section].numberOfObjects)!
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

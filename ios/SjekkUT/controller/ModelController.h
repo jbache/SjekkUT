@@ -23,6 +23,7 @@ typedef void (^InitCallbackBlock)(void);
 
 - (id)initWithCallback:(InitCallbackBlock)callback;
 - (void)save;
+- (void)delayUntilReady:(void (^)(void))aCallback;
 
 + (ModelController *)instance;
 

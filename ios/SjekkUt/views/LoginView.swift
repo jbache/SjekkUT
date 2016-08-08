@@ -21,7 +21,9 @@ class LoginView: UIViewController, WKNavigationDelegate {
     // MARK: viewcontroller
 
     override func viewDidLoad() {
-        setupLogin()
+        ModelController.instance().delayUntilReady {
+            self.setupLogin()
+        }
     }
 
     override func viewDidAppear(animated: Bool) {

@@ -43,6 +43,7 @@
 
 @property (strong, readwrite) NSManagedObjectContext *managedObjectContext;
 @property (strong) NSManagedObjectContext *privateContext;
+@property (strong, nonatomic) NSMutableArray *delayUntilReady;
 
 @property (copy) InitCallbackBlock initCallback;
 
@@ -59,10 +60,24 @@
     if (!(self = [super init]))
         return nil;
 
+    self.delayUntilReady = [@[] mutableCopy];
+
     [self setInitCallback:callback];
     [self initializeCoreData];
 
     return self;
+}
+
+- (void)delayUntilReady:(void (^)(void))aCallback
+{
+    if (self.managedObjectContext == nil)
+    {
+        [self.delayUntilReady addObject:[aCallback copy]];
+    }
+    else
+    {
+        aCallback();
+    }
 }
 
 - (void)initializeCoreData
@@ -174,6 +189,12 @@
         _instance = [[ModelController alloc] initWithCallback:^{
             //NSLog(@"posting %@", SjekkUtDatabaseModelReadyNotification);
             [defaultNotifyer postNotificationName:SjekkUtDatabaseModelReadyNotification object:model];
+            typedef void (^DelayedCallback)();
+            for (DelayedCallback aCallback in _instance.delayUntilReady)
+            {
+                aCallback();
+            }
+            [_instance.delayUntilReady removeAllObjects];
         }];
     });
 
