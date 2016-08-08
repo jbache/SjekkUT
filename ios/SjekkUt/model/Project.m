@@ -74,6 +74,8 @@
         [orderedPlaces addObject:aPlace];
     }
 
+    [self updateHasCheckin];
+
     return orderedPlaces;
 }
 
@@ -94,6 +96,8 @@
 
     return orderedImages;
 }
+
+#pragma mark distance
 
 - (void)updateDistance
 {
@@ -121,12 +125,50 @@
     return aPlace;
 }
 
+#pragma mark checkins / progress
+
+- (void)updateHasCheckin
+{
+    self.hasCheckins = @(self.progress.doubleValue > 0.0);
+}
+
+- (NSArray *)checkedInPlaces
+{
+    NSFetchRequest *fetch = [Place fetch];
+    fetch.predicate = [NSPredicate predicateWithFormat:@"%@ in projects AND checkins.place.@count > 0", self];
+
+    NSError *error = nil;
+    NSArray *aResult = [model.managedObjectContext executeFetchRequest:fetch error:&error];
+    return aResult;
+}
+
+- (NSNumber *)progress
+{
+    NSArray *checkedInPlaces = [self checkedInPlaces];
+
+    if (checkedInPlaces.count == 0)
+    {
+        return @(0);
+    }
+
+    return @((double)checkedInPlaces.count / (double)self.places.count);
+}
+
 - (NSString *)progressDescription
 {
-    NSPredicate *checkinsPredicate = [NSPredicate predicateWithFormat:@"checkins.@count > 0"];
-    NSOrderedSet *checkins = [self.places filteredOrderedSetUsingPredicate:checkinsPredicate];
     NSString *formatString = NSLocalizedString(@"You have summited %@ of %@ so far!", "count summits in challenge");
-    return [NSString stringWithFormat:formatString, @(checkins.count), @(self.places.count)];
+    return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
+}
+
+- (NSNumber *)hasCheckins
+{
+    [self willAccessValueForKey:@"hasCheckins"];
+
+    NSNumber *doesHaveCheckins = @(self.progress.doubleValue > 0.0);
+
+    [self didAccessValueForKey:@"hasCheckins"];
+
+    return doesHaveCheckins;
 }
 
 @end

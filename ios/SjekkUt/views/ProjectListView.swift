@@ -55,7 +55,8 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     func projectResults() -> NSFetchedResultsController {
         let aFetchRequest =  Project.fetchRequest()
-        let someResults = NSFetchedResultsController(fetchRequest: aFetchRequest, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasCheckins", ascending: false)]
+        let someResults = NSFetchedResultsController(fetchRequest: aFetchRequest, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: "hasCheckins", cacheName: nil)
         do {
             try someResults.performFetch()
         } catch {

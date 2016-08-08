@@ -9,6 +9,7 @@
 #import "Checkin.h"
 #import "NSDate+DateTools.h"
 #import "Place.h"
+#import "Project.h"
 
 #import "ModelController.h"
 
@@ -55,6 +56,11 @@
     NSArray *coordinates = json[@"location"][@"coordinates"];
     self.latitute = [coordinates objectAtIndex:1];
     self.longitude = [coordinates objectAtIndex:0];
+
+    for (Project *project in self.place.projects)
+    {
+        [project updateHasCheckin];
+    }
 }
 
 #pragma mark util
