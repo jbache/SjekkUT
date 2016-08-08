@@ -32,7 +32,6 @@
 		6C6FE15E1A82332C002B5DD5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C6FE15D1A82332C002B5DD5 /* Images.xcassets */; };
 		6C6FE1611A82332C002B5DD5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C6FE15F1A82332C002B5DD5 /* LaunchScreen.xib */; };
 		6C70642F1A82AE3000291137 /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70642E1A82AE3000291137 /* ModelController.m */; };
-		6C7064321A82AEA300291137 /* Backend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064301A82AEA300291137 /* Backend.m */; };
 		6C7064511A8381FA00291137 /* SummitSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064501A8381FA00291137 /* SummitSearch.m */; };
 		6C70645D1A83838700291137 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70645C1A83838700291137 /* Location.m */; };
 		6C70646F1A84CEBF00291137 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70646D1A84CEBF00291137 /* NetworkController.m */; };
@@ -72,7 +71,6 @@
 		6CE076251D474E03000ACAAA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CE076241D474E03000ACAAA /* Info.plist */; };
 		6CE076281D474F76000ACAAA /* TestDntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076271D474F76000ACAAA /* TestDntApi.swift */; };
 		6CE076291D475061000ACAAA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
-		6CE0762A1D47512D000ACAAA /* Backend.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064301A82AEA300291137 /* Backend.m */; };
 		6CE0762B1D47513E000ACAAA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70645C1A83838700291137 /* Location.m */; };
 		6CE0762C1D475141000ACAAA /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70646D1A84CEBF00291137 /* NetworkController.m */; };
 		6CE0762D1D475148000ACAAA /* Summit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A13B1B0C99B100169E98 /* Summit.m */; };
@@ -156,8 +154,6 @@
 		6C6FE1601A82332C002B5DD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6C70642D1A82AE3000291137 /* ModelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelController.h; path = controller/ModelController.h; sourceTree = "<group>"; };
 		6C70642E1A82AE3000291137 /* ModelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelController.m; path = controller/ModelController.m; sourceTree = "<group>"; };
-		6C7064301A82AEA300291137 /* Backend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Backend.m; path = controller/Backend.m; sourceTree = "<group>"; };
-		6C7064311A82AEA300291137 /* Backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Backend.h; path = controller/Backend.h; sourceTree = "<group>"; };
 		6C7064331A82AF5700291137 /* BackendTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendTest.m; sourceTree = "<group>"; };
 		6C7064391A82B70100291137 /* Summit+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Summit+Extension.h"; path = "model/Summit+Extension.h"; sourceTree = "<group>"; };
 		6C70643A1A82B70100291137 /* Summit+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Summit+Extension.m"; path = "model/Summit+Extension.m"; sourceTree = "<group>"; };
@@ -413,8 +409,6 @@
 		6C70642C1A82ADB200291137 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				6C7064301A82AEA300291137 /* Backend.m */,
-				6C7064311A82AEA300291137 /* Backend.h */,
 				6C6FE1511A82332C002B5DD5 /* AppDelegate.h */,
 				6C6FE1521A82332C002B5DD5 /* AppDelegate.m */,
 				6C70645B1A83838700291137 /* Location.h */,
@@ -799,7 +793,6 @@
 				6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */,
 				6CC799C41D52110B00DFAF10 /* Checkin.m in Sources */,
 				6CB40DF81D460D260030433D /* LoginView.swift in Sources */,
-				6C7064321A82AEA300291137 /* Backend.m in Sources */,
 				6C5FDB161D48CFE300B7D25E /* DntApi.swift in Sources */,
 				6C6FE1501A82332C002B5DD5 /* main.m in Sources */,
 				6C70646F1A84CEBF00291137 /* NetworkController.m in Sources */,
@@ -829,7 +822,6 @@
 				6CE0762C1D475141000ACAAA /* NetworkController.m in Sources */,
 				6CE0762B1D47513E000ACAAA /* Location.m in Sources */,
 				6CE526841D50721500D3419B /* PlaceListView.swift in Sources */,
-				6CE0762A1D47512D000ACAAA /* Backend.m in Sources */,
 				6CE076201D474D7A000ACAAA /* LocationTest.m in Sources */,
 				6CE526861D50722500D3419B /* ProjectCell.swift in Sources */,
 				6CE526871D5072AC00D3419B /* PlaceCell.swift in Sources */,
