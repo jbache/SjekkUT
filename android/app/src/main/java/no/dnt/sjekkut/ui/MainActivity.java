@@ -31,7 +31,7 @@ import java.util.Date;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.network.DNTApi;
+import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.OppturApi;
 import retrofit2.Call;
@@ -117,7 +117,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     public void onResume() {
         super.onResume();
         checkForCrashes();
-        Call<MemberData> call = DNTApi.call().getMember(PreferenceUtils.getBearerAuthorization(this));
+        Call<MemberData> call = LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this));
         call.enqueue(mMemberCallback);
     }
 

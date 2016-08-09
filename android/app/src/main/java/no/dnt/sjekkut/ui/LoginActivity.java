@@ -13,7 +13,7 @@ import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.AuthorizationToken;
-import no.dnt.sjekkut.network.DNTApi;
+import no.dnt.sjekkut.network.LoginApiSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,13 +78,13 @@ public class LoginActivity extends ActionBarActivity {
 
             @Override
             public void onPageFinished(final WebView webView, final String url) {
-                if (url.startsWith(DNTApi.OAUTH2_REDIRECT_URL)) {
+                if (url.startsWith(LoginApiSingleton.OAUTH2_REDIRECT_URL)) {
                     webView.setVisibility(View.INVISIBLE);
                     if (!mGettingToken) {
                         mGettingToken = true;
                         String code = Utils.extractUrlArgument(url, "code", null);
                         if (code != null) {
-                            Call<AuthorizationToken> call = DNTApi.call().getToken("authorization_code", code, DNTApi.OAUTH2_REDIRECT_URL, client_id, client_secret);
+                            Call<AuthorizationToken> call = LoginApiSingleton.call().getToken("authorization_code", code, LoginApiSingleton.OAUTH2_REDIRECT_URL, client_id, client_secret);
                             call.enqueue(mAuthorizeCallback);
                         } else {
                             Utils.logout(LoginActivity.this);
