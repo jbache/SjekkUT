@@ -3,6 +3,8 @@ package no.dnt.sjekkut;
 import android.app.Application;
 import android.content.Context;
 
+import timber.log.Timber;
+
 /**
  * Copyright Den Norske Turistforening 2016
  * <p>
@@ -20,5 +22,8 @@ public class SjekkUTApplication extends Application {
     public void onCreate() {
         instance = this;
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 }

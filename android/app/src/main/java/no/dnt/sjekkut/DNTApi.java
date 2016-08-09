@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import okhttp3.Authenticator;
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,6 +21,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import timber.log.Timber;
 
 /**
  * Copyright Den Norske Turistforening 2016
@@ -29,34 +31,85 @@ import retrofit2.http.POST;
 public class DNTApi {
 
     public static final String OAUTH2_REDIRECT_URL = "https://localhost/callback";
+    public static final String API_MEDLEMSDATA = "api/oauth/medlemsdata/";
+    public static final String API_TOKEN = "o/token/";
+
     private static DNTApi ourInstance = new DNTApi();
 
     private final Endpoints api;
 
     private DNTApi() {
 
-        final Context appContext = SjekkUTApplication.getContext();
-        final String refreshToken = PreferenceUtils.getRefreshToken(appContext);
-        final String client_id = appContext.getResources().getString(R.string.client_id);
-        final String client_secret = appContext.getResources().getString(R.string.client_secret);
+        final Context mAppContext = SjekkUTApplication.getContext();
+        final String mClient_ID = mAppContext.getResources().getString(R.string.client_id);
+        final String mClient_Secret = mAppContext.getResources().getString(R.string.client_secret);
 
         Authenticator refreshAuthenticator = new Authenticator() {
             @Override
             public Request authenticate(Route route, Response response) throws IOException {
-                if (PreferenceUtils.hasRefreshToken(appContext)) {
-                    retrofit2.Response<AuthorizationToken> refresh = call().refreshToken("refresh_token", refreshToken, OAUTH2_REDIRECT_URL, client_id, client_secret).execute();
+                Timber.i("authenticate(..) url %s retry %d", response.request().url(), responseCount(response));
+                if (response.priorResponse() != null) {
+                    Timber.i("authenticate(..) prior url %s", response.priorResponse().request().url());
+                }
+
+                if (!PreferenceUtils.hasRefreshToken(mAppContext)) {
+                    Timber.i("No refresh token");
+                    Utils.logout(mAppContext);
+                    return null;
+                } else if (isRefreshResponse(response)) {
+                    Timber.i("Authentication error using refresh_token");
+                    Utils.logout(mAppContext);
+                    return null;
+                } else if (responseCount(response) > 3) {
+                    Timber.i("Authentication retry limit");
+                    Utils.logout(mAppContext);
+                    return null;
+                } else {
+                    retrofit2.Response<AuthorizationToken> refresh = call().refreshToken(
+                            "refresh_token",
+                            PreferenceUtils.getRefreshToken(mAppContext),
+                            OAUTH2_REDIRECT_URL,
+                            mClient_ID,
+                            mClient_Secret).execute();
                     if (refresh.isSuccessful()) {
                         PreferenceUtils.setAccessAndRefreshToken(
-                                appContext,
+                                mAppContext,
                                 refresh.body().access_token,
-                                refresh.body().refresh_token
-                        );
+                                refresh.body().refresh_token);
+                        Timber.i("Trying with new Authorization");
                         return response.request().newBuilder()
-                                .header("Authorization", PreferenceUtils.getBearerAuthorization(appContext))
+                                .header("Authorization", PreferenceUtils.getBearerAuthorization(mAppContext))
                                 .build();
+                    } else {
+                        Timber.i("Giving up trying to authenticate");
+                        Utils.logout(mAppContext);
+                        return null;
                     }
                 }
-                return null;
+            }
+
+            private boolean isRefreshResponse(Response response) {
+                if (response.request().url().encodedPath().contains(API_TOKEN)) {
+                    if (response.request().body() instanceof FormBody) {
+                        FormBody body = (FormBody) response.request().body();
+                        int fieldIndex = 0;
+                        while (fieldIndex < body.size()) {
+                            if ("refresh_token".equals(body.encodedName(fieldIndex))) {
+                                return true;
+                            }
+                            ++fieldIndex;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            private int responseCount(Response response) {
+                int result = 1;
+                while ((response = response.priorResponse()) != null) {
+                    result++;
+                }
+                return result;
             }
         };
 
@@ -65,7 +118,7 @@ public class DNTApi {
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Response originalResponse = chain.proceed(chain.request());
                 if (!originalResponse.isRedirect() &&
-                        originalResponse.request().url().encodedPath().contains("api/oauth/medlemsdata/") &&
+                        originalResponse.request().url().encodedPath().contains(API_MEDLEMSDATA) &&
                         originalResponse.code() == HttpURLConnection.HTTP_FORBIDDEN) {
                     return originalResponse.newBuilder().code(HttpURLConnection.HTTP_UNAUTHORIZED).build();
                 } else {
@@ -107,7 +160,7 @@ public class DNTApi {
     public interface Endpoints {
 
         @FormUrlEncoded
-        @POST("o/token/")
+        @POST(API_TOKEN)
         Call<AuthorizationToken> getToken(@Field("grant_type") String grant_type,
                                           @Field("code") String code,
                                           @Field("redirect_uri") String redirect_uri,
@@ -115,14 +168,14 @@ public class DNTApi {
                                           @Field("client_secret") String client_secret);
 
         @FormUrlEncoded
-        @POST("o/token/")
+        @POST(API_TOKEN)
         Call<AuthorizationToken> refreshToken(@Field("grant_type") String grant_type,
                                               @Field("refresh_token") String refresh_token,
                                               @Field("redirect_uri") String redirect_uri,
                                               @Field("client_id") String client_id,
                                               @Field("client_secret") String client_secret);
 
-        @GET("api/oauth/medlemsdata/")
+        @GET(API_MEDLEMSDATA)
         Call<MemberData> getMember(@Header("Authorization") String authorization);
     }
 }

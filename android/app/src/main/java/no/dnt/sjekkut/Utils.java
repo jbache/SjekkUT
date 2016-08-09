@@ -28,6 +28,8 @@ import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Copyright Den Norske Turistforening 2015
  * <p>
@@ -225,6 +227,7 @@ public class Utils {
     }
 
     public static void logout(Context context) {
+        Timber.i("logout()");
         PreferenceUtils.clearLoginInformation(context);
         Intent loginActivity = new Intent(context, LoginActivity.class);
         loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
