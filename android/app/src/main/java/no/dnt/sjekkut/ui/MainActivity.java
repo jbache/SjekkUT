@@ -34,9 +34,12 @@ import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.OppturApi;
+import no.dnt.sjekkut.network.TripApiSingleton;
+import no.dnt.sjekkut.network.TripList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -47,6 +50,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private boolean mResolvingError = false;
     private ArrayList<Pair<LocationListener, LocationRequest>> mPendingListener = new ArrayList<>();
     private Callback<MemberData> mMemberCallback;
+    private Callback<TripList> mListCallback;
 
     public static void showFeedbackActivity(Activity activity) {
         if (activity == null)
@@ -85,6 +89,22 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             }
         };
 
+        mListCallback = new Callback<TripList>() {
+            @Override
+            public void onResponse(Call<TripList> call, Response<TripList> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(MainActivity.this, "Got " + response.body().total + " trip lists");
+                } else {
+                    Utils.showToast(MainActivity.this, "Failed to get trip lists: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripList> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get trip lists: " + t.getLocalizedMessage());
+            }
+        };
+
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -117,8 +137,8 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     public void onResume() {
         super.onResume();
         checkForCrashes();
-        Call<MemberData> call = LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this));
-        call.enqueue(mMemberCallback);
+        LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
+        TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder").enqueue(mListCallback);
     }
 
     @Override
