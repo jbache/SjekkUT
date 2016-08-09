@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.network;
 
 /**
  * Created by espen on 21.05.2015.

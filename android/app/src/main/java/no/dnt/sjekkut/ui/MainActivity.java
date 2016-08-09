@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -28,6 +28,12 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 
+import no.dnt.sjekkut.PreferenceUtils;
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.DNTApi;
+import no.dnt.sjekkut.network.MemberData;
+import no.dnt.sjekkut.network.OppturApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.ui;
 
 import android.content.Context;
 import android.location.Location;
@@ -14,6 +14,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Comparator;
 import java.util.List;
+
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.Checkin;
+import no.dnt.sjekkut.network.Mountain;
 
 /**
  * Copyright Den Norske Turistforening 2015

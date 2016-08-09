@@ -1,13 +1,19 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.ui;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import no.dnt.sjekkut.PreferenceUtils;
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.AuthorizationToken;
+import no.dnt.sjekkut.network.DNTApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +66,9 @@ public class LoginActivity extends ActionBarActivity {
         WebView webview = new WebView(this);
         setContentView(webview);
         webview.getSettings().setJavaScriptEnabled(true);
+        if (Build.VERSION.SDK_INT <= 18) {
+            webview.getSettings().setSavePassword(false);
+        }
         webview.setVisibility(View.VISIBLE);
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

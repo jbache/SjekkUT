@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.network;
 
 /**
  * Copyright Den Norske Turistforening 2016

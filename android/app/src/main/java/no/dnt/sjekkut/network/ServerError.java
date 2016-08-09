@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.network;
 
 /**
  * Copyright Den Norske Turistforening 2015
@@ -6,6 +6,6 @@ package no.dnt.sjekkut;
  * Created by espen on 25.02.2015.
  */
 public class ServerError {
-    String error;
-    String details;
+    public String error;
+    public String details;
 }

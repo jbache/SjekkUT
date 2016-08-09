@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.network;
 
 import android.app.Activity;
 import android.location.Location;
@@ -23,6 +23,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
 import retrofit.Callback;
 import retrofit.ErrorHandler;
 import retrofit.RestAdapter;
@@ -76,11 +78,11 @@ public class OppturApi {
         void registerUser(@Header("device-id") String deviceID, @Body User user, Callback<User> callback);
     }
 
-    protected static class CheckinBody {
+    public static class CheckinBody {
 
         final Mountain.LocationContainer location = new Mountain.LocationContainer();
 
-        CheckinBody(Location location) {
+        public CheckinBody(Location location) {
             this.location.Lat = location.getLatitude();
             this.location.Lng = location.getLongitude();
         }

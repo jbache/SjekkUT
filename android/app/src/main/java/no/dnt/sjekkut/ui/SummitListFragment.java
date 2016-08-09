@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.ui;
 
 import android.content.DialogInterface;
 import android.location.Location;
@@ -29,6 +29,14 @@ import org.apache.http.HttpStatus;
 import java.util.ArrayList;
 import java.util.List;
 
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.Challenge;
+import no.dnt.sjekkut.network.Checkin;
+import no.dnt.sjekkut.network.Mountain;
+import no.dnt.sjekkut.network.OppturApi;
+import no.dnt.sjekkut.network.ServerError;
+import no.dnt.sjekkut.network.User;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

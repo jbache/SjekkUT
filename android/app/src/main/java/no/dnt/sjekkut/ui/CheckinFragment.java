@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.ui;
 
 import android.content.res.Resources;
 import android.location.Location;
@@ -24,6 +24,12 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.List;
 
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.Checkin;
+import no.dnt.sjekkut.network.Mountain;
+import no.dnt.sjekkut.network.OppturApi;
+import no.dnt.sjekkut.network.ServerError;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

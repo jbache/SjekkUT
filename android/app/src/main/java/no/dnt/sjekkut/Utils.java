@@ -28,6 +28,9 @@ import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
+import no.dnt.sjekkut.network.Checkin;
+import no.dnt.sjekkut.network.Mountain;
+import no.dnt.sjekkut.ui.LoginActivity;
 import timber.log.Timber;
 
 /**
@@ -46,7 +49,7 @@ public class Utils {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    static void setActionBarTitle(Activity activity, String title) {
+    public static void setActionBarTitle(Activity activity, String title) {
         if (activity instanceof ActionBarActivity) {
             ActionBar actionBar = ((ActionBarActivity) activity).getSupportActionBar();
             if (actionBar != null) {
@@ -55,7 +58,7 @@ public class Utils {
         }
     }
 
-    static void toggleUpButton(Activity activity, boolean enabled) {
+    public static void toggleUpButton(Activity activity, boolean enabled) {
         if (activity instanceof ActionBarActivity) {
             ActionBar actionBar = ((ActionBarActivity) activity).getSupportActionBar();
             if (actionBar != null) {
@@ -65,7 +68,7 @@ public class Utils {
         }
     }
 
-    static void shareCheckin(Activity activity, Checkin checkin, Mountain mMountain) {
+    public static void shareCheckin(Activity activity, Checkin checkin, Mountain mMountain) {
         if (activity == null || checkin == null || mMountain == null)
             return;
 

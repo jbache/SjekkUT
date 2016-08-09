@@ -1,10 +1,15 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.network;
 
 import android.content.Context;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
+import no.dnt.sjekkut.BuildConfig;
+import no.dnt.sjekkut.PreferenceUtils;
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.SjekkUTApplication;
+import no.dnt.sjekkut.Utils;
 import okhttp3.Authenticator;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;

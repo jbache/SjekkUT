@@ -1,4 +1,4 @@
-package no.dnt.sjekkut;
+package no.dnt.sjekkut.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.os.Handler;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
 
 
 public class SplashActivity extends Activity implements Target {
