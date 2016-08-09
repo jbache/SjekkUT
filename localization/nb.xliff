@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="SjekkUt/Base.lproj/LaunchScreen.xib" source-language="en" datatype="plaintext" target-language="nb">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="8ie-xW-0ye.text">
+        <source>  Copyright (c) 2015 Den Norske Turistforening. All rights reserved.</source>
+        <target>  Copyright (c) 2015 Den Norske Turistforening. All rights reserved.</target>
+        <note>Class = "UILabel"; text = "  Copyright (c) 2015 Den Norske Turistforening. All rights reserved."; ObjectID = "8ie-xW-0ye";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SjekkUt/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="nb">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="3Xd-S5-Acu.text">
+        <source>county, altitude</source>
+        <note>Class = "UILabel"; text = "county, altitude"; ObjectID = "3Xd-S5-Acu";</note>
+      </trans-unit>
+      <trans-unit id="6BL-4R-YAG.text">
+        <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</source>
+        <note>Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "6BL-4R-YAG";</note>
+      </trans-unit>
+      <trans-unit id="6pE-DR-y7O.text">
+        <source>county, elevation</source>
+        <target>fylke, høyde</target>
+      </trans-unit>
+      <trans-unit id="25x-wa-zub.text">
+        <source>Distance</source>
+        <target>Avstand</target>
+        <note>Class = "UILabel"; text = "Distance"; ObjectID = "25x-wa-zub";</note>
+      </trans-unit>
+      <trans-unit id="75k-d1-Gl6.title">
+        <source>Title</source>
+        <target>Tittel</target>
+        <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "75k-d1-Gl6";</note>
+      </trans-unit>
+      <trans-unit id="BES-ZN-c87.normalTitle">
+        <source>Check in!</source>
+        <target>Sjekk inn!</target>
+        <note>Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "BES-ZN-c87";</note>
+      </trans-unit>
+      <trans-unit id="CVA-0O-3fp.normalTitle">
+        <source>Info</source>
+        <target>Info</target>
+        <note>Class = "UIButton"; normalTitle = "Info"; ObjectID = "CVA-0O-3fp";</note>
+      </trans-unit>
+      <trans-unit id="HGd-kH-adL.text">
+        <source>name</source>
+        <target>navn</target>
+      </trans-unit>
+      <trans-unit id="IBq-T2-jaY.normalTitle">
+        <source>Check in!</source>
+        <target>Sjekk inn!</target>
+        <note>Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "IBq-T2-jaY";</note>
+      </trans-unit>
+      <trans-unit id="Kxj-xj-gTr.normalTitle">
+        <source>Click here to join!</source>
+        <target>Trykk her for å bli med!</target>
+      </trans-unit>
+      <trans-unit id="N6j-fg-bgj.text">
+        <source>climber count</source>
+        <target>antall besteget</target>
+        <note>Class = "UILabel"; text = "climber count"; ObjectID = "N6j-fg-bgj";</note>
+      </trans-unit>
+      <trans-unit id="OXH-wX-4GR.text">
+        <source>Congratulations! You have summited all 24 summits! This is totally awesome and you rock!</source>
+        <target>Gratulerer! Du har besteget alle toppene!</target>
+      </trans-unit>
+      <trans-unit id="R5u-WJ-Jhc.text">
+        <source>Distance</source>
+        <target>Avstand</target>
+        <note>Class = "UILabel"; text = "Distance"; ObjectID = "R5u-WJ-Jhc";</note>
+      </trans-unit>
+      <trans-unit id="Tpt-2q-Edn.text">
+        <source>county, elevation</source>
+        <note>Class = "UILabel"; text = "county, elevation"; ObjectID = "Tpt-2q-Edn";</note>
+      </trans-unit>
+      <trans-unit id="VRa-9U-b97.text">
+        <source>name</source>
+        <target>navn</target>
+        <note>Class = "UILabel"; text = "name"; ObjectID = "VRa-9U-b97";</note>
+      </trans-unit>
+      <trans-unit id="VUz-fz-7Ol.text">
+        <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</source>
+        <note>Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "VUz-fz-7Ol";</note>
+      </trans-unit>
+      <trans-unit id="X32-B9-KX4.title">
+        <source>Opptur</source>
+        <target>Sjekk UT</target>
+      </trans-unit>
+      <trans-unit id="XHg-Uz-lpr.text">
+        <source>Description</source>
+        <target>Beskrivelse</target>
+        <note>Class = "UILabel"; text = "Description"; ObjectID = "XHg-Uz-lpr";</note>
+      </trans-unit>
+      <trans-unit id="Y7P-p5-GVc.text">
+        <source>Not climbed</source>
+        <target>Ikke besteget</target>
+      </trans-unit>
+      <trans-unit id="bGD-Db-PQW.normalTitle">
+        <source>Read more on our web</source>
+        <target>Les mer på våre websider</target>
+        <note>Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "bGD-Db-PQW";</note>
+      </trans-unit>
+      <trans-unit id="bfX-bI-S5E.text">
+        <source>climb count</source>
+        <target>toppturer</target>
+      </trans-unit>
+      <trans-unit id="hQM-Dp-f9c.normalTitle">
+        <source>SH</source>
+        <note>Class = "UIButton"; normalTitle = "SH"; ObjectID = "hQM-Dp-f9c";</note>
+      </trans-unit>
+      <trans-unit id="hY6-0v-phf.text">
+        <source>No Challenge</source>
+        <target>Ingen utfordinger</target>
+        <note>Class = "UILabel"; text = "No Challenge"; ObjectID = "hY6-0v-phf";</note>
+      </trans-unit>
+      <trans-unit id="iDh-5N-jVo.text">
+        <source>Summit Name</source>
+        <target>Toppnavn</target>
+        <note>Class = "UILabel"; text = "Summit Name"; ObjectID = "iDh-5N-jVo";</note>
+      </trans-unit>
+      <trans-unit id="ja8-RB-6dF.text">
+        <source>Not climbed</source>
+        <target>Ikke besteget</target>
+        <note>Class = "UILabel"; text = "Not climbed"; ObjectID = "ja8-RB-6dF";</note>
+      </trans-unit>
+      <trans-unit id="oJ6-8u-0f3.normalTitle">
+        <source>FB</source>
+        <note>Class = "UIButton"; normalTitle = "FB"; ObjectID = "oJ6-8u-0f3";</note>
+      </trans-unit>
+      <trans-unit id="tEg-Wm-Uvi.title">
+        <source> </source>
+        <target> </target>
+      </trans-unit>
+      <trans-unit id="uT5-Xn-xFE.text">
+        <source>climb count</source>
+        <target>toppturer</target>
+        <note>Class = "UILabel"; text = "climb count"; ObjectID = "uT5-Xn-xFE";</note>
+      </trans-unit>
+      <trans-unit id="vCl-Zk-4Rc.text">
+        <source>Distance</source>
+        <target>Label</target>
+      </trans-unit>
+      <trans-unit id="xB6-54-BY5.text">
+        <source>Baseline guide</source>
+        <note>Class = "UILabel"; text = "Baseline guide"; ObjectID = "xB6-54-BY5";</note>
+      </trans-unit>
+      <trans-unit id="xzv-wr-uzJ.text">
+        <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</source>
+        <note>Class = "UILabel"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "xzv-wr-uzJ";</note>
+      </trans-unit>
+      <trans-unit id="y2A-QB-aS5.text">
+        <source>Finding your location...</source>
+        <target>Finner posisjonen din...</target>
+        <note>Class = "UILabel"; text = "Finding your location..."; ObjectID = "y2A-QB-aS5";</note>
+      </trans-unit>
+      <trans-unit id="z17-1s-HLU.text">
+        <source>Checkins</source>
+        <target>Innsjekkinger</target>
+        <note>Class = "UILabel"; text = "Checkins"; ObjectID = "z17-1s-HLU";</note>
+      </trans-unit>
+      <trans-unit id="zk1-jX-cbe.text">
+        <source>Project Name</source>
+        <target>Prosjektnavn</target>
+        <note>Class = "UILabel"; text = "Project Name"; ObjectID = "zk1-jX-cbe";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SjekkUt/Info.plist" source-language="en" datatype="plaintext" target-language="nb">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName">
+        <source>Sjekk UT</source>
+      </trans-unit>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>0.0.1</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SjekkUt/Localizable.strings" source-language="en" datatype="plaintext" target-language="nb">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="%@ people have checked in here today.">
+        <source>%@ people have checked in here today.</source>
+        <target>%@ personer har sjekket inn her i dag.</target>
+        <note>daily checkin description</note>
+      </trans-unit>
+      <trans-unit id="Allow using location">
+        <source>Allow using location</source>
+        <target>Tillat å bruke stedstjenester</target>
+        <note>title for location request</note>
+      </trans-unit>
+      <trans-unit id="Checking in...">
+        <source>Checking in...</source>
+        <target>Sjekker inn...</target>
+        <note>Checking in label in summit search</note>
+      </trans-unit>
+      <trans-unit id="Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.">
+        <source>Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.</source>
+        <target>Klarte ikke finne sted. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne sted.</target>
+        <note>location timeout notification text</note>
+      </trans-unit>
+      <trans-unit id="Could not get a location. Make sure you have authorized the use of location services.">
+        <source>Could not get a location. Make sure you have authorized the use of location services.</source>
+        <target>Klarte ikke finne sted. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.</target>
+        <note>location timeout notification text</note>
+      </trans-unit>
+      <trans-unit id="In total, %@ people have checked in here.">
+        <source>In total, %@ people have checked in here.</source>
+        <target>Totalt har %@ personer sjekket inn her.</target>
+        <note>total checkin description</note>
+      </trans-unit>
+      <trans-unit id="In total, one person have checked in here.">
+        <source>In total, one person have checked in here.</source>
+        <target>Totalt har en person sjekket inn her.</target>
+        <note>single checkin description</note>
+      </trans-unit>
+      <trans-unit id="My projects">
+        <source>My projects</source>
+        <target>Mine prosjekter</target>
+        <note>section header with checkins</note>
+      </trans-unit>
+      <trans-unit id="No">
+        <source>No</source>
+        <target>Nei</target>
+        <note>cancel button title for location request</note>
+      </trans-unit>
+      <trans-unit id="Nobody have checked in here today.">
+        <source>Nobody have checked in here today.</source>
+        <target>Ingen har sjekket inn her i dag.</target>
+        <note>daily checkin description</note>
+      </trans-unit>
+      <trans-unit id="Nobody have checked in here.">
+        <source>Nobody have checked in here.</source>
+        <target>Ingen har sjekket inn her.</target>
+        <note>total checkin description</note>
+      </trans-unit>
+      <trans-unit id="Not climbed">
+        <source>Not climbed</source>
+        <target>Ikke besteget</target>
+        <note>no checkin label</note>
+      </trans-unit>
+      <trans-unit id="OK">
+        <source>OK</source>
+        <target>Ok</target>
+        <note>cancel button title for restricted location</note>
+      </trans-unit>
+      <trans-unit id="Only one person have checked in here today.">
+        <source>Only one person have checked in here today.</source>
+        <target>Kun en person har sjekket inn her i dag.</target>
+        <note>daily checkin description</note>
+      </trans-unit>
+      <trans-unit id="Other projects">
+        <source>Other projects</source>
+        <target>Andre prosjekter</target>
+        <note>section header without checkins</note>
+      </trans-unit>
+      <trans-unit id="Positioning Failure">
+        <source>Positioning Failure</source>
+        <target>Feil i stedstjenester</target>
+        <note>title for generic location failure</note>
+      </trans-unit>
+      <trans-unit id="Summited %ld time">
+        <source>Summited %ld time</source>
+        <target>Besteget en gang</target>
+        <note>summit count label singular</note>
+      </trans-unit>
+      <trans-unit id="Summited %ld times">
+        <source>Summited %ld times</source>
+        <target>Besteget %ld ganger</target>
+        <note>summit count label plural</note>
+      </trans-unit>
+      <trans-unit id="This app is not authorized to use Location services, possibly because of parental controls">
+        <source>This app is not authorized to use Location services, possibly because of parental controls</source>
+        <target>Denne appen er ikke autorisert til å bruke stedstjenester, muligens på grunn av foreldrekontroll.</target>
+        <note>message for restricted location</note>
+      </trans-unit>
+      <trans-unit id="This app is not authorized to use Location services. Please open Settings and enable location services for this app.">
+        <source>This app is not authorized to use Location services. Please open Settings and enable location services for this app.</source>
+        <target>Denne appen er ikke autorisert til å bruke stedstjenester. Vennsligst slå på stedstjenester for appen i Innstillinger.</target>
+        <note>message for missing location</note>
+      </trans-unit>
+      <trans-unit id="This app requires using Location services. Is it OK to request permissions for using your device position?">
+        <source>This app requires using Location services. Is it OK to request permissions for using your device position?</source>
+        <target>Denne appen krever bruk av stedstjenester. Er det greit å be om tillatelse til å bruke posisjonen din?</target>
+        <note>message for location request</note>
+      </trans-unit>
+      <trans-unit id="Unable to Locate">
+        <source>Unable to Locate</source>
+        <target>Klarer ikke finne sted</target>
+        <note>location timeout title</note>
+      </trans-unit>
+      <trans-unit id="Unable to locate">
+        <source>Unable to locate</source>
+        <target>Klarer ikke å finne sted</target>
+        <note>locate permission error message
+   title for missing location
+   title for restricted location</note>
+      </trans-unit>
+      <trans-unit id="Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls.">
+        <source>Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls.</source>
+        <target>Klarer ikke finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.</target>
+        <note>locate permission error message</note>
+      </trans-unit>
+      <trans-unit id="Yay! Checked in to %@">
+        <source>Yay! Checked in to %@</source>
+        <target>Yay! Sjekket inn på %@</target>
+        <note>check in notification text</note>
+      </trans-unit>
+      <trans-unit id="Yes!">
+        <source>Yes!</source>
+        <target>Ja!</target>
+        <note>Ok button title for location request</note>
+      </trans-unit>
+      <trans-unit id="You can check in.">
+        <source>You can check in.</source>
+        <target>Du kan sjekke inn.</target>
+        <note>can check in</note>
+      </trans-unit>
+      <trans-unit id="You checked in to %@ %@.">
+        <source>You checked in to %1$@ %2$@.</source>
+        <target>Du sjekket inn på %@ %@.</target>
+        <note>last checkin time ago</note>
+      </trans-unit>
+      <trans-unit id="You have checked in here %@ times.">
+        <source>You have checked in here %@ times.</source>
+        <target>Du har sjekket inn her %@ ganger.</target>
+        <note>personal checkin description</note>
+      </trans-unit>
+      <trans-unit id="You have checked in here once.">
+        <source>You have checked in here once.</source>
+        <target>Du har sjekket inn her èn gang.</target>
+        <note>personal checkin description</note>
+      </trans-unit>
+      <trans-unit id="You have never checked in here.">
+        <source>You have never checked in here.</source>
+        <target>Du har aldri sjekket inn her.</target>
+        <note>personal checkin description</note>
+      </trans-unit>
+      <trans-unit id="You have summited %@ of %@ so far!">
+        <source>You have summited %1$@ of %2$@ so far!</source>
+        <target>Du har sjekket inn på %1$@ av %2$@ til nå!</target>
+        <note>count summits in challenge</note>
+      </trans-unit>
+      <trans-unit id="You have to be 200 meter from the summit and wait 24 hours before you can check in.">
+        <source>You have to be 200 meter from the summit and wait 24 hours before you can check in.</source>
+        <target>Du må være maks 200 meter fra punktet og vente 24 timer før du kan sjekke inn.</target>
+        <note>can't check in time and distance</note>
+      </trans-unit>
+      <trans-unit id="You have to be 200 meter from the summit before you can check in.">
+        <source>You have to be 200 meter from the summit before you can check in.</source>
+        <target>Du må være maks 200 meter fra punktet for å sjekke inn.</target>
+        <note>can't check in distance</note>
+      </trans-unit>
+      <trans-unit id="You have to wait 24 hours before you can check in.">
+        <source>You have to wait 24 hours before you can check in.</source>
+        <target>Du må vente 24 timer før du kan sjekke inn</target>
+        <note>can't check in time</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SjekkUtTests/Info.plist" source-language="en" datatype="plaintext" target-language="nb">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SjekkUtTests/Localizable.strings" source-language="en" datatype="plaintext" target-language="nb">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
+    </header>
+    <body>
+      <trans-unit id="Allow using location">
+        <source>Allow using location</source>
+        <target>Tillat å bruke stedstjenester</target>
+        <note>title for location request</note>
+      </trans-unit>
+      <trans-unit id="Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.">
+        <source>Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.</source>
+        <target>Klarte ikke finne sted. Pass på at du kan se himmelen for å la GPS finne din posisjon.</target>
+        <note>location timeout notification text</note>
+      </trans-unit>
+      <trans-unit id="Could not get a location. Make sure you have authorized the use of location services.">
+        <source>Could not get a location. Make sure you have authorized the use of location services.</source>
+        <target>Klarte ikke finne sted. Pass på at du har tillatt bruk av stedstjenester.</target>
+        <note>location timeout notification text</note>
+      </trans-unit>
+      <trans-unit id="My projects">
+        <source>My projects</source>
+        <target>Mine prosjekter</target>
+        <note>section header with checkins</note>
+      </trans-unit>
+      <trans-unit id="No">
+        <source>No</source>
+        <target>Nei</target>
+        <note>cancel button title for location request</note>
+      </trans-unit>
+      <trans-unit id="Not climbed">
+        <source>Not climbed</source>
+        <target>Ikke besteget</target>
+        <note>no checkin label</note>
+      </trans-unit>
+      <trans-unit id="OK">
+        <source>OK</source>
+        <target>OK</target>
+        <note>cancel button title for restricted location</note>
+      </trans-unit>
+      <trans-unit id="Other projects">
+        <source>Other projects</source>
+        <target>Anre prosjekter</target>
+        <note>section header without checkins</note>
+      </trans-unit>
+      <trans-unit id="Positioning Failure">
+        <source>Positioning Failure</source>
+        <target>Posisjoneringsfeil</target>
+        <note>title for generic location failure</note>
+      </trans-unit>
+      <trans-unit id="Summited %ld time">
+        <source>Summited %ld time</source>
+        <target>Besteget en gang</target>
+        <note>summit count label singular</note>
+      </trans-unit>
+      <trans-unit id="Summited %ld times">
+        <source>Summited %ld times</source>
+        <target>Besteget %ld ganger</target>
+        <note>summit count label plural</note>
+      </trans-unit>
+      <trans-unit id="This app is not authorized to use Location services, possibly because of parental controls">
+        <source>This app is not authorized to use Location services, possibly because of parental controls</source>
+        <target>Denne appen er ikke auorisert til stedstjenester, kanskje på grunn av foreldresperre.</target>
+        <note>message for restricted location</note>
+      </trans-unit>
+      <trans-unit id="This app is not authorized to use Location services. Please open Settings and enable location services for this app.">
+        <source>This app is not authorized to use Location services. Please open Settings and enable location services for this app.</source>
+        <target>Denne appen er ikke autoristert til å bruke stedstjenester. Vennligst åpne Innstillinger og slå på stedstjenesert for denne appen.</target>
+        <note>message for missing location</note>
+      </trans-unit>
+      <trans-unit id="This app requires using Location services. Is it OK to request permissions for using your device position?">
+        <source>This app requires using Location services. Is it OK to request permissions for using your device position?</source>
+        <target>Denne appen krever bruk av stedstjenester. Er det OK å spørre om tillatelse til å bruke din posisjon?</target>
+        <note>message for location request</note>
+      </trans-unit>
+      <trans-unit id="Unable to Locate">
+        <source>Unable to Locate</source>
+        <target>Klarer ikke finne posisjon</target>
+        <note>location timeout title</note>
+      </trans-unit>
+      <trans-unit id="Unable to locate">
+        <source>Unable to locate</source>
+        <target>Klarer ikke finne posisjon</target>
+        <note>locate permission error message
+   title for missing location
+   title for restricted location</note>
+      </trans-unit>
+      <trans-unit id="Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls.">
+        <source>Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls.</source>
+        <target>Klarer ikke å finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.</target>
+        <note>locate permission error message</note>
+      </trans-unit>
+      <trans-unit id="Yes!">
+        <source>Yes!</source>
+        <target>Ja!</target>
+        <note>Ok button title for location request</note>
+      </trans-unit>
+      <trans-unit id="You can check in.">
+        <source>You can check in.</source>
+        <target>Du kan sjekke inn.</target>
+        <note>can check in</note>
+      </trans-unit>
+      <trans-unit id="You have summited %@ of %@ so far!">
+        <source>You have summited %1$@ of %2$@ so far!</source>
+        <target>Du har besteget %1$@ av %2$@ til nå!</target>
+        <note>count summits in challenge</note>
+      </trans-unit>
+      <trans-unit id="You have to be 200 meter from the summit and wait 24 hours before you can check in.">
+        <source>You have to be 200 meter from the summit and wait 24 hours before you can check in.</source>
+        <target>Du må være 200 meter fra toppen og vente 24 timer før du kan sjekke inn.</target>
+        <note>can't check in time and distance</note>
+      </trans-unit>
+      <trans-unit id="You have to be 200 meter from the summit before you can check in.">
+        <source>You have to be 200 meter from the summit before you can check in.</source>
+        <target>Du må være 200 meter fra toppen før du kan sjekke inn.</target>
+        <note>can't check in distance</note>
+      </trans-unit>
+      <trans-unit id="You have to wait 24 hours before you can check in.">
+        <source>You have to wait 24 hours before you can check in.</source>
+        <target>Du må vente 24 timer før du kan sjekke inn.</target>
+        <note>can't check in time</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

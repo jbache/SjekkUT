@@ -38,6 +38,8 @@
 		6C72A3FF1A8B835700A47AEE /* CheckinButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C72A3FE1A8B835700A47AEE /* CheckinButton.m */; };
 		6C72A4051A8B92D300A47AEE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6C72A4041A8B92D300A47AEE /* Settings.bundle */; };
 		6C72A4081A8CE5CF00A47AEE /* DntNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C72A4071A8CE5CF00A47AEE /* DntNavigationBar.m */; };
+		6C73805F1D59C93F0052B063 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C7380611D59C93F0052B063 /* Localizable.strings */; };
+		6C7380641D59C9400052B063 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C7380661D59C9400052B063 /* InfoPlist.strings */; };
 		6C740AAF1B187F9C00176D2E /* opptur-splash-compressed.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6C740AAE1B187F9C00176D2E /* opptur-splash-compressed.jpg */; };
 		6C740AB11B187FA600176D2E /* dnt-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C740AB01B187FA600176D2E /* dnt-logo.png */; };
 		6C740AB71B1888F700176D2E /* ut-name.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C740AB61B1888F700176D2E /* ut-name.png */; };
@@ -171,6 +173,8 @@
 		6C72A4041A8B92D300A47AEE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6C72A4061A8CE5CF00A47AEE /* DntNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntNavigationBar.h; path = views/style/DntNavigationBar.h; sourceTree = "<group>"; };
 		6C72A4071A8CE5CF00A47AEE /* DntNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DntNavigationBar.m; path = views/style/DntNavigationBar.m; sourceTree = "<group>"; };
+		6C7380601D59C93F0052B063 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6C7380651D59C9400052B063 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6C740AAE1B187F9C00176D2E /* opptur-splash-compressed.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "opptur-splash-compressed.jpg"; sourceTree = "<group>"; };
 		6C740AB01B187FA600176D2E /* dnt-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dnt-logo.png"; sourceTree = "<group>"; };
 		6C740AB61B1888F700176D2E /* ut-name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ut-name.png"; sourceTree = "<group>"; };
@@ -462,6 +466,8 @@
 		6CE0760B1D474C89000ACAAA /* SjekkUtTests */ = {
 			isa = PBXGroup;
 			children = (
+				6C7380661D59C9400052B063 /* InfoPlist.strings */,
+				6C7380611D59C93F0052B063 /* Localizable.strings */,
 				6CE076241D474E03000ACAAA /* Info.plist */,
 				6C08F6641A88AA810091D70A /* LocationTest.m */,
 				6C70643D1A82B72200291137 /* ModelTest.m */,
@@ -629,6 +635,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE076251D474E03000ACAAA /* Info.plist in Resources */,
+				6C7380641D59C9400052B063 /* InfoPlist.strings in Resources */,
+				6C73805F1D59C93F0052B063 /* Localizable.strings in Resources */,
 				6CE5268E1D50744C00D3419B /* api.nasjonalturbase.no.api_key in Resources */,
 				6CE5268D1D50744900D3419B /* www.dnt.no.client_secret in Resources */,
 				6CE5268F1D50745000D3419B /* dev.nasjonalturbase.no.api_key in Resources */,
@@ -864,6 +872,22 @@
 				6C70644E1A83792900291137 /* nb */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		6C7380611D59C93F0052B063 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C7380601D59C93F0052B063 /* nb */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6C7380661D59C9400052B063 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C7380651D59C9400052B063 /* nb */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -1,0 +1,71 @@
+/* title for location request */
+"Allow using location" = "Tillat å bruke stedstjenester";
+
+/* location timeout notification text */
+"Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne sted. Pass på at du kan se himmelen for å la GPS finne din posisjon.";
+
+/* location timeout notification text */
+"Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne sted. Pass på at du har tillatt bruk av stedstjenester.";
+
+/* section header with checkins */
+"My projects" = "Mine prosjekter";
+
+/* cancel button title for location request */
+"No" = "Nei";
+
+/* no checkin label */
+"Not climbed" = "Ikke besteget";
+
+/* cancel button title for restricted location */
+"OK" = "OK";
+
+/* section header without checkins */
+"Other projects" = "Anre prosjekter";
+
+/* title for generic location failure */
+"Positioning Failure" = "Posisjoneringsfeil";
+
+/* summit count label singular */
+"Summited %ld time" = "Besteget en gang";
+
+/* summit count label plural */
+"Summited %ld times" = "Besteget %ld ganger";
+
+/* message for restricted location */
+"This app is not authorized to use Location services, possibly because of parental controls" = "Denne appen er ikke auorisert til stedstjenester, kanskje på grunn av foreldresperre.";
+
+/* message for missing location */
+"This app is not authorized to use Location services. Please open Settings and enable location services for this app." = "Denne appen er ikke autoristert til å bruke stedstjenester. Vennligst åpne Innstillinger og slå på stedstjenesert for denne appen.";
+
+/* message for location request */
+"This app requires using Location services. Is it OK to request permissions for using your device position?" = "Denne appen krever bruk av stedstjenester. Er det OK å spørre om tillatelse til å bruke din posisjon?";
+
+/* location timeout title */
+"Unable to Locate" = "Klarer ikke finne posisjon";
+
+/* locate permission error message
+   title for missing location
+   title for restricted location */
+"Unable to locate" = "Klarer ikke finne posisjon";
+
+/* locate permission error message */
+"Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls." = "Klarer ikke å finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.";
+
+/* Ok button title for location request */
+"Yes!" = "Ja!";
+
+/* can check in */
+"You can check in." = "Du kan sjekke inn.";
+
+/* count summits in challenge */
+"You have summited %@ of %@ so far!" = "Du har besteget %1$@ av %2$@ til nå!";
+
+/* can't check in time and distance */
+"You have to be 200 meter from the summit and wait 24 hours before you can check in." = "Du må være 200 meter fra toppen og vente 24 timer før du kan sjekke inn.";
+
+/* can't check in distance */
+"You have to be 200 meter from the summit before you can check in." = "Du må være 200 meter fra toppen før du kan sjekke inn.";
+
+/* can't check in time */
+"You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan sjekke inn.";
+
