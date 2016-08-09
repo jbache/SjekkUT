@@ -8,6 +8,7 @@
 
 import Foundation
 import AlamofireImage
+import MapKit
 
 class PlaceView : UITableViewController, UITextViewDelegate {
 
@@ -54,6 +55,19 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     @IBAction func shareClicked(sender: AnyObject) {
     }
 
+    func showMap() {
+        let aCoordinate = CLLocationCoordinate2DMake(
+            (place?.latitude!.doubleValue)!,
+            (place?.longitude!.doubleValue)!
+        );
+
+        let aPlacemark = MKPlacemark(coordinate: aCoordinate, addressDictionary: nil)
+
+        let aMapItem = MKMapItem(placemark: aPlacemark)
+        aMapItem.name = place?.name
+        aMapItem.openInMapsWithLaunchOptions(nil)
+    }
+
     // MARK: viewcontroller
     override func viewDidLoad() {
         if (place != nil) {
@@ -75,6 +89,10 @@ class PlaceView : UITableViewController, UITextViewDelegate {
         checkinLabel.sizeToFit()
 
         tableView.endUpdates()
+    }
+
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        showMap()
     }
 
     // MARK: observing
