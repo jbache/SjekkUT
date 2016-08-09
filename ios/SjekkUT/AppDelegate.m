@@ -11,7 +11,6 @@
 #import <SSKeychain/SSKeychain.h>
 
 #import "AppDelegate.h"
-#import "Backend.h"
 #import "Defines.h"
 #import "ModelController.h"
 #import "SjekkUtStyle.h"

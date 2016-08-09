@@ -9,7 +9,6 @@
 
 #import "Defines.h"
 #import "ModelController.h"
-#import "NetworkController.h"
 
 @implementation NSError (fail)
 
@@ -147,7 +146,6 @@
             [self setPrivateContext:nil];
             [self setManagedObjectContext:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [network clearETags];
                 [self initializeCoreData];
             });
             return;

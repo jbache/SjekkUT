@@ -8,7 +8,6 @@
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
-#import "Backend.h"
 #import "Defines.h"
 #import "Location.h"
 
@@ -148,6 +147,13 @@
 }
 
 #pragma mark - UIAlertview
+- (void)showError:(NSString *)title message:(NSString *)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -262,8 +268,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [backend showError:NSLocalizedString(@"Positioning Failure", @"title for generic location failure")
-               message:error.localizedDescription];
+    [self showError:NSLocalizedString(@"Positioning Failure", @"title for generic location failure")
+            message:error.localizedDescription];
     [self stopUpdate];
 }
 
@@ -302,7 +308,7 @@
         }
     }
 
-    [backend showError:NSLocalizedString(@"Unable to Locate", @"location timeout title")
+    [self showError:NSLocalizedString(@"Unable to Locate", @"location timeout title")
                message:text];
 }
 
