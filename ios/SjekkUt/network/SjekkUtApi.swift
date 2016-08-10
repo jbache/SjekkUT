@@ -42,7 +42,9 @@ class SjekkUtApi: Alamofire.Manager {
             .responseJSON { response in
                 if let checkinsJson = response.result.value!["data"] as? [[String: AnyObject]] {
                     for checkinJson in checkinsJson {
-                        _ = Checkin.insertOrUpdate(checkinJson)
+                        if checkinJson["dnt_user_id"]?.doubleValue == DntApi.instance.user?.dntId {
+                            _ = Checkin.insertOrUpdate(checkinJson)
+                        }
                     }
                     ModelController.instance().save()
                 }
