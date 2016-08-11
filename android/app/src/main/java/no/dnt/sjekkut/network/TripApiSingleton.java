@@ -18,7 +18,7 @@ public enum TripApiSingleton {
     private final TripApi api = new Retrofit.Builder()
             .baseUrl("https://dev.nasjonalturbase.no/")
             .client(OkHttpSingleton.getClient())
-            .addConverterFactory(GsonConverterFactory.create(GsonSingleton.custom()))
+            .addConverterFactory(GsonConverterFactory.create(GsonSingleton.allAdaptors()))
             .build().create(TripApi.class);
 
     public static TripApi call() {
@@ -32,5 +32,8 @@ public enum TripApiSingleton {
 
         @GET("lister/{id}/")
         Call<Trip> getTrip(@Path("id") String id, @Query("api_key") String api_key, @Query("fields") String fields, @Query("expand") String expand);
+
+        @GET("steder/{id}/")
+        Call<Place> getPlace(@Path("id") String id, @Query("api_key") String api_key, @Query("expand") String expand);
     }
 }

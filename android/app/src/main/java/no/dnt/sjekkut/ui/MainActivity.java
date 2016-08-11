@@ -34,6 +34,7 @@ import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.OppturApi;
+import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.Trip;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.TripList;
@@ -52,6 +53,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private Callback<MemberData> mMemberCallback;
     private Callback<TripList> mTripListcallback;
     private Callback<Trip> mTripCallback;
+    private Callback<Place> mPlaceCallback;
 
     public static void showFeedbackActivity(Activity activity) {
         if (activity == null)
@@ -119,6 +121,13 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             public void onResponse(Call<Trip> call, Response<Trip> response) {
                 if (response.isSuccessful()) {
                     Utils.showToast(MainActivity.this, "Got trip " + response.body().navn);
+                    int lastPlaceIndex = response.body().steder.size();
+                    Place lastPlace = response.body().steder.get(lastPlaceIndex - 1);
+                    TripApiSingleton.call().getPlace(
+                            lastPlace._id,
+                            getString(R.string.api_key),
+                            "bilder"
+                    ).enqueue(mPlaceCallback);
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get trip" + response.code());
                 }
@@ -128,6 +137,23 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             public void onFailure(Call<Trip> call, Throwable t) {
                 Utils.showToast(MainActivity.this, "Failed to get trip: " + t.getLocalizedMessage());
 
+            }
+        };
+
+        mPlaceCallback = new Callback<Place>() {
+            @Override
+            public void onResponse(Call<Place> call, Response<Place> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(MainActivity.this, "Got place: " + response.body().navn);
+                } else {
+                    Utils.showToast(MainActivity.this, "Failed to get place: " + response.code());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Place> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get place: " + t.getLocalizedMessage());
             }
         };
 

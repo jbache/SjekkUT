@@ -11,19 +11,30 @@ import com.google.gson.GsonBuilder;
 public enum GsonSingleton {
     INSTANCE;
 
-    private final Gson custom = new GsonBuilder()
+    private final Gson adaptersAll = new GsonBuilder()
             .registerTypeAdapter(Place.class, new PlaceDeserializer())
+            .registerTypeAdapter(Photo.class, new PhotoDeserializer())
             .create();
 
-    private final Gson plain = new GsonBuilder()
+    private final Gson adaptersPhoto = new GsonBuilder()
+            .registerTypeAdapter(Photo.class, new PhotoDeserializer())
             .create();
 
 
-    public static Gson custom() {
-        return INSTANCE.custom;
+    private final Gson adaptersNone = new GsonBuilder()
+            .create();
+
+
+    public static Gson allAdaptors() {
+        return INSTANCE.adaptersAll;
     }
 
-    public static Gson plain() {
-        return INSTANCE.plain;
+
+    public static Gson photoAdapter() {
+        return INSTANCE.adaptersPhoto;
+    }
+
+    public static Gson noAdaptors() {
+        return INSTANCE.adaptersNone;
     }
 }

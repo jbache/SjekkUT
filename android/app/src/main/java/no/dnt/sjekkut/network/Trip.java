@@ -12,4 +12,5 @@ public class Trip {
     public String navn;
     public String beskrivelse;
     public List<Place> steder;
+    public List<Photo> bilder;
 }

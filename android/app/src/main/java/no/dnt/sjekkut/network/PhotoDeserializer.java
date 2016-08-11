@@ -7,18 +7,20 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
+import timber.log.Timber;
+
 /**
  * Copyright Den Norske Turistforening 2016
  * <p>
  * Created by espen on 11.08.2016.
  */
-public class PlaceDeserializer implements JsonDeserializer<Place> {
+public class PhotoDeserializer implements JsonDeserializer<Photo> {
     @Override
-    public Place deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Photo deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         if (json.isJsonObject()) {
-            return GsonSingleton.photoAdapter().fromJson(json.getAsJsonObject(), Place.class);
+            return GsonSingleton.noAdaptors().fromJson(json.getAsJsonObject(), Photo.class);
         } else {
-            return new Place(json.getAsString());
+            return new Photo(json.getAsString());
         }
     }
 }
