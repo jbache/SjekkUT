@@ -14,34 +14,24 @@ import retrofit2.http.POST;
  * <p>
  * Created by espen on 03.08.2016.
  */
-public class LoginApiSingleton {
+public enum LoginApiSingleton {
+    INSTANCE;
 
     public static final String OAUTH2_REDIRECT_URL = "https://localhost/callback";
     public static final String API_MEDLEMSDATA = "api/oauth/medlemsdata/";
     public static final String API_TOKEN = "o/token/";
 
-    private static LoginApiSingleton ourInstance = new LoginApiSingleton();
+    private final LoginApi api = new Retrofit.Builder()
+            .baseUrl("https://www.dnt.no/")
+            .client(OkHttpSingleton.getClient())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().create(LoginApi.class);
 
-    private final Endpoints api;
-
-    private LoginApiSingleton() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.dnt.no/")
-                .client(OkHttpSingleton.getClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        api = retrofit.create(Endpoints.class);
+    public static LoginApi call() {
+        return INSTANCE.api;
     }
 
-    public static LoginApiSingleton getInstance() {
-        return ourInstance;
-    }
-
-    public static Endpoints call() {
-        return getInstance().api;
-    }
-
-    public interface Endpoints {
+    public interface LoginApi {
 
         @FormUrlEncoded
         @POST(API_TOKEN)

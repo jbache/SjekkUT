@@ -25,21 +25,16 @@ import timber.log.Timber;
  * <p>
  * Created by espen on 09.08.2016.
  */
-public class OkHttpSingleton {
-    private static OkHttpSingleton ourInstance = new OkHttpSingleton();
+public enum OkHttpSingleton {
+    INSTANCE;
 
-    private OkHttpClient mHttpClient;
-
-    public static OkHttpSingleton getInstance() {
-        return ourInstance;
-    }
+    private final OkHttpClient mHttpClient = createClient();
 
     public static OkHttpClient getClient() {
-        return getInstance().mHttpClient;
+        return INSTANCE.mHttpClient;
     }
 
-    private OkHttpSingleton() {
-
+    private OkHttpClient createClient() {
         final Context mAppContext = SjekkUTApplication.getContext();
         final String mClient_ID = mAppContext.getResources().getString(R.string.client_id);
         final String mClient_Secret = mAppContext.getResources().getString(R.string.client_secret);
@@ -134,7 +129,7 @@ public class OkHttpSingleton {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
-        mHttpClient = new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 .addNetworkInterceptor(rewrite403to401Interceptor)
                 .authenticator(refreshAuthenticator)
                 .addInterceptor(loggingInterceptor)

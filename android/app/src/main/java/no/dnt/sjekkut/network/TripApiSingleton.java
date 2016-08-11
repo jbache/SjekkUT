@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -11,33 +12,25 @@ import retrofit2.http.Query;
  * <p>
  * Created by espen on 03.08.2016.
  */
-public class TripApiSingleton {
+public enum TripApiSingleton {
+    INSTANCE;
 
+    private final TripApi api = new Retrofit.Builder()
+            .baseUrl("https://dev.nasjonalturbase.no/")
+            .client(OkHttpSingleton.getClient())
+            .addConverterFactory(GsonConverterFactory.create(GsonSingleton.custom()))
+            .build().create(TripApi.class);
 
-    private static TripApiSingleton ourInstance = new TripApiSingleton();
-
-    private final Endpoints api;
-
-    private TripApiSingleton() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://dev.nasjonalturbase.no/")
-                .client(OkHttpSingleton.getClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        api = retrofit.create(Endpoints.class);
+    public static TripApi call() {
+        return INSTANCE.api;
     }
 
-    public static TripApiSingleton getInstance() {
-        return ourInstance;
-    }
-
-    public static Endpoints call() {
-        return getInstance().api;
-    }
-
-    public interface Endpoints {
+    public interface TripApi {
 
         @GET("lister/")
         Call<TripList> getTripList(@Query("api_key") String api_key, @Query("fields") String fields);
+
+        @GET("lister/{id}/")
+        Call<Trip> getTrip(@Path("id") String id, @Query("api_key") String api_key, @Query("fields") String fields, @Query("expand") String expand);
     }
 }

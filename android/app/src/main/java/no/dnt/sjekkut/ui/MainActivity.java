@@ -34,12 +34,12 @@ import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.OppturApi;
+import no.dnt.sjekkut.network.Trip;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.TripList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
 
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -50,7 +50,8 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private boolean mResolvingError = false;
     private ArrayList<Pair<LocationListener, LocationRequest>> mPendingListener = new ArrayList<>();
     private Callback<MemberData> mMemberCallback;
-    private Callback<TripList> mListCallback;
+    private Callback<TripList> mTripListcallback;
+    private Callback<Trip> mTripCallback;
 
     public static void showFeedbackActivity(Activity activity) {
         if (activity == null)
@@ -89,19 +90,44 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             }
         };
 
-        mListCallback = new Callback<TripList>() {
+        mTripListcallback = new Callback<TripList>() {
             @Override
             public void onResponse(Call<TripList> call, Response<TripList> response) {
                 if (response.isSuccessful()) {
                     Utils.showToast(MainActivity.this, "Got " + response.body().total + " trip lists");
+                    int lastTripIndex = response.body().documents.size() - 1;
+                    Trip lastTrip = response.body().documents.get(lastTripIndex);
+                    TripApiSingleton.call().getTrip(
+                            lastTrip._id,
+                            getString(R.string.api_key),
+                            "steder,geojson,bilder,img,kommune,beskrivelse",
+                            "steder,bilder"
+                    ).enqueue(mTripCallback);
                 } else {
-                    Utils.showToast(MainActivity.this, "Failed to get trip lists: " + response.code());
+                    Utils.showToast(MainActivity.this, "Failed to get trip list: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<TripList> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get trip lists: " + t.getLocalizedMessage());
+                Utils.showToast(MainActivity.this, "Failed to get trip list: " + t.getLocalizedMessage());
+            }
+        };
+
+        mTripCallback = new Callback<Trip>() {
+            @Override
+            public void onResponse(Call<Trip> call, Response<Trip> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(MainActivity.this, "Got trip " + response.body().navn);
+                } else {
+                    Utils.showToast(MainActivity.this, "Failed to get trip" + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Trip> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get trip: " + t.getLocalizedMessage());
+
             }
         };
 
@@ -138,7 +164,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
-        TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder").enqueue(mListCallback);
+        TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder").enqueue(mTripListcallback);
     }
 
     @Override
