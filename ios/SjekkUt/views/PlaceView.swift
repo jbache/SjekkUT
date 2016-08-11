@@ -93,7 +93,9 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     }
 
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        showMap()
+        #if DEBUG
+            showMap()
+        #endif
     }
 
     // MARK: observing

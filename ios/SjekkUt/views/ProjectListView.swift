@@ -47,7 +47,9 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        dntApi.logout()
+        #if DEBUG
+            dntApi.logout()
+        #endif
     }
 
     // MARK: table data
