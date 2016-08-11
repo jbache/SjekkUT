@@ -39,6 +39,9 @@
 @end
 
 @interface ModelController ()
+{
+    NSUInteger updateCount;
+}
 
 @property (strong, readwrite) NSManagedObjectContext *managedObjectContext;
 @property (strong) NSManagedObjectContext *privateContext;
@@ -200,6 +203,27 @@
 }
 
 #pragma mark - Core Data Saving support
+
+- (void)beginUpdating
+{
+    ++updateCount;
+}
+
+- (void)endUpdating
+{
+    --updateCount;
+    if (updateCount == 0)
+    {
+        [self save];
+    }
+}
+
+- (void)saveBlock:(void (^)(void))aBlock
+{
+    [self beginUpdating];
+    aBlock();
+    [self endUpdating];
+}
 
 - (void)save;
 {

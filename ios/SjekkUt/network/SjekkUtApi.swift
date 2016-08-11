@@ -41,12 +41,14 @@ class SjekkUtApi: Alamofire.Manager {
             .validate(statusCode:200..<300)
             .responseJSON { response in
                 if let checkinsJson = response.result.value!["data"] as? [[String: AnyObject]] {
-                    for checkinJson in checkinsJson {
-                        if checkinJson["dnt_user_id"]?.doubleValue == DntApi.instance.user?.dntId {
-                            _ = Checkin.insertOrUpdate(checkinJson)
+                    ModelController.instance().saveBlock {
+                        for checkinJson in checkinsJson {
+                            if checkinJson["dnt_user_id"]?.doubleValue == DntApi.instance.user?.dntId {
+                                _ = Checkin.insertOrUpdate(checkinJson)
+                                didChangeCheckin = true
+                            }
                         }
                     }
-                    ModelController.instance().save()
                 }
         }
     }
@@ -72,10 +74,11 @@ class SjekkUtApi: Alamofire.Manager {
                 switch response.result {
                 case .Success:
                     if let json = response.result.value {
-                        let checkin = Checkin.insertOrUpdate(json["data"] as! [String : AnyObject])
-                        aPlace.addCheckinsObject(checkin)
-                        ModelController.instance().save()
-                        NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);
+                        ModelController.instance().saveBlock {
+                            let checkin = Checkin.insertOrUpdate(json["data"] as! [String : AnyObject])
+                            aPlace.addCheckinsObject(checkin)
+                            NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);
+                        }
                     }
                 case .Failure(let error):
                     print("failed to visit place: \(error)")

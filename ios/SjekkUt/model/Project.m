@@ -101,20 +101,22 @@
 
 - (void)updateDistance
 {
-    for (Place *place in self.places)
-    {
-        [place updateDistance];
-    }
-    [model save];
+    [model saveBlock:^{
+        for (Place *place in self.places)
+        {
+            [place updateDistance];
+        }
+    }];
 }
 
 - (Place *)findNearest
 {
-    for (Place *aPlace in self.places)
-    {
-        [aPlace updateDistance];
-    }
-    [model save];
+    [model saveBlock:^{
+        for (Place *aPlace in self.places)
+        {
+            [aPlace updateDistance];
+        }
+    }];
 
     NSArray *sorts = @[ [NSSortDescriptor sortDescriptorWithKey:@"distance"
                                                       ascending:NO] ];

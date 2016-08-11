@@ -39,10 +39,9 @@ public class TurbasenApi: Alamofire.Manager {
         self.request(.GET, baseUrl + "/steder/" + aPlace.identifier!, parameters: parameters)
             .responseJSON { response in
                 if let aJSON = response.result.value {
-                    // iterate over all entities
-                    Place.insertOrUpdate(aJSON as! [NSObject : AnyObject])
-                    // save the local database
-                    ModelController.instance().save()
+                        ModelController.instance().saveBlock {
+                            Place.insertOrUpdate(aJSON as! [NSObject : AnyObject])
+                        }
                 }
         }
     }
@@ -50,15 +49,17 @@ public class TurbasenApi: Alamofire.Manager {
     func getProjects() {
         self.request(.GET, baseUrl + "/lister", parameters: ["api_key": api_key])
             .responseJSON { response in
-                if let aJSON = response.result.value {
-                    // iterate over all entities
-                    let someProjects = aJSON["documents"] as! [[String: AnyObject]]
-                    // update or insert entities from API
-                    for aProject in someProjects {
-                        Project.insertOrUpdate(aProject)
+                    if let aJSON = response.result.value {
+                        // iterate over all entities
+                        let someProjects = aJSON["documents"] as! [[String: AnyObject]]
+                        // update or insert entities from API
+                        ModelController.instance().saveBlock {
+                            for aProjectDict in someProjects {
+                                let aProject = Project.insertOrUpdate(aProjectDict)
+                                self.getProjectAndPlaces(aProject)
+                            }
+                        }
                     }
-                    // save the local database
-                    ModelController.instance().save()
                 }
             }
     }
@@ -73,15 +74,16 @@ public class TurbasenApi: Alamofire.Manager {
                           "expand":"steder,bilder"]
         self.request(.GET, urlRequest, parameters:parameters)
             .responseJSON { response in
-                if let aJSON = response.result.value {
-                    // update or insert project from API
-                    let aProject:Project = Project.insertOrUpdate(aJSON as! [String : AnyObject])
-                    for place in aProject.places! {
-                        SjekkUtApi.instance.getPlaceCheckins(place as! Place)
-                        self.getPlace(place as! Place)
+                    if let aJSON = response.result.value {
+                        ModelController.instance().saveBlock {
+                            // update or insert project from API
+                            let aProject:Project = Project.insertOrUpdate(aJSON as! [String : AnyObject])
+                            for place in aProject.places! {
+                                // fetch place with images
+                                self.getPlace(place as! Place)
+                                SjekkUtApi.instance.getPlaceCheckins(place as! Place)
+                            }
                     }
-                    // save the local database
-                    ModelController.instance().save()
                 }
         }
     }

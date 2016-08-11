@@ -22,6 +22,7 @@ typedef void (^InitCallbackBlock)(void);
 @property (readonly, strong) NSManagedObjectContext *managedObjectContext;
 
 - (id)initWithCallback:(InitCallbackBlock)callback;
+- (void)saveBlock:(void (^)(void))aBlock;
 - (void)save;
 - (void)delayUntilReady:(void (^)(void))aCallback;
 
