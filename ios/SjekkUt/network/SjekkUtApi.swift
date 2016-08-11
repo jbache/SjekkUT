@@ -31,7 +31,7 @@ class SjekkUtApi: Alamofire.Manager {
         self.request(.GET, requestUrl)
             .validate(statusCode:200..<300)
             .responseJSON { response in
-                print("getPlaceStats: \(response.result)")
+                print("getPlaceStats: \(response)")
         }
     }
 
@@ -42,11 +42,18 @@ class SjekkUtApi: Alamofire.Manager {
             .responseJSON { response in
                 if let checkinsJson = response.result.value!["data"] as? [[String: AnyObject]] {
                     ModelController.instance().saveBlock {
+                        var didChangeCheckin = false
                         for checkinJson in checkinsJson {
                             if checkinJson["dnt_user_id"]?.doubleValue == DntApi.instance.user?.dntId {
                                 _ = Checkin.insertOrUpdate(checkinJson)
                                 didChangeCheckin = true
                             }
+                        }
+                        if didChangeCheckin {
+                            for aProject in aPlace.projects! {
+                                aProject.updateHasCheckin()
+                            }
+                            NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationCheckinChanged, object: nil)
                         }
                     }
                 }

@@ -23,19 +23,34 @@
     return aFetchRequest;
 }
 
-+ (instancetype)insertOrUpdate:(NSDictionary *)json
++ (instancetype)insertOrUpdate:(id)json
 {
-    NSString *identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    id theEntity = [self findWithId:identifier];
+    NSString *identifier = nil;
+    if ([json isKindOfClass:[NSDictionary class]])
+    {
+        identifier = json[@"_id"];
+    }
+    else if ([json isKindOfClass:[NSString class]])
+    {
+        identifier = json;
+    }
 
-    if (!theEntity)
+    Place *theEntity = [self findWithId:identifier];
+
+    if (!theEntity && identifier != nil)
     {
         theEntity = [self insert];
+        theEntity.identifier = identifier;
+        theEntity.checkins = [NSSet set];
+        theEntity.images = [NSOrderedSet orderedSet];
     }
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
 
-    [theEntity update:json];
+    if ([json isKindOfClass:[NSDictionary class]])
+    {
+        [theEntity update:json];
+    }
 
     return theEntity;
 }
@@ -70,49 +85,25 @@
     }
     self.county = json[@"kommune"];
     self.descriptionText = json[@"beskrivelse"];
+    self.images = [self parseImages:json[@"bilder"]];
 
-    [self parseImages:json[@"bilder"]];
     [self updateDistance];
 }
 
 #pragma mark images
 
-- (void)parseImages:(NSArray *)images
-{
-    if (images == nil)
-    {
-        return;
-    }
-
-    if ([[images firstObject] isKindOfClass:NSString.class])
-    {
-        [self fetchImages:images];
-    }
-    else if ([[images firstObject] isKindOfClass:NSDictionary.class])
-    {
-        [self updateImages:images];
-    }
-
-    return;
-}
-
-- (void)fetchImages:(NSArray *)images
-{
-    // naive handover to SjekkUtApi in swift
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationGetPlace object:self];
-}
-
-- (void)updateImages:(NSArray *)images
+- (NSMutableOrderedSet *)parseImages:(NSArray *)images
 {
     NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
-
-    for (NSDictionary *anImageDict in images)
+    if (images != nil && images.count > 0)
     {
-        DntImage *anImage = [DntImage insertOrUpdate:anImageDict];
-        [orderedImages addObject:anImage];
+        for (id imageDict in images)
+        {
+            DntImage *anImage = [DntImage insertOrUpdate:imageDict];
+            [orderedImages addObject:anImage];
+        }
     }
-
-    self.images = orderedImages;
+    return orderedImages;
 }
 
 #pragma mark location

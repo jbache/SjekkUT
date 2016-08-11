@@ -6,6 +6,7 @@
 //
 //
 
+#import "Defines.h"
 #import "DntImage.h"
 #import "ModelController.h"
 #import "Place.h"
@@ -61,9 +62,9 @@
 
 - (NSOrderedSet *)parsePlaces:(NSArray *)places
 {
-    if (places == nil)
+    if (places == nil || places.count == 0)
     {
-        return nil;
+        return [NSOrderedSet orderedSet];
     }
 
     NSMutableOrderedSet *orderedPlaces = [NSMutableOrderedSet orderedSet];
@@ -81,9 +82,9 @@
 
 - (NSOrderedSet *)parseImages:(NSArray *)images
 {
-    if (images == nil)
+    if (images == nil || images.count == 0)
     {
-        return nil;
+        return [NSOrderedSet orderedSet];
     }
 
     NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
@@ -131,7 +132,12 @@
 
 - (void)updateHasCheckin
 {
+    BOOL oldCheckin = self.hasCheckins.boolValue;
     self.hasCheckins = @(self.progress.doubleValue > 0.0);
+    if (oldCheckin != self.hasCheckins.boolValue)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];
+    }
 }
 
 - (NSArray *)checkedInPlaces

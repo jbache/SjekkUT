@@ -67,13 +67,13 @@ class ProjectHeader: UITableViewCell {
         if (context == &kObservationContextImages) {
             switch project?.images?.count {
             case 2?:
-                if let theImage = project?.images?.objectAtIndex(1) as! DntImage? {
-                    projectImage.af_setImageWithURL(NSURL(string:theImage.url!)!)
+                if let theImage = (project?.images?.objectAtIndex(1) as! DntImage?)!.url {
+                    projectImage.af_setImageWithURL(NSURL(string:theImage)!)
                 }
                 fallthrough
             case 1?:
-                if let theImage = project?.images?.objectAtIndex(0) as! DntImage? {
-                    footerImage.af_setImageWithURL(NSURL(string:theImage.url!)!)
+                if let theImage = (project?.images?.objectAtIndex(0) as! DntImage?)!.url {
+                    footerImage.af_setImageWithURL(NSURL(string:theImage)!)
                 }
             default:
                 break

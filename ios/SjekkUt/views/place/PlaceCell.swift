@@ -106,8 +106,10 @@ class PlaceCell: UITableViewCell {
             }
         }
         if (context == &kObserveImages) {
-            if let image = place!.images?.firstObject {
-                placeImageView.af_setImageWithURL(image.URL())
+            if let imageUrl = (place!.images?.firstObject as? DntImage)!.url {
+                if let imageURL = NSURL(string: imageUrl) {
+                    placeImageView.af_setImageWithURL(imageURL)
+                }
             }
         }
     }

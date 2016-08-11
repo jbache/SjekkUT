@@ -21,12 +21,18 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         super.init(coder: aDecoder)
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     override func viewDidLoad() {
         self.navigationItem.hidesBackButton = true
 
         dntApi.updateMemberDetailsOrFail {
             self.dntApi.logout()
         }
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
 
         // only setup and load the table when core data is ready. in some cases this method will be hit before
         // core data has finished populating the database (e.g. in the case of migrations)
@@ -40,6 +46,10 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         projectView.project = sender as? Project
     }
 
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        dntApi.logout()
+    }
+
     // MARK: table data
     func setupTable() {
 
@@ -51,6 +61,10 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
         // fetch any updated projects
         self.turbasen.getProjects()
+    }
+
+    func reloadTable() {
+        self.projectsTable.reloadData()
     }
 
     func projectResults() -> NSFetchedResultsController {

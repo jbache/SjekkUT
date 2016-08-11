@@ -72,6 +72,7 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     override func viewDidLoad() {
         if (place != nil) {
             sjekkUtApi.getPlaceCheckins(place!)
+            sjekkUtApi.getPlaceStats(place!)
         }
     }
 

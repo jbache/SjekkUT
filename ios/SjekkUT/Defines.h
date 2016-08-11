@@ -11,12 +11,13 @@
 #ifndef SjekkUt_defines_h
 #define SjekkUt_defines_h
 
-static NSString *__nonnull kSjekkUtNotificationLogin = @"com.dnt.sjekkut.notification.login";
 static NSString *__nonnull kSjekkUtDefaultsToken = @"com.dnt.sjekkut.defaults.token";
 static NSString *__nonnull kSjekkUtDefaultsTokenExpiry = @"com.dnt.sjekkut.defaults.tokenexpiry";
 static NSString *__nonnull kSjekkUtDefaultsRefreshToken = @"com.dnt.sjekkut.defaults.refreshtoken";
 static NSString *__nonnull kSjekkUtNotificationLoggedOut = @"com.dnt.sjekkut.notification.loggedout";
 static NSString *__nonnull kSjekkUtNotificationGetPlace = @"com.dnt.sjekkut.notification.getplace";
+static NSString *__nonnull kSjekkUtNotificationLogin = @"com.dnt.sjekkut.notification.login";
+static NSString *__nonnull kSjekkUtNotificationCheckinChanged = @"com.dnt.sjekkut.notification.checkinchanged";
 
 #define defaultNotifyer [NSNotificationCenter defaultCenter]
 

@@ -55,7 +55,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func updateData() {
-        turbasen.getProjectAndPlaces(self.project!.identifier!)
+        turbasen.getProjectAndPlaces(self.project!)
         Location.instance().getSingleUpdate(nil)
     }
 

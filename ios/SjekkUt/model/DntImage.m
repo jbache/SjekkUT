@@ -12,19 +12,31 @@
 
 @implementation DntImage
 
-+ (instancetype)insertOrUpdate:(NSDictionary *)json
++ (instancetype)insertOrUpdate:(id)json
 {
-    NSString *identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    id theEntity = [self findWithId:identifier];
+    NSString *identifier = nil;
+    if ([json isKindOfClass:[NSDictionary class]])
+    {
+        identifier = json[@"_id"];
+    }
+    else if ([json isKindOfClass:[NSString class]])
+    {
+        identifier = json;
+    }
+    DntImage *theEntity = [self findWithId:identifier];
 
-    if (!theEntity)
+    if (!theEntity && identifier != nil)
     {
         theEntity = [self insert];
+        theEntity.identifier = identifier;
     }
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
 
-    [theEntity update:json];
+    if ([json isKindOfClass:[NSDictionary class]])
+    {
+        [theEntity update:json];
+    }
 
     return theEntity;
 }

@@ -36,19 +36,34 @@ public class TurbasenApi: Alamofire.Manager {
             "api_key":api_key,
             "expand":"bilder"
         ]
-        self.request(.GET, baseUrl + "/steder/" + aPlace.identifier!, parameters: parameters)
+        let placeUrl = baseUrl + "/steder/" + aPlace.identifier!
+        self.request(.GET, placeUrl, parameters: parameters)
+            .validate(statusCode: 200..<300)
             .responseJSON { response in
-                if let aJSON = response.result.value {
+                switch response.result {
+                case .Success:
+                    if let aJSON = response.result.value {
                         ModelController.instance().saveBlock {
                             Place.insertOrUpdate(aJSON as! [NSObject : AnyObject])
                         }
+                    }
+                case .Failure(let error):
+                    print("failed to get place \(placeUrl): \(error)")
                 }
+
         }
     }
 
     func getProjects() {
-        self.request(.GET, baseUrl + "/lister", parameters: ["api_key": api_key])
+        let parameters = [
+            "api_key": api_key,
+            "fields": "steder,bilder"
+        ];
+        self.request(.GET, baseUrl + "/lister", parameters:parameters )
+            .validate(statusCode: 200..<300)
             .responseJSON { response in
+                switch response.result {
+                case .Success:
                     if let aJSON = response.result.value {
                         // iterate over all entities
                         let someProjects = aJSON["documents"] as! [[String: AnyObject]]
@@ -60,12 +75,15 @@ public class TurbasenApi: Alamofire.Manager {
                             }
                         }
                     }
-                }
+                case .Failure(let error):
+                    print("failed to get lists: \(error)")
             }
+        }
     }
 
-    public func getProjectAndPlaces(projectId:String) {
-        let requestUrl = NSURL(string: baseUrl + "/lister/" + projectId)!
+    public func getProjectAndPlaces(aProject:Project) {
+        let projectUrl = baseUrl + "/lister/" + aProject.identifier!
+        let requestUrl = NSURL(string: projectUrl)!
         let urlRequest = NSMutableURLRequest(URL: requestUrl)
         urlRequest.HTTPMethod = "GET"
         urlRequest.cachePolicy = .ReloadIgnoringCacheData
@@ -73,7 +91,10 @@ public class TurbasenApi: Alamofire.Manager {
                           "fields":"steder,geojson,bilder,img,kommune,beskrivelse",
                           "expand":"steder,bilder"]
         self.request(.GET, urlRequest, parameters:parameters)
+            .validate(statusCode: 200..<300)
             .responseJSON { response in
+                switch response.result {
+                case .Success:
                     if let aJSON = response.result.value {
                         ModelController.instance().saveBlock {
                             // update or insert project from API
@@ -83,7 +104,10 @@ public class TurbasenApi: Alamofire.Manager {
                                 self.getPlace(place as! Place)
                                 SjekkUtApi.instance.getPlaceCheckins(place as! Place)
                             }
+                        }
                     }
+                case .Failure(let error):
+                    print("failed to get list \(projectUrl): \(error)")
                 }
         }
     }
