@@ -989,7 +989,7 @@
 				INFOPLIST_FILE = SjekkUt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "no.turistforeningen.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = SjekkUt;
+				PRODUCT_NAME = SjekkUT;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SjekkUt/SjekkUt-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1009,7 +1009,7 @@
 				INFOPLIST_FILE = SjekkUt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "no.turistforeningen.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = SjekkUt;
+				PRODUCT_NAME = SjekkUT;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SjekkUt/SjekkUt-Bridging-Header.h";
 			};
