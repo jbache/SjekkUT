@@ -28,5 +28,9 @@ public enum CheckinApiSingleton {
 
         @GET("steder/{id}/logg")
         Call<PlaceCheckinList> getPlaceCheckinList(@Path("id") String id);
+
+        @GET("steder/{id}/stats")
+        Call<PlaceCheckinStats> getPlaceCheckinStats(@Path("id") String id);
+
     }
 }

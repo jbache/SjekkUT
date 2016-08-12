@@ -37,6 +37,7 @@ import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.OppturApi;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckinList;
+import no.dnt.sjekkut.network.PlaceCheckinStats;
 import no.dnt.sjekkut.network.Trip;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.TripList;
@@ -57,6 +58,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private Callback<Trip> mTripCallback;
     private Callback<Place> mPlaceCallback;
     private Callback<PlaceCheckinList> mPlaceCheckinList;
+    private Callback<PlaceCheckinStats> mPlaceCheckinStats;
 
     public static void showFeedbackActivity(Activity activity) {
         if (activity == null)
@@ -149,6 +151,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
                 if (response.isSuccessful()) {
                     Utils.showToast(MainActivity.this, "Got place: " + response.body().navn);
                     CheckinApiSingleton.call().getPlaceCheckinList(response.body()._id).enqueue(mPlaceCheckinList);
+                    CheckinApiSingleton.call().getPlaceCheckinStats(response.body()._id).enqueue(mPlaceCheckinStats);
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get place: " + response.code());
                 }
@@ -173,6 +176,22 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             @Override
             public void onFailure(Call<PlaceCheckinList> call, Throwable t) {
                 Utils.showToast(MainActivity.this, "Failed to get place checkin list: " + t.getLocalizedMessage());
+            }
+        };
+
+        mPlaceCheckinStats = new Callback<PlaceCheckinStats>() {
+            @Override
+            public void onResponse(Call<PlaceCheckinStats> call, Response<PlaceCheckinStats> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(MainActivity.this, "Got place checkin stats: " + response.body());
+                } else {
+                    Utils.showToast(MainActivity.this, "Failed to get place checkin stats: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlaceCheckinStats> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get place checkin stats: " + t.getLocalizedMessage());
             }
         };
 
