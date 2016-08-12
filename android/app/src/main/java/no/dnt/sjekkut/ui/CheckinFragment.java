@@ -5,7 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -368,7 +368,7 @@ public class CheckinFragment extends Fragment implements LocationListener, View.
 
     private void setCheckin(Checkin checkin) {
         mCheckin = checkin;
-        if (getActivity() instanceof ActionBarActivity) {
+        if (getActivity() instanceof AppCompatActivity) {
             getActivity().supportInvalidateOptionsMenu();
         }
         updateView();

@@ -12,7 +12,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
@@ -50,8 +50,8 @@ public class Utils {
     }
 
     public static void setActionBarTitle(Activity activity, String title) {
-        if (activity instanceof ActionBarActivity) {
-            ActionBar actionBar = ((ActionBarActivity) activity).getSupportActionBar();
+        if (activity instanceof AppCompatActivity) {
+            ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setTitle(title);
             }
@@ -59,8 +59,8 @@ public class Utils {
     }
 
     public static void toggleUpButton(Activity activity, boolean enabled) {
-        if (activity instanceof ActionBarActivity) {
-            ActionBar actionBar = ((ActionBarActivity) activity).getSupportActionBar();
+        if (activity instanceof AppCompatActivity) {
+            ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setHomeButtonEnabled(enabled);
                 actionBar.setDisplayHomeAsUpEnabled(enabled);

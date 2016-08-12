@@ -9,7 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.MenuItem;
 
@@ -47,7 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, TripListFragment.TripListListener {
 
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final long MAX_LOCATION_TIME_DELTA_MS = 60 * 1000;
@@ -69,8 +69,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
 
         FeedbackManager.register(activity);
         FeedbackManager.showFeedbackActivity(activity);
-
-
     }
 
     @Override
@@ -225,7 +223,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new SummitListFragment())
+                    .add(R.id.container, new TripListFragment())
                     .commit();
         }
         checkForUpdates();
@@ -371,6 +369,15 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
 
     private void unregisterManagers() {
         UpdateManager.unregister();
+    }
+
+    @Override
+    public void onTripClick(Trip trip) {
+        Utils.showToast(MainActivity.this, "Clicked on trip: " + trip.navn);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new SummitListFragment())
+                .addToBackStack(SummitListFragment.class.getCanonicalName())
+                .commit();
     }
 
     public static class ErrorDialogFragment extends DialogFragment {
