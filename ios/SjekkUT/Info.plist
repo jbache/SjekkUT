@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -42,5 +42,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+        <key>ITSAppUsesNonExemptEncryption</key><false/>
 </dict>
 </plist>
