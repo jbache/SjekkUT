@@ -32,6 +32,8 @@ import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
+import no.dnt.sjekkut.network.CheckinLocation;
+import no.dnt.sjekkut.network.CheckinResult;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.OppturApi;
@@ -59,6 +61,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
     private Callback<Place> mPlaceCallback;
     private Callback<PlaceCheckinList> mPlaceCheckinList;
     private Callback<PlaceCheckinStats> mPlaceCheckinStats;
+    private Callback<CheckinResult> mPostCheckin;
 
     public static void showFeedbackActivity(Activity activity) {
         if (activity == null)
@@ -85,6 +88,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             @Override
             public void onResponse(Call<MemberData> call, Response<MemberData> response) {
                 if (response.isSuccessful()) {
+                    PreferenceUtils.setUserId(MainActivity.this, response.body().sherpa_id);
                     Utils.showToast(MainActivity.this, "Got member data");
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get member data: " + response.code());
@@ -149,9 +153,16 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             @Override
             public void onResponse(Call<Place> call, Response<Place> response) {
                 if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got place: " + response.body().navn);
-                    CheckinApiSingleton.call().getPlaceCheckinList(response.body()._id).enqueue(mPlaceCheckinList);
-                    CheckinApiSingleton.call().getPlaceCheckinStats(response.body()._id).enqueue(mPlaceCheckinStats);
+                    Place place = response.body();
+                    Utils.showToast(MainActivity.this, "Got place: " + place.navn);
+                    CheckinApiSingleton.call().getPlaceCheckinList(place._id).enqueue(mPlaceCheckinList);
+                    CheckinApiSingleton.call().getPlaceCheckinStats(place._id).enqueue(mPlaceCheckinStats);
+                    CheckinApiSingleton.call().postPlaceCheckin(
+                            PreferenceUtils.getUserId(MainActivity.this),
+                            PreferenceUtils.getAccessToken(MainActivity.this),
+                            place._id,
+                            new CheckinLocation()
+                    ).enqueue(mPostCheckin);
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get place: " + response.code());
                 }
@@ -183,7 +194,7 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             @Override
             public void onResponse(Call<PlaceCheckinStats> call, Response<PlaceCheckinStats> response) {
                 if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got place checkin stats: " + response.body());
+                    Utils.showToast(MainActivity.this, "Got place checkin stats count: " + response.body().data.count);
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get place checkin stats: " + response.code());
                 }
@@ -192,6 +203,22 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
             @Override
             public void onFailure(Call<PlaceCheckinStats> call, Throwable t) {
                 Utils.showToast(MainActivity.this, "Failed to get place checkin stats: " + t.getLocalizedMessage());
+            }
+        };
+
+        mPostCheckin = new Callback<CheckinResult>() {
+            @Override
+            public void onResponse(Call<CheckinResult> call, Response<CheckinResult> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(MainActivity.this, "Checkin at: " + response.body().message);
+                } else {
+                    Utils.showToast(MainActivity.this, "Failed to checkin: " + response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckinResult> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to checkin: " + t.getLocalizedMessage());
             }
         };
 

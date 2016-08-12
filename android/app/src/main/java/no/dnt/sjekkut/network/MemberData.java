@@ -6,8 +6,8 @@ package no.dnt.sjekkut.network;
  * Created by espen on 03.08.2016.
  */
 public class MemberData {
-    String fornavn;
-    String etternavn;
-    String sherpa_id;
-    String epost;
+    public String fornavn;
+    public String etternavn;
+    public String sherpa_id;
+    public String epost;
 }

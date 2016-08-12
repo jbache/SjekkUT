@@ -7,9 +7,9 @@ package no.dnt.sjekkut.network;
  */
 public class PlaceCheckinStats {
 
-    StatsData data;
+    public StatsData data;
 
     public static class StatsData {
-        int count;
+        public int count;
     }
 }

@@ -3,7 +3,10 @@ package no.dnt.sjekkut.network;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -27,10 +30,12 @@ public enum CheckinApiSingleton {
     public interface CheckinApi {
 
         @GET("steder/{id}/logg")
-        Call<PlaceCheckinList> getPlaceCheckinList(@Path("id") String id);
+        Call<PlaceCheckinList> getPlaceCheckinList(@Path("id") String placeId);
 
         @GET("steder/{id}/stats")
-        Call<PlaceCheckinStats> getPlaceCheckinStats(@Path("id") String id);
+        Call<PlaceCheckinStats> getPlaceCheckinStats(@Path("id") String placeId);
 
+        @POST("steder/{id}/besok")
+        Call<CheckinResult> postPlaceCheckin(@Header("X-User-Id") String userId, @Header("X-User-Token") String userToken, @Path("id") String placeId, @Body CheckinLocation location);
     }
 }
