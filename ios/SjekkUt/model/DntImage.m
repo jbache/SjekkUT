@@ -59,8 +59,21 @@
 {
     self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
     NSArray *images = json[@"img"];
-    NSDictionary *firstImage = [images firstObject];
-    NSString *imageUrl = firstImage[@"url"];
+    NSDictionary *theImage = [images firstObject];
+    CGSize desiredSize = [UIScreen mainScreen].bounds.size;
+    for (NSDictionary *imgDict in images)
+    {
+        if ([theImage[@"width"] floatValue] > desiredSize.width && [theImage[@"height"] floatValue] > desiredSize.height)
+        {
+            theImage = imgDict;
+        }
+        else
+        {
+            break;
+        }
+    }
+    NSLog(@"picked image size %@ %@", theImage[@"width"], theImage[@"height"]);
+    NSString *imageUrl = theImage[@"url"];
     self.url = imageUrl;
 }
 
