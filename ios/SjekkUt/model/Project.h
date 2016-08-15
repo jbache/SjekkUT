@@ -23,7 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateDistance;
 - (void)updateHasCheckin;
 - (Place *)findNearest;
-- (NSString *)progressDescription;
+- (NSString *)progressDescriptionLong;
+- (NSString *)progressDescriptionShort;
+- (NSURL *)backgroundImageURL;
+- (NSURL *)foregroundImageURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

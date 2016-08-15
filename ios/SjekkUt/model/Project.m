@@ -60,6 +60,8 @@
     self.images = [self parseImages:json[@"bilder"]];
 }
 
+#pragma mark images
+
 - (NSOrderedSet *)parsePlaces:(NSArray *)places
 {
     if (places == nil || places.count == 0)
@@ -96,6 +98,26 @@
     }
 
     return orderedImages;
+}
+
+- (NSURL *)backgroundImageURL
+{
+    if (self.images.count > 1)
+    {
+        DntImage *theImage = [self.images objectAtIndex:1];
+        return theImage.url.URL;
+    }
+    return nil;
+}
+
+- (NSURL *)foregroundImageURL
+{
+    if (self.images.count > 0)
+    {
+        DntImage *theImage = [self.images objectAtIndex:0];
+        return theImage.url.URL;
+    }
+    return nil;
 }
 
 #pragma mark distance
@@ -162,9 +184,15 @@
     return @((double)checkedInPlaces.count / (double)self.places.count);
 }
 
-- (NSString *)progressDescription
+- (NSString *)progressDescriptionLong
 {
     NSString *formatString = NSLocalizedString(@"You have summited %@ of %@ so far!", "count summits in challenge");
+    return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
+}
+
+- (NSString *)progressDescriptionShort
+{
+    NSString *formatString = NSLocalizedString(@"Visited %@ of %@", "count visits in project cell");
     return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
 }
 

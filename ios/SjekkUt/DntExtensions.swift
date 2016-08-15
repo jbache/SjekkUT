@@ -8,6 +8,20 @@
 
 import Foundation
 
+extension NSDate {
+
+    func timeAgo() -> String {
+        let formatter = NSDateComponentsFormatter()
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
+        formatter.includesApproximationPhrase = false
+        formatter.includesTimeRemainingPhrase = false
+        formatter.maximumUnitCount = 1
+        formatter.allowedUnits = [.Minute, .Hour, .WeekOfYear, .Year]
+        let dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
+        return dateRelativeString!
+    }
+}
+
 extension String {
     func loadFileContents(inClass aClass:AnyClass) -> String? {
         let fileURL = NSBundle(forClass: aClass).URLForResource(self, withExtension: nil, subdirectory: nil)

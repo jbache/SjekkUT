@@ -54,7 +54,7 @@
 		6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3E1421D4A4908003BA194 /* PlaceView.swift */; };
 		6CB04DC01D48C9AC0024DE11 /* SjekkUtApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */; };
 		6CB40DF81D460D260030433D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
-		6CC799AF1D51E96800DFAF10 /* ProjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799AE1D51E96800DFAF10 /* ProjectHeader.swift */; };
+		6CC799AF1D51E96800DFAF10 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799AE1D51E96800DFAF10 /* ProjectCell.swift */; };
 		6CC799BA1D51F5F700DFAF10 /* DntImage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799B71D51F5F700DFAF10 /* DntImage+CoreDataProperties.m */; };
 		6CC799BB1D51F5F700DFAF10 /* DntImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799B91D51F5F700DFAF10 /* DntImage.m */; };
 		6CC799C31D52110B00DFAF10 /* Checkin+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799C01D52110B00DFAF10 /* Checkin+CoreDataProperties.m */; };
@@ -79,12 +79,10 @@
 		6CE076371D4757EA000ACAAA /* TurbasenApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076351D4757EA000ACAAA /* TurbasenApi.swift */; };
 		6CE0763C1D4763B8000ACAAA /* Project+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076391D4763B8000ACAAA /* Project+CoreDataProperties.m */; };
 		6CE0763D1D4763B8000ACAAA /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763B1D4763B8000ACAAA /* Project.m */; };
-		6CE0763F1D4775DF000ACAAA /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */; };
 		6CE526821D506DC000D3419B /* DntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FDB151D48CFE300B7D25E /* DntApi.swift */; };
 		6CE526831D50720F00D3419B /* ModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70642E1A82AE3000291137 /* ModelController.m */; };
 		6CE526841D50721500D3419B /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C02801D48A36A00853166 /* PlaceListView.swift */; };
 		6CE526851D50721C00D3419B /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763B1D4763B8000ACAAA /* Project.m */; };
-		6CE526861D50722500D3419B /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */; };
 		6CE526871D5072AC00D3419B /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C027E1D48A34100853166 /* PlaceCell.swift */; };
 		6CE526881D50730D00D3419B /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A13E1B0C99B100169E98 /* Challenge.m */; };
 		6CE5268A1D50731900D3419B /* EntityScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5421461AC98FDE00F8315F /* EntityScaffold.m */; };
@@ -142,7 +140,7 @@
 		6C5421451AC98FDE00F8315F /* EntityScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityScaffold.h; path = model/EntityScaffold.h; sourceTree = "<group>"; };
 		6C5421461AC98FDE00F8315F /* EntityScaffold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityScaffold.m; path = model/EntityScaffold.m; sourceTree = "<group>"; };
 		6C5FDB151D48CFE300B7D25E /* DntApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DntApi.swift; sourceTree = "<group>"; };
-		6C6FE14A1A82332C002B5DD5 /* SjekkUt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SjekkUt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C6FE14A1A82332C002B5DD5 /* SjekkUt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SjekkUt.app; path = SjekkUT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C6FE14E1A82332C002B5DD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C6FE14F1A82332C002B5DD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C6FE1511A82332C002B5DD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -193,7 +191,7 @@
 		6CB40DF51D460D250030433D /* SjekkUt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SjekkUt-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CB40DF71D460D260030433D /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = views/LoginView.swift; sourceTree = "<group>"; };
 		6CBF319C1AF7B63800B1ABFC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		6CC799AE1D51E96800DFAF10 /* ProjectHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectHeader.swift; path = views/project/ProjectHeader.swift; sourceTree = "<group>"; };
+		6CC799AE1D51E96800DFAF10 /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectCell.swift; path = views/project/ProjectCell.swift; sourceTree = "<group>"; };
 		6CC799B61D51F5F700DFAF10 /* DntImage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DntImage+CoreDataProperties.h"; path = "model/DntImage+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6CC799B71D51F5F700DFAF10 /* DntImage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DntImage+CoreDataProperties.m"; path = "model/DntImage+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6CC799B81D51F5F700DFAF10 /* DntImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntImage.h; path = model/DntImage.h; sourceTree = "<group>"; };
@@ -221,7 +219,6 @@
 		6CE076391D4763B8000ACAAA /* Project+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Project+CoreDataProperties.m"; path = "model/Project+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6CE0763A1D4763B8000ACAAA /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Project.h; path = model/Project.h; sourceTree = "<group>"; };
 		6CE0763B1D4763B8000ACAAA /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Project.m; path = model/Project.m; sourceTree = "<group>"; };
-		6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectCell.swift; path = views/project/ProjectCell.swift; sourceTree = "<group>"; };
 		6CE526901D507BA700D3419B /* DntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DntExtensions.swift; sourceTree = "<group>"; };
 		6CEAB3441AFB581F00018A94 /* 1.0.9.25.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.9.25.xcdatamodel; sourceTree = "<group>"; };
 		6CEDA12E1B69251000B84E52 /* 1.0.14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.14.xcdatamodel; sourceTree = "<group>"; };
@@ -484,8 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				6CE0762E1D4751E8000ACAAA /* ProjectListView.swift */,
-				6CE0763E1D4775DF000ACAAA /* ProjectCell.swift */,
-				6CC799AE1D51E96800DFAF10 /* ProjectHeader.swift */,
+				6CC799AE1D51E96800DFAF10 /* ProjectCell.swift */,
 			);
 			name = projects;
 			sourceTree = "<group>";
@@ -761,7 +757,6 @@
 				6C6FE1531A82332C002B5DD5 /* AppDelegate.m in Sources */,
 				6C70645D1A83838700291137 /* Location.m in Sources */,
 				6CE0763C1D4763B8000ACAAA /* Project+CoreDataProperties.m in Sources */,
-				6CE0763F1D4775DF000ACAAA /* ProjectCell.swift in Sources */,
 				6CE0762F1D4751E8000ACAAA /* ProjectListView.swift in Sources */,
 				6CDE75951AEA50F10067110C /* Comment.m in Sources */,
 				6C36A13C1B0C99B100169E98 /* Summit.m in Sources */,
@@ -771,7 +766,7 @@
 				6CE526911D507BA700D3419B /* DntExtensions.swift in Sources */,
 				6C72A3FB1A8B80E700A47AEE /* SjekkUtStyle.m in Sources */,
 				6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */,
-				6CC799AF1D51E96800DFAF10 /* ProjectHeader.swift in Sources */,
+				6CC799AF1D51E96800DFAF10 /* ProjectCell.swift in Sources */,
 				6CDE75931AEA50F10067110C /* CheckinStatistics.m in Sources */,
 				6C54213F1AC98D8100F8315F /* CheckinStatistics+Extension.m in Sources */,
 				6C7C027C1D48A00600853166 /* Place+CoreDataProperties.m in Sources */,
@@ -817,7 +812,6 @@
 				6CE0762B1D47513E000ACAAA /* Location.m in Sources */,
 				6CE526841D50721500D3419B /* PlaceListView.swift in Sources */,
 				6CE076201D474D7A000ACAAA /* LocationTest.m in Sources */,
-				6CE526861D50722500D3419B /* ProjectCell.swift in Sources */,
 				6CE526871D5072AC00D3419B /* PlaceCell.swift in Sources */,
 				6CE526831D50720F00D3419B /* ModelController.m in Sources */,
 				6CE5268B1D50731F00D3419B /* Place.m in Sources */,

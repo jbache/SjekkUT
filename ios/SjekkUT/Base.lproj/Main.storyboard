@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -19,7 +20,7 @@
         <!--Place List View-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="PlaceListView" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="PlaceListView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -32,16 +33,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProjectHeader" rowHeight="120" id="uVD-sz-A3H" customClass="ProjectHeader" customModule="SjekkUt" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProjectCell" rowHeight="120" id="uVD-sz-A3H" customClass="ProjectCell" customModule="SjekkUT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uVD-sz-A3H" id="paa-ge-2rd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="challenge-footer" translatesAutoresizingMaskIntoConstraints="NO" id="2N7-Vs-5Hx">
-                                                    <rect key="frame" x="0.0" y="8" width="600" height="111"/>
-                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sHN-Xx-ToT">
                                                     <rect key="frame" x="8" y="8" width="584" height="103"/>
                                                     <subviews>
@@ -62,7 +60,7 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzv-wr-uzJ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xzv-wr-uzJ">
                                                             <rect key="frame" x="95" y="38" width="381" height="72"/>
                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -113,20 +111,14 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="sHN-Xx-ToT" firstAttribute="top" secondItem="paa-ge-2rd" secondAttribute="top" constant="8" id="Bze-it-tDp"/>
-                                                <constraint firstAttribute="bottom" secondItem="2N7-Vs-5Hx" secondAttribute="bottom" id="Yf6-l4-NuK"/>
                                                 <constraint firstItem="sHN-Xx-ToT" firstAttribute="leading" secondItem="paa-ge-2rd" secondAttribute="leading" constant="8" id="duZ-71-Rbk"/>
                                                 <constraint firstAttribute="bottom" secondItem="sHN-Xx-ToT" secondAttribute="bottom" constant="8" id="k6q-Wj-wuS"/>
-                                                <constraint firstItem="2N7-Vs-5Hx" firstAttribute="leading" secondItem="paa-ge-2rd" secondAttribute="leading" id="nqQ-hC-H3h"/>
-                                                <constraint firstItem="2N7-Vs-5Hx" firstAttribute="top" secondItem="paa-ge-2rd" secondAttribute="topMargin" id="oKB-bR-iyP"/>
                                                 <constraint firstAttribute="trailing" secondItem="sHN-Xx-ToT" secondAttribute="trailing" constant="8" id="rxZ-s7-cLG"/>
-                                                <constraint firstAttribute="trailing" secondItem="2N7-Vs-5Hx" secondAttribute="trailing" id="zvD-lv-DWl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="footerImage" destination="2N7-Vs-5Hx" id="dDC-78-xQK"/>
                                             <outlet property="nameLabel" destination="xzv-wr-uzJ" id="PBT-Rc-K9f"/>
                                             <outlet property="projectImage" destination="nFO-ag-OJP" id="bEi-i4-hBe"/>
                                             <outlet property="readMoreButton" destination="bGD-Db-PQW" id="daO-n0-Pi3"/>
@@ -152,7 +144,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCell" rowHeight="80" id="REz-xa-e1X" customClass="PlaceCell" customModule="SjekkUt" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaceCell" rowHeight="80" id="REz-xa-e1X" customClass="PlaceCell" customModule="SjekkUT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="186" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="REz-xa-e1X" id="eVx-k6-1TR">
@@ -367,7 +359,7 @@
         <!--Login View-->
         <scene sceneID="jM2-73-Qb8">
             <objects>
-                <viewController id="Bjt-6X-afG" customClass="LoginView" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Bjt-6X-afG" customClass="LoginView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lZa-tx-nhM"/>
                         <viewControllerLayoutGuide type="bottom" id="nmi-gu-dNs"/>
@@ -401,43 +393,100 @@
         <!--Project List View-->
         <scene sceneID="Pw6-dt-SFQ">
             <objects>
-                <tableViewController id="9SR-Ed-eAi" customClass="ProjectListView" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="9SR-Ed-eAi" customClass="ProjectListView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="xtL-AG-p58">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" rowHeight="80" id="3pP-I6-mfv" customClass="ProjectCell" customModule="SjekkUt" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="80"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProjectCell" rowHeight="120" id="DJ3-DG-XNl" customClass="ProjectCell" customModule="SjekkUT" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3pP-I6-mfv" id="Ej5-ab-0dm">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DJ3-DG-XNl" id="88z-hI-F0r">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="119"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tRH-8b-OBM">
-                                            <rect key="frame" x="0.0" y="8" width="600" height="63"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk1-jX-cbe">
-                                            <rect key="frame" x="8" y="8" width="584" height="63"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6W-AJ-uR5">
+                                            <rect key="frame" x="8" y="8" width="551" height="103"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cjs-t6-mmP">
+                                                    <rect key="frame" x="0.0" y="16" width="87" height="87"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="cjs-t6-mmP" secondAttribute="height" id="yxs-vG-4vp"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baseline guide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO8-IV-Qld">
+                                                    <rect key="frame" x="95" y="74" width="195" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsf-P8-Qcl">
+                                                    <rect key="frame" x="95" y="38" width="448" height="72"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                            <real key="value" value="0.80000000000000004"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visited 0/0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0G-m3-VQp">
+                                                    <rect key="frame" x="460" y="16" width="83" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                            <real key="value" value="0.80000000000000004"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Vsf-P8-Qcl" firstAttribute="leading" secondItem="cjs-t6-mmP" secondAttribute="trailing" constant="8" id="2Me-GW-9SV"/>
+                                                <constraint firstItem="U0G-m3-VQp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J6W-AJ-uR5" secondAttribute="top" id="5xO-wz-tiS"/>
+                                                <constraint firstItem="Vsf-P8-Qcl" firstAttribute="top" secondItem="U0G-m3-VQp" secondAttribute="bottom" constant="1" id="6LS-9P-zgO"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vsf-P8-Qcl" secondAttribute="trailing" constant="8" id="HDu-gT-bJt"/>
+                                                <constraint firstItem="Vsf-P8-Qcl" firstAttribute="bottom" secondItem="eO8-IV-Qld" secondAttribute="bottom" id="Lc5-xO-mwq"/>
+                                                <constraint firstItem="cjs-t6-mmP" firstAttribute="leading" secondItem="J6W-AJ-uR5" secondAttribute="leading" id="M7h-4w-sxm"/>
+                                                <constraint firstItem="eO8-IV-Qld" firstAttribute="baseline" secondItem="cjs-t6-mmP" secondAttribute="bottom" id="OcG-s1-E62"/>
+                                                <constraint firstItem="eO8-IV-Qld" firstAttribute="leading" secondItem="cjs-t6-mmP" secondAttribute="trailing" constant="8" id="X3l-5M-mCI"/>
+                                                <constraint firstAttribute="bottom" secondItem="cjs-t6-mmP" secondAttribute="bottom" id="hyX-Tr-5S4"/>
+                                                <constraint firstItem="Vsf-P8-Qcl" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cjs-t6-mmP" secondAttribute="top" constant="1" id="k92-a7-wX4"/>
+                                                <constraint firstItem="cjs-t6-mmP" firstAttribute="top" secondItem="J6W-AJ-uR5" secondAttribute="top" constant="16" id="xL6-jc-quN"/>
+                                                <constraint firstAttribute="trailing" secondItem="U0G-m3-VQp" secondAttribute="trailing" constant="8" id="xUX-Gl-dP1"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="tRH-8b-OBM" firstAttribute="leading" secondItem="Ej5-ab-0dm" secondAttribute="leading" id="4iQ-Wo-DUV"/>
-                                        <constraint firstItem="zk1-jX-cbe" firstAttribute="trailing" secondItem="Ej5-ab-0dm" secondAttribute="trailingMargin" id="63W-ki-w5l"/>
-                                        <constraint firstItem="zk1-jX-cbe" firstAttribute="bottom" secondItem="Ej5-ab-0dm" secondAttribute="bottomMargin" id="BfC-Re-ZRu"/>
-                                        <constraint firstItem="tRH-8b-OBM" firstAttribute="trailing" secondItem="Ej5-ab-0dm" secondAttribute="trailing" id="Jg5-Q8-8EK"/>
-                                        <constraint firstItem="tRH-8b-OBM" firstAttribute="bottom" secondItem="Ej5-ab-0dm" secondAttribute="bottomMargin" id="Use-6q-RCG"/>
-                                        <constraint firstItem="zk1-jX-cbe" firstAttribute="leading" secondItem="Ej5-ab-0dm" secondAttribute="leadingMargin" id="dZV-H7-BVC"/>
-                                        <constraint firstItem="zk1-jX-cbe" firstAttribute="top" secondItem="Ej5-ab-0dm" secondAttribute="topMargin" id="gFy-hz-CHs"/>
-                                        <constraint firstItem="tRH-8b-OBM" firstAttribute="top" secondItem="Ej5-ab-0dm" secondAttribute="topMargin" id="iov-xN-GoR"/>
+                                        <constraint firstAttribute="trailing" secondItem="J6W-AJ-uR5" secondAttribute="trailing" constant="8" id="CNc-RY-WeD"/>
+                                        <constraint firstItem="J6W-AJ-uR5" firstAttribute="leading" secondItem="88z-hI-F0r" secondAttribute="leading" constant="8" id="D7s-kL-BbF"/>
+                                        <constraint firstItem="J6W-AJ-uR5" firstAttribute="top" secondItem="88z-hI-F0r" secondAttribute="top" constant="8" id="UKi-HY-lFT"/>
+                                        <constraint firstAttribute="bottom" secondItem="J6W-AJ-uR5" secondAttribute="bottom" constant="8" id="rs6-cC-7LD"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="backgroundImage" destination="tRH-8b-OBM" id="Cg5-Qr-tbN"/>
-                                    <outlet property="nameLabel" destination="zk1-jX-cbe" id="r7t-Gi-0iM"/>
+                                    <outlet property="nameLabel" destination="Vsf-P8-Qcl" id="vgV-jM-tPr"/>
+                                    <outlet property="progressLabel" destination="U0G-m3-VQp" id="BIu-a8-DBv"/>
+                                    <outlet property="projectImage" destination="cjs-t6-mmP" id="LGp-HA-Puz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -540,7 +589,7 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
         <!--Place Search-->
         <scene sceneID="Lk1-xu-eMU">
             <objects>
-                <viewController id="vp9-r5-EBP" customClass="PlaceSearch" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vp9-r5-EBP" customClass="PlaceSearch" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xj7-vH-TNY"/>
                         <viewControllerLayoutGuide type="bottom" id="ISq-Tj-Slc"/>
@@ -581,7 +630,7 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
         <!--Title-->
         <scene sceneID="HPg-GC-9bC">
             <objects>
-                <tableViewController id="Jt5-sv-F5Z" customClass="PlaceView" customModule="SjekkUt" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Jt5-sv-F5Z" customClass="PlaceView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LS2-Pt-9YS">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -898,11 +947,8 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
             <point key="canvasLocation" x="-1259" y="-368"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="challenge-footer" width="320" height="61"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="DrC-zj-7wU"/>
+        <segue reference="TOc-wB-BP5"/>
     </inferredMetricsTieBreakers>
 </document>

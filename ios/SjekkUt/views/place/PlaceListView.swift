@@ -16,7 +16,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let turbasen = TurbasenApi.instance
     var project:Project? = nil
     var places:NSFetchedResultsController? = nil
-    var projectHeader:ProjectHeader? = nil
+    var projectHeader:ProjectCell? = nil
 
     @IBOutlet weak var placesTable: UITableView!
     @IBOutlet weak var checkinButton: UIButton!
@@ -49,7 +49,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
 
         // set a header on the table
-        projectHeader = self.placesTable.dequeueReusableCellWithIdentifier("ProjectHeader") as? ProjectHeader
+        projectHeader = self.placesTable.dequeueReusableCellWithIdentifier("ProjectCell") as? ProjectCell
         projectHeader!.project = self.project
         self.placesTable.tableHeaderView = projectHeader
     }
@@ -106,7 +106,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return project?.progressDescription()
+        return project?.progressDescriptionLong()
     }
 
 

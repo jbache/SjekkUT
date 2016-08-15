@@ -9,20 +9,6 @@
 import Foundation
 import AlamofireImage
 
-extension NSDate {
-
-    func timeAgo() -> String {
-        let formatter = NSDateComponentsFormatter()
-        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
-        formatter.includesApproximationPhrase = false
-        formatter.includesTimeRemainingPhrase = false
-        formatter.maximumUnitCount = 1
-        formatter.allowedUnits = [.Minute, .Hour, .WeekOfYear, .Year]
-        let dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
-        return dateRelativeString!
-    }
-}
-
 class PlaceCell: UITableViewCell {
 
     var isObserving = false
