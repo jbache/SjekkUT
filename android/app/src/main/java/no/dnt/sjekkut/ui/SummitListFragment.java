@@ -24,8 +24,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.HttpStatus;
-
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,10 +62,7 @@ public class SummitListFragment extends ListFragment implements LocationListener
 
     public SummitListFragment() {
         mCheckins = new ArrayList<>();
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setSmallestDisplacement(20);
+        mLocationRequest = LocationRequestUtils.repeatingRequest();
         mListMountainsCallback = new Callback<List<Mountain>>() {
 
             @Override
@@ -148,7 +144,7 @@ public class SummitListFragment extends ListFragment implements LocationListener
                 if (getView() == null)
                     return;
 
-                if (error.getResponse().getStatus() == HttpStatus.SC_FORBIDDEN) {
+                if (error.getResponse().getStatus() == HttpURLConnection.HTTP_FORBIDDEN) {
                     OppturApi.getService().joinChallenge(mChallenge.id, Utils.getDeviceID(getActivity()), mJoinChallengeCallback);
                 }
                 ServerError details = (ServerError) error.getBodyAs(ServerError.class);

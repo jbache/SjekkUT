@@ -2,13 +2,18 @@ package no.dnt.sjekkut.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 import java.util.List;
 
@@ -21,10 +26,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TripListFragment extends Fragment {
+public class TripListFragment extends Fragment implements LocationListener {
 
     final private TripListCallback mTripListCallback = new TripListCallback();
     final private TripCallback mTripCallback = new TripCallback();
+    final private LocationRequest mLocationRequest = LocationRequestUtils.repeatingRequest();
     private TripListListener mListener;
 
     public TripListFragment() {
@@ -58,6 +64,14 @@ public class TripListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
+        }
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         if (activity instanceof TripListListener) {
@@ -74,25 +88,35 @@ public class TripListFragment extends Fragment {
         mListener = null;
     }
 
-    private void setList(List<Trip> tripList) {
+    private TripAdapter getTripAdapter() {
         if (getView() != null) {
             RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.triplist);
             if (recyclerView != null) {
                 if (recyclerView.getAdapter() instanceof TripAdapter) {
-                    ((TripAdapter) recyclerView.getAdapter()).setList(tripList);
+                    return (TripAdapter) recyclerView.getAdapter();
                 }
             }
+        }
+        return null;
+    }
+
+
+    private void setList(List<Trip> tripList) {
+        if (getTripAdapter() != null) {
+            getTripAdapter().setList(tripList);
         }
     }
 
     private void updateTrip(Trip trip) {
-        if (getView() != null) {
-            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.triplist);
-            if (recyclerView != null) {
-                if (recyclerView.getAdapter() instanceof TripAdapter) {
-                    ((TripAdapter) recyclerView.getAdapter()).updateTrip(trip);
-                }
-            }
+        if (getTripAdapter() != null) {
+            getTripAdapter().updateTrip(trip);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (getTripAdapter() != null) {
+            getTripAdapter().updateLocation(location);
         }
     }
 

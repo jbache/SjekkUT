@@ -1,6 +1,11 @@
 package no.dnt.sjekkut.network;
 
+import android.content.Context;
+import android.location.Location;
+
 import java.util.List;
+
+import no.dnt.sjekkut.Utils;
 
 /**
  * Copyright Den Norske Turistforening 2016
@@ -14,17 +19,28 @@ public class Trip {
     public List<Place> steder;
     public List<Photo> bilder;
     public List<Group> grupper;
+    public GeoJSON geojson;
 
 
-    public int placeCount() {
+    public int getPlaceCount() {
         return steder != null ? steder.size() : 0;
     }
 
-    public String groupName() {
+    public String getFirstGroupName() {
         if (grupper != null && !grupper.isEmpty() && grupper.get(0).navn != null) {
             return grupper.get(0).navn;
         } else {
             return "n/a";
         }
+    }
+
+    public String getDistanceTo(Context context, Location currentLocation) {
+        if (context != null && geojson != null) {
+            Location tripLocation = geojson.getLocation();
+            if (currentLocation != null && tripLocation != null) {
+                return Utils.formatDistance(context, currentLocation.distanceTo(tripLocation));
+            }
+        }
+        return "n/a";
     }
 }

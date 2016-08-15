@@ -1,6 +1,7 @@
 package no.dnt.sjekkut.ui;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,14 @@ import no.dnt.sjekkut.ui.TripListFragment.TripListListener;
 
 class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
 
-    private final List<Trip> mTripList = new ArrayList<>();
+    private final List<Trip> mTripList;
     private final TripListListener mListener;
+    private Location mUserLocation;
 
     TripAdapter(TripListFragment.TripListListener listener) {
+        mTripList = new ArrayList<>();
         mListener = listener;
+        mUserLocation = null;
     }
 
     void setList(List<Trip> tripList) {
@@ -54,9 +58,9 @@ class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         final Trip trip = mTripList.get(position);
         Context context = holder.mTripTitle.getContext();
         holder.mTripTitle.setText(trip.navn);
-        holder.mGroupTitle.setText(trip.groupName());
-        holder.mDistanceToTrip.setText(context.getString(R.string.not_implemented));
-        holder.mVisitStatus.setText(context.getString(R.string.tripVisitStatus, 0, trip.placeCount()));
+        holder.mGroupTitle.setText(trip.getFirstGroupName());
+        holder.mDistanceToTrip.setText(trip.getDistanceTo(context, mUserLocation));
+        holder.mVisitStatus.setText(context.getString(R.string.tripVisitStatus, 0, trip.getPlaceCount()));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +74,11 @@ class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
     @Override
     public int getItemCount() {
         return mTripList.size();
+    }
+
+    void updateLocation(Location location) {
+        mUserLocation = location;
+        notifyDataSetChanged();
     }
 
     class TripHolder extends RecyclerView.ViewHolder {

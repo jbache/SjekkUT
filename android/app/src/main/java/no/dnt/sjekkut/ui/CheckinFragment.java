@@ -70,12 +70,7 @@ public class CheckinFragment extends Fragment implements LocationListener, View.
     }
 
     public CheckinFragment() {
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setFastestInterval(500);
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setSmallestDisplacement(0);
-        mLocationRequest.setNumUpdates(1);
+        mLocationRequest = LocationRequestUtils.singleShotRequest();
 
         mListMountainsCallback = new Callback<List<Mountain>>() {
             @Override
