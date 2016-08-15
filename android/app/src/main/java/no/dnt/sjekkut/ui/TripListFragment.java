@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,10 +21,6 @@ import retrofit2.Response;
 
 public class TripListFragment extends Fragment implements Callback<TripList> {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
     private TripListListener mListener;
 
     /**
@@ -40,7 +35,6 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
     public static TripListFragment newInstance(int columnCount) {
         TripListFragment fragment = new TripListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,10 +42,6 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -63,11 +53,7 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
             TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder").enqueue(this);
         }
         return view;
@@ -93,8 +79,10 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
     @Override
     public void onResponse(Call<TripList> call, Response<TripList> response) {
         if (response.isSuccessful()) {
-            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.triplist);
-            recyclerView.setAdapter(new TripAdapter(response.body().documents, (TripListListener) getActivity()));
+            if (getView() != null) {
+                RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.triplist);
+                recyclerView.setAdapter(new TripAdapter(response.body().documents, (TripListListener) getActivity()));
+            }
         } else {
             Utils.showToast(getActivity(), "Failed to set adapter: " + response.code());
         }
@@ -105,7 +93,7 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
         Utils.showToast(getActivity(), "Failed to set adapter: " + t.getLocalizedMessage());
     }
 
-    public interface TripListListener {
+    interface TripListListener {
         void onTripClick(Trip item);
     }
 }

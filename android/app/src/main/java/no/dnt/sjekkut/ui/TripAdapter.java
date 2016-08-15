@@ -1,5 +1,6 @@
 package no.dnt.sjekkut.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,35 +13,36 @@ import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.network.Trip;
 import no.dnt.sjekkut.ui.TripListFragment.TripListListener;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
+class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
 
-    private final List<Trip> mValues;
+    private final List<Trip> mTripList;
     private final TripListListener mListener;
 
-    public TripAdapter(List<Trip> items, TripListFragment.TripListListener listener) {
-        mValues = items;
+    TripAdapter(List<Trip> tripList, TripListFragment.TripListListener listener) {
+        mTripList = tripList;
         mListener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TripHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tripitem, parent, false);
-        return new ViewHolder(view);
+        return new TripHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).navn);
-        int tripCount = mValues.get(position).steder != null ? mValues.get(position).steder.size() : 0;
-        holder.mContentView.setText(tripCount + " steder");
-
+    public void onBindViewHolder(final TripHolder holder, int position) {
+        final Trip trip = mTripList.get(position);
+        Context context = holder.mTripTitle.getContext();
+        holder.mTripTitle.setText(trip.navn);
+        holder.mGroupTitle.setText(context.getString(R.string.not_implemented));
+        holder.mDistanceToTrip.setText(context.getString(R.string.not_implemented));
+        holder.mVisitStatus.setText(context.getString(R.string.tripVisitStatus, 0, trip.placeCount()));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onTripClick(holder.mItem);
+                    mListener.onTripClick(trip);
                 }
             }
         });
@@ -48,25 +50,28 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mTripList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public no.dnt.sjekkut.network.Trip mItem;
+    class TripHolder extends RecyclerView.ViewHolder {
+        final View mView;
+        final TextView mTripTitle;
+        final TextView mGroupTitle;
+        final TextView mDistanceToTrip;
+        final TextView mVisitStatus;
 
-        public ViewHolder(View view) {
+        TripHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mTripTitle = (TextView) view.findViewById(R.id.title);
+            mGroupTitle = (TextView) view.findViewById(R.id.group);
+            mDistanceToTrip = (TextView) view.findViewById(R.id.distance);
+            mVisitStatus = (TextView) view.findViewById(R.id.visits);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mGroupTitle.getText() + "'";
         }
     }
 }

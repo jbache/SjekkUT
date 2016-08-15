@@ -13,4 +13,8 @@ public class Trip {
     public String beskrivelse;
     public List<Place> steder;
     public List<Photo> bilder;
+
+    public int placeCount() {
+        return steder != null ? steder.size() : 0;
+    }
 }

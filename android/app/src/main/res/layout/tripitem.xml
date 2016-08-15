@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_marginBottom="@dimen/margin_small"
+    android:layout_marginEnd="@dimen/margin_small"
+    android:layout_marginStart="@dimen/margin_small"
+    android:layout_marginTop="@dimen/margin_small"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_medium"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:gravity="center_vertical|end"
+        android:textAppearance="?attr/textAppearanceListItem"
+        tools:text="Trip Title" />
 
     <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
+        android:id="@+id/group"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_medium"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_marginTop="@dimen/margin_micro"
+        android:gravity="center_vertical|end"
+        android:textAppearance="?attr/textAppearanceListItemSmall"
+        tools:text="Trip group" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:gravity="center_vertical|end"
+        android:textAppearance="?attr/textAppearanceListItemSmall"
+        tools:text="10 km" />
+
+    <TextView
+        android:id="@+id/visits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_micro"
+        android:gravity="center_vertical|end"
+        android:textAppearance="?attr/textAppearanceListItemSmall"
+        tools:text="2/10 visits" />
+
+
 </LinearLayout>
