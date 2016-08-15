@@ -57,7 +57,7 @@ public class TurbasenApi: Alamofire.Manager {
     func getProjects() {
         let parameters = [
             "api_key": api_key,
-            "fields": "steder,bilder"
+            "fields": "steder,bilder,geojson,grupper"
         ];
         self.request(.GET, baseUrl + "/lister", parameters:parameters )
             .validate(statusCode: 200..<300)

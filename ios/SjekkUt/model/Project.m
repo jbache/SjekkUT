@@ -6,8 +6,12 @@
 //
 //
 
+@import Foundation;
+@import CoreLocation;
+
 #import "Defines.h"
 #import "DntImage.h"
+#import "Location.h"
 #import "ModelController.h"
 #import "Place.h"
 #import "Project.h"
@@ -56,6 +60,14 @@
 {
     self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
     self.name = json[@"navn"];
+    NSArray *coordinates = nil;
+    if ((coordinates = json[@"geojson"][@"coordinates"]) != nil)
+    {
+        self.latitude = @([[coordinates objectAtIndex:1] doubleValue]);
+        self.longitude = @([[coordinates objectAtIndex:0] doubleValue]);
+    }
+    [self updateDistance];
+
     self.places = [self parsePlaces:json[@"steder"]];
     self.images = [self parseImages:json[@"bilder"]];
 }
@@ -124,12 +136,56 @@
 
 - (void)updateDistance
 {
+    NSNumber *newDistance = @([self.projectLocation distanceFromLocation:locationBackend.currentLocation]);
+    if (self.latitude != nil && self.longitude != nil && ![self.distance isEqualToNumber:newDistance])
+    {
+        self.distance = newDistance;
+    }
+    else
+    {
+        self.distance = @(DBL_MIN);
+    }
+}
+
+- (CLLocation *)projectLocation
+{
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude.doubleValue, self.longitude.doubleValue);
+
+    return [[CLLocation alloc] initWithCoordinate:coordinate
+                                         altitude:0
+                               horizontalAccuracy:10
+                                 verticalAccuracy:10
+                                        timestamp:[NSDate date]];
+}
+
+- (void)updatePlacesDistance
+{
     [model saveBlock:^{
         for (Place *place in self.places)
         {
             [place updateDistance];
         }
     }];
+}
+
+- (NSString *)distanceDescription
+{
+    if (self.distance.doubleValue <= 0)
+        return @"";
+
+    NSString *unit = @"km";
+
+    CLLocationDistance distance = self.distance.doubleValue;
+    if (distance < 1000)
+    {
+        unit = @"m";
+    }
+    else
+    {
+        distance /= 1000;
+    }
+    return [NSString stringWithFormat:@"%ld %@",
+                                      (long)distance, unit];
 }
 
 - (Place *)findNearest

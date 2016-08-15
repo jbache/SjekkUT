@@ -73,16 +73,21 @@
 {
     self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
     self.name = json[@"navn"];
-    NSArray *coordinateArray = [json valueForKeyPath:@"geojson.coordinates"];
-    switch (coordinateArray.count)
+    NSArray *coordinates = nil;
+    if ((coordinates = [json valueForKeyPath:@"geojson.coordinates"]) != nil)
     {
-        case 3:
-            self.elevation = @([[coordinateArray objectAtIndex:2] doubleValue]);
-        case 2:
-            self.latitude = @([[coordinateArray objectAtIndex:1] doubleValue]);
-        case 1:
-            self.longitude = @([[coordinateArray objectAtIndex:0] doubleValue]);
+        switch (coordinates.count)
+        {
+            case 3:
+                self.elevation = @([[coordinates objectAtIndex:2] doubleValue]);
+            case 2:
+                self.latitude = @([[coordinates objectAtIndex:1] doubleValue]);
+            case 1:
+                self.longitude = @([[coordinates objectAtIndex:0] doubleValue]);
+        }
     }
+    [self updateDistance];
+
     self.county = json[@"kommune"];
     self.descriptionText = json[@"beskrivelse"];
     self.images = [self parseImages:json[@"bilder"]];
@@ -111,9 +116,13 @@
 - (void)updateDistance
 {
     NSNumber *newDistance = @([self.summitLocation distanceFromLocation:locationBackend.currentLocation]);
-    if (![self.distance isEqualToNumber:newDistance])
+    if (self.latitude != nil && self.longitude != nil && ![self.distance isEqualToNumber:newDistance])
     {
         self.distance = newDistance;
+    }
+    else
+    {
+        self.distance = @(DBL_MIN);
     }
 }
 
@@ -192,12 +201,12 @@
 
 - (NSString *)distanceDescription
 {
-    if (self.distance.intValue == -1)
+    if (self.distance.intValue <= 0)
         return @"";
 
     NSString *unit = @"km";
 
-    NSUInteger distance = self.distance.unsignedIntegerValue;
+    CLLocationDistance distance = self.distance.doubleValue;
     if (distance < 1000)
     {
         unit = @"m";
@@ -206,8 +215,7 @@
     {
         distance /= 1000;
     }
-    return [NSString stringWithFormat:@"%ld %@",
-                                      (long)distance, unit];
+    return [NSString stringWithFormat:@"%f %@", distance, unit];
 }
 
 - (NSString *)elevationDescription

@@ -12,6 +12,8 @@ import AlamofireImage
 
 var kObservationContextImages = 0
 var kObservationContextPlaces = 0
+var kObservationContextName = 0
+var kObservationContextDistance = 0
 
 class ProjectCell: UITableViewCell {
 
@@ -25,6 +27,7 @@ class ProjectCell: UITableViewCell {
     @IBOutlet weak var readMoreSpacing: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
 
     var backgroundImageView: UIImageView?
 
@@ -45,7 +48,6 @@ class ProjectCell: UITableViewCell {
         didSet {
             stopObserving()
 
-            setupName()
             setupReadMore()
             setupProgressLabel()
             setupBackgroundImage()
@@ -67,6 +69,9 @@ class ProjectCell: UITableViewCell {
         stopObserving()
         (self.backgroundView as! UIImageView).image = UIImage(named:"challenge-footer")
         self.projectImage.image = UIImage(named:"app-icon")
+        self.nameLabel.text = ""
+        self.distanceLabel.text = ""
+        self.progressLabel.text = ""
     }
 
     // MARK: private
@@ -175,6 +180,8 @@ class ProjectCell: UITableViewCell {
     // MARK: observing
     func startObserving() {
         if (!isObserving) {
+            project?.addObserver(self, forKeyPath: "name", options: .Initial, context: &kObservationContextName)
+            project?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObservationContextDistance)
             project?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObservationContextImages)
             project?.addObserver(self, forKeyPath: "places", options: .Initial, context: &kObservationContextPlaces)
             isObserving = true
@@ -195,8 +202,14 @@ class ProjectCell: UITableViewCell {
                 break
             }
         }
-        else if(context == &kObserveProjectPlaces) {
-            self.statusLabel.text = project?.progressDescriptionShort()
+        else if(context == &kObservationContextPlaces) {
+            self.progressLabel.text = project?.progressDescriptionShort()
+        }
+        else if(context == &kObservationContextName) {
+            self.nameLabel.text = project?.name
+        }
+        else if(context == &kObservationContextDistance) {
+            self.distanceLabel.text = project?.distanceDescription()
         }
     }
 
@@ -204,6 +217,8 @@ class ProjectCell: UITableViewCell {
         if (isObserving) {
             project?.removeObserver(self, forKeyPath: "images")
             project?.removeObserver(self, forKeyPath: "places")
+            project?.removeObserver(self, forKeyPath: "name")
+            project?.removeObserver(self, forKeyPath: "distance")
             isObserving = false
         }
     }

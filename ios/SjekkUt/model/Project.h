@@ -21,12 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 
 - (void)updateDistance;
+- (void)updatePlacesDistance;
 - (void)updateHasCheckin;
 - (Place *)findNearest;
 - (NSString *)progressDescriptionLong;
 - (NSString *)progressDescriptionShort;
 - (NSURL *)backgroundImageURLforSize:(CGSize)aSize;
 - (NSURL *)foregroundImageURLforSize:(CGSize)aSize;
+- (NSString *)distanceDescription;
 
 @end
 

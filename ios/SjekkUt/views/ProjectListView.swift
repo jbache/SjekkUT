@@ -71,7 +71,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     func projectResults() -> NSFetchedResultsController {
         let aFetchRequest =  Project.fetchRequest()
-        aFetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasCheckins", ascending: false)]
+        aFetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasCheckins", ascending: false), NSSortDescriptor(key: "distance", ascending: true)]
         let someResults = NSFetchedResultsController(fetchRequest: aFetchRequest, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: "hasCheckins", cacheName: nil)
         do {
             try someResults.performFetch()
@@ -108,6 +108,8 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let project = self.projects?.objectAtIndexPath(indexPath) as! Project
         let projectCell = cell as! ProjectCell
+        projectCell.readMoreSpacing.constant = 0
+        projectCell.readMoreWidth.constant = 0
         projectCell.project = project
     }
 

@@ -30,7 +30,7 @@
 - (NSString *)checkinTimeAgo;
 - (NSURL *)mapURLForView:(UIView *)view;
 - (Checkin *)lastCheckin;
-- (void)updateDistance;
+- (void)updatePlacesDistance;
 - (void)updateStatistics:(NSDictionary *)json;
 - (BOOL)canCheckIn;
 - (BOOL)canCheckinTime;

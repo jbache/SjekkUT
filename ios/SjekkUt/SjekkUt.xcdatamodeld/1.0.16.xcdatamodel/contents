@@ -37,9 +37,12 @@
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="countOfPlaces" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="hasCheckins" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="identifier" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="infoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="progress" transient="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <relationship name="images" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DntImage" inverseName="projects" inverseEntity="DntImage" syncable="YES"/>
@@ -48,8 +51,8 @@
     <elements>
         <element name="Checkin" positionX="187" positionY="-1" width="128" height="120"/>
         <element name="DntImage" positionX="18" positionY="63" width="128" height="135"/>
-        <element name="Place" positionX="27" positionY="72" width="128" height="210"/>
-        <element name="Project" positionX="160" positionY="192" width="128" height="165"/>
         <element name="DntImageSize" positionX="117" positionY="171" width="128" height="120"/>
+        <element name="Place" positionX="27" positionY="72" width="128" height="210"/>
+        <element name="Project" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

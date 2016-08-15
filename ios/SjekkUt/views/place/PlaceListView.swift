@@ -96,6 +96,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if (context == &kObserveLocation && Location.instance().currentLocation != nil) {
             project!.updateDistance()
+            project!.updatePlacesDistance()
         }
     }
 
