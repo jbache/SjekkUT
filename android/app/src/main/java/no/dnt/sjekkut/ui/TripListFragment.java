@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Trip;
@@ -23,15 +25,9 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
 
     private TripListListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public TripListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static TripListFragment newInstance(int columnCount) {
         TripListFragment fragment = new TripListFragment();
         Bundle args = new Bundle();
@@ -54,6 +50,7 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new TripAdapter((TripListListener) getActivity()));
             TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(this);
         }
         return view;
@@ -79,12 +76,29 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
     @Override
     public void onResponse(Call<TripList> call, Response<TripList> response) {
         if (response.isSuccessful()) {
-            if (getView() != null) {
-                RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.triplist);
-                recyclerView.setAdapter(new TripAdapter(response.body().documents, (TripListListener) getActivity()));
-            }
+            List<Trip> tripList = response.body().documents;
+            setList(tripList);
+////            for (Trip trip : tripList) {
+////                TripApiSingleton.call().getTrip(
+////                        trip._id,
+////                        getString(R.string.api_key),
+////                        "steder,geojson,bilder,img,kommune,beskrivelse",
+////                        "steder,bilder"
+////                ).enqueue(this);
+//            }
         } else {
             Utils.showToast(getActivity(), "Failed to set adapter: " + response.code());
+        }
+    }
+
+    private void setList(List<Trip> tripList) {
+        if (getView() != null) {
+            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.triplist);
+            if (recyclerView != null) {
+                if (recyclerView.getAdapter() instanceof TripAdapter) {
+                    ((TripAdapter) recyclerView.getAdapter()).setList(tripList);
+                }
+            }
         }
     }
 

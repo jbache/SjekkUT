@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.dnt.sjekkut.R;
@@ -15,12 +16,17 @@ import no.dnt.sjekkut.ui.TripListFragment.TripListListener;
 
 class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
 
-    private final List<Trip> mTripList;
+    private final List<Trip> mTripList = new ArrayList<>();
     private final TripListListener mListener;
 
-    TripAdapter(List<Trip> tripList, TripListFragment.TripListListener listener) {
-        mTripList = tripList;
+    TripAdapter(TripListFragment.TripListListener listener) {
         mListener = listener;
+    }
+
+    void setList(List<Trip> tripList) {
+        mTripList.clear();
+        mTripList.addAll(tripList);
+        notifyDataSetChanged();
     }
 
     @Override
