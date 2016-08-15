@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical|end"
         android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="Trip Title" />
+        tools:text="Project Title" />
 
     <TextView
         android:id="@+id/group"
@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/margin_micro"
         android:gravity="center_vertical|end"
         android:textAppearance="?attr/textAppearanceListItemSmall"
-        tools:text="Trip group" />
+        tools:text="Group name" />
 
     <TextView
         android:id="@+id/distance"
@@ -43,6 +43,5 @@
         android:gravity="center_vertical|end"
         android:textAppearance="?attr/textAppearanceListItemSmall"
         tools:text="2/10 visits" />
-
 
 </LinearLayout>

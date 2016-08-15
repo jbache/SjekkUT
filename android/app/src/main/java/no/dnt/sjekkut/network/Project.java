@@ -12,7 +12,7 @@ import no.dnt.sjekkut.Utils;
  * <p>
  * Created by espen on 09.08.2016.
  */
-public class Trip {
+public class Project {
     public String _id;
     public String navn;
     public String beskrivelse;
@@ -36,9 +36,9 @@ public class Trip {
 
     public String getDistanceTo(Context context, Location currentLocation) {
         if (context != null && geojson != null) {
-            Location tripLocation = geojson.getLocation();
-            if (currentLocation != null && tripLocation != null) {
-                return Utils.formatDistance(context, currentLocation.distanceTo(tripLocation));
+            Location projectLocation = geojson.getLocation();
+            if (currentLocation != null && projectLocation != null) {
+                return Utils.formatDistance(context, currentLocation.distanceTo(projectLocation));
             }
         }
         return "n/a";

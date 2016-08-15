@@ -7,8 +7,8 @@ import java.util.List;
  * <p>
  * Created by espen on 09.08.2016.
  */
-public class TripList {
-    public List<Trip> documents;
+public class ProjectList {
+    public List<Project> documents;
     public int count;
     public int total;
 }

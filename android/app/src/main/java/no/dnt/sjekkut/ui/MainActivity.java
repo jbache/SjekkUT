@@ -40,14 +40,14 @@ import no.dnt.sjekkut.network.OppturApi;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckinList;
 import no.dnt.sjekkut.network.PlaceCheckinStats;
-import no.dnt.sjekkut.network.Trip;
+import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.TripApiSingleton;
-import no.dnt.sjekkut.network.TripList;
+import no.dnt.sjekkut.network.ProjectList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, TripListFragment.TripListListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ProjectListFragment.ProjectListListener {
 
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final long MAX_LOCATION_TIME_DELTA_MS = 60 * 1000;
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private boolean mResolvingError = false;
     private ArrayList<Pair<LocationListener, LocationRequest>> mPendingListener = new ArrayList<>();
     private Callback<MemberData> mMemberCallback;
-    private Callback<TripList> mTripListcallback;
-    private Callback<Trip> mTripCallback;
+    private Callback<ProjectList> mProjectListCallback;
+    private Callback<Project> mProjectCallback;
     private Callback<Place> mPlaceCallback;
     private Callback<PlaceCheckinList> mPlaceCheckinList;
     private Callback<PlaceCheckinStats> mPlaceCheckinStats;
@@ -99,35 +99,35 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         };
 
-        mTripListcallback = new Callback<TripList>() {
+        mProjectListCallback = new Callback<ProjectList>() {
             @Override
-            public void onResponse(Call<TripList> call, Response<TripList> response) {
+            public void onResponse(Call<ProjectList> call, Response<ProjectList> response) {
                 if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got " + response.body().total + " trip lists");
-                    int lastTripIndex = response.body().documents.size() - 1;
-                    Trip lastTrip = response.body().documents.get(lastTripIndex);
-                    TripApiSingleton.call().getTrip(
-                            lastTrip._id,
+                    Utils.showToast(MainActivity.this, "Got " + response.body().total + " projects");
+                    int lastProjectIndex = response.body().documents.size() - 1;
+                    Project lastProject = response.body().documents.get(lastProjectIndex);
+                    TripApiSingleton.call().getProject(
+                            lastProject._id,
                             getString(R.string.api_key),
                             "steder,geojson,bilder,img,kommune,beskrivelse",
                             "steder,bilder"
-                    ).enqueue(mTripCallback);
+                    ).enqueue(mProjectCallback);
                 } else {
-                    Utils.showToast(MainActivity.this, "Failed to get trip list: " + response.code());
+                    Utils.showToast(MainActivity.this, "Failed to get project list: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<TripList> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get trip list: " + t.getLocalizedMessage());
+            public void onFailure(Call<ProjectList> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get project list: " + t.getLocalizedMessage());
             }
         };
 
-        mTripCallback = new Callback<Trip>() {
+        mProjectCallback = new Callback<Project>() {
             @Override
-            public void onResponse(Call<Trip> call, Response<Trip> response) {
+            public void onResponse(Call<Project> call, Response<Project> response) {
                 if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got trip " + response.body().navn);
+                    Utils.showToast(MainActivity.this, "Got project " + response.body().navn);
                     int lastPlaceIndex = response.body().steder.size();
                     Place lastPlace = response.body().steder.get(lastPlaceIndex - 1);
                     TripApiSingleton.call().getPlace(
@@ -136,13 +136,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                             "bilder"
                     ).enqueue(mPlaceCallback);
                 } else {
-                    Utils.showToast(MainActivity.this, "Failed to get trip" + response.code());
+                    Utils.showToast(MainActivity.this, "Failed to get project: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<Trip> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get trip: " + t.getLocalizedMessage());
+            public void onFailure(Call<Project> call, Throwable t) {
+                Utils.showToast(MainActivity.this, "Failed to get project: " + t.getLocalizedMessage());
 
             }
         };
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new TripListFragment())
+                    .add(R.id.container, new ProjectListFragment())
                     .commit();
         }
         checkForUpdates();
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
-        TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mTripListcallback);
+        TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
     }
 
     @Override
@@ -372,8 +372,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
-    public void onTripClick(Trip trip) {
-        Utils.showToast(MainActivity.this, "Clicked on trip: " + trip.navn);
+    public void onProjectClicked(Project project) {
+        Utils.showToast(MainActivity.this, "Clicked on project: " + project.navn);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new SummitListFragment())
                 .addToBackStack(SummitListFragment.class.getCanonicalName())

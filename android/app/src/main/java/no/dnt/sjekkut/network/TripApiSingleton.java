@@ -28,10 +28,10 @@ public enum TripApiSingleton {
     public interface TripApi {
 
         @GET("lister/")
-        Call<TripList> getTripList(@Query("api_key") String api_key, @Query("fields") String fields);
+        Call<ProjectList> getProjectList(@Query("api_key") String api_key, @Query("fields") String fields);
 
         @GET("lister/{id}/")
-        Call<Trip> getTrip(@Path("id") String id, @Query("api_key") String api_key, @Query("fields") String fields, @Query("expand") String expand);
+        Call<Project> getProject(@Path("id") String id, @Query("api_key") String api_key, @Query("fields") String fields, @Query("expand") String expand);
 
         @GET("steder/{id}/")
         Call<Place> getPlace(@Path("id") String id, @Query("api_key") String api_key, @Query("expand") String expand);
