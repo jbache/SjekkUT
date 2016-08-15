@@ -29,6 +29,19 @@ class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         notifyDataSetChanged();
     }
 
+    void updateTrip(Trip newTrip) {
+        if (newTrip != null && newTrip._id != null && !newTrip._id.isEmpty()) {
+            for (int i = 0; i < mTripList.size(); ++i) {
+                Trip oldTrip = mTripList.get(i);
+                if (newTrip._id.equals(oldTrip._id)) {
+                    mTripList.set(i, newTrip);
+                    notifyDataSetChanged();
+                    return;
+                }
+            }
+        }
+    }
+
     @Override
     public TripHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -41,7 +54,7 @@ class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripHolder> {
         final Trip trip = mTripList.get(position);
         Context context = holder.mTripTitle.getContext();
         holder.mTripTitle.setText(trip.navn);
-        holder.mGroupTitle.setText(context.getString(R.string.not_implemented));
+        holder.mGroupTitle.setText(trip.groupName());
         holder.mDistanceToTrip.setText(context.getString(R.string.not_implemented));
         holder.mVisitStatus.setText(context.getString(R.string.tripVisitStatus, 0, trip.placeCount()));
         holder.mView.setOnClickListener(new View.OnClickListener() {

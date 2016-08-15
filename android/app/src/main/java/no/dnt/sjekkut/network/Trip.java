@@ -13,8 +13,18 @@ public class Trip {
     public String beskrivelse;
     public List<Place> steder;
     public List<Photo> bilder;
+    public List<Group> grupper;
+
 
     public int placeCount() {
         return steder != null ? steder.size() : 0;
+    }
+
+    public String groupName() {
+        if (grupper != null && !grupper.isEmpty() && grupper.get(0).navn != null) {
+            return grupper.get(0).navn;
+        } else {
+            return "n/a";
+        }
     }
 }
