@@ -6,10 +6,12 @@
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-#import <Foundation/Foundation.h>
+@import CoreData;
+@import CoreGraphics;
 
+#import "DntImageSize.h"
 #import "EntityScaffold.h"
+#import "Place.h"
 
 @class Project;
 
@@ -19,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 
-- (NSURL *)URL;
+- (NSURL *)URLforSize:(CGSize)size;
 
 @end
 

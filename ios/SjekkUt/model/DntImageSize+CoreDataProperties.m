@@ -1,5 +1,5 @@
 //
-//  DntImage+CoreDataProperties.m
+//  DntImageSize+CoreDataProperties.m
 //  SjekkUt
 //
 //  Created by Henrik Hartz on 15/08/16.
@@ -9,15 +9,14 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "DntImage+CoreDataProperties.h"
+#import "DntImageSize+CoreDataProperties.h"
 
-@implementation DntImage (CoreDataProperties)
+@implementation DntImageSize (CoreDataProperties)
 
-@dynamic identifier;
-@dynamic name;
-@dynamic naming;
-@dynamic places;
-@dynamic projects;
-@dynamic sizes;
+@dynamic width;
+@dynamic height;
+@dynamic url;
+@dynamic etag;
+@dynamic image;
 
 @end

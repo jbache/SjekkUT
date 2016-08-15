@@ -100,22 +100,22 @@
     return orderedImages;
 }
 
-- (NSURL *)backgroundImageURL
+- (NSURL *)backgroundImageURLforSize:(CGSize)aSize;
 {
     if (self.images.count > 1)
     {
         DntImage *theImage = [self.images objectAtIndex:1];
-        return theImage.url.URL;
+        return [theImage URLforSize:aSize];
     }
     return nil;
 }
 
-- (NSURL *)foregroundImageURL
+- (NSURL *)foregroundImageURLforSize:(CGSize)aSize
 {
     if (self.images.count > 0)
     {
         DntImage *theImage = [self.images objectAtIndex:0];
-        return theImage.url.URL;
+        return [theImage URLforSize:aSize];
     }
     return nil;
 }

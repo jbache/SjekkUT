@@ -7,6 +7,7 @@
 //
 
 #import "DntImage.h"
+#import "DntImageSize.h"
 #import "ModelController.h"
 #import "Project.h"
 
@@ -58,28 +59,38 @@
 - (void)update:(NSDictionary *)json
 {
     self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    NSArray *images = json[@"img"];
-    NSDictionary *theImage = [images firstObject];
-    CGSize desiredSize = [UIScreen mainScreen].bounds.size;
-    for (NSDictionary *imgDict in images)
+    self.sizes = [self parseImageSizes:json[@"img"]];
+}
+
+- (NSSet *)parseImageSizes:(NSArray *)sizesDict
+{
+    NSMutableSet *sizes = [NSMutableSet set];
+    for (NSDictionary *sizeDict in sizesDict)
     {
-        if ([theImage[@"width"] floatValue] > desiredSize.width && [theImage[@"height"] floatValue] > desiredSize.height)
+        DntImageSize *size = [DntImageSize insertOrUpdate:sizeDict];
+        [sizes addObject:size];
+    }
+    return sizes;
+}
+
+- (NSURL *)URLforSize:(CGSize)desiredSize
+{
+    NSArray *sortedSizes = [self.sizes sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"width" ascending:NO] ]];
+    DntImageSize *theSize = [sortedSizes firstObject];
+    for (DntImageSize *aSize in sortedSizes)
+    {
+        if (aSize.width.floatValue >= desiredSize.width && aSize.height.floatValue >= desiredSize.height)
         {
-            theImage = imgDict;
+            theSize = aSize;
         }
         else
         {
             break;
         }
     }
-    NSLog(@"picked image size %@ %@", theImage[@"width"], theImage[@"height"]);
-    NSString *imageUrl = theImage[@"url"];
-    self.url = imageUrl;
-}
-
-- (NSURL *)URL
-{
-    return [NSURL URLWithString:self.url];
+    //NSAssert(theSize.width != nil && theSize.height != nil, @"no size");
+    NSLog(@"image size %@ %@", theSize.width, theSize.height);
+    return [NSURL URLWithString:theSize.url];
 }
 
 @end

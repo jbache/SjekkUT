@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import AlamofireImage
 
 var kObservationContextImages = 0
@@ -65,6 +66,7 @@ class ProjectCell: UITableViewCell {
     override func prepareForReuse() {
         stopObserving()
         (self.backgroundView as! UIImageView).image = UIImage(named:"challenge-footer")
+        self.projectImage.image = UIImage(named:"app-icon")
     }
 
     // MARK: private
@@ -94,7 +96,7 @@ class ProjectCell: UITableViewCell {
         }
     }
 
-    // MARK: images
+    // MARK: background image
 
     func setupBackgroundImage() {
         var aBackgroundView = self.backgroundView as? UIImageView
@@ -110,23 +112,13 @@ class ProjectCell: UITableViewCell {
     }
 
     func fetchBackgroundImage() {
-        if let backgroundURL = project?.backgroundImageURL() {
+        if let backgroundURL = project?.backgroundImageURLforSize(self.backgroundImageView!.bounds.size) {
             Alamofire.request(.GET,backgroundURL)
                 .responseImage { response in
                     if let image = response.result.value {
                         self.backgroundImage =  image.af_imageAspectScaledToFillSize(self.bounds.size)
                     }
             }
-        }
-    }
-
-    func updateForegroundImage() {
-        if foregroundImage == nil {
-            projectImage.image = UIImage(named: "app-icon")
-            return
-        }
-        else {
-            projectImage.image = foregroundImage
         }
     }
 
@@ -139,8 +131,20 @@ class ProjectCell: UITableViewCell {
         backgroundImageView?.image = theImage
     }
 
+    // MARK: foreground image 
+
+    func updateForegroundImage() {
+        if foregroundImage == nil {
+            projectImage.image = UIImage(named: "app-icon")
+            return
+        }
+        else {
+            projectImage.image = foregroundImage
+        }
+    }
+
     func fetchForegroundImage() {
-        if let foregroundURL = project?.foregroundImageURL() {
+        if let foregroundURL = project?.foregroundImageURLforSize(self.projectImage.bounds.size) {
             Alamofire.request(.GET,foregroundURL)
                 .responseImage { response in
                     if let image = response.result.value {

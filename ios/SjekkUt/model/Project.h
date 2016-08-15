@@ -25,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (Place *)findNearest;
 - (NSString *)progressDescriptionLong;
 - (NSString *)progressDescriptionShort;
-- (NSURL *)backgroundImageURL;
-- (NSURL *)foregroundImageURL;
+- (NSURL *)backgroundImageURLforSize:(CGSize)aSize;
+- (NSURL *)foregroundImageURLforSize:(CGSize)aSize;
 
 @end
 
