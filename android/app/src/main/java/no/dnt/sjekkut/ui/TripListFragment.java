@@ -54,7 +54,7 @@ public class TripListFragment extends Fragment implements Callback<TripList> {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder").enqueue(this);
+            TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(this);
         }
         return view;
     }

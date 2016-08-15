@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
-        TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder").enqueue(mTripListcallback);
+        TripApiSingleton.call().getTripList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mTripListcallback);
     }
 
     @Override
