@@ -8,11 +8,12 @@
 
 import Foundation
 
-class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate {
+class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
     let turbasen = TurbasenApi.instance
     let dntApi = DntApi.instance
     var projects:NSFetchedResultsController?
+    let searchController = UISearchController(searchResultsController:nil)
 
     @IBOutlet weak var projectsTable: UITableView!
 
@@ -28,17 +29,32 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     override func viewDidLoad() {
         self.navigationItem.hidesBackButton = true
 
+        // attempt to call member details, while verifying the current authorization token
         dntApi.updateMemberDetailsOrFail {
             self.dntApi.logout()
         }
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
+        setupTable()
+        setupSearchResults()
+    }
 
-        // only setup and load the table when core data is ready. in some cases this method will be hit before
-        // core data has finished populating the database (e.g. in the case of migrations)
-        ModelController.instance().delayUntilReady { 
-            self.setupTable()
+    override func viewWillAppear(animated:Bool) {
+        super.viewWillAppear(animated)
+        self.projectsTable.contentOffset = CGPointMake(0, searchController.searchBar.frame.size.height)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Location.instance().getSingleUpdate { location in
+            for project:Project in self.projects?.fetchedObjects! as! [Project] {
+                project.updateDistance()
+            }
         }
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchController.active = false
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -53,16 +69,24 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     // MARK: table data
+
     func setupTable() {
+        // only setup and load the table when core data is ready. in some cases this method will be hit before
+        // core data has finished populating the database (e.g. in the case of migrations)
+        ModelController.instance().delayUntilReady {
 
-        // set up result controller
-        projects = projectResults()
+            // update the table (and project progress) when checkins arrive
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
 
-        // load data in table
-        self.projectsTable.reloadData()
+            // set up result controller
+            self.projects = self.projectResults()
 
-        // fetch any updated projects
-        self.turbasen.getProjects()
+            // load data in table
+            self.reloadTable()
+
+            // fetch any updated projects
+            self.turbasen.getProjects()
+        }
     }
 
     func reloadTable() {
@@ -115,13 +139,37 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     // MARK: data changes
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.projectsTable.reloadData()
+        reloadTable()
     }
-
 
     // MARK: table interaction
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let project = self.projects?.objectAtIndexPath(indexPath)
         self.performSegueWithIdentifier("showPlaces", sender: project)
+    }
+
+    // MARK: seraching
+    func setupSearchResults() {
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
+    }
+
+    func updateSearchResultsForSearchController(searchController:UISearchController) {
+        if !searchController.active || searchController.searchBar.text!.characters.count == 0 {
+            projects!.fetchRequest.predicate = nil
+        }
+        else if let aSearchTerm:String = searchController.searchBar.text {
+            projects!.fetchRequest.predicate = NSPredicate(format: "name contains[cd] %@ OR SUBQUERY(places, $place, $place.name contains[cd] %@).@count > 0", aSearchTerm, aSearchTerm)
+        }
+
+        do {
+            try projects!.performFetch()
+            projectsTable.reloadData()
+        } catch {
+            fatalError("Failed to fetch after updating predicate: \(error)")
+        }
     }
 }
