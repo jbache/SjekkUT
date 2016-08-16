@@ -132,8 +132,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let project = self.projects?.objectAtIndexPath(indexPath) as! Project
         let projectCell = cell as! ProjectCell
-        projectCell.readMoreSpacing.constant = 0
-        projectCell.readMoreWidth.constant = 0
+        projectCell.hideReadMore()
         projectCell.project = project
     }
 
@@ -146,6 +145,11 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let project = self.projects?.objectAtIndexPath(indexPath)
         self.performSegueWithIdentifier("showPlaces", sender: project)
+    }
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        return 106
     }
 
     // MARK: seraching

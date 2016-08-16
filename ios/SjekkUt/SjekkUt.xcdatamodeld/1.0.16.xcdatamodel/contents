@@ -7,6 +7,12 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="checkins" inverseEntity="Place" syncable="YES"/>
     </entity>
+    <entity name="DntGroup" representedClassName="DntGroup" syncable="YES">
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="naming" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="groups" inverseEntity="Project" syncable="YES"/>
+    </entity>
     <entity name="DntImage" representedClassName="DntImage" syncable="YES">
         <attribute name="identifier" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -45,6 +51,7 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="progress" transient="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DntGroup" inverseName="projects" inverseEntity="DntGroup" syncable="YES"/>
         <relationship name="images" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DntImage" inverseName="projects" inverseEntity="DntImage" syncable="YES"/>
         <relationship name="places" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Place" inverseName="projects" inverseEntity="Place" syncable="YES"/>
     </entity>
@@ -53,6 +60,7 @@
         <element name="DntImage" positionX="18" positionY="63" width="128" height="135"/>
         <element name="DntImageSize" positionX="117" positionY="171" width="128" height="120"/>
         <element name="Place" positionX="27" positionY="72" width="128" height="210"/>
-        <element name="Project" positionX="160" positionY="192" width="128" height="210"/>
+        <element name="Project" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="DntGroup" positionX="99" positionY="153" width="128" height="105"/>
     </elements>
 </model>

@@ -15,31 +15,59 @@ var kObservationContextPlaces = 0
 var kObservationContextName = 0
 var kObservationContextDistance = 0
 
+// thanks to http://stackoverflow.com/a/37032476
+public struct CoreImageFilter: ImageFilter {
+
+    let filterName: String
+    let parameters: [String: AnyObject]
+
+    public init(filterName : String, parameters : [String : AnyObject]?) {
+        self.filterName = filterName
+        self.parameters = parameters ?? [:]
+    }
+
+    public var filter: UIImage -> UIImage {
+        return { image in
+            return image.af_imageWithAppliedCoreImageFilter(self.filterName, filterParameters: self.parameters) ?? image
+        }
+    }
+}
+
 class ProjectCell: UITableViewCell {
 
     var isObserving = false
 
-    @IBOutlet weak var projectImage: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var backgroundContainer: UIView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var foregroundImageView: UIImageView!
     @IBOutlet weak var readMoreButton: UIButton!
     @IBOutlet weak var readMoreWidth: NSLayoutConstraint!
     @IBOutlet weak var readMoreSpacing: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var groupLabel: UILabel!
 
-    var backgroundImageView: UIImageView?
+    var backgroundImageRequest: Request?
+    var foregroundImageRequest: Request?
 
-    var backgroundImage: UIImage? {
+    var backgroundImage: UIImage? = nil {
         didSet {
-            updateBackgroundImage()
+//            let filter = CIFilter(name: "CISepiaTone")
+//            filter?.setValue(backgroundImage?.CIImage, forKey: kCIInputImageKey)
+//            filter?.setValue(0.5, forKey: kCIInputIntensityKey)
+//
+//            if let output = filter?.valueForKey(kCIOutputImageKey) as? CIImage {
+//                let filteredImage = UIImage(CIImage: output)
+//                self.backgroundImageView.image = filteredImage
+//            }
+            backgroundImageView.image = backgroundImage
         }
     }
 
-    var foregroundImage: UIImage? {
+    var foregroundImage: UIImage? = nil {
         didSet {
-            updateForegroundImage()
+            foregroundImageView.image = foregroundImage
         }
     }
 
@@ -60,6 +88,20 @@ class ProjectCell: UITableViewCell {
         stopObserving()
     }
 
+    override func awakeFromNib() {
+        setupShadowForLabel(nameLabel)
+        setupShadowForLabel(progressLabel)
+        setupShadowForLabel(distanceLabel)
+        setupShadowForLabel(groupLabel)
+    }
+
+    func setupShadowForLabel(aLabel:UILabel) {
+        aLabel.layer.shadowColor = UIColor.whiteColor().CGColor
+        aLabel.layer.shadowOpacity = 1
+        aLabel.layer.shadowRadius = 4
+        aLabel.layer.shadowOffset = CGSizeZero
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         setupName()
@@ -67,11 +109,11 @@ class ProjectCell: UITableViewCell {
 
     override func prepareForReuse() {
         stopObserving()
-        (self.backgroundView as! UIImageView).image = UIImage(named:"challenge-footer")
-        self.projectImage.image = UIImage(named:"app-icon")
-        self.nameLabel.text = ""
-        self.distanceLabel.text = ""
-        self.progressLabel.text = ""
+        backgroundImage = UIImage(named:"challenge-footer")
+        foregroundImage = UIImage(named:"app-icon")
+        nameLabel.text = ""
+        distanceLabel.text = ""
+        progressLabel.text = ""
     }
 
     // MARK: private
@@ -101,24 +143,23 @@ class ProjectCell: UITableViewCell {
         }
     }
 
+    func hideReadMore() {
+        readMoreSpacing.constant = 0
+        readMoreWidth.constant = 0
+        setNeedsLayout()
+    }
+
     // MARK: background image
 
     func setupBackgroundImage() {
-        var aBackgroundView = self.backgroundView as? UIImageView
         if self.backgroundView == nil {
-            aBackgroundView = UIImageView(frame: self.bounds)
-            aBackgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            aBackgroundView!.contentMode = .ScaleAspectFill
-            aBackgroundView!.clipsToBounds = true
-            aBackgroundView!.image = UIImage(named: "challenge-footer")
-            self.backgroundView = aBackgroundView
-            self.backgroundImageView = aBackgroundView
+            self.backgroundView = backgroundContainer
         }
     }
 
     func fetchBackgroundImage() {
         if let backgroundURL = project?.backgroundImageURLforSize(self.backgroundImageView!.bounds.size) {
-            Alamofire.request(.GET,backgroundURL)
+            backgroundImageRequest = Alamofire.request(.GET,backgroundURL)
                 .responseImage { response in
                     if let image = response.result.value {
                         self.backgroundImage =  image.af_imageAspectScaledToFillSize(self.bounds.size)
@@ -127,33 +168,17 @@ class ProjectCell: UITableViewCell {
         }
     }
 
-    func updateBackgroundImage() {
-        var theImage = UIImage(named: "challenge-footer")
-        if backgroundImage != nil {
-            theImage = backgroundImage
-        }
-
-        backgroundImageView?.image = theImage
-    }
-
     // MARK: foreground image 
 
-    func updateForegroundImage() {
-        if foregroundImage == nil {
-            projectImage.image = UIImage(named: "app-icon")
-            return
-        }
-        else {
-            projectImage.image = foregroundImage
-        }
-    }
-
     func fetchForegroundImage() {
-        if let foregroundURL = project?.foregroundImageURLforSize(self.projectImage.bounds.size) {
-            Alamofire.request(.GET,foregroundURL)
+        if let foregroundURL = project?.foregroundImageURLforSize(self.foregroundImageView.bounds.size) {
+            if project?.identifier == "57974036b565590001a98884" {
+                print("foreground: \(foregroundURL)")
+            }
+            foregroundImageRequest = Alamofire.request(.GET,foregroundURL)
                 .responseImage { response in
                     if let image = response.result.value {
-                        self.foregroundImage =  image.af_imageAspectScaledToFillSize(self.projectImage.bounds.size)
+                        self.foregroundImage =  image.af_imageAspectScaledToFillSize(self.foregroundImageView.bounds.size)
                     }
             }
         }
@@ -171,11 +196,11 @@ class ProjectCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        updateBackgroundImage()
-        updateForegroundImage()
-    }
+//    override func setHighlighted(highlighted: Bool, animated: Bool) {
+//        super.setHighlighted(highlighted, animated: animated)
+//        updateBackgroundImage()
+//        updateForegroundImage()
+//    }
 
     // MARK: observing
     func startObserving() {
@@ -193,12 +218,13 @@ class ProjectCell: UITableViewCell {
         // update the header image view
         if (context == &kObservationContextImages) {
             switch project?.images?.count {
-            case 2?:
-                fetchForegroundImage()
-                fallthrough
+            case 0?:
+                break
             case 1?:
                 fetchBackgroundImage()
             default:
+                fetchBackgroundImage()
+                fetchForegroundImage()
                 break
             }
         }
@@ -220,6 +246,13 @@ class ProjectCell: UITableViewCell {
             project?.removeObserver(self, forKeyPath: "name")
             project?.removeObserver(self, forKeyPath: "distance")
             isObserving = false
+        }
+        // cancel any in-flight network requests
+        if backgroundImageRequest != nil {
+            backgroundImageRequest!.cancel()
+        }
+        if foregroundImageRequest != nil {
+            foregroundImageRequest?.cancel()
         }
     }
 }
