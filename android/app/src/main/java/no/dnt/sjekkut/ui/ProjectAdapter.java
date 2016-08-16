@@ -6,11 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.ui.ProjectListFragment.ProjectListListener;
@@ -61,6 +66,18 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         holder.mGroupTitle.setText(project.getFirstGroupName());
         holder.mDistanceToProject.setText(project.getDistanceTo(context, mUserLocation));
         holder.mVisitStatus.setText(context.getString(R.string.projectVisitStatus, 0, project.getPlaceCount()));
+        Picasso.with(context)
+                .load(project.getImageUrl())
+                .error(project.getImageFallback())
+                .placeholder(project.getImageFallback())
+                .centerCrop()
+                .into(holder.mImage);
+        Picasso.with(context)
+                .load(project.getBackgroundUrl())
+                .error(project.getBackgroundFallback())
+                .placeholder(project.getBackgroundFallback())
+                .centerCrop()
+                .into(holder.mBackground);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,18 +100,23 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
 
     class ProjectHolder extends RecyclerView.ViewHolder {
         final View mView;
-        final TextView mProjectTitle;
-        final TextView mGroupTitle;
-        final TextView mDistanceToProject;
-        final TextView mVisitStatus;
+        @BindView(R.id.title)
+        TextView mProjectTitle;
+        @BindView(R.id.group)
+        TextView mGroupTitle;
+        @BindView(R.id.distance)
+        TextView mDistanceToProject;
+        @BindView(R.id.visits)
+        TextView mVisitStatus;
+        @BindView(R.id.background)
+        ImageView mBackground;
+        @BindView(R.id.image)
+        ImageView mImage;
 
         ProjectHolder(View view) {
             super(view);
             mView = view;
-            mProjectTitle = (TextView) view.findViewById(R.id.title);
-            mGroupTitle = (TextView) view.findViewById(R.id.group);
-            mDistanceToProject = (TextView) view.findViewById(R.id.distance);
-            mVisitStatus = (TextView) view.findViewById(R.id.visits);
+            ButterKnife.bind(this, view);
         }
 
         @Override

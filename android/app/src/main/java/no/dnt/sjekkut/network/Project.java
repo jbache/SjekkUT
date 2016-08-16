@@ -5,6 +5,7 @@ import android.location.Location;
 
 import java.util.List;
 
+import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 
 /**
@@ -42,5 +43,22 @@ public class Project {
             }
         }
         return "n/a";
+    }
+
+    public String getImageUrl() {
+        return null;
+    }
+
+
+    public int getImageFallback() {
+        return R.drawable.project_image_fallback;
+    }
+
+    public String getBackgroundUrl() {
+        return null;
+    }
+
+    public int getBackgroundFallback() {
+        return R.drawable.project_background_fallback;
     }
 }
