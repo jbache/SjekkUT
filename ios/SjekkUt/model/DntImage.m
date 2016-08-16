@@ -58,11 +58,10 @@
 
 - (void)update:(NSDictionary *)json
 {
-    self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    self.sizes = [self parseImageSizes:json[@"img"]];
+    [self parseImageSizes:json[@"img"]];
 }
 
-- (NSSet *)parseImageSizes:(NSArray *)sizesDict
+- (void)parseImageSizes:(NSArray *)sizesDict
 {
     NSMutableSet *sizes = [NSMutableSet set];
     for (NSDictionary *sizeDict in sizesDict)
@@ -70,7 +69,11 @@
         DntImageSize *size = [DntImageSize insertOrUpdate:sizeDict];
         [sizes addObject:size];
     }
-    return sizes;
+
+    if (![sizes isEqualToSet:self.sizes])
+    {
+        self.sizes = sizes;
+    }
 }
 
 - (NSURL *)URLforSize:(CGSize)desiredSize
@@ -88,7 +91,11 @@
             break;
         }
     }
-    //NSAssert(theSize.width != nil && theSize.height != nil, @"no size");
+    if (theSize == nil)
+    {
+        return nil;
+    }
+    NSAssert(theSize.width != nil && theSize.height != nil, @"no size");
     NSLog(@"image size %@ %@", theSize.width, theSize.height);
     return [NSURL URLWithString:theSize.url];
 }

@@ -28,11 +28,12 @@
 + (instancetype)insertOrUpdate:(NSDictionary *)json
 {
     NSString *identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    id theEntity = [self findWithId:identifier];
+    Project *theEntity = [self findWithId:identifier];
 
     if (!theEntity)
     {
         theEntity = [self insert];
+        theEntity.identifier = identifier;
     }
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
@@ -58,29 +59,28 @@
 
 - (void)update:(NSDictionary *)json
 {
-    self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    self.name = json[@"navn"];
+    if ([self.identifier isEqual:@"57974036b565590001a98884"])
+    {
+        NSLog(@"break");
+    }
+    setIfNotEqual(self.name, json[@"navn"]);
+
     NSArray *coordinates = nil;
     if ((coordinates = json[@"geojson"][@"coordinates"]) != nil)
     {
-        self.latitude = @([[coordinates objectAtIndex:1] doubleValue]);
-        self.longitude = @([[coordinates objectAtIndex:0] doubleValue]);
+        setIfNotEqual(self.latitude, @([[coordinates objectAtIndex:1] doubleValue]));
+        setIfNotEqual(self.longitude, @([[coordinates objectAtIndex:0] doubleValue]));
     }
     [self updateDistance];
 
-    self.places = [self parsePlaces:json[@"steder"]];
-    self.images = [self parseImages:json[@"bilder"]];
+    [self parsePlaces:json[@"steder"]];
+    [self parseImages:json[@"bilder"]];
 }
 
 #pragma mark images
 
-- (NSOrderedSet *)parsePlaces:(NSArray *)places
+- (void)parsePlaces:(NSArray *)places
 {
-    if (places == nil || places.count == 0)
-    {
-        return [NSOrderedSet orderedSet];
-    }
-
     NSMutableOrderedSet *orderedPlaces = [NSMutableOrderedSet orderedSet];
 
     for (NSDictionary *aPlaceDict in places)
@@ -89,27 +89,36 @@
         [orderedPlaces addObject:aPlace];
     }
 
-    [self updateHasCheckin];
-
-    return orderedPlaces;
+    if ([orderedPlaces.set isEqualToSet:self.places.set])
+    {
+        return;
+    }
+    else
+    {
+        self.places = orderedPlaces;
+        [self updateHasCheckin];
+    }
 }
 
-- (NSOrderedSet *)parseImages:(NSArray *)images
+- (void)parseImages:(NSArray *)images
 {
-    if (images == nil || images.count == 0)
-    {
-        return [NSOrderedSet orderedSet];
-    }
-
     NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
-
+    if ([self.identifier isEqual:@"57b2f2c04ba3bf00011bb695"])
+    {
+        NSLog(@"asdf");
+    }
     for (NSDictionary *anImageDict in images)
     {
         DntImage *anImage = [DntImage insertOrUpdate:anImageDict];
         [orderedImages addObject:anImage];
     }
 
-    return orderedImages;
+    if ([orderedImages.set isEqualToSet:self.images.set])
+    {
+        return;
+    }
+
+    self.images = orderedImages;
 }
 
 - (NSURL *)backgroundImageURLforSize:(CGSize)aSize;
@@ -136,14 +145,14 @@
 
 - (void)updateDistance
 {
-    NSNumber *newDistance = @([self.projectLocation distanceFromLocation:locationBackend.currentLocation]);
-    if (self.latitude != nil && self.longitude != nil && ![self.distance isEqualToNumber:newDistance])
+    NSNumber *newDistance = @(round([self.projectLocation distanceFromLocation:locationBackend.currentLocation]));
+    if (self.latitude != nil && self.longitude != nil)
     {
-        self.distance = newDistance;
+        setIfNotEqual(self.distance, newDistance);
     }
     else
     {
-        self.distance = @(DBL_MIN);
+        setIfNotEqual(self.distance, @(DBL_MIN));
     }
 }
 
@@ -211,7 +220,7 @@
 - (void)updateHasCheckin
 {
     BOOL oldCheckin = self.hasCheckins.boolValue;
-    self.hasCheckins = @(self.progress.doubleValue > 0.0);
+    setIfNotEqual(self.hasCheckins, @(self.progress.doubleValue > 0.0));
     if (oldCheckin != self.hasCheckins.boolValue)
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];

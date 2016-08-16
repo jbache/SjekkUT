@@ -9,6 +9,13 @@
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
 
+// only assing the value if it's not equal, to prevent unneccesary Core Data changes
+#define setIfNotEqual(toSet, value) \
+    if (![toSet isEqual:value])     \
+    {                               \
+        toSet = value;              \
+    }
+
 @interface EntityScaffold : NSManagedObject
 
 + (NSEntityDescription *)entity;

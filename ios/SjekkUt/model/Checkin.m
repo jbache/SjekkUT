@@ -34,6 +34,7 @@
     else if (!theCheckin)
     {
         theCheckin = [Checkin insert];
+        theCheckin.identifier = identifier;
     }
 
     NSAssert(theCheckin != nil, @"Unable to aquire new or existing object");
@@ -46,16 +47,15 @@
 - (void)update:(NSDictionary *)json
 {
     NSDateFormatter *dateFormatter = [self dateFormatter];
-    self.identifier = json[@"id"];
-    self.date = [dateFormatter dateFromString:json[@"timestamp"]];
+    setIfNotEqual(self.date, [dateFormatter dateFromString:json[@"timestamp"]]);
     NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"ntb_steder_id"]];
     if (!self.place && mountainId.length > 0)
     {
         self.place = [Place findWithId:mountainId];
     }
     NSArray *coordinates = json[@"location"][@"coordinates"];
-    self.latitute = [coordinates objectAtIndex:1];
-    self.longitude = [coordinates objectAtIndex:0];
+    setIfNotEqual(self.latitute, [coordinates objectAtIndex:1]);
+    setIfNotEqual(self.longitude, [coordinates objectAtIndex:0]);
 
     for (Project *project in self.place.projects)
     {

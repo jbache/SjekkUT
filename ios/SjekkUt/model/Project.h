@@ -9,6 +9,7 @@
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
 
+#import "DntGroup.h"
 #import "DntImage.h"
 #import "EntityScaffold.h"
 #import "Place.h"

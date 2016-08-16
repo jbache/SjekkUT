@@ -57,10 +57,9 @@
 
 - (void)update:(NSDictionary *)json
 {
-    self.etag = [NSString stringWithFormat:@"%@", json[@"etag"]];
-    self.width = json[@"width"];
-    self.height = json[@"height"];
-    self.url = json[@"url"];
+    setIfNotEqual(self.width, json[@"width"]);
+    setIfNotEqual(self.height, json[@"height"]);
+    setIfNotEqual(self.url, json[@"url"]);
 }
 
 @end

@@ -71,33 +71,16 @@
 
 - (void)update:(NSDictionary *)json
 {
-    self.identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
-    self.name = json[@"navn"];
-    NSArray *coordinates = nil;
-    if ((coordinates = [json valueForKeyPath:@"geojson.coordinates"]) != nil)
-    {
-        switch (coordinates.count)
-        {
-            case 3:
-                self.elevation = @([[coordinates objectAtIndex:2] doubleValue]);
-            case 2:
-                self.latitude = @([[coordinates objectAtIndex:1] doubleValue]);
-            case 1:
-                self.longitude = @([[coordinates objectAtIndex:0] doubleValue]);
-        }
-    }
-    [self updateDistance];
-
-    self.county = json[@"kommune"];
-    self.descriptionText = json[@"beskrivelse"];
-    self.images = [self parseImages:json[@"bilder"]];
-
-    [self updateDistance];
+    setIfNotEqual(self.name, json[@"navn"]);
+    setIfNotEqual(self.county, json[@"kommune"]);
+    setIfNotEqual(self.descriptionText, json[@"beskrivelse"]);
+    [self updateCoordinates:[json valueForKeyPath:@"geojson.coordinates"]];
+    [self parseImages:json[@"bilder"]];
 }
 
 #pragma mark images
 
-- (NSMutableOrderedSet *)parseImages:(NSArray *)images
+- (void)parseImages:(NSArray *)images
 {
     NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
     if (images != nil && images.count > 0)
@@ -108,21 +91,42 @@
             [orderedImages addObject:anImage];
         }
     }
-    return orderedImages;
+
+    if ([self.images isEqualToOrderedSet:orderedImages])
+    {
+        self.images = orderedImages;
+    }
 }
 
 #pragma mark location
 
+- (void)updateCoordinates:(NSArray *)coordinates
+{
+    if (coordinates != nil)
+    {
+        switch (coordinates.count)
+        {
+            case 3:
+                setIfNotEqual(self.elevation, @([[coordinates objectAtIndex:2] doubleValue]));
+            case 2:
+                setIfNotEqual(self.latitude, @([[coordinates objectAtIndex:1] doubleValue]));
+            case 1:
+                setIfNotEqual(self.longitude, @([[coordinates objectAtIndex:0] doubleValue]));
+        }
+    }
+    [self updateDistance];
+}
+
 - (void)updateDistance
 {
-    NSNumber *newDistance = @([self.summitLocation distanceFromLocation:locationBackend.currentLocation]);
+    NSNumber *newDistance = @(round([self.summitLocation distanceFromLocation:locationBackend.currentLocation]));
     if (self.latitude != nil && self.longitude != nil && ![self.distance isEqualToNumber:newDistance])
     {
-        self.distance = newDistance;
+        setIfNotEqual(self.distance, newDistance);
     }
     else
     {
-        self.distance = @(DBL_MIN);
+        setIfNotEqual(self.distance, @(DBL_MIN));
     }
 }
 

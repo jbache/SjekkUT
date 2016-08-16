@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.h
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 15/08/16.
+//  Created by Henrik Hartz on 16/08/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,16 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Project (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSNumber *countOfPlaces;
+@property (nullable, nonatomic, retain) NSNumber *distance;
 @property (nullable, nonatomic, retain) NSNumber *hasCheckins;
 @property (nullable, nonatomic, retain) NSString *identifier;
 @property (nullable, nonatomic, retain) NSString *infoUrl;
-@property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) NSNumber *progress;
 @property (nullable, nonatomic, retain) NSNumber *latitude;
 @property (nullable, nonatomic, retain) NSNumber *longitude;
-@property (nullable, nonatomic, retain) NSNumber *distance;
+@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSNumber *progress;
 @property (nullable, nonatomic, retain) NSOrderedSet<DntImage *> *images;
 @property (nullable, nonatomic, retain) NSOrderedSet<Place *> *places;
+@property (nullable, nonatomic, retain) NSSet<DntGroup *> *groups;
 
 @end
 
@@ -52,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removePlacesObject:(Place *)value;
 - (void)addPlaces:(NSOrderedSet<Place *> *)values;
 - (void)removePlaces:(NSOrderedSet<Place *> *)values;
+
+- (void)addGroupsObject:(DntGroup *)value;
+- (void)removeGroupsObject:(DntGroup *)value;
+- (void)addGroups:(NSSet<DntGroup *> *)values;
+- (void)removeGroups:(NSSet<DntGroup *> *)values;
 
 @end
 
