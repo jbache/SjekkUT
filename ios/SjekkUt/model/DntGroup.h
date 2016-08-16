@@ -6,16 +6,19 @@
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <Foundation/Foundation.h>
+
+#import "EntityScaffold.h"
 
 @class Project;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DntGroup : NSManagedObject
+@interface DntGroup : EntityScaffold
 
-// Insert code here to declare functionality of your managed object subclass
++ (instancetype)insertOrUpdate:(NSDictionary *)json;
++ (instancetype)findWithId:(id)identifier;
 
 @end
 

@@ -29,6 +29,9 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     override func viewDidLoad() {
         self.navigationItem.hidesBackButton = true
 
+        // update the table (and project progress) when checkins arrive
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
+
         // attempt to call member details, while verifying the current authorization token
         dntApi.updateMemberDetailsOrFail {
             self.dntApi.logout()
@@ -71,12 +74,10 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     // MARK: table data
 
     func setupTable() {
+
         // only setup and load the table when core data is ready. in some cases this method will be hit before
         // core data has finished populating the database (e.g. in the case of migrations)
         ModelController.instance().delayUntilReady {
-
-            // update the table (and project progress) when checkins arrive
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
 
             // set up result controller
             self.projects = self.projectResults()

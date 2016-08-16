@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DntGroup (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *id;
+@property (nullable, nonatomic, retain) NSString *identifier;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSString *naming;
 @property (nullable, nonatomic, retain) NSSet<Project *> *projects;

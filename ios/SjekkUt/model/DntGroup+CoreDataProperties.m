@@ -13,7 +13,7 @@
 
 @implementation DntGroup (CoreDataProperties)
 
-@dynamic id;
+@dynamic identifier;
 @dynamic name;
 @dynamic naming;
 @dynamic projects;

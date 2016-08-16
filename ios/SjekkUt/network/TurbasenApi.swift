@@ -88,8 +88,8 @@ public class TurbasenApi: Alamofire.Manager {
         urlRequest.HTTPMethod = "GET"
         urlRequest.cachePolicy = .ReloadIgnoringCacheData
         let parameters = ["api_key": api_key,
-                          "fields":"steder,geojson,bilder,img,kommune,beskrivelse",
-                          "expand":"steder,bilder"]
+                          "fields":"steder,geojson,bilder,img,kommune,beskrivelse,grupper",
+                          "expand":"steder,bilder,grupper"]
         self.request(.GET, urlRequest, parameters:parameters)
             .validate(statusCode: 200..<300)
             .responseJSON { response in

@@ -14,6 +14,7 @@ var kObservationContextImages = 0
 var kObservationContextPlaces = 0
 var kObservationContextName = 0
 var kObservationContextDistance = 0
+var kObservationContextGroups = 0
 
 // thanks to http://stackoverflow.com/a/37032476
 public struct CoreImageFilter: ImageFilter {
@@ -209,6 +210,7 @@ class ProjectCell: UITableViewCell {
             project?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObservationContextDistance)
             project?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObservationContextImages)
             project?.addObserver(self, forKeyPath: "places", options: .Initial, context: &kObservationContextPlaces)
+            project?.addObserver(self, forKeyPath: "groups", options: .Initial, context: &kObservationContextGroups)
             isObserving = true
         }
     }
@@ -237,6 +239,14 @@ class ProjectCell: UITableViewCell {
         else if(context == &kObservationContextDistance) {
             self.distanceLabel.text = project?.distanceDescription()
         }
+        else if(context == &kObservationContextGroups) {
+            if let aGroup:DntGroup = project?.groups?.firstObject as? DntGroup {
+                self.groupLabel.text = aGroup.name
+            }
+            else {
+                self.groupLabel.text = ""
+            }
+        }
     }
 
     func stopObserving() {
@@ -245,6 +255,7 @@ class ProjectCell: UITableViewCell {
             project?.removeObserver(self, forKeyPath: "places")
             project?.removeObserver(self, forKeyPath: "name")
             project?.removeObserver(self, forKeyPath: "distance")
+            project?.removeObserver(self, forKeyPath: "groups")
             isObserving = false
         }
         // cancel any in-flight network requests

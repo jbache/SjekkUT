@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *progress;
 @property (nullable, nonatomic, retain) NSOrderedSet<DntImage *> *images;
 @property (nullable, nonatomic, retain) NSOrderedSet<Place *> *places;
-@property (nullable, nonatomic, retain) NSSet<DntGroup *> *groups;
+@property (nullable, nonatomic, retain) NSOrderedSet<DntGroup *> *groups;
 
 @end
 
@@ -54,10 +54,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addPlaces:(NSOrderedSet<Place *> *)values;
 - (void)removePlaces:(NSOrderedSet<Place *> *)values;
 
+- (void)insertObject:(DntGroup *)value inGroupsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromGroupsAtIndex:(NSUInteger)idx;
+- (void)insertGroups:(NSArray<DntGroup *> *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeGroupsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInGroupsAtIndex:(NSUInteger)idx withObject:(DntGroup *)value;
+- (void)replaceGroupsAtIndexes:(NSIndexSet *)indexes withGroups:(NSArray<DntGroup *> *)values;
 - (void)addGroupsObject:(DntGroup *)value;
 - (void)removeGroupsObject:(DntGroup *)value;
-- (void)addGroups:(NSSet<DntGroup *> *)values;
-- (void)removeGroups:(NSSet<DntGroup *> *)values;
+- (void)addGroups:(NSOrderedSet<DntGroup *> *)values;
+- (void)removeGroups:(NSOrderedSet<DntGroup *> *)values;
 
 @end
 

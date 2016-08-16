@@ -72,12 +72,14 @@
         setIfNotEqual(self.longitude, @([[coordinates objectAtIndex:0] doubleValue]));
     }
     [self updateDistance];
+    [self updateHasCheckin];
 
     [self parsePlaces:json[@"steder"]];
     [self parseImages:json[@"bilder"]];
+    [self parseGroups:json[@"grupper"]];
 }
 
-#pragma mark images
+#pragma mark places
 
 - (void)parsePlaces:(NSArray *)places
 {
@@ -99,6 +101,31 @@
         [self updateHasCheckin];
     }
 }
+
+#pragma mark groups
+
+- (void)parseGroups:(NSArray *)aGroupArray
+{
+    NSMutableOrderedSet *orderedGroups = [NSMutableOrderedSet orderedSet];
+
+    for (NSDictionary *aGroupDict in aGroupArray)
+    {
+        DntGroup *aGroup = [DntGroup insertOrUpdate:aGroupDict];
+        [orderedGroups addObject:aGroup];
+    }
+
+    if ([orderedGroups.set isEqualToSet:self.groups.set])
+    {
+        return;
+    }
+    else
+    {
+        self.groups = orderedGroups;
+        [self updateHasCheckin];
+    }
+}
+
+#pragma mark images
 
 - (void)parseImages:(NSArray *)images
 {
@@ -220,11 +247,11 @@
 - (void)updateHasCheckin
 {
     BOOL oldCheckin = self.hasCheckins.boolValue;
-    setIfNotEqual(self.hasCheckins, @(self.progress.doubleValue > 0.0));
     if (oldCheckin != self.hasCheckins.boolValue)
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];
     }
+    setIfNotEqual(self.hasCheckins, @(self.progress.doubleValue > 0.0));
 }
 
 - (NSArray *)checkedInPlaces
