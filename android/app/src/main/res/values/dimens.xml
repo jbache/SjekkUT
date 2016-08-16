@@ -19,4 +19,6 @@
     <dimen name="textsize_medium">18sp</dimen>
     <dimen name="textsize_large">22sp</dimen>
 
+    <fraction name="aspectRatioProjectAdapter">300.000%</fraction>
+
 </resources>
