@@ -70,12 +70,14 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
                 .load(project.getImageUrl())
                 .error(project.getImageFallback())
                 .placeholder(project.getImageFallback())
+                .fit()
                 .centerCrop()
                 .into(holder.mImage);
         Picasso.with(context)
                 .load(project.getBackgroundUrl())
                 .error(project.getBackgroundFallback())
                 .placeholder(project.getBackgroundFallback())
+                .fit()
                 .centerCrop()
                 .into(holder.mBackground);
         holder.mView.setOnClickListener(new View.OnClickListener() {

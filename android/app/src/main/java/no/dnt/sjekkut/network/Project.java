@@ -46,6 +46,9 @@ public class Project {
     }
 
     public String getImageUrl() {
+        if (bilder != null && bilder.size() >= 1) {
+            return bilder.get(0).getImageUrl();
+        }
         return null;
     }
 
@@ -55,6 +58,10 @@ public class Project {
     }
 
     public String getBackgroundUrl() {
+        if (bilder != null && bilder.size() >= 2) {
+            return bilder.get(1).getImageUrl();
+        }
+
         return null;
     }
 

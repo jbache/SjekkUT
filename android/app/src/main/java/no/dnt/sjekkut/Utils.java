@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.widget.Toast;
@@ -144,11 +145,12 @@ public class Utils {
         return DateUtils.getRelativeTimeSpanString(then.getTime(), new Date().getTime(), 0).toString();
     }
 
-    public static int getDisplayWidth(Activity activity) {
-        if (activity == null) {
+    public static int getDisplayWidth(Context context) {
+        if (context == null) {
             return 0;
         }
-        Display display = activity.getWindowManager().getDefaultDisplay();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         return size.x;

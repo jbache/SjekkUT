@@ -17,6 +17,14 @@ public class Photo {
         this._id = _id;
     }
 
+    public String getImageUrl() {
+        if (img != null && img.size() >= 1) {
+            return img.get(0).url;
+        } else {
+            return null;
+        }
+    }
+
     public static class ImageUrl {
         public String url;
         public String width;
