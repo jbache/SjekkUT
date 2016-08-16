@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -70,7 +70,6 @@
 		6CE076211D474D7A000ACAAA /* ModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70643D1A82B72200291137 /* ModelTest.m */; };
 		6CE076221D474D7A000ACAAA /* BackendTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7064331A82AF5700291137 /* BackendTest.m */; };
 		6CE076231D474D7A000ACAAA /* NetworkTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C08F6661A88BB990091D70A /* NetworkTest.m */; };
-		6CE076251D474E03000ACAAA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CE076241D474E03000ACAAA /* Info.plist */; };
 		6CE076281D474F76000ACAAA /* TestDntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE076271D474F76000ACAAA /* TestDntApi.swift */; };
 		6CE076291D475061000ACAAA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
 		6CE0762B1D47513E000ACAAA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C70645C1A83838700291137 /* Location.m */; };
@@ -147,7 +146,7 @@
 		6C5421451AC98FDE00F8315F /* EntityScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityScaffold.h; path = model/EntityScaffold.h; sourceTree = "<group>"; };
 		6C5421461AC98FDE00F8315F /* EntityScaffold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityScaffold.m; path = model/EntityScaffold.m; sourceTree = "<group>"; };
 		6C5FDB151D48CFE300B7D25E /* DntApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DntApi.swift; sourceTree = "<group>"; };
-		6C6FE14A1A82332C002B5DD5 /* SjekkUt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SjekkUt.app; path = SjekkUT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C6FE14A1A82332C002B5DD5 /* SjekkUT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SjekkUT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C6FE14E1A82332C002B5DD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C6FE14F1A82332C002B5DD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C6FE1511A82332C002B5DD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -310,7 +309,7 @@
 		6C6FE14B1A82332C002B5DD5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C6FE14A1A82332C002B5DD5 /* SjekkUt.app */,
+				6C6FE14A1A82332C002B5DD5 /* SjekkUT.app */,
 				6CE0760A1D474C89000ACAAA /* SjekkUtTests.xctest */,
 			);
 			name = Products;
@@ -547,7 +546,7 @@
 			);
 			name = SjekkUt;
 			productName = Opptur;
-			productReference = 6C6FE14A1A82332C002B5DD5 /* SjekkUt.app */;
+			productReference = 6C6FE14A1A82332C002B5DD5 /* SjekkUT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6CE076091D474C89000ACAAA /* SjekkUtTests */ = {
@@ -592,7 +591,7 @@
 				};
 			};
 			buildConfigurationList = 6C6FE1451A82332C002B5DD5 /* Build configuration list for PBXProject "SjekkUt" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -641,7 +640,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE076251D474E03000ACAAA /* Info.plist in Resources */,
 				6C7380641D59C9400052B063 /* InfoPlist.strings in Resources */,
 				6C73805F1D59C93F0052B063 /* Localizable.strings in Resources */,
 				6CE5268E1D50744C00D3419B /* api.nasjonalturbase.no.api_key in Resources */,
