@@ -49,7 +49,7 @@
     NSDateFormatter *dateFormatter = [self dateFormatter];
     setIfNotEqual(self.date, [dateFormatter dateFromString:json[@"timestamp"]]);
     NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"ntb_steder_id"]];
-    if (!self.place && mountainId.length > 0)
+    if (self.place == nil && mountainId.length > 0)
     {
         self.place = [Place findWithId:mountainId];
     }

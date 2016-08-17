@@ -72,7 +72,6 @@
         setIfNotEqual(self.longitude, @([[coordinates objectAtIndex:0] doubleValue]));
     }
     [self updateDistance];
-    [self updateHasCheckin];
 
     [self parsePlaces:json[@"steder"]];
     [self parseImages:json[@"bilder"]];
@@ -91,15 +90,12 @@
         [orderedPlaces addObject:aPlace];
     }
 
-    if ([orderedPlaces.set isEqualToSet:self.places.set])
-    {
-        return;
-    }
-    else
+    if (![orderedPlaces.set isEqualToSet:self.places.set])
     {
         self.places = orderedPlaces;
-        [self updateHasCheckin];
     }
+
+    [self updateHasCheckin];
 }
 
 #pragma mark groups
@@ -121,7 +117,6 @@
     else
     {
         self.groups = orderedGroups;
-        [self updateHasCheckin];
     }
 }
 
@@ -246,19 +241,19 @@
 
 - (void)updateHasCheckin
 {
-    BOOL oldCheckin = self.hasCheckins.boolValue;
-    if (oldCheckin != self.hasCheckins.boolValue)
+    NSNumber *newCheckin = [NSNumber numberWithBool:(self.progress.doubleValue > 0.0001)];
+    if (![self.hasCheckins isEqual:newCheckin])
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];
+        [self willChangeValueForKey:@"hasCheckins"];
+        self.hasCheckins = newCheckin;
+        [self didChangeValueForKey:@"hasCheckins"];
     }
-    setIfNotEqual(self.hasCheckins, @(self.progress.doubleValue > 0.0));
 }
 
 - (NSArray *)checkedInPlaces
 {
     NSFetchRequest *fetch = [Place fetch];
-    fetch.predicate = [NSPredicate predicateWithFormat:@"%@ in projects AND checkins.place.@count > 0", self];
-
+    fetch.predicate = [NSPredicate predicateWithFormat:@"%@ in projects AND checkins.@count > 0", self];
     NSError *error = nil;
     NSArray *aResult = [model.managedObjectContext executeFetchRequest:fetch error:&error];
     return aResult;
@@ -286,17 +281,6 @@
 {
     NSString *formatString = NSLocalizedString(@"Visited %@ of %@", "count visits in project cell");
     return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
-}
-
-- (NSNumber *)hasCheckins
-{
-    [self willAccessValueForKey:@"hasCheckins"];
-
-    NSNumber *doesHaveCheckins = @(self.progress.doubleValue > 0.0);
-
-    [self didAccessValueForKey:@"hasCheckins"];
-
-    return doesHaveCheckins;
 }
 
 @end

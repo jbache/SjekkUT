@@ -110,8 +110,6 @@ class ProjectCell: UITableViewCell {
 
     override func prepareForReuse() {
         stopObserving()
-        backgroundImage = UIImage(named:"project-background-fallback")
-        foregroundImage = UIImage(named:"project-foreground-fallback")
         nameLabel.text = ""
         distanceLabel.text = ""
         progressLabel.text = ""
@@ -221,9 +219,11 @@ class ProjectCell: UITableViewCell {
         if (context == &kObservationContextImages) {
             switch project?.images?.count {
             case 0?:
-                break
+                backgroundImage = UIImage(named:"project-background-fallback")
+                foregroundImage = UIImage(named:"project-foreground-fallback")
             case 1?:
                 fetchBackgroundImage()
+                foregroundImage = UIImage(named:"project-foreground-fallback")
             default:
                 fetchBackgroundImage()
                 fetchForegroundImage()

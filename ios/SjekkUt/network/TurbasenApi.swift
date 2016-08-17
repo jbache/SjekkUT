@@ -78,7 +78,7 @@ public class TurbasenApi: Alamofire.Manager {
                 case .Failure(let error):
                     print("failed to get lists: \(error)")
             }
-                finishHandler()
+            finishHandler()
         }
     }
 

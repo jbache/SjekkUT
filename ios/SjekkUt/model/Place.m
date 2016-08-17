@@ -41,8 +41,6 @@
     {
         theEntity = [self insert];
         theEntity.identifier = identifier;
-        theEntity.checkins = [NSSet set];
-        theEntity.images = [NSOrderedSet orderedSet];
     }
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
