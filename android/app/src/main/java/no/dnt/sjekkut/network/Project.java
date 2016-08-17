@@ -45,9 +45,9 @@ public class Project {
         return "n/a";
     }
 
-    public String getImageUrl() {
+    public String getImageUrl(int preferredWidth) {
         if (bilder != null && bilder.size() >= 1) {
-            return bilder.get(0).getImageUrl();
+            return bilder.get(0).getImageUrl(preferredWidth);
         }
         return null;
     }
@@ -57,11 +57,10 @@ public class Project {
         return R.drawable.project_image_fallback;
     }
 
-    public String getBackgroundUrl() {
+    public String getBackgroundUrl(int preferredWidth) {
         if (bilder != null && bilder.size() >= 2) {
-            return bilder.get(1).getImageUrl();
+            return bilder.get(1).getImageUrl(preferredWidth);
         }
-
         return null;
     }
 

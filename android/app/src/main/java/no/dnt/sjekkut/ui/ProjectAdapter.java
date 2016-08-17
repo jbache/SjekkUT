@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.ui.ProjectListFragment.ProjectListListener;
 
@@ -25,6 +26,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     private final List<Project> mProjectList;
     private final ProjectListListener mListener;
     private Location mUserLocation;
+    private int mDisplayWidth = 1080;
 
     ProjectAdapter(ProjectListFragment.ProjectListListener listener) {
         mProjectList = new ArrayList<>();
@@ -59,6 +61,12 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     }
 
     @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mDisplayWidth = Utils.getDisplayWidth(recyclerView.getContext());
+    }
+
+    @Override
     public void onBindViewHolder(final ProjectHolder holder, int position) {
         final Project project = mProjectList.get(position);
         Context context = holder.mProjectTitle.getContext();
@@ -67,14 +75,14 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         holder.mDistanceToProject.setText(project.getDistanceTo(context, mUserLocation));
         holder.mVisitStatus.setText(context.getString(R.string.projectVisitStatus, 0, project.getPlaceCount()));
         Picasso.with(context)
-                .load(project.getImageUrl())
+                .load(project.getImageUrl((int) (mDisplayWidth*0.25f)))
                 .error(project.getImageFallback())
                 .placeholder(project.getImageFallback())
                 .fit()
                 .centerCrop()
                 .into(holder.mImage);
         Picasso.with(context)
-                .load(project.getBackgroundUrl())
+                .load(project.getBackgroundUrl(mDisplayWidth))
                 .error(project.getBackgroundFallback())
                 .placeholder(project.getBackgroundFallback())
                 .fit()
