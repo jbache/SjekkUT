@@ -110,8 +110,8 @@ class ProjectCell: UITableViewCell {
 
     override func prepareForReuse() {
         stopObserving()
-        backgroundImage = UIImage(named:"challenge-footer")
-        foregroundImage = UIImage(named:"app-icon")
+        backgroundImage = UIImage(named:"project-background-fallback")
+        foregroundImage = UIImage(named:"project-foreground-fallback")
         nameLabel.text = ""
         distanceLabel.text = ""
         progressLabel.text = ""
