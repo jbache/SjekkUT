@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.h
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 16/08/16.
+//  Created by Henrik Hartz on 17/08/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Project (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSNumber *countOfPlaces;
 @property (nullable, nonatomic, retain) NSNumber *distance;
 @property (nullable, nonatomic, retain) NSNumber *hasCheckins;
 @property (nullable, nonatomic, retain) NSString *identifier;
@@ -24,13 +23,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *longitude;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSNumber *progress;
+@property (nullable, nonatomic, retain) NSOrderedSet<DntGroup *> *groups;
 @property (nullable, nonatomic, retain) NSOrderedSet<DntImage *> *images;
 @property (nullable, nonatomic, retain) NSOrderedSet<Place *> *places;
-@property (nullable, nonatomic, retain) NSOrderedSet<DntGroup *> *groups;
 
 @end
 
 @interface Project (CoreDataGeneratedAccessors)
+
+- (void)insertObject:(DntGroup *)value inGroupsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromGroupsAtIndex:(NSUInteger)idx;
+- (void)insertGroups:(NSArray<DntGroup *> *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeGroupsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInGroupsAtIndex:(NSUInteger)idx withObject:(DntGroup *)value;
+- (void)replaceGroupsAtIndexes:(NSIndexSet *)indexes withGroups:(NSArray<DntGroup *> *)values;
+- (void)addGroupsObject:(DntGroup *)value;
+- (void)removeGroupsObject:(DntGroup *)value;
+- (void)addGroups:(NSOrderedSet<DntGroup *> *)values;
+- (void)removeGroups:(NSOrderedSet<DntGroup *> *)values;
 
 - (void)insertObject:(DntImage *)value inImagesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromImagesAtIndex:(NSUInteger)idx;
@@ -53,17 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removePlacesObject:(Place *)value;
 - (void)addPlaces:(NSOrderedSet<Place *> *)values;
 - (void)removePlaces:(NSOrderedSet<Place *> *)values;
-
-- (void)insertObject:(DntGroup *)value inGroupsAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromGroupsAtIndex:(NSUInteger)idx;
-- (void)insertGroups:(NSArray<DntGroup *> *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeGroupsAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInGroupsAtIndex:(NSUInteger)idx withObject:(DntGroup *)value;
-- (void)replaceGroupsAtIndexes:(NSIndexSet *)indexes withGroups:(NSArray<DntGroup *> *)values;
-- (void)addGroupsObject:(DntGroup *)value;
-- (void)removeGroupsObject:(DntGroup *)value;
-- (void)addGroups:(NSOrderedSet<DntGroup *> *)values;
-- (void)removeGroups:(NSOrderedSet<DntGroup *> *)values;
 
 @end
 

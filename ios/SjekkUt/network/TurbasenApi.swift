@@ -54,7 +54,7 @@ public class TurbasenApi: Alamofire.Manager {
         }
     }
 
-    func getProjects() {
+    func getProjectsAnd(finishHandler:((Void)->(Void)) ) {
         let parameters = [
             "api_key": api_key,
             "fields": "steder,bilder,geojson,grupper"
@@ -78,7 +78,12 @@ public class TurbasenApi: Alamofire.Manager {
                 case .Failure(let error):
                     print("failed to get lists: \(error)")
             }
+                finishHandler()
         }
+    }
+
+    func getProjects() {
+        return getProjectsAnd {}
     }
 
     public func getProjectAndPlaces(aProject:Project) {

@@ -30,7 +30,8 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         self.navigationItem.hidesBackButton = true
 
         // update the table (and project progress) when checkins arrive
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
+        self.refreshControl!.addTarget(self, action:#selector(refreshProjects), forControlEvents:.ValueChanged)
 
         // attempt to call member details, while verifying the current authorization token
         dntApi.updateMemberDetailsOrFail {
@@ -107,6 +108,12 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         someResults.delegate = self
 
         return someResults
+    }
+
+    func refreshProjects() {
+        turbasen.getProjectsAnd {
+            self.refreshControl!.endRefreshing()
+        }
     }
 
     // MARK: sections
