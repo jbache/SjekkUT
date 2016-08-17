@@ -26,6 +26,7 @@
 		6C36A1481B0CA8BB00169E98 /* cutehacks.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6C36A1471B0CA8BB00169E98 /* cutehacks.gpx */; };
 		6C4A967A1D63288D00EA0B50 /* DntGroup+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A96771D63288D00EA0B50 /* DntGroup+CoreDataProperties.m */; };
 		6C4A967B1D63288E00EA0B50 /* DntGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A96791D63288D00EA0B50 /* DntGroup.m */; };
+		6C4A967D1D64492C00EA0B50 /* ObjCHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A967C1D64492C00EA0B50 /* ObjCHelpers.swift */; };
 		6C54213F1AC98D8100F8315F /* CheckinStatistics+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C54213E1AC98D8100F8315F /* CheckinStatistics+Extension.m */; };
 		6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5421461AC98FDE00F8315F /* EntityScaffold.m */; };
 		6C5FDB161D48CFE300B7D25E /* DntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FDB151D48CFE300B7D25E /* DntApi.swift */; };
@@ -146,6 +147,7 @@
 		6C4A96771D63288D00EA0B50 /* DntGroup+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DntGroup+CoreDataProperties.m"; path = "model/DntGroup+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6C4A96781D63288D00EA0B50 /* DntGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntGroup.h; path = model/DntGroup.h; sourceTree = "<group>"; };
 		6C4A96791D63288D00EA0B50 /* DntGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DntGroup.m; path = model/DntGroup.m; sourceTree = "<group>"; };
+		6C4A967C1D64492C00EA0B50 /* ObjCHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjCHelpers.swift; path = utils/ObjCHelpers.swift; sourceTree = "<group>"; };
 		6C5421381AC98CA300F8315F /* 1.0.4.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.4.0.xcdatamodel; sourceTree = "<group>"; };
 		6C54213D1AC98D8100F8315F /* CheckinStatistics+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CheckinStatistics+Extension.h"; path = "model/CheckinStatistics+Extension.h"; sourceTree = "<group>"; };
 		6C54213E1AC98D8100F8315F /* CheckinStatistics+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CheckinStatistics+Extension.m"; path = "model/CheckinStatistics+Extension.m"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				6C1F11481B1087DA0003DD2B /* NSDateFormatter+instance.h */,
 				6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */,
 				6CE526901D507BA700D3419B /* DntExtensions.swift */,
+				6C4A967C1D64492C00EA0B50 /* ObjCHelpers.swift */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */,
 				6CC799AF1D51E96800DFAF10 /* ProjectCell.swift in Sources */,
 				6CDE75931AEA50F10067110C /* CheckinStatistics.m in Sources */,
+				6C4A967D1D64492C00EA0B50 /* ObjCHelpers.swift in Sources */,
 				6C54213F1AC98D8100F8315F /* CheckinStatistics+Extension.m in Sources */,
 				6C7C027C1D48A00600853166 /* Place+CoreDataProperties.m in Sources */,
 				6C35DAAC1D535A930048114B /* PlaceSearch.swift in Sources */,

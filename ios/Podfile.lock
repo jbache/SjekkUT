@@ -23,6 +23,8 @@ PODS:
   - Alamofire (3.4.1)
   - AlamofireImage (2.4.1):
     - Alamofire (~> 3.3)
+  - AlamofireNetworkActivityIndicator (1.0.1):
+    - Alamofire (~> 3.3)
   - DateTools (1.5.0)
   - FontAwesome+iOS (0.1.4)
   - HockeySDK (4.0.2):
@@ -37,6 +39,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
+  - AlamofireNetworkActivityIndicator (~> 1.0)
   - DateTools (~> 1.5.0)
   - FontAwesome+iOS (~> 0.1.4)
   - HockeySDK (~> 4.0.1)
@@ -49,6 +52,7 @@ SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
+  AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
   HockeySDK: ebaabf41808b4e4ea85b4d5266d425aef0d19c88
@@ -57,6 +61,6 @@ SPEC CHECKSUMS:
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
 
-PODFILE CHECKSUM: 8fb2bada21e89344831c6f748660932ba050811a
+PODFILE CHECKSUM: 8ead4adfc29817a91d1d7dab441b5520c21bdabb
 
 COCOAPODS: 1.0.1

@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Den Norske Turistforening. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
-
 #import "Defines.h"
 #import "Location.h"
 
@@ -173,8 +171,6 @@
 {
     updateEnabled = YES;
 
-    [[AFNetworkActivityIndicatorManager sharedManager] incrementActivityCount];
-
     __weak typeof(self) weakSelf = self;
     [locationBackend checkPermissions:^{
 #if TESTING
@@ -240,7 +236,6 @@
 {
     updateEnabled = NO;
     [locationManager stopUpdatingLocation];
-    [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
     self.singleUpdateInProgress = NO;
     NSLog(@"stopped updating location");
 }
@@ -309,7 +304,7 @@
     }
 
     [self showError:NSLocalizedString(@"Unable to Locate", @"location timeout title")
-               message:text];
+            message:text];
 }
 
 @end

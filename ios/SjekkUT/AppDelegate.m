@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Den Norske Turistforening. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 #import <HockeySDK/HockeySDK.h>
 #import <SSKeychain/SSKeychain.h>
 
 #import "AppDelegate.h"
 #import "Defines.h"
 #import "ModelController.h"
+#import "SjekkUT-Swift.h"
 #import "SjekkUtStyle.h"
 
 @interface AppDelegate ()
@@ -41,7 +41,7 @@
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation]; // This line is obsolete in the crash only build
 #endif
 
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    [SwiftHelper initNetworkIndicator];
 
     // apply appearance
     [SjekkUtStyle apply];

@@ -6,7 +6,6 @@ inhibit_all_warnings!
 use_frameworks!
 
 target 'SjekkUt' do
-pod 'AFNetworking', '~> 2.5'
 pod 'HockeySDK', '~> 4.0.1'
 pod 'NSURLRequest-cURL', '~> 0.0.1'
 pod 'DateTools', '~> 1.5.0'
@@ -15,6 +14,7 @@ pod 'SSKeychain', '~> 1.4'
 pod 'OCMock', '~> 3.3'
 pod 'Alamofire', '~> 3.4'
 pod 'AlamofireImage', '~> 2.0'
+pod 'AlamofireNetworkActivityIndicator', '~> 1.0'
 end
 
 target 'SjekkUtTests' do
