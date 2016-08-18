@@ -25,8 +25,10 @@ class PlaceCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
 
     var place:Place? {
-        didSet {
+        willSet {
             stopObserving()
+        }
+        didSet {
             nameLabel.text = place?.name
             countyElevationLabel.text = place?.countyElevationText()
             climbCountLabel.text = place?.checkinCountDescription()
@@ -56,7 +58,7 @@ class PlaceCell: UITableViewCell {
     // MARK: observing
 
     func startObserving() {
-        if (isObserving == false) {
+        if (isObserving == false && place!=nil) {
             place?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObserveDistance)
             place?.addObserver(self, forKeyPath: "checkins", options: .Initial, context: &kObserveCheckins)
             place?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObserveImages)
@@ -65,7 +67,7 @@ class PlaceCell: UITableViewCell {
     }
 
     func stopObserving() {
-        if (isObserving == true) {
+        if (isObserving == true && place != nil) {
             place?.removeObserver(self, forKeyPath: "distance")
             place?.removeObserver(self, forKeyPath: "checkins")
             place?.removeObserver(self, forKeyPath: "images")

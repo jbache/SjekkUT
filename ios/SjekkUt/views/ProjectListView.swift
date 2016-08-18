@@ -30,7 +30,6 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         self.navigationItem.hidesBackButton = true
 
         // update the table (and project progress) when checkins arrive
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTable), name: kSjekkUtNotificationCheckinChanged, object: nil)
         self.refreshControl!.addTarget(self, action:#selector(refreshProjects), forControlEvents:.ValueChanged)
 
         // attempt to call member details, while verifying the current authorization token
@@ -134,19 +133,64 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let projectCell = tableView.dequeueReusableCellWithIdentifier("ProjectCell") as! ProjectCell
-        let project = self.projects?.objectAtIndexPath(indexPath) as! Project
-        projectCell.project = project
         return projectCell
     }
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let projectCell = cell as! ProjectCell
-        projectCell.hideReadMore()
+        if let projectCell = cell as? ProjectCell {
+            configureCell(projectCell, forRowAtIndexPath:indexPath)
+            projectCell.hideReadMore()
+        }
+    }
+
+    func configureCell(aCell:ProjectCell, forRowAtIndexPath anIndexPath:NSIndexPath) {
+        if let project = self.projects?.objectAtIndexPath(anIndexPath) as? Project {
+            aCell.project = project
+        }
     }
 
     // MARK: data changes
+
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.projectsTable.beginUpdates()
+    }
+
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+    {
+        let aTable:UITableView = self.projectsTable
+        switch type {
+        case .Insert:
+            aTable.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation:.Fade)
+        case .Delete:
+            aTable.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation:.Fade)
+        default:
+            break
+        }
+    }
+
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+    {
+        let aTable:UITableView = self.projectsTable
+        switch type {
+        case NSFetchedResultsChangeType(rawValue: 0)!:
+            // iOS 8 bug - Do nothing if we get an invalid change type.
+            break;
+        case .Insert:
+            aTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+        case .Delete:
+            aTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
+        case .Update:
+            if let aCell = aTable.cellForRowAtIndexPath(indexPath!) as? ProjectCell {
+                configureCell(aCell, forRowAtIndexPath: indexPath!)
+            }
+        case .Move:
+            aTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
+            aTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+        }
+    }
+
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        reloadTable()
+        self.projectsTable.endUpdates()
     }
 
     // MARK: table interaction

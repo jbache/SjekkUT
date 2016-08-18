@@ -74,8 +74,10 @@ class ProjectCell: UITableViewCell {
 
     
     var project:Project? = nil {
-        didSet {
+        willSet {
             stopObserving()
+        }
+        didSet {
 
             setupReadMore()
             setupProgressLabel()
@@ -203,7 +205,7 @@ class ProjectCell: UITableViewCell {
 
     // MARK: observing
     func startObserving() {
-        if (!isObserving) {
+        if (!isObserving && project != nil) {
             project?.addObserver(self, forKeyPath: "name", options: .Initial, context: &kObservationContextName)
             project?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObservationContextDistance)
             project?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObservationContextImages)

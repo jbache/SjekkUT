@@ -59,10 +59,6 @@
 
 - (void)update:(NSDictionary *)json
 {
-    if ([self.identifier isEqual:@"57974036b565590001a98884"])
-    {
-        NSLog(@"break");
-    }
     setIfNotEqual(self.name, json[@"navn"]);
 
     NSArray *coordinates = nil;
@@ -125,10 +121,7 @@
 - (void)parseImages:(NSArray *)images
 {
     NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
-    if ([self.identifier isEqual:@"57b2f2c04ba3bf00011bb695"])
-    {
-        NSLog(@"asdf");
-    }
+
     for (NSDictionary *anImageDict in images)
     {
         DntImage *anImage = [DntImage insertOrUpdate:anImageDict];
