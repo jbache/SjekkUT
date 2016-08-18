@@ -9,7 +9,8 @@ import com.google.gson.JsonObject;
  */
 public class PlaceCheckin {
     String id;
-    String dnt_user_id;
+    public String dnt_user_id;
+    public String ntb_steder_id;
     String timestamp;
     JsonObject location;
 }

@@ -12,31 +12,38 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.SjekkUTApplication;
 import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.Place;
+import no.dnt.sjekkut.network.PlaceCheckin;
+import no.dnt.sjekkut.network.PlaceCheckinList;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.ui.ProjectListFragment.ProjectListListener;
 
 class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> {
 
-    private final List<Project> mProjectList;
+    private final List<Project> mProjectList = new ArrayList<>();
+    private final Set<String> mPlacesVisitedByUser = new HashSet<>();
     private final ProjectListListener mListener;
-    private Location mUserLocation;
+    private Location mUserLocation = null;
     private int mDisplayWidth = 1080;
 
     ProjectAdapter(ProjectListFragment.ProjectListListener listener) {
-        mProjectList = new ArrayList<>();
         mListener = listener;
-        mUserLocation = null;
     }
 
     void setList(List<Project> projectList) {
         mProjectList.clear();
         mProjectList.addAll(projectList);
+        mPlacesVisitedByUser.clear();
         notifyDataSetChanged();
     }
 
@@ -73,9 +80,11 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         holder.mProjectTitle.setText(project.navn);
         holder.mGroupTitle.setText(project.getFirstGroupName());
         holder.mDistanceToProject.setText(project.getDistanceTo(context, mUserLocation));
-        holder.mVisitStatus.setText(context.getString(R.string.projectVisitStatus, 0, project.getPlaceCount()));
+        int visitedProjectPlaces = calculatedVisitedPlaces(project);
+        int totalProjectPlaces = project.getPlaceCount();
+        holder.mVisitStatus.setText(context.getString(R.string.projectVisitStatus, visitedProjectPlaces, totalProjectPlaces));
         Picasso.with(context)
-                .load(project.getImageUrl((int) (mDisplayWidth*0.25f)))
+                .load(project.getImageUrl((int) (mDisplayWidth * 0.25f)))
                 .error(project.getImageFallback())
                 .placeholder(project.getImageFallback())
                 .fit()
@@ -98,6 +107,18 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         });
     }
 
+    private int calculatedVisitedPlaces(Project project) {
+        int visitedPlaces = 0;
+        if (project != null && project.steder != null && !project.steder.isEmpty() && !mPlacesVisitedByUser.isEmpty()) {
+            for (Place place : project.steder) {
+                if (mPlacesVisitedByUser.contains(place._id)) {
+                    ++visitedPlaces;
+                }
+            }
+        }
+        return visitedPlaces;
+    }
+
     @Override
     public int getItemCount() {
         return mProjectList.size();
@@ -106,6 +127,22 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     void updateLocation(Location location) {
         mUserLocation = location;
         notifyDataSetChanged();
+    }
+
+    void updatePlaceCheckins(PlaceCheckinList placeCheckinList) {
+        if (placeCheckinList != null && placeCheckinList.data != null && !placeCheckinList.data.isEmpty()) {
+            boolean changed = false;
+            String userId = PreferenceUtils.getUserId(SjekkUTApplication.getContext());
+            for (PlaceCheckin checkin : placeCheckinList.data) {
+                if (userId.equals(checkin.dnt_user_id)) {
+                    changed = true;
+                    mPlacesVisitedByUser.add(checkin.ntb_steder_id);
+                }
+            }
+            if (changed) {
+                notifyDataSetChanged();
+            }
+        }
     }
 
     class ProjectHolder extends RecyclerView.ViewHolder {
