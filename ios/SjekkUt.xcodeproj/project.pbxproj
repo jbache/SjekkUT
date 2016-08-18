@@ -1005,7 +1005,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SjekkUt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "no.turistforeningen.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1023,13 +1022,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Den Norske Turistforening (4835QGEA88)";
 				INFOPLIST_FILE = SjekkUt/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "no.turistforeningen.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SjekkUT;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d529372a-e55a-4ca1-bf53-1f03ab5446ba";
 				SWIFT_OBJC_BRIDGING_HEADER = "SjekkUt/SjekkUt-Bridging-Header.h";
 			};
 			name = Release;
