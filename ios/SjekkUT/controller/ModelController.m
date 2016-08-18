@@ -137,14 +137,15 @@
         {
             [error warn:@"flushing database"];
 
-            [self.managedObjectContext performBlockAndWait:^{
+            [pObjectContext performBlockAndWait:^{
                 NSArray *stores = [psc persistentStores];
+                NSError *error = nil;
                 for (NSPersistentStore *store in stores)
                 {
-                    [psc removePersistentStore:store error:nil];
-                    [[NSFileManager defaultManager] removeItemAtPath:store.URL.path error:nil];
+                    [psc removePersistentStore:store error:&error];
+                    [[NSFileManager defaultManager] removeItemAtPath:store.URL.path error:&error];
                 }
-                [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:nil];
+                [[NSFileManager defaultManager] removeItemAtPath:storeURL.path error:&error];
             }];
 
             [self setPrivateContext:nil];
