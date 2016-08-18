@@ -35,11 +35,21 @@ public class Project {
         }
     }
 
-    public String getDistanceTo(Context context, Location currentLocation) {
-        if (context != null && geojson != null) {
+    public Float getDistanceTo(Location currentLocation) {
+        if (geojson != null) {
             Location projectLocation = geojson.getLocation();
             if (currentLocation != null && projectLocation != null) {
-                return Utils.formatDistance(context, currentLocation.distanceTo(projectLocation));
+                return currentLocation.distanceTo(projectLocation);
+            }
+        }
+        return null;
+    }
+
+    public String getDistanceToString(Context context, Location currentLocation) {
+        if (context != null) {
+            Float distance = getDistanceTo(currentLocation);
+            if (distance != null) {
+                return Utils.formatDistance(context, distance);
             }
         }
         return "n/a";
