@@ -119,6 +119,15 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         return visitedPlaces;
     }
 
+    String getSeparatorTitle(int position) {
+        boolean hasVisitedProject = mProjectList.size() > position && calculatedVisitedPlaces(mProjectList.get(position)) > 0;
+        if (hasVisitedProject) {
+            return "Mine prosjekter";
+        } else {
+            return "Andre prosjekter";
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mProjectList.size();

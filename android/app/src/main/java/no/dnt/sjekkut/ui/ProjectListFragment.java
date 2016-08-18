@@ -1,6 +1,8 @@
 package no.dnt.sjekkut.ui;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -61,6 +63,10 @@ public class ProjectListFragment extends Fragment implements LocationListener {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new ProjectAdapter(mListener));
+            Paint textPainter = new Paint();
+            textPainter.setColor(Color.BLACK);
+            textPainter.setTextSize(30);
+            recyclerView.addItemDecoration(new ProjectSeparator(textPainter, 100));
             TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
         }
         return view;
