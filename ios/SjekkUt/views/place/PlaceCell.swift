@@ -58,7 +58,7 @@ class PlaceCell: UITableViewCell {
     // MARK: observing
 
     func startObserving() {
-        if (isObserving == false && place!=nil) {
+        if (isObserving == false && place != nil) {
             place?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObserveDistance)
             place?.addObserver(self, forKeyPath: "checkins", options: .Initial, context: &kObserveCheckins)
             place?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObserveImages)

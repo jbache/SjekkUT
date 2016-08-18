@@ -30,6 +30,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         self.navigationItem.hidesBackButton = true
 
         // update the table (and project progress) when checkins arrive
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(refreshProjectsHasCheckin), name: kSjekkUtNotificationCheckinChanged, object: nil)
         self.refreshControl!.addTarget(self, action:#selector(refreshProjects), forControlEvents:.ValueChanged)
 
         // attempt to call member details, while verifying the current authorization token
@@ -112,6 +113,14 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     func refreshProjects() {
         turbasen.getProjectsAnd {
             self.refreshControl!.endRefreshing()
+        }
+    }
+
+    func refreshProjectsHasCheckin() {
+        ModelController.instance().saveBlock {
+            for aProject:Project in self.projects!.fetchedObjects as! [Project] {
+                aProject.updateHasCheckin()
+            }
         }
     }
 
