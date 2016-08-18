@@ -2,9 +2,7 @@ package no.dnt.sjekkut.ui;
 
 import android.content.Context;
 import android.location.Location;
-import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,8 @@ import no.dnt.sjekkut.ui.ProjectListFragment.ProjectListListener;
 
 class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> {
 
-    private final SortedList<Project> mProjectList;
+    private final List<Project> mProjectList;
+    private final Comparator<Project> mProjectComparator;
     private final Set<String> mPlacesVisitedByUser = new HashSet<>();
     private final ProjectListListener mListener;
     private Location mUserLocation = null;
@@ -39,31 +41,25 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
 
     ProjectAdapter(ProjectListFragment.ProjectListListener listener) {
         mListener = listener;
-        mProjectList = new SortedList<>(Project.class, new SortedListAdapterCallback<Project>(this) {
+        mProjectList = new ArrayList<>();
+        mProjectComparator = new Comparator<Project>() {
             @Override
             public int compare(Project o1, Project o2) {
-                int result = Utils.nullSafeCompareTo(o1.getDistanceTo(mUserLocation), o2.getDistanceTo(mUserLocation));
+                int result = Utils.nullSafeCompareTo(!hasUserVisited(o1), !hasUserVisited(o2));
+                if (result == 0)
+                    result = Utils.nullSafeCompareTo(o1.getDistanceTo(mUserLocation), o2.getDistanceTo(mUserLocation));
                 if (result == 0)
                     result = Utils.nullSafeCompareTo(o1.navn, o2.navn);
                 return result;
             }
-
-            @Override
-            public boolean areContentsTheSame(Project oldItem, Project newItem) {
-                return false;
-            }
-
-            @Override
-            public boolean areItemsTheSame(Project item1, Project item2) {
-                return item1._id.equals(item2._id);
-            }
-        });
+        };
     }
 
     void setList(List<Project> projectList) {
         mProjectList.clear();
         mProjectList.addAll(projectList);
         mPlacesVisitedByUser.clear();
+        Collections.sort(mProjectList, mProjectComparator);
         notifyDataSetChanged();
     }
 
@@ -72,7 +68,8 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
             for (int i = 0; i < mProjectList.size(); ++i) {
                 Project oldProject = mProjectList.get(i);
                 if (newProject._id.equals(oldProject._id)) {
-                    mProjectList.updateItemAt(i, newProject);
+                    mProjectList.set(i, newProject);
+                    Collections.sort(mProjectList, mProjectComparator);
                     notifyDataSetChanged();
                     return;
                 }
@@ -127,6 +124,17 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         });
     }
 
+    private boolean hasUserVisited(Project project) {
+        if (project != null && project.steder != null && !project.steder.isEmpty() && !mPlacesVisitedByUser.isEmpty()) {
+            for (Place place : project.steder) {
+                if (mPlacesVisitedByUser.contains(place._id)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private int calculatedVisitedPlaces(Project project) {
         int visitedPlaces = 0;
         if (project != null && project.steder != null && !project.steder.isEmpty() && !mPlacesVisitedByUser.isEmpty()) {
@@ -140,12 +148,17 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     }
 
     String getSeparatorTitle(int position) {
-        boolean hasVisitedProject = mProjectList.size() > position && calculatedVisitedPlaces(mProjectList.get(position)) > 0;
-        if (hasVisitedProject) {
-            return "Mine prosjekter";
-        } else {
-            return "Andre prosjekter";
+        if (position >= 0 && mProjectList.size() > position) {
+            if (position == 0) {
+                boolean hasVisited = hasUserVisited(mProjectList.get(position));
+                return hasVisited ? "Mine prosjekter" : "Andre prosjekter";
+            } else {
+                boolean hasVisited = hasUserVisited(mProjectList.get(position));
+                boolean hasPreviousVisited = hasUserVisited(mProjectList.get(position - 1));
+                return !hasVisited && hasPreviousVisited ? "Andre prosjekter" : null;
+            }
         }
+        return null;
     }
 
     @Override
@@ -155,6 +168,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
 
     void updateLocation(Location location) {
         mUserLocation = location;
+        Collections.sort(mProjectList, mProjectComparator);
         notifyDataSetChanged();
     }
 
@@ -169,6 +183,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
                 }
             }
             if (changed) {
+                Collections.sort(mProjectList, mProjectComparator);
                 notifyDataSetChanged();
             }
         }
