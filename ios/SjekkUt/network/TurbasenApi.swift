@@ -13,6 +13,7 @@ public class TurbasenApi: Alamofire.Manager {
 
     static let instance = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
 
+    let projectFields:String = "steder,geojson,bilder,img,grupper,lenker,start,stopp,url,fylke,kommune"
     var baseUrl:String = ""
     var api_key = ""
 
@@ -57,7 +58,7 @@ public class TurbasenApi: Alamofire.Manager {
     func getProjectsAnd(finishHandler:((Void)->(Void)) ) {
         let parameters = [
             "api_key": api_key,
-            "fields": "steder,bilder,geojson,grupper"
+            "fields": projectFields
         ];
         self.request(.GET, baseUrl + "/lister", parameters:parameters )
             .validate(statusCode: 200..<300)
@@ -93,7 +94,7 @@ public class TurbasenApi: Alamofire.Manager {
         urlRequest.HTTPMethod = "GET"
         urlRequest.cachePolicy = .ReloadIgnoringCacheData
         let parameters = ["api_key": api_key,
-                          "fields":"steder,geojson,bilder,img,kommune,beskrivelse,grupper",
+                          "fields": projectFields,
                           "expand":"steder,bilder,grupper"]
         self.request(.GET, urlRequest, parameters:parameters)
             .validate(statusCode: 200..<300)

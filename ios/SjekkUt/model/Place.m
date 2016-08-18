@@ -70,15 +70,16 @@
 - (void)update:(NSDictionary *)json
 {
     setIfNotEqual(self.name, json[@"navn"]);
-    setIfNotEqual(self.county, json[@"kommune"]);
+    setIfNotEqual(self.municipality, json[@"kommune"]);
+    setIfNotEqual(self.county, json[@"fylke"]);
     setIfNotEqual(self.descriptionText, json[@"beskrivelse"]);
     [self updateCoordinates:[json valueForKeyPath:@"geojson.coordinates"]];
-    [self parseImages:json[@"bilder"]];
+    [self updateImages:json[@"bilder"]];
 }
 
 #pragma mark images
 
-- (void)parseImages:(NSArray *)images
+- (void)updateImages:(NSArray *)images
 {
     NSMutableOrderedSet *orderedImages = [NSMutableOrderedSet orderedSet];
     if (images != nil && images.count > 0)
