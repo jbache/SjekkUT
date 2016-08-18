@@ -193,15 +193,12 @@ class ProjectCell: UITableViewCell {
     @IBAction func readMoreClicked(sender: AnyObject) {
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        UIView.animateWithDuration( 0.15 ) {
+            self.backgroundImageView.alpha = highlighted ? 0.8 : 0.4;
+        }
     }
-
-//    override func setHighlighted(highlighted: Bool, animated: Bool) {
-//        super.setHighlighted(highlighted, animated: animated)
-//        updateBackgroundImage()
-//        updateForegroundImage()
-//    }
 
     // MARK: observing
     func startObserving() {
