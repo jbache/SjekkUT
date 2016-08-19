@@ -110,7 +110,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="County, Municipality" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qf-y5-0pm">
                                                             <rect key="frame" x="84" y="61" width="389" height="15"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -428,7 +428,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BQD-yF-DET">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="project-background-fallback" translatesAutoresizingMaskIntoConstraints="NO" id="Xz4-52-KaV">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="project-background-fallback" translatesAutoresizingMaskIntoConstraints="NO" id="Xz4-52-KaV">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
                                                 </imageView>
                                             </subviews>
@@ -495,7 +495,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="County, Municipality" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWK-ld-6gP">
                                                     <rect key="frame" x="84" y="61" width="389" height="15"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -525,7 +525,6 @@
                                         <constraint firstItem="BQD-yF-DET" firstAttribute="top" secondItem="88z-hI-F0r" secondAttribute="top" id="5mv-hJ-bbN"/>
                                         <constraint firstAttribute="trailing" secondItem="BQD-yF-DET" secondAttribute="trailing" id="74A-xu-b9D"/>
                                         <constraint firstItem="J6W-AJ-uR5" firstAttribute="bottom" secondItem="88z-hI-F0r" secondAttribute="bottomMargin" id="DVL-z3-lOh"/>
-                                        <constraint firstItem="BQD-yF-DET" firstAttribute="width" secondItem="88z-hI-F0r" secondAttribute="width" id="MDR-1K-HcX"/>
                                         <constraint firstItem="J6W-AJ-uR5" firstAttribute="top" secondItem="88z-hI-F0r" secondAttribute="topMargin" id="SNm-Fb-6QP"/>
                                         <constraint firstItem="BQD-yF-DET" firstAttribute="leading" secondItem="88z-hI-F0r" secondAttribute="leading" id="T8T-0U-jvK"/>
                                         <constraint firstAttribute="bottom" secondItem="BQD-yF-DET" secondAttribute="bottom" id="bhm-zU-ZRQ"/>

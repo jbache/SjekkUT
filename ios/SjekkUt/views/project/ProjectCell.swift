@@ -82,7 +82,6 @@ class ProjectCell: UITableViewCell {
 
             setupReadMore()
             setupProgressLabel()
-            setupBackgroundImage()
 
             startObserving()
         }
@@ -153,12 +152,6 @@ class ProjectCell: UITableViewCell {
 
     // MARK: background image
 
-    func setupBackgroundImage() {
-        if self.backgroundView == nil {
-            self.backgroundView = backgroundContainer
-        }
-    }
-
     func fetchBackgroundImage() {
         if let backgroundURL = project?.backgroundImageURLforSize(self.backgroundImageView!.bounds.size) {
             backgroundImageRequest = Alamofire.request(.GET,backgroundURL)
@@ -174,9 +167,6 @@ class ProjectCell: UITableViewCell {
 
     func fetchForegroundImage() {
         if let foregroundURL = project?.foregroundImageURLforSize(self.foregroundImageView.bounds.size) {
-            if project?.identifier == "57974036b565590001a98884" {
-                print("foreground: \(foregroundURL)")
-            }
             foregroundImageRequest = Alamofire.request(.GET,foregroundURL)
                 .responseImage { response in
                     if let image = response.result.value {
