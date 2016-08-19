@@ -98,6 +98,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     func projectResults() -> NSFetchedResultsController {
         let aFetchRequest =  Project.fetchRequest()
         aFetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasCheckins", ascending: false), NSSortDescriptor(key: "distance", ascending: true)]
+        aFetchRequest.includesPendingChanges = false
         let someResults = NSFetchedResultsController(fetchRequest: aFetchRequest, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: "hasCheckins", cacheName: nil)
         do {
             try someResults.performFetch()
@@ -153,7 +154,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     func configureCell(aCell:ProjectCell, forRowAtIndexPath anIndexPath:NSIndexPath) {
-        if let project = self.projects?.objectAtIndexPath(anIndexPath) as? Project {
+        if let project:Project = self.projects?.objectAtIndexPath(anIndexPath) as? Project {
             aCell.project = project
         }
     }
@@ -179,27 +180,26 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
     {
-        let aTable:UITableView = self.projectsTable
         switch type {
         case NSFetchedResultsChangeType(rawValue: 0)!:
             // iOS 8 bug - Do nothing if we get an invalid change type.
             break;
         case .Insert:
-            aTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+            projectsTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
         case .Delete:
-            aTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
+            projectsTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
         case .Update:
-            if let aCell = aTable.cellForRowAtIndexPath(indexPath!) as? ProjectCell {
+            if let aCell = projectsTable.cellForRowAtIndexPath(indexPath!) as? ProjectCell {
                 configureCell(aCell, forRowAtIndexPath: indexPath!)
             }
         case .Move:
-            aTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
-            aTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+            projectsTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
+            projectsTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
         }
     }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.projectsTable.endUpdates()
+        projectsTable.endUpdates()
     }
 
     // MARK: table interaction
