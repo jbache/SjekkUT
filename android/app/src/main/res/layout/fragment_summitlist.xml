@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO: add Toolbar -->
+
     <LinearLayout
         android:id="@+id/listContainer"
         android:layout_width="match_parent"

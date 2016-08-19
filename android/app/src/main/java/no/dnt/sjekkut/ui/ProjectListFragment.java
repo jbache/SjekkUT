@@ -7,9 +7,17 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +26,8 @@ import com.google.android.gms.location.LocationRequest;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
@@ -30,12 +40,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProjectListFragment extends Fragment implements LocationListener {
+public class ProjectListFragment extends Fragment implements LocationListener, SearchView.OnQueryTextListener {
 
     final private ProjectListCallback mProjectListCallback = new ProjectListCallback();
     final private ProjectCallback mProjectCallback = new ProjectCallback();
     final private PlaceCheckinListCallback mPlaceCheckinCallback = new PlaceCheckinListCallback();
     final private LocationRequest mLocationRequest = LocationRequestUtils.repeatingRequest();
+    @BindView(R.id.projectlist)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     private ProjectListListener mListener;
 
     public ProjectListFragment() {
@@ -52,23 +66,24 @@ public class ProjectListFragment extends Fragment implements LocationListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_projectlist, container, false);
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new ProjectAdapter(mListener));
-            Paint textPainter = new Paint();
-            textPainter.setColor(Color.BLACK);
-            textPainter.setTextSize(30);
-            recyclerView.addItemDecoration(new ProjectSeparator(textPainter, 80));
-            TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
+        ButterKnife.bind(this, view);
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mRecyclerView.setAdapter(new ProjectAdapter(mListener));
+        Paint textPainter = new Paint();
+        textPainter.setColor(Color.BLACK);
+        textPainter.setTextSize(30);
+        mRecyclerView.addItemDecoration(new ProjectSeparator(textPainter, 80));
+        TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
         return view;
     }
 
@@ -78,6 +93,21 @@ public class ProjectListFragment extends Fragment implements LocationListener {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_projectlist_fragment, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setInputType(InputType.TYPE_TEXT_VARIATION_FILTER);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void setHasOptionsMenu(boolean hasMenu) {
+        super.setHasOptionsMenu(hasMenu);
     }
 
     @Override
@@ -109,7 +139,6 @@ public class ProjectListFragment extends Fragment implements LocationListener {
         return null;
     }
 
-
     private void setList(List<Project> projectList) {
         if (getProjectAdapter() != null) {
             getProjectAdapter().setList(projectList);
@@ -135,6 +164,18 @@ public class ProjectListFragment extends Fragment implements LocationListener {
         }
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (getProjectAdapter() != null) {
+            getProjectAdapter().filter(newText);
+        }
+        return true;
+    }
 
     interface ProjectListListener {
         void onProjectClicked(Project project);

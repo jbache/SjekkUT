@@ -2,12 +2,10 @@
 
     <!-- Themes -->
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:listChoiceIndicatorMultiple">@drawable/apptheme_btn_check_holo_light
         </item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:actionBarStyle">@style/RedActionBar</item>
-        <item name="actionBarStyle">@style/RedActionBar</item>
         <item name="colorAccent">@color/dntRed</item>
     </style>
 
@@ -25,11 +23,6 @@
     </style>
 
     <!-- Styles -->
-
-    <style name="RedActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/dntRed</item>
-        <item name="background">@color/dntRed</item>
-    </style>
 
     <style name="ProjectLargeTitle" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">24sp</item>
@@ -57,6 +50,5 @@
         <item name="android:shadowDy">1.0</item>
         <item name="android:shadowRadius">4.0</item>
     </style>
-
 
 </resources>

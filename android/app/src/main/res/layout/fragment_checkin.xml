@@ -4,17 +4,19 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true">
 
+    <!-- TODO: add Toolbar -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/topContainer"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
 
             <RelativeLayout
                 android:id="@+id/imageContainer"
@@ -58,11 +60,11 @@
                     android:id="@+id/scale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginRight="@dimen/margin_small"
-                    android:layout_marginEnd="@dimen/margin_small"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:gravity="center"
                     android:textColor="@color/text_main"
                     android:textSize="@dimen/textsize_small"
                     tools:text="2 km" />
@@ -71,33 +73,33 @@
                     android:id="@+id/scaleBar"
                     android:layout_width="@dimen/scalebar_width"
                     android:layout_height="2dp"
-                    android:background="@color/black"
-                    android:layout_toRightOf="@id/scale"
+                    android:layout_alignBottom="@id/scale"
+                    android:layout_marginBottom="2dp"
                     android:layout_toEndOf="@id/scale"
-                    android:layout_alignBottom="@id/scale"
-                    android:layout_marginBottom="2dp" />
+                    android:layout_toRightOf="@id/scale"
+                    android:background="@color/black" />
 
                 <View
                     android:layout_width="2dp"
-                    android:background="@color/black"
                     android:layout_height="0dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_alignTop="@id/scale"
                     android:layout_alignBottom="@id/scale"
+                    android:layout_alignLeft="@id/scaleBar"
                     android:layout_alignStart="@id/scaleBar"
-                    android:layout_alignLeft="@id/scaleBar" />
+                    android:layout_alignTop="@id/scale"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/black" />
 
                 <View
                     android:layout_width="2dp"
-                    android:background="@color/black"
                     android:layout_height="0dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_alignTop="@id/scale"
                     android:layout_alignBottom="@id/scale"
                     android:layout_alignEnd="@id/scaleBar"
-                    android:layout_alignRight="@id/scaleBar" />
+                    android:layout_alignRight="@id/scaleBar"
+                    android:layout_alignTop="@id/scale"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/black" />
 
 
             </RelativeLayout>
@@ -111,11 +113,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-                android:textColorLink="@color/dntRed"
                 android:autoLink="web"
-                android:linksClickable="true"
                 android:gravity="start|top"
+                android:linksClickable="true"
                 android:textColor="@color/text_main"
+                android:textColorLink="@color/dntRed"
                 android:textSize="@dimen/textsize_medium"
                 tools:text="Some description" />
 
@@ -137,9 +139,9 @@
                 android:id="@+id/checkin_button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="5sp"
                 android:gravity="center"
-                android:layout_gravity="center"
                 android:textColor="@color/text_main"
                 android:textSize="@dimen/textsize_small"
                 tools:text="Some checkin text" />
@@ -149,8 +151,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:minWidth="150sp"
                 android:layout_marginBottom="@dimen/margin_large"
+                android:minWidth="150sp"
                 android:padding="@dimen/margin_medium"
                 android:paddingLeft="@dimen/margin_large"
                 android:paddingRight="@dimen/margin_large"

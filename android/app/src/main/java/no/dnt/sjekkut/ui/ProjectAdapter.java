@@ -36,6 +36,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     private final Comparator<Project> mProjectComparator;
     private final Set<String> mPlacesVisitedByUser = new HashSet<>();
     private final ProjectListListener mListener;
+    private List<Project> mProjectListCopy = null;
     private Location mUserLocation = null;
     private int mDisplayWidth = 1080;
 
@@ -147,15 +148,25 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         return visitedPlaces;
     }
 
+    private boolean noFilters() {
+        return mProjectListCopy == null;
+    }
+
     String getSeparatorTitle(int position) {
         if (position >= 0 && mProjectList.size() > position) {
-            if (position == 0) {
-                boolean hasVisited = hasUserVisited(mProjectList.get(position));
-                return hasVisited ? "Mine prosjekter" : "Andre prosjekter";
+            if (noFilters()) {
+                if (position == 0) {
+                    boolean hasVisited = hasUserVisited(mProjectList.get(position));
+                    return hasVisited ? "Mine prosjekter" : "Andre prosjekter";
+                } else {
+                    boolean hasVisited = hasUserVisited(mProjectList.get(position));
+                    boolean hasPreviousVisited = hasUserVisited(mProjectList.get(position - 1));
+                    return !hasVisited && hasPreviousVisited ? "Andre prosjekter" : null;
+                }
             } else {
-                boolean hasVisited = hasUserVisited(mProjectList.get(position));
-                boolean hasPreviousVisited = hasUserVisited(mProjectList.get(position - 1));
-                return !hasVisited && hasPreviousVisited ? "Andre prosjekter" : null;
+                if (position == 0) {
+                    return "Søkeresultater";
+                }
             }
         }
         return null;
@@ -187,6 +198,25 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
                 notifyDataSetChanged();
             }
         }
+    }
+
+    void filter(String query) {
+        // TODO: fix this so we handle calls to setList(..) or updateProject(..) while filtering
+        if (mProjectListCopy == null) {
+            mProjectListCopy = new ArrayList<>(mProjectList);
+        }
+        mProjectList.clear();
+        if (query.isEmpty()) {
+            mProjectList.addAll(mProjectListCopy);
+            mProjectListCopy = null;
+        } else {
+            for (Project project : mProjectListCopy) {
+                if (project.navn != null && project.navn.toLowerCase().contains(query.toLowerCase())) {
+                    mProjectList.add(project);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class ProjectHolder extends RecyclerView.ViewHolder {
