@@ -20,7 +20,6 @@ public class Project {
     public List<Place> steder;
     public List<Photo> bilder;
     public List<Group> grupper;
-    public GeoJSON geojson;
 
 
     public int getPlaceCount() {
@@ -36,13 +35,19 @@ public class Project {
     }
 
     public Float getDistanceTo(Location currentLocation) {
-        if (geojson != null) {
-            Location projectLocation = geojson.getLocation();
-            if (currentLocation != null && projectLocation != null) {
-                return currentLocation.distanceTo(projectLocation);
+        Float shortestDistance = null;
+        if (steder != null && !steder.isEmpty()) {
+            for (Place place : steder) {
+                Float distanceToPlace = place.getDistanceTo(currentLocation);
+                if (distanceToPlace != null) {
+                    if (shortestDistance == null || distanceToPlace < shortestDistance) {
+                        shortestDistance = distanceToPlace;
+                    }
+                }
+
             }
         }
-        return null;
+        return shortestDistance;
     }
 
     public String getDistanceToString(Context context, Location currentLocation) {
