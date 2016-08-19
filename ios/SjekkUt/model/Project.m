@@ -60,11 +60,30 @@
 - (void)update:(NSDictionary *)json
 {
     setIfNotEqual(self.name, json[@"navn"]);
-
+    NSDate *start = [[self dateFormatter] dateFromString:json[@"start"]];
+    setIfNotEqual(self.start, start);
+    NSDate *stop = [[self dateFormatter] dateFromString:json[@"stopp"]];
+    setIfNotEqual(self.stop, stop);
+    if (start != nil)
+    {
+        NSLog(@"break");
+    }
     [self parsePlaces:json[@"steder"]];
     [self parseImages:json[@"bilder"]];
     [self parseGroups:json[@"grupper"]];
     [self updateDistance];
+}
+
+- (NSDateFormatter *)dateFormatter
+{
+    static NSDateFormatter *_dateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"];
+    });
+    return _dateFormatter;
 }
 
 #pragma mark places
