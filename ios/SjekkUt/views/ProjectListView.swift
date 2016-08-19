@@ -210,7 +210,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
-        return 106
+        return 110
     }
 
     // MARK: seraching

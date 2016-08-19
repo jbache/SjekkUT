@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)backgroundImageURLforSize:(CGSize)aSize;
 - (NSURL *)foregroundImageURLforSize:(CGSize)aSize;
 - (NSString *)distanceDescription;
+- (NSString *)countyMunicipalityDescription;
 
 @end
 

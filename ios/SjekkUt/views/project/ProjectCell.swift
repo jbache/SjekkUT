@@ -46,6 +46,7 @@ class ProjectCell: UITableViewCell {
     @IBOutlet weak var readMoreSpacing: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var countyMunicipalityLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var groupLabel: UILabel!
 
@@ -231,6 +232,7 @@ class ProjectCell: UITableViewCell {
         }
         else if(context == &kObservationContextPlaces) {
             self.progressLabel.text = project?.progressDescriptionShort()
+            self.countyMunicipalityLabel.text = project?.countyMunicipalityDescription()
         }
         else if(context == &kObservationContextName) {
             self.nameLabel.text = project?.name

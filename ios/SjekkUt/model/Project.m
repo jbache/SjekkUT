@@ -64,10 +64,7 @@
     setIfNotEqual(self.start, start);
     NSDate *stop = [[self dateFormatter] dateFromString:json[@"stopp"]];
     setIfNotEqual(self.stop, stop);
-    if (start != nil)
-    {
-        NSLog(@"break");
-    }
+
     [self parsePlaces:json[@"steder"]];
     [self parseImages:json[@"bilder"]];
     [self parseGroups:json[@"grupper"]];
@@ -104,6 +101,29 @@
     }
 
     [self updateHasCheckin];
+}
+
+- (NSString *)countyMunicipalityDescription
+{
+    NSMutableArray *counties = [@[] mutableCopy];
+    NSMutableArray *municipalities = [@[] mutableCopy];
+
+    for (Place *aPlace in self.places)
+    {
+        if (aPlace.county.length > 0)
+        {
+            [counties addObject:aPlace.county];
+        }
+        if (aPlace.municipality.length > 0)
+        {
+            [municipalities addObject:aPlace.municipality];
+        }
+    }
+
+    NSString *municipalitiesString = [municipalities componentsJoinedByString:@", "];
+    NSString *countiesString = [counties componentsJoinedByString:@", "];
+
+    return [NSString stringWithFormat:@"%@%@%@", countiesString, (municipalitiesString.length > 0 && countiesString.length > 0) ? @"/" : @"", municipalitiesString];
 }
 
 #pragma mark groups
