@@ -66,7 +66,7 @@ public class ProjectListFragment extends Fragment implements LocationListener {
             Paint textPainter = new Paint();
             textPainter.setColor(Color.BLACK);
             textPainter.setTextSize(30);
-            recyclerView.addItemDecoration(new ProjectSeparator(textPainter, 100));
+            recyclerView.addItemDecoration(new ProjectSeparator(textPainter, 80));
             TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
         }
         return view;

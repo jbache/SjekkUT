@@ -28,7 +28,7 @@ class ProjectSeparator extends RecyclerView.ItemDecoration {
 
         int dividerLeft = parent.getPaddingLeft();
         int dividerRight = parent.getWidth() - parent.getPaddingRight();
-        int xPos = (dividerRight - dividerLeft) / 2;
+        int xPos = dividerLeft + 30;
 
         int childCount = parent.getChildCount();
         for (int i = 0; childCount > i; i++) {
@@ -39,7 +39,7 @@ class ProjectSeparator extends RecyclerView.ItemDecoration {
             }
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int dividerTop = child.getTop() + params.topMargin;
-            float yPos = dividerTop - (mHeight / 2.0f);
+            float yPos = dividerTop - (mHeight / 2.5f);
             canvas.drawText(title, xPos, yPos, mTextPainter);
         }
     }
