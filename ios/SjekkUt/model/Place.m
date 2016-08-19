@@ -118,14 +118,20 @@
 
 - (void)updateDistance
 {
+    // don't update distance if current location is unknown
+    if (locationBackend.currentLocation == nil)
+    {
+        return;
+    }
+
     NSNumber *newDistance = @(round([self.summitLocation distanceFromLocation:locationBackend.currentLocation]));
-    if (self.latitude != nil && self.longitude != nil && ![self.distance isEqualToNumber:newDistance])
+    if (self.latitude != nil && self.longitude != nil)
     {
         setIfNotEqual(self.distance, newDistance);
     }
     else
     {
-        setIfNotEqual(self.distance, @(DBL_MIN));
+        setIfNotEqual(self.distance, @(-1));
     }
 }
 

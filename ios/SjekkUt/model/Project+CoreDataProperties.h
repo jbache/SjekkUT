@@ -19,8 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSNumber *hasCheckins;
 @property (nullable, nonatomic, retain) NSString *identifier;
 @property (nullable, nonatomic, retain) NSString *infoUrl;
-@property (nullable, nonatomic, retain) NSNumber *latitude;
-@property (nullable, nonatomic, retain) NSNumber *longitude;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSNumber *progress;
 @property (nullable, nonatomic, retain) NSOrderedSet<DntGroup *> *groups;

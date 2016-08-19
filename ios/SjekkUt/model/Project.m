@@ -61,17 +61,10 @@
 {
     setIfNotEqual(self.name, json[@"navn"]);
 
-    NSArray *coordinates = nil;
-    if ((coordinates = json[@"geojson"][@"coordinates"]) != nil)
-    {
-        setIfNotEqual(self.latitude, @([[coordinates objectAtIndex:1] doubleValue]));
-        setIfNotEqual(self.longitude, @([[coordinates objectAtIndex:0] doubleValue]));
-    }
-    [self updateDistance];
-
     [self parsePlaces:json[@"steder"]];
     [self parseImages:json[@"bilder"]];
     [self parseGroups:json[@"grupper"]];
+    [self updateDistance];
 }
 
 #pragma mark places
@@ -160,26 +153,29 @@
 
 - (void)updateDistance
 {
-    NSNumber *newDistance = @(round([self.projectLocation distanceFromLocation:locationBackend.currentLocation]));
-    if (self.latitude != nil && self.longitude != nil)
+    // don't update distance if current location is unknown
+    if (locationBackend.currentLocation == nil)
     {
+        return;
+    }
+
+    // recalculate distance to all places
+    [self updatePlacesDistance];
+
+    // find the nearest place within project and use that distance
+    NSSortDescriptor *sortDistance = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+    NSArray *sortedPlaces = [self.places sortedArrayUsingDescriptors:@[ sortDistance ]];
+    NSArray *filteredPlaces = [sortedPlaces filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"distance > 0"]];
+    Place *nearestPlace = [filteredPlaces firstObject];
+    if (nearestPlace.latitude != nil && nearestPlace.longitude != nil)
+    {
+        NSNumber *newDistance = nearestPlace.distance;
         setIfNotEqual(self.distance, newDistance);
     }
     else
     {
-        setIfNotEqual(self.distance, @(DBL_MIN));
+        setIfNotEqual(self.distance, @(-1));
     }
-}
-
-- (CLLocation *)projectLocation
-{
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.latitude.doubleValue, self.longitude.doubleValue);
-
-    return [[CLLocation alloc] initWithCoordinate:coordinate
-                                         altitude:0
-                               horizontalAccuracy:10
-                                 verticalAccuracy:10
-                                        timestamp:[NSDate date]];
 }
 
 - (void)updatePlacesDistance

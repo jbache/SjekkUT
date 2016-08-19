@@ -17,8 +17,6 @@
 @dynamic hasCheckins;
 @dynamic identifier;
 @dynamic infoUrl;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic name;
 @dynamic progress;
 @dynamic groups;
