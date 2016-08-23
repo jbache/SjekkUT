@@ -4,11 +4,14 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true">
 
-    <!-- TODO: add Toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
 
         <LinearLayout
             android:id="@+id/topContainer"

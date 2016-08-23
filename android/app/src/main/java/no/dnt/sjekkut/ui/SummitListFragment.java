@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -175,6 +177,10 @@ public class SummitListFragment extends ListFragment implements LocationListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View defaultListView = super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_summitlist, container, false);
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        if (toolbar != null && getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        }
         LinearLayout listContainer = (LinearLayout) rootView.findViewById(R.id.listContainer);
         if (listContainer != null && defaultListView != null) {
             listContainer.addView(defaultListView);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,31 +44,21 @@ public class CheckinFragment extends Fragment implements LocationListener, View.
 
 
     private final static String BUNDLE_MOUNTAIN = "BUNDLE_MOUNTAIN";
-    private final static long CHECKIN_TIMESPAN_THRESHOLD_MILLISECONDS = 24*60*60*1000;
+    private final static long CHECKIN_TIMESPAN_THRESHOLD_MILLISECONDS = 24 * 60 * 60 * 1000;
     private final static float CHECKIN_DISTANCE_THRESHOLD_METERS = 200.0f;
     private final static int MAP_ZOOMLEVEL = 14;
 
     private final LocationRequest mLocationRequest;
-
-    private Location mLocation;
-    private Mountain mMountain;
-    private Checkin mCheckin;
-    private Checkin.Statistics mStatistics;
-
     private final Callback<List<Mountain>> mListMountainsCallback;
     private final Callback<Checkin> mCheckinToMountainCallback;
     private final Callback<List<Checkin>> mListCheckinsCallback;
     private final Callback<Checkin.Statistics> mGetStatisticsCallback;
+    private Location mLocation;
+    private Mountain mMountain;
+    private Checkin mCheckin;
+    private Checkin.Statistics mStatistics;
     private int mCallbackRefCount = 0;
     private String mCallbackDescription = "";
-
-    public static CheckinFragment newInstance(Mountain mountain) {
-        CheckinFragment fragment = new CheckinFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(BUNDLE_MOUNTAIN, mountain);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public CheckinFragment() {
         mLocationRequest = LocationRequestUtils.singleShotRequest();
@@ -163,18 +154,47 @@ public class CheckinFragment extends Fragment implements LocationListener, View.
         };
     }
 
+    public static CheckinFragment newInstance(Mountain mountain) {
+        CheckinFragment fragment = new CheckinFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(BUNDLE_MOUNTAIN, mountain);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static Mountain getClosestMountain(Location location, List<Mountain> mountains) {
+        if (location == null || mountains == null || mountains.isEmpty()) {
+            return null;
+        }
+
+        float closestDistance = Float.MAX_VALUE;
+        Mountain closestMountain = null;
+        for (Mountain mountain : mountains) {
+            float distance = mountain.getLocation().distanceTo(location);
+            if (distance < closestDistance) {
+                closestMountain = mountain;
+                closestDistance = distance;
+            }
+        }
+        return closestMountain;
+    }
+
     private void popFragment() {
         if (getActivity() instanceof MainActivity) {
             getActivity().getSupportFragmentManager().popBackStack();
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View fragmentView = inflater.inflate(R.layout.fragment_checkin, container, false);
+        Toolbar toolbar = (Toolbar) fragmentView.findViewById(R.id.toolbar);
+        if (toolbar != null && getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        }
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_checkin, container, false);
+        return fragmentView;
     }
 
     @Override
@@ -372,23 +392,6 @@ public class CheckinFragment extends Fragment implements LocationListener, View.
     private void setStatistics(Checkin.Statistics statistics) {
         mStatistics = statistics;
         updateView();
-    }
-
-    public static Mountain getClosestMountain(Location location, List<Mountain> mountains) {
-        if (location == null || mountains == null || mountains.isEmpty()) {
-            return null;
-        }
-
-        float closestDistance = Float.MAX_VALUE;
-        Mountain closestMountain = null;
-        for (Mountain mountain : mountains) {
-            float distance = mountain.getLocation().distanceTo(location);
-            if (distance < closestDistance) {
-                closestMountain = mountain;
-                closestDistance = distance;
-            }
-        }
-        return closestMountain;
     }
 
     @Override
