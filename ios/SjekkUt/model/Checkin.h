@@ -9,6 +9,7 @@
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
 
+#import "DntUser.h"
 #import "EntityScaffold.h"
 
 @class Place;

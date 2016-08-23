@@ -52,6 +52,11 @@
 		6C7C027D1D48A00600853166 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C027B1D48A00600853166 /* Place.m */; };
 		6C7C027F1D48A34100853166 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C027E1D48A34100853166 /* PlaceCell.swift */; };
 		6C7C02811D48A36A00853166 /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C02801D48A36A00853166 /* PlaceListView.swift */; };
+		6C92E3751D66F3B500464AAE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E3741D66F3B500464AAE /* ProfileView.swift */; };
+		6C92E3771D66F9D200464AAE /* StatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E3761D66F9D200464AAE /* StatisticCell.swift */; };
+		6C92E37C1D6C4E5000464AAE /* DntUser+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E3791D6C4E5000464AAE /* DntUser+CoreDataProperties.m */; };
+		6C92E37D1D6C4E5000464AAE /* DntUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E37B1D6C4E5000464AAE /* DntUser.m */; };
+		6C92E37F1D6C513100464AAE /* CheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E37E1D6C513100464AAE /* CheckinCell.swift */; };
 		6CA3E13D1D49EF57003BA194 /* www.dnt.no.client_secret in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */; };
 		6CA3E13E1D49EF57003BA194 /* api.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */; };
 		6CA3E13F1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */; };
@@ -197,6 +202,13 @@
 		6C7C027B1D48A00600853166 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Place.m; path = model/Place.m; sourceTree = "<group>"; };
 		6C7C027E1D48A34100853166 /* PlaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceCell.swift; path = views/place/PlaceCell.swift; sourceTree = "<group>"; };
 		6C7C02801D48A36A00853166 /* PlaceListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceListView.swift; path = views/place/PlaceListView.swift; sourceTree = "<group>"; };
+		6C92E3741D66F3B500464AAE /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileView.swift; path = views/profile/ProfileView.swift; sourceTree = "<group>"; };
+		6C92E3761D66F9D200464AAE /* StatisticCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatisticCell.swift; path = views/profile/StatisticCell.swift; sourceTree = "<group>"; };
+		6C92E3781D6C4E5000464AAE /* DntUser+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DntUser+CoreDataProperties.h"; path = "model/DntUser+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C92E3791D6C4E5000464AAE /* DntUser+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DntUser+CoreDataProperties.m"; path = "model/DntUser+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C92E37A1D6C4E5000464AAE /* DntUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntUser.h; path = model/DntUser.h; sourceTree = "<group>"; };
+		6C92E37B1D6C4E5000464AAE /* DntUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DntUser.m; path = model/DntUser.m; sourceTree = "<group>"; };
+		6C92E37E1D6C513100464AAE /* CheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckinCell.swift; path = views/profile/CheckinCell.swift; sourceTree = "<group>"; };
 		6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = www.dnt.no.client_secret; path = ../../secret/www.dnt.no.client_secret; sourceTree = "<group>"; };
 		6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = api.nasjonalturbase.no.api_key; path = ../../secret/api.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
 		6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dev.nasjonalturbase.no.api_key; path = ../../secret/dev.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
@@ -364,6 +376,7 @@
 		6C6FE17A1A823B5A002B5DD5 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				6C92E3731D66F3A000464AAE /* profile */,
 				6CB40DF71D460D260030433D /* LoginView.swift */,
 				6CE076311D47537A000ACAAA /* projects */,
 				6CE076321D475388000ACAAA /* project/places */,
@@ -381,6 +394,10 @@
 		6C70642B1A82AD5900291137 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				6C92E3781D6C4E5000464AAE /* DntUser+CoreDataProperties.h */,
+				6C92E3791D6C4E5000464AAE /* DntUser+CoreDataProperties.m */,
+				6C92E37A1D6C4E5000464AAE /* DntUser.h */,
+				6C92E37B1D6C4E5000464AAE /* DntUser.m */,
 				6CC799C11D52110B00DFAF10 /* Checkin.h */,
 				6CC799C21D52110B00DFAF10 /* Checkin.m */,
 				6CC799BF1D52110B00DFAF10 /* Checkin+CoreDataProperties.h */,
@@ -462,6 +479,16 @@
 				6C70643A1A82B70100291137 /* Summit+Extension.m */,
 			);
 			name = old;
+			sourceTree = "<group>";
+		};
+		6C92E3731D66F3A000464AAE /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				6C92E3741D66F3B500464AAE /* ProfileView.swift */,
+				6C92E3761D66F9D200464AAE /* StatisticCell.swift */,
+				6C92E37E1D6C513100464AAE /* CheckinCell.swift */,
+			);
+			name = profile;
 			sourceTree = "<group>";
 		};
 		6CA3E1381D49EF3F003BA194 /* secret */ = {
@@ -776,12 +803,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C92E37C1D6C4E5000464AAE /* DntUser+CoreDataProperties.m in Sources */,
 				6CD3E3641D532DC900A90E12 /* DntColor.swift in Sources */,
 				6C04BE391D61C60500741C42 /* DntImageSize+CoreDataProperties.m in Sources */,
 				6C4A967B1D63288E00EA0B50 /* DntGroup.m in Sources */,
 				6C6FE1531A82332C002B5DD5 /* AppDelegate.m in Sources */,
 				6C70645D1A83838700291137 /* Location.m in Sources */,
 				6CE0763C1D4763B8000ACAAA /* Project+CoreDataProperties.m in Sources */,
+				6C92E37F1D6C513100464AAE /* CheckinCell.swift in Sources */,
 				6CE0762F1D4751E8000ACAAA /* ProjectListView.swift in Sources */,
 				6CDE75951AEA50F10067110C /* Comment.m in Sources */,
 				6C36A13C1B0C99B100169E98 /* Summit.m in Sources */,
@@ -790,6 +819,7 @@
 				6C6FE1561A82332C002B5DD5 /* SjekkUt.xcdatamodeld in Sources */,
 				6CE526911D507BA700D3419B /* DntExtensions.swift in Sources */,
 				6C72A3FB1A8B80E700A47AEE /* SjekkUtStyle.m in Sources */,
+				6C92E3771D66F9D200464AAE /* StatisticCell.swift in Sources */,
 				6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */,
 				6CC799AF1D51E96800DFAF10 /* ProjectCell.swift in Sources */,
 				6CDE75931AEA50F10067110C /* CheckinStatistics.m in Sources */,
@@ -813,7 +843,9 @@
 				6C5FDB161D48CFE300B7D25E /* DntApi.swift in Sources */,
 				6C6FE1501A82332C002B5DD5 /* main.m in Sources */,
 				6C04BE3A1D61C60500741C42 /* DntImageSize.m in Sources */,
+				6C92E3751D66F3B500464AAE /* ProfileView.swift in Sources */,
 				6C1409A41B3000F700392F64 /* RulesView.m in Sources */,
+				6C92E37D1D6C4E5000464AAE /* DntUser.m in Sources */,
 				6CC799C31D52110B00DFAF10 /* Checkin+CoreDataProperties.m in Sources */,
 				6C36A13F1B0C99B200169E98 /* Challenge.m in Sources */,
 				6C7C02811D48A36A00853166 /* PlaceListView.swift in Sources */,

@@ -44,7 +44,7 @@ class SjekkUtApi: Alamofire.Manager {
                     ModelController.instance().saveBlock {
                         var didChangeCheckin = false
                         for checkinJson in checkinsJson {
-                            if checkinJson["dnt_user_id"]?.doubleValue == DntApi.instance.user?.dntId {
+                            if checkinJson["dnt_user_id"]?.stringValue == DntApi.instance.user?.identifier {
                                 _ = Checkin.insertOrUpdate(checkinJson)
                                 didChangeCheckin = true
                             }
@@ -53,7 +53,6 @@ class SjekkUtApi: Alamofire.Manager {
                             for aProject in aPlace.projects! {
                                 aProject.updateHasCheckin()
                             }
-                            NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationCheckinChanged, object: nil)
                         }
                     }
                 }
@@ -71,7 +70,7 @@ class SjekkUtApi: Alamofire.Manager {
             "lon":currentLocation.longitude
         ]
         let someHeaders:[String:String]? = [
-            "X-User-Id": "\(Int((DntApi.instance.user?.dntId)!))",
+            "X-User-Id": "\(Int((DntApi.instance.user?.identifier)!))",
             "X-User-Token": SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"

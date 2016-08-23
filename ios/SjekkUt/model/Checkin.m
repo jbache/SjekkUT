@@ -7,9 +7,11 @@
 //
 
 #import "Checkin.h"
+#import "DntUser.h"
 #import "NSDate+DateTools.h"
 #import "Place.h"
 #import "Project.h"
+#import "SjekkUT-Swift.h"
 
 #import "ModelController.h"
 
@@ -56,6 +58,11 @@
     NSArray *coordinates = json[@"location"][@"coordinates"];
     setIfNotEqual(self.latitute, [coordinates objectAtIndex:1]);
     setIfNotEqual(self.longitude, [coordinates objectAtIndex:0]);
+    DntUser *aUser = [DntUser findWithId:json[@"dnt_user_id"]];
+    if (aUser != nil)
+    {
+        setIfNotEqual(self.user, aUser);
+    }
 
     for (Project *project in self.place.projects)
     {
@@ -79,7 +86,11 @@
 
 - (NSString *)timeAgo
 {
-    return self.date.timeAgoSinceNow;
+    if (self.date != nil)
+    {
+        return self.date.timeAgo;
+    }
+    return @"";
 }
 
 @end

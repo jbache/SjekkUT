@@ -10,15 +10,15 @@ import Foundation
 
 extension NSDate {
 
-    func timeAgo() -> String {
+    @objc func timeAgo() -> String {
         let formatter = NSDateComponentsFormatter()
-        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Short
         formatter.includesApproximationPhrase = false
         formatter.includesTimeRemainingPhrase = false
         formatter.maximumUnitCount = 1
-        formatter.allowedUnits = [.Minute, .Hour, .WeekOfYear, .Year]
+        formatter.allowedUnits = [.Minute, .Hour, .Day, .WeekOfMonth, .Month, .Year]
         let dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
-        return dateRelativeString!
+        return NSLocalizedString("\(dateRelativeString!) ago",comment:"time since")
     }
 }
 

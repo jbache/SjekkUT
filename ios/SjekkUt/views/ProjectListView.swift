@@ -16,6 +16,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     let searchController = UISearchController(searchResultsController:nil)
 
     @IBOutlet weak var projectsTable: UITableView!
+    @IBOutlet weak var profileButton: UIButton!
 
     // MARK: view controller
     required init?(coder aDecoder: NSCoder) {
@@ -28,9 +29,9 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     override func viewDidLoad() {
         self.navigationItem.hidesBackButton = true
+        
 
         // update the table (and project progress) when checkins arrive
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(refreshProjectsHasCheckin), name: kSjekkUtNotificationCheckinChanged, object: nil)
         self.refreshControl!.addTarget(self, action:#selector(refreshProjects), forControlEvents:.ValueChanged)
 
         // attempt to call member details, while verifying the current authorization token
@@ -44,11 +45,16 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     override func viewWillAppear(animated:Bool) {
         super.viewWillAppear(animated)
-        self.projectsTable.contentOffset = CGPointMake(0, searchController.searchBar.frame.size.height)
+        if (projects == nil) {
+            projects = self.projectResults()
+            reloadTable()
+        }
+        projectsTable.contentOffset = CGPointMake(0, searchController.searchBar.frame.size.height)
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
         Location.instance().getSingleUpdate { location in
             for project:Project in self.projects?.fetchedObjects! as! [Project] {
                 project.updateDistance()
@@ -62,8 +68,10 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let projectView = segue.destinationViewController as! PlaceListView
-        projectView.project = sender as? Project
+        if segue.identifier == "showPlaces" {
+            let projectView = segue.destinationViewController as! PlaceListView
+            projectView.project = sender as? Project
+        }
     }
 
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
@@ -82,9 +90,6 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
             // set up result controller
             self.projects = self.projectResults()
-
-            // load data in table
-            self.reloadTable()
 
             // fetch any updated projects
             self.turbasen.getProjects()
@@ -117,20 +122,15 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         }
     }
 
-    func refreshProjectsHasCheckin() {
-        ModelController.instance().saveBlock {
-            for aProject:Project in self.projects!.fetchedObjects as! [Project] {
-                aProject.updateHasCheckin()
-            }
-        }
-    }
-
     // MARK: sections
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return (projects?.sections?.count)!
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (searchController.active && searchController.searchBar.text!.characters.count > 0) {
+            return NSLocalizedString("Search results", comment: "project header when searching")
+        }
         return self.projects?.sections![section].indexTitle == "1" ? NSLocalizedString("My projects", comment: "section header with checkins")
         :  NSLocalizedString("Other projects", comment: "section header without checkins")
     }
@@ -204,8 +204,8 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     // MARK: table interaction
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let project = self.projects?.objectAtIndexPath(indexPath)
-        self.performSegueWithIdentifier("showPlaces", sender: project)
+        let project = projects?.objectAtIndexPath(indexPath)
+        performSegueWithIdentifier("showPlaces", sender: project)
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat

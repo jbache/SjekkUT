@@ -5,6 +5,7 @@
 #import "Checkin.h"
 #import "Defines.h"
 #import "DntImage.h"
+#import "DntUser.h"
 #import "Location.h"
 #import "Location.h"
 #import "ModelController.h"

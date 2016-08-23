@@ -15,6 +15,25 @@
 #import "SjekkUT-Swift.h"
 #import "SjekkUtStyle.h"
 
+// thanks to http://stackoverflow.com/a/36926620
+#ifdef DEBUG
+
+#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
+
+@implementation UIView (FixViewDebugging)
+
++ (void)load
+{
+    Method original = class_getInstanceMethod(self, @selector(viewForBaselineLayout));
+    class_addMethod(self, @selector(viewForFirstBaselineLayout), method_getImplementation(original), method_getTypeEncoding(original));
+    class_addMethod(self, @selector(viewForLastBaselineLayout), method_getImplementation(original), method_getTypeEncoding(original));
+}
+
+@end
+
+#endif
+
 @interface AppDelegate ()
 
 @end

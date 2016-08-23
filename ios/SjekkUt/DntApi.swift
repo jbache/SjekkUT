@@ -11,17 +11,6 @@ import Alamofire
 import SSKeychain
 import WebKit
 
-class DntUser {
-    let firstName:String
-    let lastName:String
-    let dntId:Double
-
-    init(jsonData:[String: AnyObject]) {
-        firstName = jsonData["fornavn"] as! String
-        lastName = jsonData["etternavn"] as! String
-        dntId = jsonData["sherpa_id"] as! Double
-    }
-}
 
 class DntApi: Alamofire.Manager {
 
@@ -205,7 +194,7 @@ class DntApi: Alamofire.Manager {
             .responseJSON { response in
                 switch response.result {
                 case .Success:
-                    self.user = DntUser(jsonData: response.result.value as! [String: AnyObject])
+                    self.user = DntUser.insertOrUpdate(response.result.value as! [String: AnyObject])
                 case .Failure(let error):
                     if let httpStatusCode = response.response?.statusCode {
                         switch httpStatusCode {

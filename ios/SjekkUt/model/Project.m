@@ -273,7 +273,7 @@
     if (![self.hasCheckins isEqual:newCheckin])
     {
         [self willChangeValueForKey:@"hasCheckins"];
-        self.hasCheckins = newCheckin;
+        setIfNotEqual(self.hasCheckins, newCheckin);
         [self didChangeValueForKey:@"hasCheckins"];
     }
 }

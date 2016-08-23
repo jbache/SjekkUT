@@ -1,5 +1,5 @@
 //
-//  Checkin+CoreDataProperties.m
+//  DntUser+CoreDataProperties.m
 //  SjekkUt
 //
 //  Created by Henrik Hartz on 23/08/16.
@@ -9,15 +9,14 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Checkin+CoreDataProperties.h"
+#import "DntUser+CoreDataProperties.h"
 
-@implementation Checkin (CoreDataProperties)
+@implementation DntUser (CoreDataProperties)
 
-@dynamic date;
+@dynamic firstName;
+@dynamic lastName;
 @dynamic identifier;
-@dynamic latitute;
-@dynamic longitude;
-@dynamic place;
-@dynamic user;
+@dynamic checkins;
+@dynamic projects;
 
 @end
