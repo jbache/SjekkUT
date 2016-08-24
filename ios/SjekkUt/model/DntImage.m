@@ -96,7 +96,6 @@
         return nil;
     }
     NSAssert(theSize.width != nil && theSize.height != nil, @"no size");
-    NSLog(@"image size %@ %@", theSize.width, theSize.height);
     return [NSURL URLWithString:theSize.url];
 }
 

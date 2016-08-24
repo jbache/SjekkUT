@@ -12,4 +12,11 @@ class CheckinCell: UITableViewCell {
 
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
+
+    var checkin:Checkin? {
+        didSet {
+            nameLabel.text = checkin?.place?.name
+            dateLabel.text = checkin?.timeAgo()
+        }
+    }
 }

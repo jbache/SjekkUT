@@ -33,6 +33,13 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         checkins = getCheckins()
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let placeView = segue.destinationViewController as! PlaceView
+        if let aPlace:Place = ((sender as! CheckinCell).checkin?.place)! as Place {
+            placeView.place = aPlace
+        }
+    }
+
     // MARK: collection data
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tempStatData.count
@@ -69,12 +76,13 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let aCheckinCell = tableView.dequeueReusableCellWithIdentifier("CheckinCell") as! CheckinCell
-        let aCheckin = checkins?.objectAtIndexPath(indexPath)
-        if let aPlace = aCheckin?.place {
-            aCheckinCell.nameLabel.text = aPlace!.name
-            aCheckinCell.dateLabel.text = aCheckin?.timeAgo()
-        }
         return aCheckinCell
+    }
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let aCheckinCell = cell as! CheckinCell
+        let aCheckin = checkins?.objectAtIndexPath(indexPath) as! Checkin
+        aCheckinCell.checkin = aCheckin
     }
 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

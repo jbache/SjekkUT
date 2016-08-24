@@ -9,7 +9,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.otf">
+        <mutableArray key="FontAwesome.ttf">
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -165,6 +165,7 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="Vr9-EL-Pxm" id="Klk-Xd-3VU"/>
                                             <outlet property="nameLabel" destination="ei6-iL-drw" id="KQP-R2-1eY"/>
+                                            <segue destination="Jt5-sv-F5Z" kind="show" id="cNC-kT-LwS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1271,6 +1272,6 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="DrC-zj-7wU"/>
+        <segue reference="cNC-kT-LwS"/>
     </inferredMetricsTieBreakers>
 </document>
