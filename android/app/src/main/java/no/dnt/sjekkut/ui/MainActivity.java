@@ -31,6 +31,7 @@ import java.util.Date;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.dummy.DummyContent;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.CheckinLocation;
 import no.dnt.sjekkut.network.CheckinResult;
@@ -41,13 +42,13 @@ import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckinList;
 import no.dnt.sjekkut.network.PlaceCheckinStats;
 import no.dnt.sjekkut.network.Project;
-import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.ProjectList;
+import no.dnt.sjekkut.network.TripApiSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ProjectListFragment.ProjectListListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ProjectListFragment.ProjectListListener, ProfileStatsFragment.ProfileStatsListener {
 
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final long MAX_LOCATION_TIME_DELTA_MS = 60 * 1000;
@@ -378,6 +379,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .replace(R.id.container, new SummitListFragment())
                 .addToBackStack(SummitListFragment.class.getCanonicalName())
                 .commit();
+    }
+
+    @Override
+    public void onProfileClicked() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new ProfileStatsFragment())
+                .addToBackStack(ProfileStatsFragment.class.getCanonicalName())
+                .commit();
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+        Utils.showToast(MainActivity.this, "Todo");
     }
 
     public static class ErrorDialogFragment extends DialogFragment {

@@ -76,6 +76,13 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
         ButterKnife.bind(this, view);
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+            mToolbar.setNavigationIcon(R.drawable.ic_person);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onProfileClicked();
+                }
+            });
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mRecyclerView.setAdapter(new ProjectAdapter(mListener));
@@ -179,7 +186,10 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
 
     interface ProjectListListener {
         void onProjectClicked(Project project);
+
+        void onProfileClicked();
     }
+
 
     private class ProjectListCallback implements Callback<ProjectList> {
 

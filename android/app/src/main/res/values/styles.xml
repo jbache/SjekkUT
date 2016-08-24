@@ -51,4 +51,10 @@
         <item name="android:shadowRadius">4.0</item>
     </style>
 
+    <style name="ProfilePlaceTitle" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
 </resources>

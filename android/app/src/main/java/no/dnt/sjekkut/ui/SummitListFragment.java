@@ -226,8 +226,8 @@ public class SummitListFragment extends ListFragment implements LocationListener
     @Override
     public void onResume() {
         super.onResume();
-        Utils.toggleUpButton(getActivity(), false);
-        Utils.setActionBarTitle(getActivity(), getString(R.string.app_name));
+        Utils.toggleUpButton(getActivity(), true);
+        Utils.setActionBarTitle(getActivity(), "Prosjekt");
         fetchMountains();
         fetchChallenges();
     }

@@ -69,6 +69,7 @@
     <string name="projectVisitStatus">%1$d/%2$d besøk</string>
     <string name="not_implemented">Ikke implementert</string>
     <string name="action_search">Søk</string>
+    <string name="antallbesøk">%d besøk</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

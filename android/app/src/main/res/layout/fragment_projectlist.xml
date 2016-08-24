@@ -17,5 +17,5 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context="no.dnt.sjekkut.ui.ProjectListFragment"
-        tools:listitem="@layout/projectitem" />
+        tools:listitem="@layout/item_project" />
 </LinearLayout>

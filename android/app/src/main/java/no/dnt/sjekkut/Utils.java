@@ -11,8 +11,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
@@ -48,6 +50,18 @@ public class Utils {
             return null;
 
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public static void setupSupportToolbar(FragmentActivity activity, Toolbar toolbar, String title, boolean upButton) {
+        setSupportActionToolbar(activity, toolbar);
+        setActionBarTitle(activity, title);
+        toggleUpButton(activity, upButton);
+    }
+
+    private static void setSupportActionToolbar(Activity activity, Toolbar toolbar) {
+        if (activity instanceof AppCompatActivity) {
+            ((AppCompatActivity) activity).setSupportActionBar(toolbar);
+        }
     }
 
     public static void setActionBarTitle(Activity activity, String title) {
@@ -262,6 +276,4 @@ public class Utils {
 
         return one.compareToIgnoreCase(two);
     }
-
-
 }
