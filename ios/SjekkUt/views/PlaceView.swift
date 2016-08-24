@@ -17,20 +17,15 @@ class PlaceView : UITableViewController, UITextViewDelegate {
 
     let sjekkUtApi:SjekkUtApi = SjekkUtApi.instance
 
-    @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var mapView: UIImageView!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var countyAltitudeLabel: UILabel!
-    @IBOutlet weak var climberCountLabel: UILabel!
     @IBOutlet weak var descriptionTitle: UILabel!
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var checkinTitle: UILabel!
     @IBOutlet weak var checkinLabel: UITextView!
     @IBOutlet weak var checkinButton: UIButton!
     @IBOutlet weak var checkinCell: UITableViewCell!
-    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet var placeCell: PlaceCell!
 
     // MARK: private
     func didCheckInTo(notification:NSNotification) {
@@ -73,16 +68,13 @@ class PlaceView : UITableViewController, UITextViewDelegate {
         if (place != nil) {
             sjekkUtApi.getPlaceCheckins(place!)
             sjekkUtApi.getPlaceStats(place!)
+            placeCell.place = place
         }
     }
 
     override func viewWillAppear(animated: Bool) {
         tableView.beginUpdates()
         fetchAndSetupMapImage()
-
-        nameLabel.text = place?.name
-        countyAltitudeLabel.text = place?.countyElevationText()
-        climberCountLabel.text = place?.checkinCountDescription()
 
         descriptionLabel.text = place?.descriptionText
         descriptionLabel.sizeToFit()
@@ -113,11 +105,11 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     // MARK: table view
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             let sizeMax = CGSizeMake(self.descriptionLabel.frame.width, CGFloat.max)
             return descriptionLabel.sizeThatFits(sizeMax).height + 16
         }
-        else if (indexPath.row == 4) {
+        else if (indexPath.row == 5) {
             checkinCell.setNeedsLayout()
             checkinCell.layoutIfNeeded()
             let sizeMax = CGSizeMake(self.checkinLabel.frame.width, CGFloat.max)
