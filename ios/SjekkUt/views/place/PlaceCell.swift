@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import AlamofireImage
 
 class PlaceCell: UITableViewCell {
@@ -23,6 +24,14 @@ class PlaceCell: UITableViewCell {
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
+
+    var imageRequest: Request?
+
+    var foregroundImage: UIImage? = nil {
+        didSet {
+            placeImageView.image = foregroundImage
+        }
+    }
 
     var place:Place? {
         willSet {
@@ -73,6 +82,9 @@ class PlaceCell: UITableViewCell {
             place?.removeObserver(self, forKeyPath: "images")
             isObserving = false
         }
+        if imageRequest != nil {
+            imageRequest!.cancel()
+        }
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -94,9 +106,12 @@ class PlaceCell: UITableViewCell {
             }
         }
         if (context == &kObserveImages) {
-            if let image = (place!.images?.firstObject as? DntImage) {
-                if let imageURL:NSURL = image.URLforSize(self.bounds.size) {
-                    placeImageView.af_setImageWithURL(imageURL)
+            if let imageURL:NSURL = place!.foregroundImageURLforSize(placeImageView.bounds.size) {
+                imageRequest = Alamofire.request(.GET,imageURL)
+                    .responseImage { response in
+                        if let image = response.result.value {
+                            self.foregroundImage = image
+                        }
                 }
             }
         }

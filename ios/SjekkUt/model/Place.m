@@ -91,10 +91,20 @@
         }
     }
 
-    if ([self.images isEqualToOrderedSet:orderedImages])
+    if (![self.images isEqualToOrderedSet:orderedImages])
     {
         self.images = orderedImages;
     }
+}
+
+- (NSURL *)foregroundImageURLforSize:(CGSize)aSize
+{
+    if (self.images.count > 0)
+    {
+        DntImage *theImage = [self.images objectAtIndex:0];
+        return [theImage URLforSize:aSize];
+    }
+    return nil;
 }
 
 #pragma mark location
@@ -210,7 +220,7 @@
 
 - (NSString *)distanceDescription
 {
-    if (self.distance.intValue <= 0)
+    if (self.distance.doubleValue <= 0)
         return @"";
 
     NSString *unit = @"km";
@@ -224,7 +234,7 @@
     {
         distance /= 1000;
     }
-    return [NSString stringWithFormat:@"%f %@", distance, unit];
+    return [NSString stringWithFormat:@"%ld %@", (long)distance, unit];
 }
 
 - (NSString *)elevationDescription
