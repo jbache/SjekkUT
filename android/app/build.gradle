@@ -26,6 +26,7 @@ android {
         resValue "string", "client_id", new File('../secret/www.dnt.no.client_id').text
         resValue "string", "client_secret", new File('../secret/www.dnt.no.client_secret').text
         resValue "string", "api_key", new File('../secret/dev.nasjonalturbase.no.api_key').text
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {

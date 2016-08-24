@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:background="@color/dntLightGray"
+    tools:layout_width="150dp">
+
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_statscircle" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circle"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAppearance="@style/StatsCircleLabel"
+        tools:text="Steder besøkt" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@id/circle"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@id/circle"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAppearance="@style/StatsCircleCounter"
+        tools:text="23" />
+
+</RelativeLayout>
