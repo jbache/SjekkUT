@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.h
 //  SjekkUt
 //
-//  Created by Henrik Hartz on 23/08/16.
+//  Created by Henrik Hartz on 24/08/16.
 //  Copyright © 2016 Den Norske Turistforening. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Project (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSNumber *distance;
-@property (nullable, nonatomic, retain) NSNumber *hasCheckins;
 @property (nullable, nonatomic, retain) NSString *identifier;
 @property (nullable, nonatomic, retain) NSString *infoUrl;
+@property (nullable, nonatomic, retain) NSNumber *isParticipating;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSNumber *progress;
 @property (nullable, nonatomic, retain) NSDate *start;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSOrderedSet<DntGroup *> *groups;
 @property (nullable, nonatomic, retain) NSOrderedSet<DntImage *> *images;
 @property (nullable, nonatomic, retain) NSOrderedSet<Place *> *places;
-@property (nullable, nonatomic, retain) NSManagedObject *user;
+@property (nullable, nonatomic, retain) DntUser *user;
 
 @end
 

@@ -102,9 +102,8 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     func projectResults() -> NSFetchedResultsController {
         let aFetchRequest =  Project.fetchRequest()
-        aFetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasCheckins", ascending: false), NSSortDescriptor(key: "distance", ascending: true)]
-        aFetchRequest.includesPendingChanges = false
-        let someResults = NSFetchedResultsController(fetchRequest: aFetchRequest, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: "hasCheckins", cacheName: nil)
+        aFetchRequest.sortDescriptors = [NSSortDescriptor(key: "isParticipating", ascending: false), NSSortDescriptor(key: "distance", ascending: true)]
+        let someResults = NSFetchedResultsController(fetchRequest: aFetchRequest, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: "isParticipating", cacheName: nil)
         do {
             try someResults.performFetch()
         } catch {

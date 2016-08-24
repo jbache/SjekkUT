@@ -269,19 +269,15 @@
 
 - (void)updateHasCheckin
 {
-    NSNumber *newCheckin = [NSNumber numberWithBool:(self.progress.doubleValue > 0.0001)];
-    if (![self.hasCheckins isEqual:newCheckin])
-    {
-        [self willChangeValueForKey:@"hasCheckins"];
-        setIfNotEqual(self.hasCheckins, newCheckin);
-        [self didChangeValueForKey:@"hasCheckins"];
-    }
+    NSNumber *isParticipating = [NSNumber numberWithBool:(self.progress.doubleValue > 0.0001)];
+    setIfNotEqual(self.isParticipating, isParticipating);
 }
 
 - (NSArray *)checkedInPlaces
 {
     NSFetchRequest *fetch = [Place fetch];
     fetch.predicate = [NSPredicate predicateWithFormat:@"%@ in projects AND checkins.@count > 0", self];
+    fetch.includesPendingChanges = YES;
     NSError *error = nil;
     NSArray *aResult = [model.managedObjectContext executeFetchRequest:fetch error:&error];
     return aResult;
