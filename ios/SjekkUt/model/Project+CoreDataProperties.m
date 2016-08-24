@@ -21,6 +21,7 @@
 @dynamic progress;
 @dynamic start;
 @dynamic stop;
+@dynamic isHidden;
 @dynamic groups;
 @dynamic images;
 @dynamic places;

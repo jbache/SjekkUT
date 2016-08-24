@@ -70,8 +70,15 @@ public class TurbasenApi: Alamofire.Manager {
                         let someProjects = aJSON["documents"] as! [[String: AnyObject]]
                         // update or insert entities from API
                         ModelController.instance().saveBlock {
+
+                            // prevent upstream deleted projects from showing
+                            for aProject:Project in Project.allEntities() as! [Project] {
+                                aProject.isHidden = true
+                            }
+
                             for aProjectDict in someProjects {
                                 let aProject = Project.insertOrUpdate(aProjectDict)
+                                aProject.isHidden = false
                                 self.getProjectAndPlaces(aProject)
                             }
                         }
