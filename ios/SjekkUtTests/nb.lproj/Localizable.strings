@@ -25,6 +25,9 @@
 /* title for generic location failure */
 "Positioning Failure" = "Posisjoneringsfeil";
 
+/* project header when searching */
+"Search results" = "Søkeresultater";
+
 /* summit count label singular */
 "Summited %ld time" = "Besteget en gang";
 
@@ -50,6 +53,9 @@
 
 /* locate permission error message */
 "Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls." = "Klarer ikke å finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.";
+
+/* count visits in project cell */
+"Visited %@ of %@" = "Besøkt %1$@ av %2$@";
 
 /* Ok button title for location request */
 "Yes!" = "Ja!";

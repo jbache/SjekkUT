@@ -7,6 +7,9 @@
 /* Checking in label in summit search */
 "Checking in..." = "Sjekker inn...";
 
+/* section header in checkin log */
+"Checkins" = "Innsjekkinger";
+
 /* location timeout notification text */
 "Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne sted. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne sted.";
 
@@ -46,6 +49,9 @@
 /* title for generic location failure */
 "Positioning Failure" = "Feil i stedstjenester";
 
+/* project header when searching */
+"Search results" = "Søkeresultater";
+
 /* summit count label singular */
 "Summited %ld time" = "Besteget en gang";
 
@@ -71,6 +77,9 @@
 
 /* locate permission error message */
 "Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls." = "Klarer ikke finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.";
+
+/* count visits in project cell */
+"Visited %@ of %@" = "Besøkt %1$@ av %2$@";
 
 /* check in notification text */
 "Yay! Checked in to %@" = "Yay! Sjekket inn på %@";
