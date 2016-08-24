@@ -155,45 +155,46 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     // MARK: data changes
 
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.projectsTable.beginUpdates()
-    }
-
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
-    {
-        let aTable:UITableView = self.projectsTable
-        switch type {
-        case .Insert:
-            aTable.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation:.Fade)
-        case .Delete:
-            aTable.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation:.Fade)
-        default:
-            break
-        }
-    }
-
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
-    {
-        switch type {
-        case NSFetchedResultsChangeType(rawValue: 0)!:
-            // iOS 8 bug - Do nothing if we get an invalid change type.
-            break;
-        case .Insert:
-            projectsTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
-        case .Delete:
-            projectsTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
-        case .Update:
-            if let aCell = projectsTable.cellForRowAtIndexPath(indexPath!) as? ProjectCell {
-                configureCell(aCell, forRowAtIndexPath: indexPath!)
-            }
-        case .Move:
-            projectsTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
-            projectsTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
-        }
-    }
+//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+//        self.projectsTable.beginUpdates()
+//    }
+//
+//    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+//    {
+//        let aTable:UITableView = self.projectsTable
+//        switch type {
+//        case .Insert:
+//            aTable.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation:.Fade)
+//        case .Delete:
+//            aTable.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation:.Fade)
+//        default:
+//            break
+//        }
+//    }
+//
+//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+//    {
+//        switch type {
+//        case NSFetchedResultsChangeType(rawValue: 0)!:
+//            // iOS 8 bug - Do nothing if we get an invalid change type.
+//            break;
+//        case .Insert:
+//            projectsTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+//        case .Delete:
+//            projectsTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
+//        case .Update:
+//            if let aCell = projectsTable.cellForRowAtIndexPath(indexPath!) as? ProjectCell {
+//                configureCell(aCell, forRowAtIndexPath: indexPath!)
+//            }
+//        case .Move:
+//            projectsTable.deleteRowsAtIndexPaths([indexPath!], withRowAnimation:.Fade)
+//            projectsTable.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation:.Fade)
+//        }
+//    }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        projectsTable.endUpdates()
+//        projectsTable.endUpdates()
+        reloadTable()
     }
 
     // MARK: table interaction
