@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import SSKeychain
+import SAMKeychain
 
 class SjekkUtApi: Alamofire.Manager {
 
@@ -71,7 +71,7 @@ class SjekkUtApi: Alamofire.Manager {
         ]
         let someHeaders:[String:String]? = [
             "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
-            "X-User-Token": SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+            "X-User-Token": SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
         let request = self.request(.POST, requestUrl, parameters:someParameters, headers:someHeaders, encoding: .JSON)

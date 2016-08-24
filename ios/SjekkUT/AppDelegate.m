@@ -7,7 +7,7 @@
 //
 
 #import <HockeySDK/HockeySDK.h>
-#import <SSKeychain/SSKeychain.h>
+#import <SAMKeychain/SAMKeychain.h>
 
 #import "AppDelegate.h"
 #import "Defines.h"
@@ -46,7 +46,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"no.dnt.launched"] == false)
     {
-        [SSKeychain deletePasswordForService:SjekkUtKeychainServiceName
+        [SAMKeychain deletePasswordForService:SjekkUtKeychainServiceName
                                      account:SjekkUtKeychainAccountName];
 
         [defaults setBool:YES forKey:@"no.dnt.launched"];

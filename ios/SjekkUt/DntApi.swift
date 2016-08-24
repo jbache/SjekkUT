@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-import SSKeychain
+import SAMKeychain
 import WebKit
 
 
@@ -30,7 +30,7 @@ class DntApi: Alamofire.Manager {
 
     var isLoggedIn:Bool {
         get {
-            let aToken = SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken) as String?
+            let aToken = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken) as String?
             return user != nil && aToken?.characters.count > 0
         }
     }
@@ -50,7 +50,7 @@ class DntApi: Alamofire.Manager {
         self.init()
         baseUrl = "https://" + aDomain
         setupCredentials(domain:aDomain)
-        if let aUserId = SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId) {
+        if let aUserId = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId) {
             user = DntUser.findWithId(aUserId)
         }
     }
@@ -100,7 +100,7 @@ class DntApi: Alamofire.Manager {
 
     func refreshTokenOrFail(aFailHandler: () -> Void) {
 
-        let refreshToken = SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
+        let refreshToken = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
 
         if (refreshToken == nil) {
             self.logout()
@@ -151,14 +151,13 @@ class DntApi: Alamofire.Manager {
 
         // update or remove refresh token
         if let refreshToken = aRefreshToken {
-            SSKeychain.setPassword(refreshToken, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
+            SAMKeychain.setPassword(refreshToken, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
         }
         else {
-            SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
-
+            SAMKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
         }
 
-        SSKeychain.setPassword(authenticationCode, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+        SAMKeychain.setPassword(authenticationCode, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
 
         // attempt to call member details, while verifying the current authorization token
         updateMemberDetailsOrFail {
@@ -169,7 +168,7 @@ class DntApi: Alamofire.Manager {
     }
 
     func login(aUser:DntUser) {
-        SSKeychain.setPassword(aUser.identifier, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
+        SAMKeychain.setPassword(aUser.identifier, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
         self.loginBlock()
         self.loginBlock = {}
         user = aUser
@@ -188,9 +187,9 @@ class DntApi: Alamofire.Manager {
         DntUser.deleteAll()
 
         // remove tokens
-        SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
-        SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
-        SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
+        SAMKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+        SAMKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
+        SAMKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
 
         // remove expiry
         NSUserDefaults.standardUserDefaults().removeObjectForKey(kSjekkUtDefaultsTokenExpiry)
@@ -204,7 +203,7 @@ class DntApi: Alamofire.Manager {
 
     func updateMemberDetailsOrFail( aFailureHandler : () -> Void ) {
 
-        let aToken = SSKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+        let aToken = SAMKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         let someHeaders = ["Authorization":"Bearer " + aToken]
 
         self.request(.GET, baseUrl! + "/api/oauth/medlemsdata/", headers: someHeaders)

@@ -1,25 +1,4 @@
 PODS:
-  - AFNetworking (2.6.3):
-    - AFNetworking/NSURLConnection (= 2.6.3)
-    - AFNetworking/NSURLSession (= 2.6.3)
-    - AFNetworking/Reachability (= 2.6.3)
-    - AFNetworking/Security (= 2.6.3)
-    - AFNetworking/Serialization (= 2.6.3)
-    - AFNetworking/UIKit (= 2.6.3)
-  - AFNetworking/NSURLConnection (2.6.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.3):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.3)
-  - AFNetworking/Security (2.6.3)
-  - AFNetworking/Serialization (2.6.3)
-  - AFNetworking/UIKit (2.6.3):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
   - Alamofire (3.4.1)
   - AlamofireImage (2.4.1):
     - Alamofire (~> 3.3)
@@ -30,37 +9,32 @@ PODS:
   - HockeySDK (4.0.2):
     - HockeySDK/AllFeaturesLib (= 4.0.2)
   - HockeySDK/AllFeaturesLib (4.0.2)
-  - Kiwi (2.3.1)
   - NSURLRequest-cURL (0.0.1)
   - OCMock (3.3.1)
-  - SSKeychain (1.4.1)
+  - SAMKeychain (1.5.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.5)
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
   - AlamofireNetworkActivityIndicator (~> 1.0)
   - DateTools (~> 1.5.0)
   - FontAwesome+iOS (~> 0.1.4)
   - HockeySDK (~> 4.0.1)
-  - Kiwi (~> 2.3.1)
   - NSURLRequest-cURL (~> 0.0.1)
   - OCMock (~> 3.3)
-  - SSKeychain (~> 1.4)
+  - SAMKeychain (~> 1.5.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
   AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
   HockeySDK: ebaabf41808b4e4ea85b4d5266d425aef0d19c88
-  Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
   NSURLRequest-cURL: 02e6df7c7cec07365ae2a812c85f0419fdeb3d62
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
-  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
+  SAMKeychain: 1fc9ae02f576365395758b12888c84704eebc423
 
-PODFILE CHECKSUM: 8ead4adfc29817a91d1d7dab441b5520c21bdabb
+PODFILE CHECKSUM: e96f175fac940cdf1a0a423d28c3e67fa0ef0b4c
 
 COCOAPODS: 1.0.1

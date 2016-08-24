@@ -5,23 +5,25 @@
 inhibit_all_warnings!
 use_frameworks!
 
+def shared_pods
+   pod 'Alamofire', '~> 3.4'
+   pod 'SAMKeychain', '~> 1.5.0'
+end
+
 target 'SjekkUt' do
-pod 'HockeySDK', '~> 4.0.1'
-pod 'NSURLRequest-cURL', '~> 0.0.1'
-pod 'DateTools', '~> 1.5.0'
-pod 'FontAwesome+iOS', '~> 0.1.4'
-pod 'SSKeychain', '~> 1.4'
-pod 'OCMock', '~> 3.3'
-pod 'Alamofire', '~> 3.4'
-pod 'AlamofireImage', '~> 2.0'
-pod 'AlamofireNetworkActivityIndicator', '~> 1.0'
+   shared_pods
+   pod 'HockeySDK', '~> 4.0.1'
+   pod 'NSURLRequest-cURL', '~> 0.0.1'
+   pod 'DateTools', '~> 1.5.0'
+   pod 'FontAwesome+iOS', '~> 0.1.4'
+   pod 'OCMock', '~> 3.3'
+   pod 'Alamofire', '~> 3.4'
+   pod 'AlamofireImage', '~> 2.0'
+   pod 'AlamofireNetworkActivityIndicator', '~> 1.0'
 end
 
 target 'SjekkUtTests' do
-pod 'AFNetworking', '~> 2.5'
-pod 'Kiwi', '~> 2.3.1'
-pod 'Alamofire', '~> 3.4'
-pod 'SSKeychain', '~> 1.4'
+   shared_pods
 end
 
 post_install do | installer |
