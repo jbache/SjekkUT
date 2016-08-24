@@ -70,7 +70,7 @@ class SjekkUtApi: Alamofire.Manager {
             "lon":currentLocation.longitude
         ]
         let someHeaders:[String:String]? = [
-            "X-User-Id": "\(Int((DntApi.instance.user?.identifier)!))",
+            "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
             "X-User-Token": SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
