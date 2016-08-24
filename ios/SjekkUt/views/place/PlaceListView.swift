@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HockeySDK
 
 var kObserveProjectPlaces = 0
 var kObserveLocation = 0
@@ -34,6 +35,12 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.checkinButton.titleLabel?.lineBreakMode = .ByWordWrapping
         self.checkinButton.titleLabel?.numberOfLines = 2
         self.checkinButton.titleLabel?.textAlignment = .Center
+    }
+
+    @IBAction func feedbackClicked(sender: AnyObject) {
+        let hockeyManager = BITHockeyManager.sharedHockeyManager()
+        let feedbackList = hockeyManager.feedbackManager.feedbackListViewController(false)
+        self.navigationController!.pushViewController(feedbackList, animated:true)
     }
 
     func setupTable() {

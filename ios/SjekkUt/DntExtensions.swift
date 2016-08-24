@@ -37,6 +37,13 @@ extension String {
     }
 }
 
+extension NSString {
+    @objc func loadFileContents(inClass aClass:AnyClass) -> String? {
+        let aString = self as String
+        return aString.loadFileContents(inClass: aClass)
+    }
+}
+
 func delay(delay:Double, closure:()->()) {
     dispatch_after(
         dispatch_time(

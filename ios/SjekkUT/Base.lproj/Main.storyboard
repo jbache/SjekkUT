@@ -537,7 +537,7 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="clickedFeedback:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ZS2-Fr-wHW"/>
+                                        <action selector="feedbackClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nOD-jY-Q0U"/>
                                     </connections>
                                 </button>
                             </barButtonItem>

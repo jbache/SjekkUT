@@ -57,6 +57,7 @@
 		6C92E37C1D6C4E5000464AAE /* DntUser+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E3791D6C4E5000464AAE /* DntUser+CoreDataProperties.m */; };
 		6C92E37D1D6C4E5000464AAE /* DntUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E37B1D6C4E5000464AAE /* DntUser.m */; };
 		6C92E37F1D6C513100464AAE /* CheckinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C92E37E1D6C513100464AAE /* CheckinCell.swift */; };
+		6C92E3891D6DC76A00464AAE /* com.hockeyapp-ios.appid in Resources */ = {isa = PBXBuildFile; fileRef = 6C92E3881D6DC76A00464AAE /* com.hockeyapp-ios.appid */; };
 		6CA3E13D1D49EF57003BA194 /* www.dnt.no.client_secret in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */; };
 		6CA3E13E1D49EF57003BA194 /* api.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */; };
 		6CA3E13F1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */; };
@@ -209,6 +210,7 @@
 		6C92E37A1D6C4E5000464AAE /* DntUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntUser.h; path = model/DntUser.h; sourceTree = "<group>"; };
 		6C92E37B1D6C4E5000464AAE /* DntUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DntUser.m; path = model/DntUser.m; sourceTree = "<group>"; };
 		6C92E37E1D6C513100464AAE /* CheckinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckinCell.swift; path = views/profile/CheckinCell.swift; sourceTree = "<group>"; };
+		6C92E3881D6DC76A00464AAE /* com.hockeyapp-ios.appid */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "com.hockeyapp-ios.appid"; path = "../../secret/com.hockeyapp-ios.appid"; sourceTree = "<group>"; };
 		6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = www.dnt.no.client_secret; path = ../../secret/www.dnt.no.client_secret; sourceTree = "<group>"; };
 		6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = api.nasjonalturbase.no.api_key; path = ../../secret/api.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
 		6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dev.nasjonalturbase.no.api_key; path = ../../secret/dev.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 		6CA3E1381D49EF3F003BA194 /* secret */ = {
 			isa = PBXGroup;
 			children = (
+				6C92E3881D6DC76A00464AAE /* com.hockeyapp-ios.appid */,
 				6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */,
 				6CA3E1391D49EF57003BA194 /* www.dnt.no.client_secret */,
 				6CA3E13A1D49EF57003BA194 /* api.nasjonalturbase.no.api_key */,
@@ -667,6 +670,7 @@
 				6C6FE1611A82332C002B5DD5 /* LaunchScreen.xib in Resources */,
 				6C2F4EF11AE6348400E12F4E /* InfoPlist.strings in Resources */,
 				6CA3E1401D49EF57003BA194 /* www.dnt.no.client_id in Resources */,
+				6C92E3891D6DC76A00464AAE /* com.hockeyapp-ios.appid in Resources */,
 				6C36A1441B0CA8A100169E98 /* besselvassheia.gpx in Resources */,
 				6C740AAF1B187F9C00176D2E /* opptur-splash-compressed.jpg in Resources */,
 				6CA3E13D1D49EF57003BA194 /* www.dnt.no.client_secret in Resources */,

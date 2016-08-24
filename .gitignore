@@ -9,3 +9,4 @@
 /secret/maps.google.com.static.api_key
 /android/secret/release_keystore.jks
 /android/secret/releasesigningconfig.gradle
+/secret/com.hockeyapp-ios.appid

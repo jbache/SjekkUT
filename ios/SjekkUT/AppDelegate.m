@@ -53,12 +53,12 @@
         [defaults synchronize];
     }
 
-#ifndef DEBUG
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"7eb53486649f2d366b4907547549f35e"];
+    //#ifndef DEBUG
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:[@"com.hockeyapp-ios.appid" loadFileContentsInClass:self.class]];
     // Configure the SDK in here only!
     [[BITHockeyManager sharedHockeyManager] startManager];
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation]; // This line is obsolete in the crash only build
-#endif
+                                                                                     //#endif
 
     [SwiftHelper initNetworkIndicator];
 
