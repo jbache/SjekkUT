@@ -27,6 +27,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
     fetchRequest.entity = [self entity];
+    fetchRequest.includesPendingChanges = YES;
 
     return fetchRequest;
 }

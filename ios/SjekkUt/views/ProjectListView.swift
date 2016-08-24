@@ -29,15 +29,9 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     override func viewDidLoad() {
         self.navigationItem.hidesBackButton = true
-        
 
         // update the table (and project progress) when checkins arrive
         self.refreshControl!.addTarget(self, action:#selector(refreshProjects), forControlEvents:.ValueChanged)
-
-        // attempt to call member details, while verifying the current authorization token
-        dntApi.updateMemberDetailsOrFail {
-            self.dntApi.logout()
-        }
 
         setupTable()
         setupSearchResults()

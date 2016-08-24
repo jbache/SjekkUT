@@ -14,7 +14,7 @@ private var kProgressContext = 0
 class LoginView: UIViewController, WKNavigationDelegate {
 
     var webView:WKWebView?
-    let dntApi = DntApi.instance
+    var dntApi:DntApi?
 
     @IBOutlet weak var progressView: UIProgressView!
 
@@ -22,18 +22,20 @@ class LoginView: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         ModelController.instance().delayUntilReady {
+            // need to wait until database is ready to allow fetching persisted user data
+            self.dntApi = DntApi.instance
             self.setupLogin()
         }
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showProjectsView), name:kSjekkUtNotificationLogin, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showProjectsView), name:kSjekkUtNotificationLoggedIn, object: nil)
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: kSjekkUtNotificationLogin, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kSjekkUtNotificationLoggedIn, object: nil)
     }
 
     // MARK: setup
@@ -43,11 +45,11 @@ class LoginView: UIViewController, WKNavigationDelegate {
 
         setupLoginForm()
 
-        if (dntApi.isLoggedIn) {
+        if (dntApi!.isLoggedIn) {
             performSegueWithIdentifier("showProjectsImmediately", sender: nil)
         }
         else {
-            dntApi.logout()
+            dntApi!.logout()
         }
     }
 
@@ -77,7 +79,7 @@ class LoginView: UIViewController, WKNavigationDelegate {
     }
 
     func loadLoginForm() {
-        let urlRequest = self.dntApi.authorizeRequest()
+        let urlRequest = self.dntApi!.authorizeRequest()
         if #available(iOS 9.0, *) {
             // need to remove all data to prevent user from seeing the authorization again
             // and instead see the login form
@@ -90,7 +92,9 @@ class LoginView: UIViewController, WKNavigationDelegate {
     }
 
     func showProjectsView() {
-        self.performSegueWithIdentifier("showProjects", sender: nil)
+        ModelController.instance().delayUntilReady {
+            self.performSegueWithIdentifier("showProjects", sender: nil)
+        }
     }
 
     // MARK: observe
@@ -114,10 +118,10 @@ class LoginView: UIViewController, WKNavigationDelegate {
             decisionHandler(.Cancel)
             if navigationUrl!.containsString("code=") {
                 let authCode = (navigationUrl?.componentsSeparatedByString("code=").last!)?.componentsSeparatedByString("&").first
-                self.dntApi.getTokenOrFail(authCode:authCode!, failure:{ self.dntApi.logout()})
+                self.dntApi!.getTokenOrFail(authCode:authCode!, failure:{ self.dntApi!.logout()})
             }
             else {
-                dntApi.logout()
+                dntApi!.logout()
             }
         }
         else {

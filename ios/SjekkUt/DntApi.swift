@@ -17,7 +17,13 @@ class DntApi: Alamofire.Manager {
     static let instance = DntApi(forDomain:"www.dnt.no")
 
     var baseUrl:String?
-    var user:DntUser? = nil
+    var user:DntUser? {
+        didSet {
+            if user != nil {
+                NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationLoggedIn, object: nil)
+            }
+        }
+    }
     var clientId:String?
     var clientSecret:String?
     var loginBlock:( () -> Void) = {}
@@ -25,7 +31,7 @@ class DntApi: Alamofire.Manager {
     var isLoggedIn:Bool {
         get {
             let aToken = SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken) as String?
-            return aToken?.characters.count > 0
+            return user != nil && aToken?.characters.count > 0
         }
     }
 
@@ -44,6 +50,9 @@ class DntApi: Alamofire.Manager {
         self.init()
         baseUrl = "https://" + aDomain
         setupCredentials(domain:aDomain)
+        if let aUserId = SSKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId) {
+            user = DntUser.findWithId(aUserId)
+        }
     }
 
     // MARK: setup
@@ -80,7 +89,7 @@ class DntApi: Alamofire.Manager {
                         let tokenRefresh = JSON["refresh_token"] as! String
                         let tokenAuthentication = JSON["access_token"] as! String
                         let tokenExpiry = JSON["expires_in"] as! Double
-                        self.login(tokenAuthentication, refreshToken: tokenRefresh, expiry: tokenExpiry)
+                        self.authorized(tokenAuthentication, refreshToken: tokenRefresh, expiry: tokenExpiry)
                     }
                 case .Failure(let error):
                     print("failed to get token: \(error)")
@@ -115,7 +124,7 @@ class DntApi: Alamofire.Manager {
                         let tokenAccess = JSON["access_token"] as! String
                         let tokenRefresh = JSON["refresh_token"] as! String
 
-                        self.login(tokenAccess, refreshToken: tokenRefresh)
+                        self.authorized(tokenAccess, refreshToken: tokenRefresh)
                         print("refreshed token: \(JSON)")
                     }
                 case .Failure(let anError):
@@ -127,7 +136,7 @@ class DntApi: Alamofire.Manager {
 
     // MARK: login and logout
 
-    func login(authenticationCode:String, refreshToken aRefreshToken:String? = nil, expiry aTokenExpiry:Double? = nil) {
+    func authorized(authenticationCode:String, refreshToken aRefreshToken:String? = nil, expiry aTokenExpiry:Double? = nil) {
 
         // update or remove expiry
         if let tokenExpiry = aTokenExpiry {
@@ -151,10 +160,19 @@ class DntApi: Alamofire.Manager {
 
         SSKeychain.setPassword(authenticationCode, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
 
+        // attempt to call member details, while verifying the current authorization token
+        updateMemberDetailsOrFail {
+            self.logout()
+        }
+
+        NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationAuthorized, object: nil)
+    }
+
+    func login(aUser:DntUser) {
+        SSKeychain.setPassword(aUser.identifier, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
         self.loginBlock()
         self.loginBlock = {}
-
-        NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationLogin, object: nil)
+        user = aUser
     }
 
     func logout() {
@@ -172,6 +190,7 @@ class DntApi: Alamofire.Manager {
         // remove tokens
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
         SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
+        SSKeychain.deletePasswordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
 
         // remove expiry
         NSUserDefaults.standardUserDefaults().removeObjectForKey(kSjekkUtDefaultsTokenExpiry)
@@ -193,7 +212,9 @@ class DntApi: Alamofire.Manager {
             .responseJSON { response in
                 switch response.result {
                 case .Success:
-                    self.user = DntUser.insertOrUpdate(response.result.value as! [String: AnyObject])
+                    if let aUser:DntUser = DntUser.insertOrUpdate(response.result.value as! [String: AnyObject]) {
+                        self.login(aUser)
+                    }
                 case .Failure(let error):
                     if let httpStatusCode = response.response?.statusCode {
                         switch httpStatusCode {

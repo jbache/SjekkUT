@@ -394,10 +394,6 @@
 		6C70642B1A82AD5900291137 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				6C92E3781D6C4E5000464AAE /* DntUser+CoreDataProperties.h */,
-				6C92E3791D6C4E5000464AAE /* DntUser+CoreDataProperties.m */,
-				6C92E37A1D6C4E5000464AAE /* DntUser.h */,
-				6C92E37B1D6C4E5000464AAE /* DntUser.m */,
 				6CC799C11D52110B00DFAF10 /* Checkin.h */,
 				6CC799C21D52110B00DFAF10 /* Checkin.m */,
 				6CC799BF1D52110B00DFAF10 /* Checkin+CoreDataProperties.h */,
@@ -421,6 +417,10 @@
 				6C04BE381D61C60500741C42 /* DntImageSize.m */,
 				6C04BE351D61C60500741C42 /* DntImageSize+CoreDataProperties.h */,
 				6C04BE361D61C60500741C42 /* DntImageSize+CoreDataProperties.m */,
+				6C92E37A1D6C4E5000464AAE /* DntUser.h */,
+				6C92E37B1D6C4E5000464AAE /* DntUser.m */,
+				6C92E3781D6C4E5000464AAE /* DntUser+CoreDataProperties.h */,
+				6C92E3791D6C4E5000464AAE /* DntUser+CoreDataProperties.m */,
 				6C5421451AC98FDE00F8315F /* EntityScaffold.h */,
 				6C5421461AC98FDE00F8315F /* EntityScaffold.m */,
 				6C70642D1A82AE3000291137 /* ModelController.h */,
