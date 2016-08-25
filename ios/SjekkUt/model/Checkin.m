@@ -20,7 +20,7 @@
 + (Checkin *)insertOrUpdate:(NSDictionary *)json
 {
     NSFetchRequest *fetch = [[self class] fetch];
-    NSString *identifier = json[@"id"];
+    NSString *identifier = json[@"_id"];
     NSError *error = nil;
     Checkin *theCheckin = nil;
 
@@ -31,7 +31,7 @@
 
     if (error)
     {
-        NSLog(@"failed looking up Checkin with id %@", json[@"id"]);
+        NSLog(@"failed looking up Checkin with id %@", identifier);
     }
     else if (!theCheckin)
     {
@@ -53,7 +53,15 @@
     NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"ntb_steder_id"]];
     if (self.place == nil && mountainId.length > 0)
     {
-        self.place = [Place findWithId:mountainId];
+        Place *aPlace = [Place findWithId:mountainId];
+        if (aPlace == nil)
+        {
+            // if we load checkins prior to places, they need to be created
+            // and will be picked up later using the same identifier
+            aPlace = [Place insert];
+            aPlace.identifier = mountainId;
+        }
+        self.place = aPlace;
     }
     NSArray *coordinates = json[@"location"][@"coordinates"];
     setIfNotEqual(self.latitute, [coordinates objectAtIndex:1]);

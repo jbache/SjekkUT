@@ -4,6 +4,9 @@ PODS:
     - Alamofire (~> 3.3)
   - AlamofireNetworkActivityIndicator (1.0.1):
     - Alamofire (~> 3.3)
+  - AlamofireSwiftyJSON (0.1.1):
+    - Alamofire (~> 3.4)
+    - SwiftyJSON (~> 2.3)
   - DateTools (1.5.0)
   - FontAwesome+iOS (0.1.4)
   - HockeySDK (4.0.2):
@@ -12,11 +15,13 @@ PODS:
   - NSURLRequest-cURL (0.0.1)
   - OCMock (3.3.1)
   - SAMKeychain (1.5.0)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
   - AlamofireNetworkActivityIndicator (~> 1.0)
+  - AlamofireSwiftyJSON
   - DateTools (~> 1.5.0)
   - FontAwesome+iOS (~> 0.1.4)
   - HockeySDK (~> 4.0.1)
@@ -28,13 +33,15 @@ SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
   AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
+  AlamofireSwiftyJSON: 4787ff07c7e6687b787f1723229e729653e3359f
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   FontAwesome+iOS: 9070b682a9255ca0fdc34bcfb129ad0ba2b73b87
   HockeySDK: ebaabf41808b4e4ea85b4d5266d425aef0d19c88
   NSURLRequest-cURL: 02e6df7c7cec07365ae2a812c85f0419fdeb3d62
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
   SAMKeychain: 1fc9ae02f576365395758b12888c84704eebc423
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: e96f175fac940cdf1a0a423d28c3e67fa0ef0b4c
+PODFILE CHECKSUM: 3536669a73e687846a2adbf5d2ad70689b27f6e7
 
 COCOAPODS: 1.0.1

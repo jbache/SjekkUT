@@ -28,6 +28,8 @@ public class TurbasenApi: Alamofire.Manager {
         self.api_key = (aDomain + ".api_key").loadFileContents(inClass:self.dynamicType)!
     }
 
+    // MARK: place
+
     @objc func getPlaceNotification(aNotification:NSNotification) {
         getPlace(aNotification.object as! Place)
     }
@@ -55,6 +57,8 @@ public class TurbasenApi: Alamofire.Manager {
         }
     }
 
+    // MARK: projects
+
     func getProjectsAnd(finishHandler:((Void)->(Void)) ) {
         let parameters = [
             "api_key": api_key,
@@ -79,7 +83,7 @@ public class TurbasenApi: Alamofire.Manager {
                             for aProjectDict in someProjects {
                                 let aProject = Project.insertOrUpdate(aProjectDict)
                                 aProject.isHidden = false
-                                self.getProjectAndPlaces(aProject)
+                                self.getProjectAnd(aProject) {_ in }
                             }
                         }
                     }
@@ -94,7 +98,10 @@ public class TurbasenApi: Alamofire.Manager {
         return getProjectsAnd {}
     }
 
-    public func getProjectAndPlaces(aProject:Project) {
+
+    // MARK: project
+
+    public func getProjectAnd( aProject:Project, _ projectHandler:Project->Void ) {
         let projectUrl = baseUrl + "/lister/" + aProject.identifier!
         let requestUrl = NSURL(string: projectUrl)!
         let urlRequest = NSMutableURLRequest(URL: requestUrl)
@@ -111,17 +118,22 @@ public class TurbasenApi: Alamofire.Manager {
                     if let aJSON = response.result.value {
                         ModelController.instance().saveBlock {
                             // update or insert project from API
-                            let aProject:Project = Project.insertOrUpdate(aJSON as! [String : AnyObject])
-                            for place in aProject.places! {
-                                // fetch place with images
-                                self.getPlace(place as! Place)
-                                SjekkUtApi.instance.getPlaceCheckins(place as! Place)
-                            }
+                            let theProject:Project = Project.insertOrUpdate(aJSON as! [String : AnyObject])
+                            projectHandler(theProject)
                         }
                     }
                 case .Failure(let error):
                     print("failed to get list \(projectUrl): \(error)")
                 }
+        }
+    }
+
+    public func getProjectAndPlaces(aProject:Project) {
+        getProjectAnd(aProject) { (theProject: Project) -> Void in
+            for place in theProject.places! {
+                // fetch place with images
+                self.getPlace(place as! Place)
+            }
         }
     }
 }

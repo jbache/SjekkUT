@@ -8,14 +8,20 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
+import AlamofireSwiftyJSON
 import SAMKeychain
 
 class SjekkUtApi: Alamofire.Manager {
 
     static let instance = SjekkUtApi(forDomain:"sjekkut.app.dnt.no")
+    let authenticationHeaders:[String:String]? = [
+        "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
+        "X-User-Token": SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+    ]
+
 
     var baseUrl:String = ""
-    var dntUser:DntUser?
 
     init() {
         super.init()
@@ -23,15 +29,41 @@ class SjekkUtApi: Alamofire.Manager {
 
     convenience init(forDomain aDomain:String) {
         self.init()
-        baseUrl = "https://" + aDomain + "/v1"
+        baseUrl = "https://" + aDomain + "/v2"
+        getProfile()
     }
 
-    func getPlaceStats(aPlace:Place) {
-        let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/stats"
-        self.request(.GET, requestUrl)
+    // MARK: profile
+
+    func getProfile() {
+        let requestUrl = baseUrl + "/brukere/\( (DntApi.instance.user?.identifier)!)"
+        self.request(.GET, requestUrl, headers:authenticationHeaders)
             .validate(statusCode:200..<300)
-            .responseJSON { response in
-                print("getPlaceStats: \(response)")
+            .responseSwiftyJSON { response in
+                switch response.result {
+                case .Success:
+                    self.parseProfile(response.result.value!["data"])
+                case .Failure(let error):
+                    print("failed to get profile: \(error)")
+                }
+        }
+    }
+
+    func parseProfile(json:JSON) {
+        if let checkinsJSON = json["innsjekkinger"].array {
+            self.updateCheckins(checkinsJSON)
+        }
+    }
+
+    // MARK: checkins
+
+    func updateCheckins(checkinsArray:[JSON]) {
+        ModelController.instance().saveBlock {
+            for checkinJson in checkinsArray {
+                if "\(checkinJson["dnt_user_id"])" == DntApi.instance.user?.identifier {
+                    _ = Checkin.insertOrUpdate(checkinJson.dictionaryObject!)
+                }
+            }
         }
     }
 
@@ -39,42 +71,21 @@ class SjekkUtApi: Alamofire.Manager {
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/logg"
         self.request(.GET, requestUrl)
             .validate(statusCode:200..<300)
-            .responseJSON { response in
-                if let checkinsJson = response.result.value!["data"] as? [[String: AnyObject]] {
-                    ModelController.instance().saveBlock {
-                        var didChangeCheckin = false
-                        for checkinJson in checkinsJson {
-                            if checkinJson["dnt_user_id"]?.stringValue == DntApi.instance.user?.identifier {
-                                _ = Checkin.insertOrUpdate(checkinJson)
-                                didChangeCheckin = true
-                            }
-                        }
-                        if didChangeCheckin {
-                            for aProject in aPlace.projects! {
-                                aProject.updateHasCheckin()
-                            }
-                        }
-                    }
+            .responseSwiftyJSON { response in
+                if let checkinsJson = response.result.value!["data"]["innsjekkinger"].array {
+                    self.updateCheckins(checkinsJson)
                 }
         }
     }
 
-    func getPlaceLog(aPlace:Place) {
-
-    }
-
-    func doPlaceVisit(aPlace:Place, finishHandler:(result:Result<AnyObject,NSError>)->()) {
+    func doPlaceCheckin(aPlace:Place, finishHandler:(result:Result<AnyObject,NSError>)->()) {
         let currentLocation = Location.instance().currentLocation.coordinate
         let someParameters = [
             "lat":currentLocation.latitude,
             "lon":currentLocation.longitude
         ]
-        let someHeaders:[String:String]? = [
-            "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
-            "X-User-Token": SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
-        ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
-        let request = self.request(.POST, requestUrl, parameters:someParameters, headers:someHeaders, encoding: .JSON)
+        let request = self.request(.POST, requestUrl, parameters:someParameters, headers:authenticationHeaders, encoding: .JSON)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {

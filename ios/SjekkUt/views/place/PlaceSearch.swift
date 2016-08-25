@@ -24,7 +24,7 @@ class PlaceSearch: UIViewController {
             self.activityIndicator.stopAnimating()
             self.checkinLabel.text = NSLocalizedString("Checking in...", comment: "Checking in label in summit search")
             let aPlace = self.project!.findNearest()
-            SjekkUtApi.instance.doPlaceVisit(aPlace) {
+            SjekkUtApi.instance.doPlaceCheckin(aPlace) {
                 result in
                 switch result {
                 case .Success:

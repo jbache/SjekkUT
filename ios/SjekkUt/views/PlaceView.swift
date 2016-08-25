@@ -42,7 +42,7 @@ class PlaceView : UITableViewController, UITextViewDelegate {
 
     // MARK: actions
     @IBAction func checkinClicked(sender: AnyObject) {
-        sjekkUtApi.doPlaceVisit(place!) { result in
+        sjekkUtApi.doPlaceCheckin(place!) { result in
             
         }
     }
@@ -67,7 +67,6 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     override func viewDidLoad() {
         if (place != nil) {
             sjekkUtApi.getPlaceCheckins(place!)
-            sjekkUtApi.getPlaceStats(place!)
             placeCell.place = place
         }
     }

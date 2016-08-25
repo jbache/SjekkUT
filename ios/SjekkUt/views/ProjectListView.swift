@@ -12,6 +12,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     let turbasen = TurbasenApi.instance
     let dntApi = DntApi.instance
+    let sjekkUtApi = SjekkUtApi.instance
     var projects:NSFetchedResultsController?
     let searchController = UISearchController(searchResultsController:nil)
 

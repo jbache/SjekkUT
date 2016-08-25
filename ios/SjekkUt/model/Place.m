@@ -141,7 +141,7 @@
     }
     else
     {
-        setIfNotEqual(self.distance, @(-1));
+        setIfNotEqual(self.distance, @(DBL_MAX));
     }
 }
 
@@ -220,7 +220,7 @@
 
 - (NSString *)distanceDescription
 {
-    if (self.distance.doubleValue <= 0)
+    if (self.distance.doubleValue == DBL_MAX)
         return @"";
 
     NSString *unit = @"km";
