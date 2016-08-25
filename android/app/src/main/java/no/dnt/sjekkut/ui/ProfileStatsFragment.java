@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ import no.dnt.sjekkut.dummy.DummyContent;
 import no.dnt.sjekkut.dummy.DummyContent.DummyItem;
 
 
-public class ProfileStatsFragment extends Fragment {
+public class ProfileStatsFragment extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.visitlist)
     RecyclerView mRecyclerView;
@@ -36,19 +37,8 @@ public class ProfileStatsFragment extends Fragment {
     @BindViews({R.id.statlayout_1, R.id.statlayout_2, R.id.statlayout_3})
     List<View> mStatCountLayouts;
     List<StatCountHolder> mStatCountHolders = new ArrayList<>();
-
-    static class StatCountHolder {
-        @BindView(R.id.circle)
-        ImageView circle;
-        @BindView(R.id.counter)
-        TextView counter;
-        @BindView(R.id.label)
-        TextView label;
-
-        public StatCountHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
-    }
+    @BindView(R.id.logout)
+    Button mLogout;
 
     private ProfileStatsListener mListener;
 
@@ -65,6 +55,7 @@ public class ProfileStatsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profilestats, container, false);
         ButterKnife.bind(this, view);
         Context context = view.getContext();
+        Utils.setupSupportToolbar(getActivity(), mToolbar, "Profil", true);
         mUsername.setText("Change Me. Please");
         for (View layout : mStatCountLayouts) {
             mStatCountHolders.add(new StatCountHolder(layout));
@@ -76,10 +67,9 @@ public class ProfileStatsFragment extends Fragment {
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(new PlaceVisitAdapter(DummyContent.ITEMS, mListener));
-        Utils.setupSupportToolbar(getActivity(), mToolbar, "Profil", true);
+        mLogout.setOnClickListener(this);
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -98,8 +88,34 @@ public class ProfileStatsFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.logout:
+                if (mListener != null) {
+                    mListener.onLogout();
+                }
+                break;
+        }
+    }
+
     interface ProfileStatsListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(DummyItem item);
+
+        void onLogout();
+    }
+
+    static class StatCountHolder {
+        @BindView(R.id.circle)
+        ImageView circle;
+        @BindView(R.id.counter)
+        TextView counter;
+        @BindView(R.id.label)
+        TextView label;
+
+        public StatCountHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

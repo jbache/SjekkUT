@@ -394,6 +394,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         Utils.showToast(MainActivity.this, "Todo");
     }
 
+    @Override
+    public void onLogout() {
+        Utils.logout(this);
+    }
+
     public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() {
         }

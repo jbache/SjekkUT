@@ -11,7 +11,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,7 +33,6 @@ import java.util.List;
 import no.dnt.sjekkut.network.Checkin;
 import no.dnt.sjekkut.network.Mountain;
 import no.dnt.sjekkut.ui.LoginActivity;
-import timber.log.Timber;
 
 /**
  * Copyright Den Norske Turistforening 2015
@@ -52,7 +50,7 @@ public class Utils {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    public static void setupSupportToolbar(FragmentActivity activity, Toolbar toolbar, String title, boolean upButton) {
+    public static void setupSupportToolbar(Activity activity, Toolbar toolbar, String title, boolean upButton) {
         setSupportActionToolbar(activity, toolbar);
         setActionBarTitle(activity, title);
         toggleUpButton(activity, upButton);
@@ -246,7 +244,6 @@ public class Utils {
     }
 
     public static void logout(Context context) {
-        Timber.i("logout()");
         PreferenceUtils.clearLoginInformation(context);
         Intent loginActivity = new Intent(context, LoginActivity.class);
         loginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
