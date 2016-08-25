@@ -10,4 +10,8 @@ public class MemberData {
     public String etternavn;
     public String sherpa_id;
     public String epost;
+
+    public String getFullname() {
+        return String.format("%s %s", fornavn, etternavn);
+    }
 }

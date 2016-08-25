@@ -20,10 +20,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.dummy.DummyContent;
 import no.dnt.sjekkut.dummy.DummyContent.DummyItem;
+import no.dnt.sjekkut.network.LoginApiSingleton;
+import no.dnt.sjekkut.network.MemberData;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ProfileStatsFragment extends Fragment implements View.OnClickListener {
@@ -41,8 +47,26 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     Button mLogout;
 
     private ProfileStatsListener mListener;
+    private Callback<MemberData> mMemberCallback;
 
     public ProfileStatsFragment() {
+        mMemberCallback = new Callback<MemberData>() {
+            @Override
+            public void onResponse(Call<MemberData> call, Response<MemberData> response) {
+                if (response.isSuccessful()) {
+                    mUsername.setText(response.body().getFullname());
+                } else {
+                    mUsername.setText(getString(R.string.username_unknown));
+                    Utils.showToast(getContext(), "Failed to get member data: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MemberData> call, Throwable t) {
+                mUsername.setText(getString(R.string.username_unknown));
+                Utils.showToast(getContext(), "Failed to get member data: " + t);
+            }
+        };
     }
 
     public static ProfileStatsFragment newInstance() {
@@ -56,7 +80,6 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
         ButterKnife.bind(this, view);
         Context context = view.getContext();
         Utils.setupSupportToolbar(getActivity(), mToolbar, "Profil", true);
-        mUsername.setText("Change Me. Please");
         for (View layout : mStatCountLayouts) {
             mStatCountHolders.add(new StatCountHolder(layout));
         }
@@ -80,6 +103,12 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
             throw new RuntimeException(context.toString()
                     + " must implement ProfileStatsListener");
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(getContext())).enqueue(mMemberCallback);
     }
 
     @Override
