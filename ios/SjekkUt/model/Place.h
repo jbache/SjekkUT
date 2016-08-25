@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)mapURLForView:(UIView *)view withKey:(NSString *)key;
 - (NSURL *)foregroundImageURLforSize:(CGSize)aSize;
 - (NSString *)checkinDescription;
+- (BOOL)canCheckIn;
 
 @end
 

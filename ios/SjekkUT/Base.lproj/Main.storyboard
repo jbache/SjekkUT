@@ -485,18 +485,18 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="LQZ-ln-9Pn"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBq-T2-jaY" userLabel="Checkin" customClass="CheckinButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="IBq-T2-jaY" userLabel="Checkin" customClass="CheckinButton" customModule="SjekkUT" customModuleProvider="target">
                                 <rect key="frame" x="520" y="456" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="LPd-ia-cVq"/>
                                     <constraint firstAttribute="height" constant="64" id="MGk-cN-xKh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                 <state key="normal" title="Check in!"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="32"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
+                                        <color key="value" red="0.84705882349999995" green="0.1764705882" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1272,6 +1272,6 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="cNC-kT-LwS"/>
+        <segue reference="TOc-wB-BP5"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -62,16 +62,28 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     func updateData() {
-        turbasen.getProjectAndPlaces(self.project!)
-        Location.instance().getSingleUpdate(nil)
+        turbasen.getProjectAndPlaces(project!)
+        Location.instance().getSingleUpdate { location in
+            self.project!.updateDistance()
+            let sortedPlaces = self.project!.places!.sortedArrayUsingDescriptors( [NSSortDescriptor(key: "distance", ascending: true)] ) as! [Place]
+            if let firstPlace = sortedPlaces.first {
+                self.checkinButton.titleLabel!.numberOfLines = 3
+                self.checkinButton.setTitle( NSLocalizedString("Check in to \(firstPlace.name!)",comment:"check in button title"), forState:.Normal)
+                UIView.animateWithDuration(kSjekkUtConstantAnimationDuration) {
+                    self.checkinButton.alpha = CGFloat( firstPlace.canCheckIn() )
+                }
+            }
+
+        }
     }
 
 // MARK: view controller
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.startObserving()
-        self.updateData()
+        checkinButton.alpha = 0
+        startObserving()
+        updateData()
     }
 
     override func viewWillDisappear(animated: Bool) {
