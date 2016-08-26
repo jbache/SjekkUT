@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private Callback<PlaceCheckinStats> mPlaceCheckinStats;
     private Callback<CheckinResult> mPostCheckin;
 
-    public static void showFeedbackActivity(Activity activity) {
+    static void showFeedbackActivity(Activity activity) {
         if (activity == null)
             return;
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     TripApiSingleton.call().getProject(
                             lastProject._id,
                             getString(R.string.api_key),
-                            "steder,geojson,bilder,img,kommune,beskrivelse",
+                            "steder,geojson,bilder,img,kommune,fylke,beskrivelse",
                             "steder,bilder"
                     ).enqueue(mProjectCallback);
                 } else {
@@ -332,11 +332,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         dialogFragment.show(getSupportFragmentManager(), "errordialog");
     }
 
-    public void onDialogDismissed() {
+    private void onDialogDismissed() {
         mResolvingError = false;
     }
 
-    public void startLocationUpdates(LocationListener listener, LocationRequest locationRequest) {
+    void startLocationUpdates(LocationListener listener, LocationRequest locationRequest) {
         if (mGoogleApiClient.isConnected()) {
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             long locationDelta = lastLocation != null ? new Date().getTime() - lastLocation.getTime() : Long.MAX_VALUE;
@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    public void stopLocationUpdates(LocationListener listener) {
+    void stopLocationUpdates(LocationListener listener) {
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, listener);
         }
@@ -376,8 +376,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onProjectClicked(Project project) {
         Utils.showToast(MainActivity.this, "Clicked on project: " + project.navn);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new SummitListFragment())
-                .addToBackStack(SummitListFragment.class.getCanonicalName())
+                .replace(R.id.container, PlaceListFragment.newInstance(project._id))
+                .addToBackStack(PlaceListFragment.class.getCanonicalName())
                 .commit();
     }
 

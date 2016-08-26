@@ -115,7 +115,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
                 .fit()
                 .centerCrop()
                 .into(holder.mBackground);
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -220,7 +220,6 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     }
 
     class ProjectHolder extends RecyclerView.ViewHolder {
-        final View mView;
         @BindView(R.id.title)
         TextView mProjectTitle;
         @BindView(R.id.group)
@@ -236,7 +235,6 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
 
         ProjectHolder(View view) {
             super(view);
-            mView = view;
             ButterKnife.bind(this, view);
         }
 

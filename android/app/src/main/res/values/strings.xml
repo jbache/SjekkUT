@@ -50,13 +50,9 @@
     <string name="checkin_not_available_because_distance_and_timespan">Du må være maks 200 meter nærme punktet og vente 24 timer før du kan sjekke inn.</string>
     <string name="checkin_not_available_because_distance">Du må være maks 200 meter fra punktet for å sjekke inn.</string>
     <string name="checkin_not_available_because_timespan">Du må vente 24 timer før du kan sjekke inn.</string>
-    <string name="cd_challenge_footer">footer</string>
-    <string name="challenge_readmore">Les mer på våre websider</string>
     <string name="challenge_joined_completed">Gratulerer du har besteget alle %d toppene!</string>
     <string name="challenge_joined_progress_of_total">Du har besteget %1$d av %2$d topper så langt!</string>
     <string name="challenge_joined_pleasejoin"><![CDATA[<u>TRYKK HER</u> for å bli med!]]></string>
-    <string name="register_name_hint">navn</string>
-    <string name="register_email_hint">email</string>
     <string name="dialog_name_and_email_title">Registrer navn og email</string>
     <string name="okbutton">OK</string>
     <string name="cancelbutton">Avbryt</string>

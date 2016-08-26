@@ -34,10 +34,10 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final DummyItem item = mValues.get(position);
-        Context context = holder.mView.getContext();
+        Context context = holder.itemView.getContext();
         holder.mPlaceName.setText(item.name);
         holder.mNumberOfVisits.setText(context.getString(R.string.antallbesøk, item.visits));
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -53,7 +53,6 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        final View mView;
         @BindView(R.id.placename)
         TextView mPlaceName;
         @BindView(R.id.numberofvisits)
@@ -61,7 +60,6 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
 
         ViewHolder(View view) {
             super(view);
-            mView = view;
             ButterKnife.bind(this, view);
         }
     }

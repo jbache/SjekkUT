@@ -4,6 +4,8 @@ import android.location.Location;
 
 import java.util.List;
 
+import no.dnt.sjekkut.R;
+
 /**
  * Copyright Den Norske Turistforening 2016
  * <p>
@@ -12,6 +14,8 @@ import java.util.List;
 public class Place {
     public String _id;
     public String navn;
+    public String kommune;
+    public String fylke;
     public String beskrivelse;
     public List<Photo> bilder;
     public GeoJSON geojson;
@@ -26,8 +30,22 @@ public class Place {
         return null;
     }
 
+    public boolean hasLocation() {
+        return geojson != null && geojson.getLocation() != null;
+    }
+
+    public String getImageUrl(int preferredWidth) {
+        if (bilder != null && bilder.size() >= 1) {
+            return bilder.get(0).getImageUrl(preferredWidth);
+        }
+        return null;
+    }
 
     public Place(String _id) {
         this._id = _id;
+    }
+
+    public int getImageFallback() {
+        return R.drawable.project_image_fallback;
     }
 }

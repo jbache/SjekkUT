@@ -2,6 +2,9 @@ package no.dnt.sjekkut.network;
 
 import android.content.Context;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
@@ -11,6 +14,7 @@ import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.SjekkUTApplication;
 import no.dnt.sjekkut.Utils;
 import okhttp3.Authenticator;
+import okhttp3.Cache;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -28,6 +32,8 @@ import timber.log.Timber;
 public enum OkHttpSingleton {
     INSTANCE;
 
+    private static final String CACHE_DIR_NAME = "okhttp3_cache";
+    private static final long CACHE_SIZE_BYTES = 1024 * 1024 * 20; // 20MB;
     private final OkHttpClient mHttpClient = createClient();
 
     public static OkHttpClient getClient() {
@@ -129,10 +135,16 @@ public enum OkHttpSingleton {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
-        return new OkHttpClient.Builder()
+        File cacheDirectory = new File(mAppContext.getCacheDir().getAbsolutePath(), CACHE_DIR_NAME);
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .cache(new Cache(cacheDirectory, CACHE_SIZE_BYTES))
                 .addNetworkInterceptor(rewrite403to401Interceptor)
                 .authenticator(refreshAuthenticator)
-                .addInterceptor(loggingInterceptor)
-                .build();
+                .addInterceptor(loggingInterceptor);
+        if (BuildConfig.DEBUG) {
+            builder.addNetworkInterceptor(new StethoInterceptor());
+        }
+        return builder.build();
     }
 }
