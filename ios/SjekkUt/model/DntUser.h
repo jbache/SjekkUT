@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DntUser : EntityScaffold
 
++ (instancetype)currentUser;
++ (void)setCurrentUser:(DntUser *_Nullable)aUser;
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 + (instancetype)findWithId:(id)identifier;
 

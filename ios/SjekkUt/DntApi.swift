@@ -19,6 +19,7 @@ class DntApi: Alamofire.Manager {
     var baseUrl:String?
     var user:DntUser? {
         didSet {
+            DntUser.setCurrentUser(user)
             if user != nil {
                 NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationLoggedIn, object: nil)
             }
@@ -52,6 +53,7 @@ class DntApi: Alamofire.Manager {
         setupCredentials(domain:aDomain)
         if let aUserId = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId) {
             user = DntUser.findWithId(aUserId)
+            DntUser.setCurrentUser(user)
         }
     }
 
@@ -175,6 +177,7 @@ class DntApi: Alamofire.Manager {
     }
 
     func logout() {
+        user = nil
         // clear out all cookies
         let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
         for cookie in storage.cookies! {

@@ -97,7 +97,8 @@ class PlaceCell: UITableViewCell {
             if let lastCheckin = place?.lastCheckin() {
                 checkButton.setTitle("\(Character(UnicodeScalar(0xf046)))", forState:.Normal)
                 checkButton.setTitleColor(DntColor.red(), forState: .Normal)
-                dateLabel.text = lastCheckin.date?.timeAgo()
+                let dateRelativeString = lastCheckin.date?.timeAgo()
+                dateLabel.text = NSLocalizedString("\(dateRelativeString!) ago",comment:"time since")
             }
             else {
                 checkButton.setTitle("\(Character(UnicodeScalar(0xf096)))", forState: .Normal)

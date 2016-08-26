@@ -18,7 +18,7 @@ extension NSDate {
         formatter.maximumUnitCount = 1
         formatter.allowedUnits = [.Minute, .Hour, .Day, .WeekOfMonth, .Month, .Year]
         let dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
-        return NSLocalizedString("\(dateRelativeString!) ago",comment:"time since")
+        return dateRelativeString!
     }
 }
 

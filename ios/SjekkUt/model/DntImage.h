@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DntImage : EntityScaffold
 
-+ (instancetype)insertOrUpdate:(NSDictionary *)json;
++ (instancetype)insertOrUpdate:(id)json;
 
 - (NSURL *)URLforSize:(CGSize)size;
 

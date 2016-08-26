@@ -11,22 +11,45 @@
 #import "ModelController.h"
 #import "Project.h"
 
+static DntUser *_currentUser = nil;
+
 @implementation DntUser
 
-+ (instancetype)insertOrUpdate:(NSDictionary *)json
++ (instancetype)currentUser
 {
-    NSNumber *identifier = json[@"sherpa_id"];
+    return _currentUser;
+}
+
++ (void)setCurrentUser:(DntUser *_Nullable)aUser
+{
+    _currentUser = aUser;
+}
+
++ (instancetype)insertOrUpdate:(id)json
+{
+    NSString *identifier = nil;
+    if ([json isKindOfClass:NSDictionary.class])
+    {
+        identifier = [json[@"sherpa_id"] stringValue];
+    }
+    else if ([json isKindOfClass:NSString.class])
+    {
+        identifier = json;
+    }
     DntUser *theEntity = [self findWithId:identifier];
 
-    if (!theEntity)
+    if (theEntity == nil && identifier)
     {
         theEntity = [DntUser insert];
-        theEntity.identifier = identifier.stringValue;
+        theEntity.identifier = identifier;
     }
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
 
-    [theEntity update:json];
+    if ([json isKindOfClass:NSDictionary.class])
+    {
+        [theEntity update:json];
+    }
 
     return theEntity;
 }

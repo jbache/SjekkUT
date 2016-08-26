@@ -1,6 +1,9 @@
 /* title for location request */
 "Allow using location" = "Tillat å bruke stedstjenester";
 
+/* check in button title */
+"Check in to (firstPlace.name!)" = "Besøk (firstPlace.name!)";
+
 /* location timeout notification text */
 "Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne sted. Pass på at du kan se himmelen for å la GPS finne din posisjon.";
 

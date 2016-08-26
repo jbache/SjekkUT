@@ -78,7 +78,7 @@ class PlaceView : UITableViewController, UITextViewDelegate {
             placeCell.place = place
         }
 
-        checkin = checkin ?? place?.lastCheckinForUser(DntApi.instance.user!)
+        checkin = checkin ?? place?.lastCheckin()
 
         // don't bother with sharing if there is nothing to share
         if let aCheckin = checkin {

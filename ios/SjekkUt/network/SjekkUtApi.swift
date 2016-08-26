@@ -30,7 +30,6 @@ class SjekkUtApi: Alamofire.Manager {
     convenience init(forDomain aDomain:String) {
         self.init()
         baseUrl = "https://" + aDomain + "/v2"
-        getProfile()
     }
 
     // MARK: profile

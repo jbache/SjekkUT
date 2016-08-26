@@ -277,7 +277,7 @@
 - (NSArray *)checkedInPlaces
 {
     NSFetchRequest *fetch = [Place fetch];
-    fetch.predicate = [NSPredicate predicateWithFormat:@"%@ in projects AND checkins.@count > 0", self];
+    fetch.predicate = [NSPredicate predicateWithFormat:@"%@ in projects AND SUBQUERY(checkins, $checkin, $checkin.user == %@).@count > 0", self, [DntUser currentUser]];
     fetch.includesPendingChanges = YES;
     NSError *error = nil;
     NSArray *aResult = [model.managedObjectContext executeFetchRequest:fetch error:&error];

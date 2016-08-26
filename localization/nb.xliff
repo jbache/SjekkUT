@@ -310,13 +310,18 @@
       </trans-unit>
       <trans-unit id="(dateRelativeString!) ago">
         <source>(dateRelativeString!) ago</source>
-        <source>(dateRelativeString!) siden</source>
+        <target>(dateRelativeString!) siden</target>
         <note>time since</note>
       </trans-unit>
       <trans-unit id="Allow using location">
         <source>Allow using location</source>
         <target>Tillat å bruke stedstjenester</target>
         <note>title for location request</note>
+      </trans-unit>
+      <trans-unit id="Check in to (firstPlace.name!)">
+        <source>Check in to (firstPlace.name!)</source>
+        <target>Besøk (firstPlace.name!)</target>
+        <note>check in button title</note>
       </trans-unit>
       <trans-unit id="Checking in...">
         <source>Checking in...</source>
@@ -524,6 +529,11 @@
         <source>Allow using location</source>
         <target>Tillat å bruke stedstjenester</target>
         <note>title for location request</note>
+      </trans-unit>
+      <trans-unit id="Check in to (firstPlace.name!)">
+        <source>Check in to (firstPlace.name!)</source>
+        <target>Besøk (firstPlace.name!)</target>
+        <note>check in button title</note>
       </trans-unit>
       <trans-unit id="Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.">
         <source>Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.</source>

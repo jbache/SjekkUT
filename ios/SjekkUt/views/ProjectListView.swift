@@ -32,7 +32,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         self.navigationItem.hidesBackButton = true
 
         // update the table (and project progress) when checkins arrive
-        self.refreshControl!.addTarget(self, action:#selector(refreshProjects), forControlEvents:.ValueChanged)
+        self.refreshControl!.addTarget(self, action:#selector(refreshData), forControlEvents:.ValueChanged)
 
         setupTable()
         setupSearchResults()
@@ -87,7 +87,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
             self.projects = self.projectResults()
 
             // fetch any updated projects
-            self.turbasen.getProjects()
+            self.refreshData()
         }
     }
 
@@ -111,10 +111,11 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
         return someResults
     }
 
-    func refreshProjects() {
+    func refreshData() {
         turbasen.getProjectsAnd {
             self.refreshControl!.endRefreshing()
         }
+        sjekkUtApi.getProfile()
     }
 
     // MARK: sections

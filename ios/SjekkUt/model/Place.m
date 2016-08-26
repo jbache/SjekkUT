@@ -160,27 +160,31 @@
 
 - (Checkin *)lastCheckin
 {
+    DntUser *aUser = [DntUser currentUser];
+    NSPredicate *filter = [NSPredicate predicateWithFormat:@"user == %@", aUser];
+    NSSet *filteredCheckins = [self.checkins filteredSetUsingPredicate:filter];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date"
                                                            ascending:YES];
     NSArray *sorts = @[ sort ];
-    NSArray *sortedCheckins = [self.checkins sortedArrayUsingDescriptors:sorts];
+    NSArray *sortedCheckins = [filteredCheckins sortedArrayUsingDescriptors:sorts];
     Checkin *checkin = [sortedCheckins lastObject];
     return checkin;
 }
 
 - (BOOL)canCheckIn
 {
-    return [self canCheckinTime] && [self canCheckinDistance];
+    return self.canCheckinTime && self.canCheckinDistance;
 }
 
 - (BOOL)canCheckinTime
 {
-    if (self.lastCheckin == nil)
+    Checkin *aLastCheckin = self.lastCheckin;
+    if (aLastCheckin == nil)
     {
         return YES;
     }
 
-    NSTimeInterval timeSinceLastCheckin = [[NSDate date] timeIntervalSinceDate:self.lastCheckin.date];
+    NSTimeInterval timeSinceLastCheckin = [[NSDate date] timeIntervalSinceDate:aLastCheckin.date];
     NSLog(@"time since last: %f", timeSinceLastCheckin);
     return timeSinceLastCheckin > SjekkUtCheckinTimeLimit;
 }
@@ -279,15 +283,17 @@
     }
     else
     {
-        if (![self canCheckinTime] && ![self canCheckinDistance])
+        BOOL checkinTime = self.canCheckinTime;
+        BOOL checkinDistance = self.canCheckinDistance;
+        if (!checkinTime && !checkinDistance)
         {
             [aCheckinDescription appendString:NSLocalizedString(@"You have to be 200 meter from the summit and wait 24 hours before you can check in.", @"can't check in time and distance")];
         }
-        else if (![self canCheckinTime])
+        else if (!checkinTime)
         {
             [aCheckinDescription appendString:NSLocalizedString(@"You have to wait 24 hours before you can check in.", @"can't check in time")];
         }
-        else if (![self canCheckinDistance])
+        else if (!checkinDistance)
         {
             [aCheckinDescription appendString:NSLocalizedString(@"You have to be 200 meter from the summit before you can check in.", @"can't check in distance")];
         }
