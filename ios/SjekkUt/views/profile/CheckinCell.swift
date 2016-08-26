@@ -13,10 +13,14 @@ class CheckinCell: UITableViewCell {
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
 
-    var checkin:Checkin? {
+    var place:Place? {
         didSet {
-            nameLabel.text = checkin?.place?.name
-            dateLabel.text = checkin?.timeAgo()
+            nameLabel.text = place?.name
+        }
+    }
+    var count:Int = 0 {
+        didSet {
+            dateLabel.text = "\(count)"
         }
     }
 }

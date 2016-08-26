@@ -15,7 +15,7 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
     @IBOutlet var tableView: UITableView!
     @IBOutlet var statHeaderView: UIView!
 
-    var checkins: NSFetchedResultsController?
+    var checkins:[[String:AnyObject]] = [[String:AnyObject]]()
     var tempStatData = [
         ["name": "one", "value": "1/1"],
         ["name": "two", "value": "2/2"],
@@ -35,7 +35,7 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let placeView = segue.destinationViewController as! PlaceView
-        if let aPlace:Place = ((sender as! CheckinCell).checkin?.place)! as Place {
+        if let aPlace:Place = ((sender as! CheckinCell).place)! as Place {
             placeView.place = aPlace
         }
     }
@@ -64,14 +64,11 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
     // MARK: table data
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return (checkins!.sections?.count)!
+        return 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sectionInfo:NSFetchedResultsSectionInfo = checkins!.sections![section] {
-            return sectionInfo.numberOfObjects
-        }
-        return 0
+        return checkins.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -81,28 +78,45 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let aCheckinCell = cell as! CheckinCell
-        let aCheckin = checkins?.objectAtIndexPath(indexPath) as! Checkin
-        aCheckinCell.checkin = aCheckin
+        let placeName = checkins[indexPath.row]["place.name"]
+        aCheckinCell.nameLabel.text = placeName as! String
+        let checkinCount = checkins[indexPath.row]["count"]
+        aCheckinCell.dateLabel.text = "\(checkinCount!)"
     }
 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return NSLocalizedString("Checkins", comment: "section header in checkin log")
     }
 
-    func getCheckins() -> NSFetchedResultsController {
+    func getCheckins() -> [[String:AnyObject]] {
         let checkinsFetch = Checkin.fetch()
-        checkinsFetch.sortDescriptors = [NSSortDescriptor(key:"date", ascending: false)]
         checkinsFetch.predicate = NSPredicate(format: "user == %@", argumentArray: [DntApi.instance.user!])
-        
-        let aCheckins = NSFetchedResultsController(fetchRequest: checkinsFetch, managedObjectContext: ModelController.instance().managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        aCheckins.delegate = self
 
+        let placeDesc:NSRelationshipDescription = checkinsFetch.entity!.relationshipsByName["place"]!;
+        let keyPathExpression:NSExpression = NSExpression(forKeyPath:"identifier") // Does not really matter
+        let countExpression:NSExpression = NSExpression(forFunction:"count:", arguments: [keyPathExpression])
+
+        let expressionDescription:NSExpressionDescription = NSExpressionDescription()
+        expressionDescription.name = "count"
+        expressionDescription.expression = countExpression
+        expressionDescription.expressionResultType = .Integer32AttributeType
+
+        checkinsFetch.propertiesToFetch = [placeDesc, "place.name", expressionDescription];
+        checkinsFetch.propertiesToGroupBy = ["place", "place.name"];
+        checkinsFetch.resultType = .DictionaryResultType
+
+        var aResult = [[String:AnyObject]]()
         do {
-            try aCheckins.performFetch()
+            aResult = try ModelController.instance().managedObjectContext.executeFetchRequest(checkinsFetch) as! [[String:AnyObject]]
+            return aResult.sort {item1, item2 in
+                let count1 = item1["count"] as! Int
+                let count2 = item2["count"] as! Int
+                return count1 > count2
+            }
         } catch {
-            fatalError("Failed to initialize FetchedResultsController: \(error)")
+            fatalError("Failed to fetch: \(error)")
         }
 
-        return aCheckins
+        return aResult
     }
 }
