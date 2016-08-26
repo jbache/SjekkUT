@@ -61,6 +61,12 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         return UIEdgeInsetsZero
     }
 
+    // MARK: table interaction
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
+
     // MARK: table data
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -79,8 +85,10 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let aCheckinCell = cell as! CheckinCell
         let placeName = checkins[indexPath.row]["place.name"]
-        aCheckinCell.nameLabel.text = placeName as! String
         let checkinCount = checkins[indexPath.row]["count"]
+        let aPlaceId = checkins[indexPath.row]["place.identifier"]
+        let aPlace = Place.findWithId(aPlaceId!)
+        aCheckinCell.place = aPlace
         aCheckinCell.dateLabel.text = "\(checkinCount!)"
     }
 
@@ -101,8 +109,8 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         expressionDescription.expression = countExpression
         expressionDescription.expressionResultType = .Integer32AttributeType
 
-        checkinsFetch.propertiesToFetch = [placeDesc, "place.name", expressionDescription];
-        checkinsFetch.propertiesToGroupBy = ["place", "place.name"];
+        checkinsFetch.propertiesToFetch = [placeDesc, "place.name", "place.identifier", expressionDescription];
+        checkinsFetch.propertiesToGroupBy = ["place", "place.name", "place.identifier"];
         checkinsFetch.resultType = .DictionaryResultType
 
         var aResult = [[String:AnyObject]]()
