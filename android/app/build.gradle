@@ -20,8 +20,8 @@ android {
         applicationId "no.dnt.sjekkut"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 11
-        versionName "0.1.1"
+        versionCode 20
+        versionName "0.2.0"
         archivesBaseName = "SjekkUT_v${versionName}"
         resValue "string", "client_id", new File('../secret/www.dnt.no.client_id').text
         resValue "string", "client_secret", new File('../secret/www.dnt.no.client_secret').text
