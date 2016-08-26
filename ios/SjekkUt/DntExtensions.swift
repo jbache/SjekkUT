@@ -35,6 +35,10 @@ extension String {
         }
         return fileContents
     }
+
+    func URL() -> NSURL? {
+        return NSURL(string:self)
+    }
 }
 
 extension NSString {

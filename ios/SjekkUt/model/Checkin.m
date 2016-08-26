@@ -49,6 +49,7 @@
 - (void)update:(NSDictionary *)json
 {
     NSDateFormatter *dateFormatter = [self dateFormatter];
+    setIfNotEqual(self.url, json[@"sharing_url"]);
     setIfNotEqual(self.date, [dateFormatter dateFromString:json[@"timestamp"]]);
     NSString *mountainId = [NSString stringWithFormat:@"%@", json[@"ntb_steder_id"]];
     if (self.place == nil && mountainId.length > 0)

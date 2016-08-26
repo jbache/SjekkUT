@@ -48,6 +48,13 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     }
 
     @IBAction func shareClicked(sender: AnyObject) {
+        if let aURL = NSURL(string:(checkin?.url)!) {
+            let activityView:UIActivityViewController = UIActivityViewController(activityItems: [aURL], applicationActivities: nil)
+            activityView.completionWithItemsHandler = { activity, success, items, error in
+                self.dismissViewControllerAnimated(true, completion:nil)
+            }
+            self.navigationController?.presentViewController(activityView, animated: true, completion: nil)
+        }
     }
 
     func showMap() {
@@ -65,9 +72,19 @@ class PlaceView : UITableViewController, UITextViewDelegate {
 
     // MARK: viewcontroller
     override func viewDidLoad() {
+        shareButton.hidden = true
         if (place != nil) {
             sjekkUtApi.getPlaceCheckins(place!)
             placeCell.place = place
+        }
+
+        checkin = checkin ?? place?.lastCheckinForUser(DntApi.instance.user!)
+
+        // don't bother with sharing if there is nothing to share
+        if let aCheckin = checkin {
+            if let urlString = aCheckin.url {
+                shareButton.hidden = !UIApplication.sharedApplication().canOpenURL(NSURL(string: urlString)!)
+            }
         }
     }
 

@@ -5,6 +5,7 @@
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitute" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="checkins" inverseEntity="Place" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DntUser" inverseName="checkins" inverseEntity="DntUser" syncable="YES"/>
     </entity>
@@ -66,7 +67,7 @@
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DntUser" inverseName="projects" inverseEntity="DntUser" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Checkin" positionX="187" positionY="-1" width="128" height="133"/>
+        <element name="Checkin" positionX="187" positionY="-1" width="128" height="150"/>
         <element name="DntGroup" positionX="99" positionY="153" width="128" height="105"/>
         <element name="DntImage" positionX="18" positionY="63" width="128" height="135"/>
         <element name="DntImageSize" positionX="117" positionY="171" width="128" height="120"/>

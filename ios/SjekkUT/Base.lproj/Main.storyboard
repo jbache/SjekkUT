@@ -6,11 +6,9 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.ttf">
-            <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -197,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aPN-1S-7MK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1081" y="-1047"/>
+            <point key="canvasLocation" x="1021" y="-1151"/>
         </scene>
         <!--Place List View-->
         <scene sceneID="ufC-wZ-h7g">
@@ -515,47 +513,31 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X32-B9-KX4">
-                        <rightBarButtonItems>
-                            <barButtonItem width="44" id="8Y5-Nk-pUr">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CVA-0O-3fp">
-                                    <rect key="frame" x="536" y="0.0" width="44" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                    <state key="normal" title="">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="Kdc-FD-Ixi" kind="show" id="QTY-eV-LTY"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem width="44" id="Xz8-rr-Ue2">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oJ6-8u-0f3">
-                                    <rect key="frame" x="484" y="0.0" width="44" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                    <state key="normal" title="">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="feedbackClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nOD-jY-Q0U"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" width="44" id="Xz8-rr-Ue2">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oJ6-8u-0f3">
+                                <rect key="frame" x="536" y="0.0" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                <state key="normal" title="">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="feedbackClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nOD-jY-Q0U"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="checkinButton" destination="IBq-T2-jaY" id="oCf-37-j43"/>
                         <outlet property="feedbackButton" destination="oJ6-8u-0f3" id="pqs-IM-StD"/>
-                        <outlet property="infoButton" destination="CVA-0O-3fp" id="oJu-E6-Aj4"/>
                         <outlet property="placesTable" destination="GnW-WU-cKB" id="LHw-82-Yrc"/>
                         <segue destination="Jt5-sv-F5Z" kind="show" identifier="showPlace" id="TOc-wB-BP5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1031" y="-368"/>
+            <point key="canvasLocation" x="1021" y="-368"/>
         </scene>
         <!--Login View-->
         <scene sceneID="jM2-73-Qb8">
@@ -768,88 +750,6 @@
             </objects>
             <point key="canvasLocation" x="214" y="-368"/>
         </scene>
-        <!--Rules View-->
-        <scene sceneID="Ga3-sW-23G">
-            <objects>
-                <viewController id="Kdc-FD-Ixi" customClass="RulesView" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="KrU-aa-Ces"/>
-                        <viewControllerLayoutGuide type="bottom" id="msR-KL-e74"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QAg-ou-EZc">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AH6-Ei-tvP">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Slik deltar du">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">
-
-Opp24 er et turkonsept som går ut på å besøke den høyeste toppen i hver kommune i Sør-Trøndelag. Totalt er det 24 topper i fylkets 25 kommuner.  
-
-Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene får du en flott premie. I tillegg blir det uttrekkspremier blant alle som deltar!
-
-</string>
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="Konkurranseregler">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">
-
-- Alle kan delta på Opp24
-- Det er gratis å delta på Opp24
-- For å kunne delta i konkurransen må du registrere navn og e-postadresse i appen
-- Du kan kun sjekke inn når du er i nærheten av en topp (maksimum 200 meter unna)
-- Du kan sjekke inn så mange ganger du vil på hver topp, men kun én gang i døgnet 
-- Alle som har sjekket inn på alle 24 toppene vil bli kontaktet av Trondhjems Turistforening
-</string>
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="- Apple er ikke på noen måte involvert i Opp24.">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="AH6-Ei-tvP" firstAttribute="leading" secondItem="QAg-ou-EZc" secondAttribute="leading" id="9q3-nC-Ief"/>
-                            <constraint firstItem="msR-KL-e74" firstAttribute="top" secondItem="AH6-Ei-tvP" secondAttribute="bottom" id="KZc-b6-Vim"/>
-                            <constraint firstAttribute="trailing" secondItem="AH6-Ei-tvP" secondAttribute="trailing" id="Vtw-uC-2QC"/>
-                            <constraint firstItem="AH6-Ei-tvP" firstAttribute="top" secondItem="KrU-aa-Ces" secondAttribute="bottom" id="wRR-kM-aac"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="textView" destination="AH6-Ei-tvP" id="Xgm-br-v2k"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3aV-Pw-ilo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1809" y="-844"/>
-        </scene>
         <!--Place Search-->
         <scene sceneID="Lk1-xu-eMU">
             <objects>
@@ -891,7 +791,7 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
             </objects>
             <point key="canvasLocation" x="1809" y="68"/>
         </scene>
-        <!--Title-->
+        <!--Place View-->
         <scene sceneID="HPg-GC-9bC">
             <objects>
                 <tableViewController id="Jt5-sv-F5Z" customClass="PlaceView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
@@ -1213,7 +1113,7 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
                             <outlet property="delegate" destination="Jt5-sv-F5Z" id="eH7-pu-Rwk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="75k-d1-Gl6">
+                    <navigationItem key="navigationItem" id="75k-d1-Gl6">
                         <barButtonItem key="rightBarButtonItem" id="5cP-WR-erQ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hQM-Dp-f9c">
                                 <rect key="frame" x="540" y="7" width="40" height="30"/>
@@ -1272,6 +1172,6 @@ Alle kan delta på Opp24, og det er helt gratis! Bestiger du alle de 24 toppene 
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="TOc-wB-BP5"/>
+        <segue reference="cNC-kT-LwS"/>
     </inferredMetricsTieBreakers>
 </document>

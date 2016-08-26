@@ -13,7 +13,6 @@
 		6C04BE3A1D61C60500741C42 /* DntImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C04BE381D61C60500741C42 /* DntImageSize.m */; };
 		6C08F6791A8A0ACD0091D70A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C08F67B1A8A0ACD0091D70A /* Localizable.strings */; };
 		6C0B635E1D6EDD14007F737A /* CheckinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B635D1D6EDD14007F737A /* CheckinButton.swift */; };
-		6C1409A41B3000F700392F64 /* RulesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1409A31B3000F700392F64 /* RulesView.m */; };
 		6C1F114A1B1087DA0003DD2B /* NSDateFormatter+instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */; };
 		6C2F4EF11AE6348400E12F4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2F4EEF1AE6348400E12F4E /* InfoPlist.strings */; };
 		6C35DAAC1D535A930048114B /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35DAAB1D535A930048114B /* PlaceSearch.swift */; };
@@ -130,8 +129,6 @@
 		6C08F6801A8A2B9B0091D70A /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		6C0B635D1D6EDD14007F737A /* CheckinButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckinButton.swift; path = views/CheckinButton.swift; sourceTree = "<group>"; };
 		6C0E0DE61A9E0AE2004C760A /* 1.0.3.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.3.5.xcdatamodel; sourceTree = "<group>"; };
-		6C1409A21B3000F700392F64 /* RulesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RulesView.h; path = views/RulesView.h; sourceTree = "<group>"; };
-		6C1409A31B3000F700392F64 /* RulesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RulesView.m; path = views/RulesView.m; sourceTree = "<group>"; };
 		6C1D7A051B14BFF900007FAB /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		6C1F11481B1087DA0003DD2B /* NSDateFormatter+instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+instance.h"; path = "utils/NSDateFormatter+instance.h"; sourceTree = "<group>"; };
 		6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+instance.m"; path = "utils/NSDateFormatter+instance.m"; sourceTree = "<group>"; };
@@ -386,8 +383,6 @@
 				6C6FE15A1A82332C002B5DD5 /* Main.storyboard */,
 				6C7064531A83824E00291137 /* SummitView.h */,
 				6C7064541A83824E00291137 /* SummitView.m */,
-				6C1409A21B3000F700392F64 /* RulesView.h */,
-				6C1409A31B3000F700392F64 /* RulesView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -846,7 +841,6 @@
 				6C6FE1501A82332C002B5DD5 /* main.m in Sources */,
 				6C04BE3A1D61C60500741C42 /* DntImageSize.m in Sources */,
 				6C92E3751D66F3B500464AAE /* ProfileView.swift in Sources */,
-				6C1409A41B3000F700392F64 /* RulesView.m in Sources */,
 				6C92E37D1D6C4E5000464AAE /* DntUser.m in Sources */,
 				6CC799C31D52110B00DFAF10 /* Checkin+CoreDataProperties.m in Sources */,
 				6C36A13F1B0C99B200169E98 /* Challenge.m in Sources */,
