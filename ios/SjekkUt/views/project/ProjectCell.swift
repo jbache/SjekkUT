@@ -10,12 +10,6 @@ import Foundation
 import Alamofire
 import AlamofireImage
 
-var kObservationContextImages = 0
-var kObservationContextPlaces = 0
-var kObservationContextName = 0
-var kObservationContextDistance = 0
-var kObservationContextGroups = 0
-
 // thanks to http://stackoverflow.com/a/37032476
 public struct CoreImageFilter: ImageFilter {
 
@@ -37,6 +31,11 @@ public struct CoreImageFilter: ImageFilter {
 class ProjectCell: UITableViewCell {
 
     var isObserving = false
+    var kObservationContextImages = 0
+    var kObservationContextPlaces = 0
+    var kObservationContextName = 0
+    var kObservationContextDistance = 0
+    var kObservationContextGroups = 0
 
     @IBOutlet weak var backgroundContainer: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -199,8 +198,10 @@ class ProjectCell: UITableViewCell {
             project?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObservationContextImages)
             project?.addObserver(self, forKeyPath: "places", options: .Initial, context: &kObservationContextPlaces)
             project?.addObserver(self, forKeyPath: "groups", options: .Initial, context: &kObservationContextGroups)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setupProgressLabel), name: kSjekkUtNotificationCheckinChanged, object: nil)
             isObserving = true
         }
+
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -221,7 +222,7 @@ class ProjectCell: UITableViewCell {
             }
         }
         else if(context == &kObservationContextPlaces) {
-            self.progressLabel.text = project?.progressDescriptionShort()
+            setupProgressLabel()
             self.countyMunicipalityLabel.text = project?.countyMunicipalityDescription()
         }
         else if(context == &kObservationContextName) {
@@ -247,6 +248,7 @@ class ProjectCell: UITableViewCell {
             project?.removeObserver(self, forKeyPath: "name")
             project?.removeObserver(self, forKeyPath: "distance")
             project?.removeObserver(self, forKeyPath: "groups")
+            NSNotificationCenter.defaultCenter().removeObserver(self)
             isObserving = false
         }
         // cancel any in-flight network requests

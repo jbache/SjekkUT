@@ -271,6 +271,7 @@
 {
     NSNumber *isParticipating = [NSNumber numberWithBool:(self.progress.doubleValue > 0.0001)];
     setIfNotEqual(self.isParticipating, isParticipating);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];
 }
 
 - (NSArray *)checkedInPlaces

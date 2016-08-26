@@ -72,8 +72,8 @@ class SjekkUtApi: Alamofire.Manager {
         self.request(.GET, requestUrl)
             .validate(statusCode:200..<300)
             .responseSwiftyJSON { response in
-                if let checkinsJson = response.result.value!["data"]["innsjekkinger"].array {
-                    self.updateCheckins(checkinsJson)
+                if let checkinsJson:JSON = response.result.value!["data"] {
+                    self.updateCheckins(checkinsJson.array!)
                 }
         }
     }
