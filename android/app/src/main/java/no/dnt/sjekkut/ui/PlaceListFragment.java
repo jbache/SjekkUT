@@ -26,7 +26,6 @@ import java.util.List;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Checkin;
-import no.dnt.sjekkut.network.Mountain;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import retrofit2.Call;
@@ -189,9 +188,9 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Mountain mountain = (Mountain) getListView().getItemAtPosition(position);
+        // TODO: pass in the Place clicked on
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, CheckinFragment.newInstance(mountain))
+                .replace(R.id.container, CheckinFragment.newInstance(null))
                 .addToBackStack(CheckinFragment.class.getCanonicalName())
                 .commit();
     }
