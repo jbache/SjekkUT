@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)currentUser;
 + (void)setCurrentUser:(DntUser *_Nullable)aUser;
-+ (instancetype)insertOrUpdate:(NSDictionary *)json;
++ (instancetype)insertOrUpdate:(id)json;
 + (instancetype)findWithId:(id)identifier;
 
 - (NSString *)fullName;

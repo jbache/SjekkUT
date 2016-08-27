@@ -84,7 +84,6 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let aCheckinCell = cell as! CheckinCell
-        let placeName = checkins[indexPath.row]["place.name"]
         let checkinCount = checkins[indexPath.row]["count"]
         let aPlaceId = checkins[indexPath.row]["place.identifier"]
         let aPlace = Place.findWithId(aPlaceId!)
