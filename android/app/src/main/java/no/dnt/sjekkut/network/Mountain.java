@@ -11,8 +11,7 @@ import java.io.Serializable;
  */
 public class Mountain implements Serializable {
 
-    private static final int MAP_MAX_SIZE = 640;
-    private static final float MAX_DISTANCE_FOR_USER_MARKER_METERS = 3000.0f;
+
 
     public static class LocationContainer implements Serializable {
         public double Lat;
@@ -48,28 +47,6 @@ public class Mountain implements Serializable {
             return infoUrl;
         else
             return null;
-    }
-
-    public String getMapUrl(int width, int height, Location userLocation, int zoomLevel) {
-        if (width > MAP_MAX_SIZE || height > MAP_MAX_SIZE) {
-            float scaleFactor;
-            if (height > width) {
-                scaleFactor = MAP_MAX_SIZE / (float) height;
-            } else {
-                scaleFactor = MAP_MAX_SIZE / (float) width;
-            }
-            width *= scaleFactor;
-            height *= scaleFactor;
-        }
-
-        String latLong = getLocation().getLatitude() + "," + getLocation().getLongitude();
-        String widthHeight = width + "x" + height;
-        int scale = 2;
-        String staticMapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latLong + "&zoom=" + zoomLevel + "&size=" + widthHeight + "&scale=" + scale + "&maptype=terrain&key=AIzaSyDSn0vYqHUuazbG5PPIYm-HYu-Wi2qbcCM&markers=" + latLong;
-        if (userLocation != null && getLocation().distanceTo(userLocation) < MAX_DISTANCE_FOR_USER_MARKER_METERS) {
-            staticMapUrl += "&markers=color:green%7C" + userLocation.getLatitude() + "," + userLocation.getLongitude();
-        }
-        return staticMapUrl;
     }
 
     @Override

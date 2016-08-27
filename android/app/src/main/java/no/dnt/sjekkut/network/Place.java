@@ -31,8 +31,13 @@ public class Place {
     }
 
     public boolean hasLocation() {
-        return geojson != null && geojson.getLocation() != null;
+        return getLocation() != null;
     }
+
+    public Location getLocation() {
+        return geojson != null ? geojson.getLocation() : null;
+    }
+
 
     public String getImageUrl(int preferredWidth) {
         if (bilder != null && bilder.size() >= 1) {

@@ -48,7 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ProjectListFragment.ProjectListListener, ProfileStatsFragment.ProfileStatsListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ProjectListFragment.ProjectListListener, ProfileStatsFragment.ProfileStatsListener, PlaceListFragment.PlaceListListener {
 
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final long MAX_LOCATION_TIME_DELTA_MS = 60 * 1000;
@@ -397,6 +397,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onLogout() {
         Utils.logout(this);
+    }
+
+    @Override
+    public void onPlaceClicked(Place place) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, PlaceFragment.newInstance(place._id))
+                .addToBackStack(PlaceFragment.class.getCanonicalName())
+                .commit();
     }
 
     public static class ErrorDialogFragment extends DialogFragment {

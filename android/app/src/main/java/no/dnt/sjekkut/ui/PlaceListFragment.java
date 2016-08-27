@@ -1,5 +1,6 @@
 package no.dnt.sjekkut.ui;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import java.util.List;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Checkin;
+import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import retrofit2.Call;
@@ -39,7 +41,7 @@ import retrofit2.Response;
  */
 public class PlaceListFragment extends ListFragment implements LocationListener, View.OnClickListener {
 
-    private static final java.lang.String PROJECT_ID = "project_id";
+    private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final List<Checkin> mCheckins;
     private final Callback<Project> mProjectCallback;
     private final LocationRequest mLocationRequest;
@@ -47,6 +49,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     private Location mLastLocation = null;
     private ProjectAdapter mProjectAdapter = null;
     private ProjectAdapter.ProjectHolder mHeaderViewHolder = null;
+    private PlaceListListener mListener;
     private String mProjectId;
 
     public PlaceListFragment() {
@@ -94,7 +97,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     static PlaceListFragment newInstance(String projectId) {
         PlaceListFragment fragment = new PlaceListFragment();
         Bundle args = new Bundle();
-        args.putString(PROJECT_ID, projectId);
+        args.putString(BUNDLE_PROJECT_ID, projectId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -132,9 +135,26 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof PlaceListListener) {
+            mListener = (PlaceListListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement PlaceListListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mProjectId = getArguments().getString(PROJECT_ID, "");
+        mProjectId = getArguments().getString(BUNDLE_PROJECT_ID, "");
         if (mHeaderViewHolder == null) {
             mHeaderViewHolder = mProjectAdapter.onCreateViewHolder(getListView(), 0);
         }
@@ -179,20 +199,18 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
         switch (v.getId()) {
             case R.id.fab:
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, CheckinFragment.newInstance(null))
-                        .addToBackStack(CheckinFragment.class.getCanonicalName())
+                        .replace(R.id.container, PlaceFragment.newInstance(null))
+                        .addToBackStack(PlaceFragment.class.getCanonicalName())
                         .commit();
                 break;
         }
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        // TODO: pass in the Place clicked on
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, CheckinFragment.newInstance(null))
-                .addToBackStack(CheckinFragment.class.getCanonicalName())
-                .commit();
+    public void onListItemClick(ListView listView, View v, int position, long id) {
+        if (mListener != null) {
+            mListener.onPlaceClicked((Place) listView.getItemAtPosition(position));
+        }
     }
 
     @Override
@@ -210,5 +228,9 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
         mLastLocation = location;
         mPlaceAdapter.sortByDistance(mLastLocation);
         mProjectAdapter.updateLocation(mLastLocation);
+    }
+
+    interface PlaceListListener {
+        void onPlaceClicked(Place place);
     }
 }

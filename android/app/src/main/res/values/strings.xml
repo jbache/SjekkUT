@@ -68,6 +68,7 @@
     <string name="antallbesøk">%d besøk</string>
     <string name="logout">Logg ut</string>
     <string name="username_unknown">Ukjent</string>
+    <string name="callback_collecting_place_data">Henter informasjon om stedet</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

@@ -42,6 +42,8 @@ import no.dnt.sjekkut.ui.LoginActivity;
 public class Utils {
 
     private static Toast sGlobalToast = null;
+    private static final int MAP_MAX_SIZE = 640;
+    private static final float MAX_DISTANCE_FOR_USER_MARKER_METERS = 3000.0f;
 
     public static String getDeviceID(Context context) {
         if (context == null)
@@ -272,5 +274,27 @@ public class Utils {
         }
 
         return one.compareToIgnoreCase(two);
+    }
+
+    public static String getMapUrl(int width, int height, Location mapLocation, Location userLocation, int zoomLevel) {
+        if (width > MAP_MAX_SIZE || height > MAP_MAX_SIZE) {
+            float scaleFactor;
+            if (height > width) {
+                scaleFactor = MAP_MAX_SIZE / (float) height;
+            } else {
+                scaleFactor = MAP_MAX_SIZE / (float) width;
+            }
+            width *= scaleFactor;
+            height *= scaleFactor;
+        }
+
+        String latLong = mapLocation.getLatitude() + "," + mapLocation.getLongitude();
+        String widthHeight = width + "x" + height;
+        int scale = 2;
+        String staticMapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latLong + "&zoom=" + zoomLevel + "&size=" + widthHeight + "&scale=" + scale + "&maptype=terrain&key=AIzaSyDSn0vYqHUuazbG5PPIYm-HYu-Wi2qbcCM&markers=" + latLong;
+        if (userLocation != null && mapLocation.distanceTo(userLocation) < MAX_DISTANCE_FOR_USER_MARKER_METERS) {
+            staticMapUrl += "&markers=color:green%7C" + userLocation.getLatitude() + "," + userLocation.getLongitude();
+        }
+        return staticMapUrl;
     }
 }
