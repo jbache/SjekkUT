@@ -28,14 +28,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
-import no.dnt.sjekkut.network.Place;
-import no.dnt.sjekkut.network.PlaceCheckinList;
+import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.ProjectList;
 import no.dnt.sjekkut.network.TripApiSingleton;
+import no.dnt.sjekkut.network.UserCheckins;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,15 +45,31 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
 
     final private ProjectListCallback mProjectListCallback = new ProjectListCallback();
     final private ProjectCallback mProjectCallback = new ProjectCallback();
-    final private PlaceCheckinListCallback mPlaceCheckinCallback = new PlaceCheckinListCallback();
+    final private Callback<UserCheckins> mUserCheckinsCallback;
     final private LocationRequest mLocationRequest = LocationRequestUtils.repeatingRequest();
     @BindView(R.id.projectlist)
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    private ProjectAdapter mProjectAdapter;
     private ProjectListListener mListener;
 
     public ProjectListFragment() {
+        mUserCheckinsCallback = new Callback<UserCheckins>() {
+            @Override
+            public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
+                if (response.isSuccessful()) {
+                    setUserCheckins(response.body().getCheckins());
+                } else {
+                    Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserCheckins> call, Throwable t) {
+                Utils.showToast(getActivity(), "Failed to get user checkins: " + t);
+            }
+        };
     }
 
     @SuppressWarnings("unused")
@@ -85,12 +102,14 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
             });
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        mRecyclerView.setAdapter(new ProjectAdapter(mListener));
+        mProjectAdapter = new ProjectAdapter(mListener);
+        mRecyclerView.setAdapter(mProjectAdapter);
         Paint textPainter = new Paint();
         textPainter.setColor(Color.BLACK);
         textPainter.setTextSize(30);
         mRecyclerView.addItemDecoration(new ProjectSeparator(textPainter, 80));
         TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
+        CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getActivity())).enqueue(mUserCheckinsCallback);
         return view;
     }
 
@@ -134,40 +153,28 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
         mListener = null;
     }
 
-    private ProjectAdapter getProjectAdapter() {
-        if (getView() != null) {
-            RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.projectlist);
-            if (recyclerView != null) {
-                if (recyclerView.getAdapter() instanceof ProjectAdapter) {
-                    return (ProjectAdapter) recyclerView.getAdapter();
-                }
-            }
-        }
-        return null;
-    }
-
     private void setList(List<Project> projectList) {
-        if (getProjectAdapter() != null) {
-            getProjectAdapter().setList(projectList);
+        if (mProjectAdapter != null) {
+            mProjectAdapter.setList(projectList);
         }
     }
 
     private void updateProject(Project project) {
-        if (getProjectAdapter() != null) {
-            getProjectAdapter().updateProject(project);
+        if (mProjectAdapter != null) {
+            mProjectAdapter.updateProject(project);
         }
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        if (getProjectAdapter() != null) {
-            getProjectAdapter().updateLocation(location);
+        if (mProjectAdapter != null) {
+            mProjectAdapter.updateLocation(location);
         }
     }
 
-    private void updateCheckins(PlaceCheckinList placeCheckinList) {
-        if (getProjectAdapter() != null) {
-            getProjectAdapter().updatePlaceCheckins(placeCheckinList);
+    private void setUserCheckins(List<PlaceCheckin> userCheckins) {
+        if (mProjectAdapter != null) {
+            mProjectAdapter.setUserCheckins(userCheckins);
         }
     }
 
@@ -178,8 +185,8 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (getProjectAdapter() != null) {
-            getProjectAdapter().filter(newText);
+        if (mProjectAdapter != null) {
+            mProjectAdapter.filter(newText);
         }
         return true;
     }
@@ -223,9 +230,6 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
         public void onResponse(Call<Project> call, Response<Project> response) {
             if (response.isSuccessful()) {
                 updateProject(response.body());
-                for (Place place : response.body().steder) {
-                    CheckinApiSingleton.call().getPlaceCheckinList(place._id).enqueue(mPlaceCheckinCallback);
-                }
             } else {
                 Utils.showToast(getActivity(), "Failed to get project: " + response.code());
             }
@@ -236,22 +240,4 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
             Utils.showToast(getActivity(), "Failed to get project: " + t.getLocalizedMessage());
         }
     }
-
-    private class PlaceCheckinListCallback implements Callback<PlaceCheckinList> {
-
-        @Override
-        public void onResponse(Call<PlaceCheckinList> call, Response<PlaceCheckinList> response) {
-            if (response.isSuccessful()) {
-                updateCheckins(response.body());
-            } else {
-                Utils.showToast(getActivity(), "Failed to get place checkin list: " + response.code());
-            }
-        }
-
-        @Override
-        public void onFailure(Call<PlaceCheckinList> call, Throwable t) {
-            Utils.showToast(getActivity(), "Failed to get place checkin list: " + t.getLocalizedMessage());
-        }
-    }
-
 }

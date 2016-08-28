@@ -24,12 +24,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Checkin;
+import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.TripApiSingleton;
+import no.dnt.sjekkut.network.UserCheckins;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +47,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final List<Checkin> mCheckins;
     private final Callback<Project> mProjectCallback;
+    private final Callback<UserCheckins> mUserCheckinsCallback;
     private final LocationRequest mLocationRequest;
     private PlaceAdapter mPlaceAdapter;
     private Location mLastLocation = null;
@@ -83,6 +87,22 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
 
                 setListShown(true);
                 setEmptyText(getString(R.string.no_mountains_found));
+            }
+        };
+
+        mUserCheckinsCallback = new Callback<UserCheckins>() {
+            @Override
+            public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
+                if (response.isSuccessful()) {
+                    mProjectAdapter.setUserCheckins(response.body().getCheckins());
+                } else {
+                    Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserCheckins> call, Throwable t) {
+                Utils.showToast(getActivity(), "Failed to get user checkins: " + t);
             }
         };
         mProjectAdapter = new ProjectAdapter(null);
@@ -172,6 +192,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
         Utils.toggleUpButton(getActivity(), true);
         Utils.setActionBarTitle(getActivity(), "Prosjekt");
         fetchPlaces();
+        fetchCheckins();
     }
 
     private void fetchPlaces() {
@@ -185,6 +206,11 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
             ).enqueue(mProjectCallback);
         }
     }
+
+    private void fetchCheckins() {
+        CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getActivity())).enqueue(mUserCheckinsCallback);
+    }
+
 
     private void updateHeader() {
         if (getView() == null || getListView() == null || mHeaderViewHolder == null || mProjectAdapter.getItemCount() <= 0) {

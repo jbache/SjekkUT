@@ -18,10 +18,13 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.squareup.picasso.Picasso;
 
+import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.TripApiSingleton;
+import no.dnt.sjekkut.network.UserCheckins;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,10 +45,12 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
     private final LocationRequest mLocationRequest;
     private Location mLocation;
     private Callback<Place> mPlaceCallback;
+    private Callback<UserCheckins> mUserCheckinsCallback;
     private int mCallbackRefCount = 0;
     private String mCallbackDescription = "";
     private String mPlaceId = null;
     private Place mPlace = null;
+    private UserCheckins mUserCheckins = null;
 
     public PlaceFragment() {
         mLocationRequest = LocationRequestUtils.singleShotRequest();
@@ -66,6 +71,26 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
             public void onFailure(Call<Place> call, Throwable t) {
                 --mCallbackRefCount;
                 Utils.showToast(getActivity(), getString(R.string.checkin_no_mountain));
+                updateView();
+            }
+        };
+
+        mUserCheckinsCallback = new Callback<UserCheckins>() {
+            @Override
+            public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
+                --mCallbackRefCount;
+                if (response.isSuccessful()) {
+                    mUserCheckins = response.body();
+                } else {
+                    Utils.showToast(getActivity(), getString(R.string.checkin_no_checkins));
+                }
+                updateView();
+            }
+
+            @Override
+            public void onFailure(Call<UserCheckins> call, Throwable t) {
+                --mCallbackRefCount;
+                Utils.showToast(getActivity(), getString(R.string.checkin_no_checkins));
                 updateView();
             }
         };
@@ -116,10 +141,14 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         TripApiSingleton.call().getPlace(
                 mPlaceId,
                 getString(R.string.api_key),
-                "bilder"
-        ).enqueue(mPlaceCallback);
+                "bilder")
+                .enqueue(mPlaceCallback);
         ++mCallbackRefCount;
-        mCallbackDescription = getString(R.string.callback_collecting_place_data);
+        CheckinApiSingleton.call().getUserCheckins(
+                PreferenceUtils.getUserId(getActivity()))
+                .enqueue(mUserCheckinsCallback);
+        ++mCallbackRefCount;
+        mCallbackDescription = getString(R.string.callback_checkins_and_statistics);
         updateView();
     }
 
@@ -185,8 +214,8 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
             countyAndHeight.setText(getString(R.string.county_and_height, county, height));
         }
         TextView summits = (TextView) getView().findViewById(R.id.summits);
-        if (summits != null) {
-            int count = 0; // TODO: add proper visit count
+        if (summits != null && mUserCheckins != null) {
+            int count = mUserCheckins.getNumberOfVisits(mPlaceId);
             summits.setText(getString(R.string.summits, count));
         }
         TextView distance = (TextView) getView().findViewById(R.id.distance);

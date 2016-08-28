@@ -18,7 +18,7 @@ public enum CheckinApiSingleton {
     INSTANCE;
 
     private final CheckinApi api = new Retrofit.Builder()
-            .baseUrl("https://sjekkut.app.dnt.no/v1/")
+            .baseUrl("https://sjekkut.app.dnt.no/v2/")
             .client(OkHttpSingleton.getClient())
             .addConverterFactory(GsonConverterFactory.create(GsonSingleton.allAdaptors()))
             .build().create(CheckinApi.class);
@@ -34,6 +34,9 @@ public enum CheckinApiSingleton {
 
         @GET("steder/{id}/stats")
         Call<PlaceCheckinStats> getPlaceCheckinStats(@Path("id") String placeId);
+
+        @GET("brukere/{id}")
+        Call<UserCheckins> getUserCheckins(@Path("id") String userId);
 
         @POST("steder/{id}/besok")
         Call<CheckinResult> postPlaceCheckin(@Header("X-User-Id") String userId, @Header("X-User-Token") String userToken, @Path("id") String placeId, @Body CheckinLocation location);

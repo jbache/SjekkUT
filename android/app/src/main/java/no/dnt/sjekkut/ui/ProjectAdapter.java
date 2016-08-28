@@ -20,13 +20,10 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
-import no.dnt.sjekkut.SjekkUTApplication;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckin;
-import no.dnt.sjekkut.network.PlaceCheckinList;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.ui.ProjectListFragment.ProjectListListener;
 
@@ -183,21 +180,15 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         notifyDataSetChanged();
     }
 
-    void updatePlaceCheckins(PlaceCheckinList placeCheckinList) {
-        if (placeCheckinList != null && placeCheckinList.data != null && !placeCheckinList.data.isEmpty()) {
-            boolean changed = false;
-            String userId = PreferenceUtils.getUserId(SjekkUTApplication.getContext());
-            for (PlaceCheckin checkin : placeCheckinList.data) {
-                if (userId.equals(checkin.dnt_user_id)) {
-                    changed = true;
-                    mPlacesVisitedByUser.add(checkin.ntb_steder_id);
-                }
-            }
-            if (changed) {
-                Collections.sort(mProjectList, mProjectComparator);
-                notifyDataSetChanged();
+    void setUserCheckins(List<PlaceCheckin> checkins) {
+        mPlacesVisitedByUser.clear();
+        if (checkins != null && !checkins.isEmpty()) {
+            for (PlaceCheckin checkin : checkins) {
+                mPlacesVisitedByUser.add(checkin.ntb_steder_id);
             }
         }
+        Collections.sort(mProjectList, mProjectComparator);
+        notifyDataSetChanged();
     }
 
     void filter(String query) {

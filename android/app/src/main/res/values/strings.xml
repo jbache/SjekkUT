@@ -69,6 +69,7 @@
     <string name="logout">Logg ut</string>
     <string name="username_unknown">Ukjent</string>
     <string name="callback_collecting_place_data">Henter informasjon om stedet</string>
+    <string name="checkin_no_checkins">Vi greide ikke hente innsjekkinger</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>
