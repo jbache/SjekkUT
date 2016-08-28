@@ -4,8 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,20 +13,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.melnykov.fab.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.network.Checkin;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.Project;
@@ -42,10 +39,9 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceListFragment extends ListFragment implements LocationListener, View.OnClickListener {
+public class PlaceListFragment extends Fragment implements LocationListener, View.OnClickListener {
 
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
-    private final List<Checkin> mCheckins;
     private final Callback<Project> mProjectCallback;
     private final Callback<UserCheckins> mUserCheckinsCallback;
     private final LocationRequest mLocationRequest;
@@ -55,9 +51,14 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     private ProjectAdapter.ProjectHolder mHeaderViewHolder = null;
     private PlaceListListener mListener;
     private String mProjectId;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.placeList)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.fab)
+    FloatingActionButton mFabButton;
 
     public PlaceListFragment() {
-        mCheckins = new ArrayList<>();
         mLocationRequest = LocationRequestUtils.repeatingRequest();
         mProjectCallback = new Callback<Project>() {
             @Override
@@ -67,26 +68,15 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
 
                 if (response.isSuccessful()) {
                     mProjectAdapter.setList(Collections.singletonList(response.body()));
-                    mPlaceAdapter.setNotifyOnChange(false);
-                    mPlaceAdapter.clear();
-                    mPlaceAdapter.addAll(response.body().steder);
-                    mPlaceAdapter.sortByDistance(mLastLocation);
-                    mPlaceAdapter.setNotifyOnChange(true);
-                    mPlaceAdapter.notifyDataSetChanged();
-                    setListShown(true);
+                    mPlaceAdapter.setPlaceList(response.body().steder);
                 } else {
-                    setListShown(true);
-                    setEmptyText(getString(R.string.no_mountains_found));
+                    Utils.showToast(getActivity(), "Failed to get project: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<Project> call, Throwable t) {
-                if (getView() == null)
-                    return;
-
-                setListShown(true);
-                setEmptyText(getString(R.string.no_mountains_found));
+                Utils.showToast(getActivity(), "Failed to get project: " + t);
             }
         };
 
@@ -94,6 +84,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
             @Override
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 if (response.isSuccessful()) {
+                    mPlaceAdapter.setUserCheckins(response.body().getCheckins());
                     mProjectAdapter.setUserCheckins(response.body().getCheckins());
                 } else {
                     Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
@@ -124,20 +115,12 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View defaultListView = super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_placelist, container, false);
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        if (toolbar != null && getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        }
-        LinearLayout listContainer = (LinearLayout) rootView.findViewById(R.id.listContainer);
-        if (listContainer != null && defaultListView != null) {
-            listContainer.addView(defaultListView);
-        }
-        View fabButton = rootView.findViewById(R.id.fab);
-        if (fabButton != null) {
-            fabButton.setOnClickListener(this);
-        }
+        ButterKnife.bind(this, rootView);
+        Utils.setupSupportToolbar(getActivity(), mToolbar, "", true);
+        mPlaceAdapter = new PlaceAdapter(getActivity(), mListener);
+        mRecyclerView.setAdapter(mPlaceAdapter);
+        mFabButton.setOnClickListener(this);
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -145,7 +128,6 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        setListAdapter(null);
     }
 
     @Override
@@ -175,12 +157,12 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mProjectId = getArguments().getString(BUNDLE_PROJECT_ID, "");
+/* TODO: add back the header
         if (mHeaderViewHolder == null) {
             mHeaderViewHolder = mProjectAdapter.onCreateViewHolder(getListView(), 0);
         }
         getListView().addHeaderView(mHeaderViewHolder.itemView, null, false);
-        mPlaceAdapter = new PlaceAdapter(getActivity(), mCheckins);
-        setListAdapter(mPlaceAdapter);
+*/
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
         }
@@ -196,8 +178,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     }
 
     private void fetchPlaces() {
-        if (mPlaceAdapter.getCount() == 0) {
-            setListShown(false);
+        if (mPlaceAdapter.getItemCount() == 0) {
             TripApiSingleton.call().getProject(
                     mProjectId,
                     getString(R.string.api_key),
@@ -213,7 +194,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
 
 
     private void updateHeader() {
-        if (getView() == null || getListView() == null || mHeaderViewHolder == null || mProjectAdapter.getItemCount() <= 0) {
+        if (getView() == null || mHeaderViewHolder == null || mProjectAdapter.getItemCount() <= 0) {
             return;
         }
 
@@ -233,13 +214,6 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
     }
 
     @Override
-    public void onListItemClick(ListView listView, View v, int position, long id) {
-        if (mListener != null) {
-            mListener.onPlaceClicked((Place) listView.getItemAtPosition(position));
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.feedback:
@@ -252,7 +226,7 @@ public class PlaceListFragment extends ListFragment implements LocationListener,
 
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        mPlaceAdapter.sortByDistance(mLastLocation);
+        mPlaceAdapter.setLocation(mLastLocation);
         mProjectAdapter.updateLocation(mLastLocation);
     }
 

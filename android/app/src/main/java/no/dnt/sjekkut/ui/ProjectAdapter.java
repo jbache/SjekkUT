@@ -91,7 +91,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     @Override
     public void onBindViewHolder(final ProjectHolder holder, int position) {
         final Project project = mProjectList.get(position);
-        Context context = holder.mProjectTitle.getContext();
+        Context context = holder.itemView.getContext();
         holder.mProjectTitle.setText(project.navn);
         holder.mGroupTitle.setText(project.getFirstGroupName());
         holder.mDistanceToProject.setText(project.getDistanceToString(context, mUserLocation));
@@ -210,7 +210,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         notifyDataSetChanged();
     }
 
-    class ProjectHolder extends RecyclerView.ViewHolder {
+    static class ProjectHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         TextView mProjectTitle;
         @BindView(R.id.group)
