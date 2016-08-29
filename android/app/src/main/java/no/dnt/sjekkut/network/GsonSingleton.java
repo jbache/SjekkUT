@@ -3,6 +3,8 @@ package no.dnt.sjekkut.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
+
 /**
  * Copyright Den Norske Turistforening 2016
  * <p>
@@ -12,6 +14,7 @@ public enum GsonSingleton {
     INSTANCE;
 
     private final Gson adaptersAll = new GsonBuilder()
+            .registerTypeAdapter(Date.class, new DateSerializer())
             .registerTypeAdapter(Place.class, new PlaceDeserializer())
             .registerTypeAdapter(Photo.class, new PhotoDeserializer())
             .registerTypeAdapter(Group.class, new GroupDeserializer())

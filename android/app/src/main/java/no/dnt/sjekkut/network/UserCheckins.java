@@ -42,8 +42,15 @@ public class UserCheckins {
         if (checkins.isEmpty()) {
             return null;
         } else {
-            // TODO: find latest using timestamp
-            return checkins.get(0);
+            PlaceCheckin latestCheckin = null;
+            for (PlaceCheckin currentCheckin : checkins) {
+                if (latestCheckin == null) {
+                    latestCheckin = currentCheckin;
+                } else if (latestCheckin.timestamp.before(currentCheckin.timestamp)) {
+                    latestCheckin = currentCheckin;
+                }
+            }
+            return latestCheckin;
         }
     }
 

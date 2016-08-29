@@ -2,6 +2,8 @@ package no.dnt.sjekkut.network;
 
 import com.google.gson.JsonObject;
 
+import java.util.Date;
+
 /**
  * Copyright Den Norske Turistforening 2016
  * <p>
@@ -11,6 +13,6 @@ public class PlaceCheckin {
     String id;
     public String dnt_user_id;
     public String ntb_steder_id;
-    String timestamp;
+    public Date timestamp;
     JsonObject location;
 }
