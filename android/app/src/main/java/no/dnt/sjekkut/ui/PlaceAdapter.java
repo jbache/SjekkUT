@@ -64,7 +64,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         notifyDataSetChanged();
     }
 
-    void setPlaceList(List<Place> list) {
+    void setPlaces(List<Place> list) {
         mPlaces.clear();
         mPlaces.addAll(list);
         Collections.sort(mPlaces, mPlaceComparator);

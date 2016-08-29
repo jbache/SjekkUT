@@ -155,7 +155,7 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
 
     private void setList(List<Project> projectList) {
         if (mProjectAdapter != null) {
-            mProjectAdapter.setList(projectList);
+            mProjectAdapter.setProjects(projectList);
         }
     }
 
@@ -168,7 +168,7 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
     @Override
     public void onLocationChanged(Location location) {
         if (mProjectAdapter != null) {
-            mProjectAdapter.updateLocation(location);
+            mProjectAdapter.setLocation(location);
         }
     }
 

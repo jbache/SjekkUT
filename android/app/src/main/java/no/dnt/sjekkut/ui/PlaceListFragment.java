@@ -45,10 +45,8 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     private final Callback<Project> mProjectCallback;
     private final Callback<UserCheckins> mUserCheckinsCallback;
     private final LocationRequest mLocationRequest;
-    private PlaceAdapter mPlaceAdapter;
+    private PlaceAndProjectAdapter mPlaceAndProjectAdapter;
     private Location mLastLocation = null;
-    private ProjectAdapter mProjectAdapter = null;
-    private ProjectAdapter.ProjectHolder mHeaderViewHolder = null;
     private PlaceListListener mListener;
     private String mProjectId;
     @BindView(R.id.toolbar)
@@ -67,8 +65,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
                     return;
 
                 if (response.isSuccessful()) {
-                    mProjectAdapter.setList(Collections.singletonList(response.body()));
-                    mPlaceAdapter.setPlaceList(response.body().steder);
+                    mPlaceAndProjectAdapter.setPlaceAndProject(response.body());
                 } else {
                     Utils.showToast(getActivity(), "Failed to get project: " + response.code());
                 }
@@ -84,8 +81,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
             @Override
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 if (response.isSuccessful()) {
-                    mPlaceAdapter.setUserCheckins(response.body().getCheckins());
-                    mProjectAdapter.setUserCheckins(response.body().getCheckins());
+                    mPlaceAndProjectAdapter.setUserCheckins(response.body().getCheckins());
                 } else {
                     Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
                 }
@@ -96,13 +92,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
                 Utils.showToast(getActivity(), "Failed to get user checkins: " + t);
             }
         };
-        mProjectAdapter = new ProjectAdapter(null);
-        mProjectAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-                updateHeader();
-            }
-        });
     }
 
     static PlaceListFragment newInstance(String projectId) {
@@ -118,8 +107,8 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
         View rootView = inflater.inflate(R.layout.fragment_placelist, container, false);
         ButterKnife.bind(this, rootView);
         Utils.setupSupportToolbar(getActivity(), mToolbar, "", true);
-        mPlaceAdapter = new PlaceAdapter(getActivity(), mListener);
-        mRecyclerView.setAdapter(mPlaceAdapter);
+        mPlaceAndProjectAdapter = new PlaceAndProjectAdapter(getActivity(), mListener);
+        mRecyclerView.setAdapter(mPlaceAndProjectAdapter);
         mFabButton.setOnClickListener(this);
         setHasOptionsMenu(true);
         return rootView;
@@ -178,7 +167,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     }
 
     private void fetchPlaces() {
-        if (mPlaceAdapter.getItemCount() == 0) {
+        if (mPlaceAndProjectAdapter.getItemCount() == 0) {
             TripApiSingleton.call().getProject(
                     mProjectId,
                     getString(R.string.api_key),
@@ -190,15 +179,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
 
     private void fetchCheckins() {
         CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getActivity())).enqueue(mUserCheckinsCallback);
-    }
-
-
-    private void updateHeader() {
-        if (getView() == null || mHeaderViewHolder == null || mProjectAdapter.getItemCount() <= 0) {
-            return;
-        }
-
-        mProjectAdapter.onBindViewHolder(mHeaderViewHolder, 0);
     }
 
     @Override
@@ -226,8 +206,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
 
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        mPlaceAdapter.setLocation(mLastLocation);
-        mProjectAdapter.updateLocation(mLastLocation);
+        mPlaceAndProjectAdapter.setLocation(mLastLocation);
     }
 
     interface PlaceListListener {

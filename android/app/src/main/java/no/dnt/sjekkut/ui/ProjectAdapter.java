@@ -53,7 +53,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         };
     }
 
-    void setList(List<Project> projectList) {
+    void setProjects(List<Project> projectList) {
         mProjectList.clear();
         mProjectList.addAll(projectList);
         mPlacesVisitedByUser.clear();
@@ -174,7 +174,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         return mProjectList.size();
     }
 
-    void updateLocation(Location location) {
+    void setLocation(Location location) {
         mUserLocation = location;
         Collections.sort(mProjectList, mProjectComparator);
         notifyDataSetChanged();
@@ -192,7 +192,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     }
 
     void filter(String query) {
-        // TODO: fix this so we handle calls to setList(..) or updateProject(..) while filtering
+        // TODO: fix this so we handle calls to setProjects(..) or updateProject(..) while filtering
         if (mProjectListCopy == null) {
             mProjectListCopy = new ArrayList<>(mProjectList);
         }
