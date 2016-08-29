@@ -32,7 +32,6 @@ import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
-import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.ProjectList;
 import no.dnt.sjekkut.network.TripApiSingleton;
@@ -59,7 +58,7 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
             @Override
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 if (response.isSuccessful()) {
-                    setUserCheckins(response.body().getCheckins());
+                    setUserCheckins(response.body());
                 } else {
                     Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
                 }
@@ -172,7 +171,7 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
         }
     }
 
-    private void setUserCheckins(List<PlaceCheckin> userCheckins) {
+    private void setUserCheckins(UserCheckins userCheckins) {
         if (mProjectAdapter != null) {
             mProjectAdapter.setUserCheckins(userCheckins);
         }

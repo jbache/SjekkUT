@@ -6,11 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.Collections;
-import java.util.List;
 
 import no.dnt.sjekkut.network.Place;
-import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
+import no.dnt.sjekkut.network.UserCheckins;
 
 /**
  * Copyright Den Norske Turistforening 2016
@@ -82,7 +81,7 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         mPlaceAdapter.updatePlace(place);
     }
 
-    void setUserCheckins(List<PlaceCheckin> userCheckins) {
+    void setUserCheckins(UserCheckins userCheckins) {
         mPlaceAdapter.setUserCheckins(userCheckins);
         mProjectAdapter.setUserCheckins(userCheckins);
     }

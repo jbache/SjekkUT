@@ -14,28 +14,26 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Place;
-import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
+import no.dnt.sjekkut.network.UserCheckins;
 import no.dnt.sjekkut.ui.ProjectListFragment.ProjectListListener;
 
 class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> {
 
     private final List<Project> mProjectList;
     private final Comparator<Project> mProjectComparator;
-    private final Set<String> mPlacesVisitedByUser = new HashSet<>();
     private final ProjectListListener mListener;
     private List<Project> mProjectListCopy = null;
     private Location mUserLocation = null;
     private int mDisplayWidth = 1080;
+    private UserCheckins mUserCheckins = null;
 
     ProjectAdapter(ProjectListFragment.ProjectListListener listener) {
         mListener = listener;
@@ -56,7 +54,6 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     void setProjects(List<Project> projectList) {
         mProjectList.clear();
         mProjectList.addAll(projectList);
-        mPlacesVisitedByUser.clear();
         Collections.sort(mProjectList, mProjectComparator);
         notifyDataSetChanged();
     }
@@ -123,9 +120,9 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     }
 
     private boolean hasUserVisited(Project project) {
-        if (project != null && project.steder != null && !project.steder.isEmpty() && !mPlacesVisitedByUser.isEmpty()) {
+        if (project != null && project.steder != null && !project.steder.isEmpty() && mUserCheckins != null) {
             for (Place place : project.steder) {
-                if (mPlacesVisitedByUser.contains(place._id)) {
+                if (mUserCheckins.hasVisited(place._id)) {
                     return true;
                 }
             }
@@ -135,9 +132,9 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
 
     private int calculatedVisitedPlaces(Project project) {
         int visitedPlaces = 0;
-        if (project != null && project.steder != null && !project.steder.isEmpty() && !mPlacesVisitedByUser.isEmpty()) {
+        if (project != null && project.steder != null && !project.steder.isEmpty() && mUserCheckins != null) {
             for (Place place : project.steder) {
-                if (mPlacesVisitedByUser.contains(place._id)) {
+                if (mUserCheckins.hasVisited(place._id)) {
                     ++visitedPlaces;
                 }
             }
@@ -180,13 +177,8 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         notifyDataSetChanged();
     }
 
-    void setUserCheckins(List<PlaceCheckin> checkins) {
-        mPlacesVisitedByUser.clear();
-        if (checkins != null && !checkins.isEmpty()) {
-            for (PlaceCheckin checkin : checkins) {
-                mPlacesVisitedByUser.add(checkin.ntb_steder_id);
-            }
-        }
+    void setUserCheckins(UserCheckins checkins) {
+        mUserCheckins = checkins;
         Collections.sort(mProjectList, mProjectComparator);
         notifyDataSetChanged();
     }

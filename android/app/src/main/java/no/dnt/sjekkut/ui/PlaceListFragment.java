@@ -101,7 +101,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
             @Override
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 if (response.isSuccessful()) {
-                    mWrapperAdapter.setUserCheckins(response.body().getCheckins());
+                    mWrapperAdapter.setUserCheckins(response.body());
                 } else {
                     Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
                 }

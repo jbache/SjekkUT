@@ -15,9 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,22 +23,23 @@ import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckin;
+import no.dnt.sjekkut.network.UserCheckins;
 
 /**
  * Copyright Den Norske Turistforening 2016
  * <p/>
  * Created by espen on 25.08.2016.
  */
-public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
+class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
 
     private final List<Place> mPlaces;
-    private final Set<String> mPlacesVisitedByUser = new HashSet<>();
+    private UserCheckins mUserCheckins;
     private final Comparator<Place> mPlaceComparator;
     private final int mDisplayWidth;
     private Location mLocation;
     private final PlaceListFragment.PlaceListListener mListener;
 
-    public PlaceAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
+    PlaceAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
         mDisplayWidth = Utils.getDisplayWidth(context);
         mPlaces = new ArrayList<>();
         mLocation = null;
@@ -113,18 +112,21 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         // TODO: height of place needs to be fetched from somewhere
         holder.countyAndHeight.setText(context.getString(R.string.county_and_height, place.fylke, 0.0f));
         // TODO: number of checkins needs to be fetched from somewhere
-        holder.summits.setText(context.getString(R.string.summits, 0));
         String distanceString = context.getString(R.string.not_available);
         if (mLocation != null && place.hasLocation()) {
             distanceString = Utils.formatDistance(context, place.getDistanceTo(mLocation));
         }
         holder.distance.setText(context.getString(R.string.distance_to_you, distanceString));
-        boolean hasVisited = mPlacesVisitedByUser.contains(place._id);
+        int visits = 0;
+        PlaceCheckin latestCheckin = null;
         String checkinString = "Ikke besteget";
-        if (hasVisited) {
+        if (mUserCheckins != null && mUserCheckins.hasVisited(place._id)) {
+            visits = mUserCheckins.getNumberOfVisits(place._id);
+            latestCheckin = mUserCheckins.getLatestCheckin(place._id);
             checkinString = "Besteget en eller annen gang"; // TODO: calculated timespan since last visit
         }
-        holder.checkin.setChecked(hasVisited);
+        holder.summits.setText(context.getString(R.string.summits, visits));
+        holder.checkin.setChecked(latestCheckin != null);
         holder.checkinText.setText(checkinString);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,13 +138,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         });
     }
 
-    public void setUserCheckins(List<PlaceCheckin> userCheckins) {
-        mPlacesVisitedByUser.clear();
-        if (userCheckins != null && !userCheckins.isEmpty()) {
-            for (PlaceCheckin checkin : userCheckins) {
-                mPlacesVisitedByUser.add(checkin.ntb_steder_id);
-            }
-        }
+    void setUserCheckins(UserCheckins userCheckins) {
+        mUserCheckins = userCheckins;
         notifyDataSetChanged();
     }
 
@@ -162,7 +159,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         @BindView(R.id.checkinText)
         TextView checkinText;
 
-        public PlaceViewHolder(View itemView) {
+        PlaceViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
