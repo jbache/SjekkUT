@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
+import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
 
@@ -16,14 +17,14 @@ import no.dnt.sjekkut.network.Project;
  * <p/>
  * Created by espen on 25.08.2016.
  */
-class PlaceAndProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final ProjectAdapter mProjectAdapter;
     private final PlaceAdapter mPlaceAdapter;
     private final int VIEW_TYPE_PROJECT = 0;
     private final int VIEW_TYPE_PLACE = 1;
 
-    PlaceAndProjectAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
+    ProjectPlaceWrapperAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
         RecyclerView.AdapterDataObserver mAdapterObserver = new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -72,9 +73,13 @@ class PlaceAndProjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mProjectAdapter.getItemCount() + mPlaceAdapter.getItemCount();
     }
 
-    void setPlaceAndProject(Project project) {
+    void setProjectAndPlaces(Project project) {
         mPlaceAdapter.setPlaces(project.steder);
         mProjectAdapter.setProjects(Collections.singletonList(project));
+    }
+
+    void updatePlace(Place place) {
+        mPlaceAdapter.updatePlace(place);
     }
 
     void setUserCheckins(List<PlaceCheckin> userCheckins) {

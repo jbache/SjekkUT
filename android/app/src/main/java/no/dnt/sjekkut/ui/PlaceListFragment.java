@@ -18,8 +18,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.melnykov.fab.FloatingActionButton;
 
-import java.util.Collections;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import no.dnt.sjekkut.PreferenceUtils;
@@ -43,10 +41,10 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
 
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final Callback<Project> mProjectCallback;
+    private final Callback<Place> mPlaceCallback;
     private final Callback<UserCheckins> mUserCheckinsCallback;
     private final LocationRequest mLocationRequest;
-    private PlaceAndProjectAdapter mPlaceAndProjectAdapter;
-    private Location mLastLocation = null;
+    private ProjectPlaceWrapperAdapter mWrapperAdapter;
     private PlaceListListener mListener;
     private String mProjectId;
     @BindView(R.id.toolbar)
@@ -65,7 +63,13 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
                     return;
 
                 if (response.isSuccessful()) {
-                    mPlaceAndProjectAdapter.setPlaceAndProject(response.body());
+                    mWrapperAdapter.setProjectAndPlaces(response.body());
+                    for (Place place : response.body().steder) {
+                        TripApiSingleton.call().getPlace(place._id,
+                                getString(R.string.api_key),
+                                "bilder")
+                                .enqueue(mPlaceCallback);
+                    }
                 } else {
                     Utils.showToast(getActivity(), "Failed to get project: " + response.code());
                 }
@@ -77,11 +81,27 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
             }
         };
 
+        mPlaceCallback = new Callback<Place>() {
+            @Override
+            public void onResponse(Call<Place> call, Response<Place> response) {
+                if (response.isSuccessful()) {
+                    mWrapperAdapter.updatePlace(response.body());
+                } else {
+                    Utils.showToast(getActivity(), "Failed to get place: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Place> call, Throwable t) {
+                Utils.showToast(getActivity(), "Failed to get place: " + t);
+            }
+        };
+
         mUserCheckinsCallback = new Callback<UserCheckins>() {
             @Override
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 if (response.isSuccessful()) {
-                    mPlaceAndProjectAdapter.setUserCheckins(response.body().getCheckins());
+                    mWrapperAdapter.setUserCheckins(response.body().getCheckins());
                 } else {
                     Utils.showToast(getActivity(), "Failed to get user checkins: " + response.code());
                 }
@@ -107,8 +127,8 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
         View rootView = inflater.inflate(R.layout.fragment_placelist, container, false);
         ButterKnife.bind(this, rootView);
         Utils.setupSupportToolbar(getActivity(), mToolbar, "", true);
-        mPlaceAndProjectAdapter = new PlaceAndProjectAdapter(getActivity(), mListener);
-        mRecyclerView.setAdapter(mPlaceAndProjectAdapter);
+        mWrapperAdapter = new ProjectPlaceWrapperAdapter(getActivity(), mListener);
+        mRecyclerView.setAdapter(mWrapperAdapter);
         mFabButton.setOnClickListener(this);
         setHasOptionsMenu(true);
         return rootView;
@@ -146,12 +166,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mProjectId = getArguments().getString(BUNDLE_PROJECT_ID, "");
-/* TODO: add back the header
-        if (mHeaderViewHolder == null) {
-            mHeaderViewHolder = mProjectAdapter.onCreateViewHolder(getListView(), 0);
-        }
-        getListView().addHeaderView(mHeaderViewHolder.itemView, null, false);
-*/
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
         }
@@ -167,7 +181,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     }
 
     private void fetchPlaces() {
-        if (mPlaceAndProjectAdapter.getItemCount() == 0) {
+        if (mWrapperAdapter.getItemCount() == 0) {
             TripApiSingleton.call().getProject(
                     mProjectId,
                     getString(R.string.api_key),
@@ -205,8 +219,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     }
 
     public void onLocationChanged(Location location) {
-        mLastLocation = location;
-        mPlaceAndProjectAdapter.setLocation(mLastLocation);
+        mWrapperAdapter.setLocation(location);
     }
 
     interface PlaceListListener {

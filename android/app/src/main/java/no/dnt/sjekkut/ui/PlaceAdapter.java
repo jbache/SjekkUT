@@ -23,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.network.Checkin;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckin;
 
@@ -83,7 +82,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
             }
         }
         if (changed) {
-            Collections.sort(mPlaces, mPlaceComparator);
             notifyDataSetChanged();
         }
     }
