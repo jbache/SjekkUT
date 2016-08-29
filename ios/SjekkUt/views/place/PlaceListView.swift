@@ -150,7 +150,7 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     // MARK: table interaction
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return 96
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

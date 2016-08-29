@@ -74,8 +74,8 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     override func viewDidLoad() {
         shareButton.hidden = true
         if (place != nil) {
-            sjekkUtApi.getPlaceCheckins(place!)
             placeCell.place = place
+            TurbasenApi.instance.getPlace(place!)
         }
 
         checkin = checkin ?? place?.lastCheckin()

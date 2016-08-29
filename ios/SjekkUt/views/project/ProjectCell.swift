@@ -132,7 +132,7 @@ class ProjectCell: UITableViewCell {
         let showReadMore:CGFloat = project?.infoUrl?.characters.count>0 ? 1.0 : 0.0
         if (readMoreButton != nil) {
             readMoreButton.alpha = 1 * showReadMore
-            readMoreWidth.constant = 100 * showReadMore
+            readMoreWidth.constant = 33 * showReadMore
             readMoreSpacing.constant = 8 * showReadMore
         }
     }
@@ -181,6 +181,9 @@ class ProjectCell: UITableViewCell {
     }
 
     @IBAction func readMoreClicked(sender: AnyObject) {
+        if let aURL = project?.infoUrl?.URL() {
+            UIApplication.sharedApplication().openURL(aURL)
+        }
     }
 
     override func setHighlighted(highlighted: Bool, animated: Bool) {

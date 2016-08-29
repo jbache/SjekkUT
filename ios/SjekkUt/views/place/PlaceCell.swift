@@ -16,6 +16,7 @@ class PlaceCell: UITableViewCell {
     var kObserveDistance = 0
     var kObserveCheckins = 0
     var kObserveImages = 0
+    var kObserveUrl = 0
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -24,6 +25,7 @@ class PlaceCell: UITableViewCell {
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var checkButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet var homepageUrlButton: UIButton!
 
     var imageRequest: Request?
 
@@ -51,6 +53,11 @@ class PlaceCell: UITableViewCell {
 
     // MARK: private
 
+    @IBAction func homepageClicked(sender: AnyObject) {
+        if let homepageURL = place?.url?.URL() {
+            UIApplication.sharedApplication().openURL(homepageURL)
+        }
+    }
     
 
     // MARK: cell
@@ -71,6 +78,7 @@ class PlaceCell: UITableViewCell {
             place?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObserveDistance)
             place?.addObserver(self, forKeyPath: "checkins", options: .Initial, context: &kObserveCheckins)
             place?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObserveImages)
+            place?.addObserver(self, forKeyPath: "url", options: .Initial, context: &kObserveUrl)
             isObserving = true
         }
     }
@@ -80,6 +88,7 @@ class PlaceCell: UITableViewCell {
             place?.removeObserver(self, forKeyPath: "distance")
             place?.removeObserver(self, forKeyPath: "checkins")
             place?.removeObserver(self, forKeyPath: "images")
+            place?.removeObserver(self, forKeyPath: "url")
             isObserving = false
         }
         if imageRequest != nil {
@@ -113,6 +122,16 @@ class PlaceCell: UITableViewCell {
                         if let image = response.result.value {
                             self.foregroundImage = image
                         }
+                }
+            }
+        }
+        if (context == &kObserveUrl) {
+            if let aButton = homepageUrlButton {
+                if (place?.url != nil && place?.url?.characters.count > 0) {
+                    aButton.hidden = false
+                }
+                else {
+                    aButton.hidden = true
                 }
             }
         }

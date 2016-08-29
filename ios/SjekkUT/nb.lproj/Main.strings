@@ -7,9 +7,6 @@
 /* Class = "UILabel"; text = "Distance"; ObjectID = "4bq-KB-5bn"; */
 "4bq-KB-5bn.text" = "Avstand";
 
-/* Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "4xf-6c-zdk"; */
-"4xf-6c-zdk.normalTitle" = "Les mer på websiden";
-
 /* Class = "UILabel"; text = "County, Municipality"; ObjectID = "6Qf-y5-0pm"; */
 "6Qf-y5-0pm.text" = "Fylke, Kommune";
 

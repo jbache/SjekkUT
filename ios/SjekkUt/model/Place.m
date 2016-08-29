@@ -75,6 +75,20 @@
     setIfNotEqual(self.descriptionText, json[@"beskrivelse"]);
     [self updateCoordinates:[json valueForKeyPath:@"geojson.coordinates"]];
     [self updateImages:json[@"bilder"]];
+    [self updateUrl:json[@"lenker"]];
+}
+
+#pragma mark url
+
+- (void)updateUrl:(NSDictionary *)urls
+{
+    for (NSDictionary *url in urls)
+    {
+        if ([url[@"type"] isEqual:@"Hjemmeside"] && [(NSString *)url[@"url"] length] > 0)
+        {
+            setIfNotEqual(self.url, url[@"url"]);
+        }
+    }
 }
 
 #pragma mark images

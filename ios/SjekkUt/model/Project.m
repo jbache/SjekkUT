@@ -68,6 +68,7 @@
     [self parsePlaces:json[@"steder"]];
     [self parseImages:json[@"bilder"]];
     [self parseGroups:json[@"grupper"]];
+    [self parseLinks:json[@"lenker"]];
     [self updateDistance];
 }
 
@@ -186,6 +187,20 @@
         return [theImage URLforSize:aSize];
     }
     return nil;
+}
+
+#pragma mark links
+
+- (void)parseLinks:(NSArray *)linksArray
+{
+
+    for (NSDictionary *url in linksArray)
+    {
+        if ([url[@"type"] isEqual:@"Hjemmeside"] && [(NSString *)url[@"url"] length] > 0)
+        {
+            setIfNotEqual(self.infoUrl, url[@"url"]);
+        }
+    }
 }
 
 #pragma mark distance
