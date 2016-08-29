@@ -101,7 +101,7 @@
         self.places = orderedPlaces;
     }
 
-    [self updateHasCheckin];
+    //    [self updateHasCheckin];
 }
 
 - (NSString *)countyMunicipalityDescription
@@ -281,13 +281,13 @@
 }
 
 #pragma mark checkins / progress
-
-- (void)updateHasCheckin
-{
-    NSNumber *isParticipating = [NSNumber numberWithBool:(self.progress.doubleValue > 0.0001)];
-    setIfNotEqual(self.isParticipating, isParticipating);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];
-}
+//
+//- (void)updateHasCheckin
+//{
+//    NSNumber *isParticipating = [NSNumber numberWithBool:(self.progress.doubleValue > 0.0001)];
+//    setIfNotEqual(self.isParticipating, isParticipating);
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kSjekkUtNotificationCheckinChanged object:nil];
+//}
 
 - (NSArray *)checkedInPlaces
 {

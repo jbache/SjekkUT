@@ -15,6 +15,8 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     var place:Place? = nil
     var checkin:Checkin? = nil
 
+    var kObserveLocation = 0
+
     let sjekkUtApi:SjekkUtApi = SjekkUtApi.instance
 
     @IBOutlet weak var mapView: UIImageView!

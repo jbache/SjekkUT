@@ -9,8 +9,6 @@
 import Foundation
 import HockeySDK
 
-var kObserveProjectPlaces = 0
-var kObserveLocation = 0
 
 class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
@@ -18,6 +16,11 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     var project:Project? = nil
     var places:NSFetchedResultsController? = nil
     var projectHeader:ProjectCell? = nil
+    var vJoinProjectHeight:Float = 0
+
+    var kObserveProjectPlaces = 0
+    var kObserveLocation = 0
+    var kObserveParticipation = 0
 
     @IBOutlet weak var placesTable: UITableView!
     @IBOutlet weak var checkinButton: UIButton!
@@ -106,16 +109,23 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
     func startObserving() {
         Location.instance().addObserver(self, forKeyPath: "currentLocation", options: .Initial, context: &kObserveLocation)
+        project!.addObserver(self, forKeyPath: "isParticipating", options: .Initial, context: &kObserveParticipation)
     }
 
     func stopObserving() {
         Location.instance().removeObserver(self, forKeyPath: "currentLocation")
+        project!.removeObserver(self, forKeyPath: "isParticipating")
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if (context == &kObserveLocation && Location.instance().currentLocation != nil) {
             project!.updateDistance()
             project!.updatePlacesDistance()
+        }
+        if (context == &kObserveParticipation) {
+            placesTable.beginUpdates()
+            vJoinProjectHeight = project!.isParticipating!.boolValue ? 0 : 50
+            placesTable.endUpdates()
         }
     }
 
@@ -125,10 +135,15 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         return (places?.sections?.count)!
     }
 
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return project?.progressDescriptionLong()
+    func tableView(tableView:UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let aJoinProjectCell = tableView.dequeueReusableCellWithIdentifier("JoinProjectCell") as! JoinProjectCell
+        aJoinProjectCell.project = project
+        return aJoinProjectCell
     }
 
+    func tableView(tableView:UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(vJoinProjectHeight)
+    }
 
     // MARK: table rows
 

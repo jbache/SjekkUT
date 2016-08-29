@@ -52,6 +52,42 @@ class SjekkUtApi: Alamofire.Manager {
         if let checkinsJSON = json["innsjekkinger"].array {
             self.updateCheckins(checkinsJSON)
         }
+        if let projectsJSON = json["lister"].array {
+            self.updateProjects(projectsJSON)
+        }
+    }
+
+    // MARK: projects
+
+    func updateProjects(projectsArray:[JSON]) {
+        ModelController.instance().saveBlock {
+            // prevent upstream deleted projects from showing
+            for aProject:Project in Project.allEntities() as! [Project] {
+                aProject.isParticipating = false
+            }
+
+            for projectJSON in projectsArray {
+                let aProject = Project.findWithId(projectJSON.string!)
+                aProject.isParticipating = true
+            }
+        }
+    }
+
+    func doJoinProject(aProject:Project) {
+        let requestUrl = baseUrl + "/lister/\(aProject.identifier!)/blimed"
+        self.request(.POST, requestUrl, headers:authenticationHeaders, encoding: .JSON)
+            .validate(statusCode: 200..<300)
+            .responseSwiftyJSON { response in
+                switch response.result {
+                case .Success:
+                    if let json:JSON = response.result.value!["user"] {
+                        self.parseProfile(json)
+                    }
+                case .Failure(let error):
+                    print("failed to join project: \(error)")
+
+                }
+        }
     }
 
     // MARK: checkins
@@ -84,7 +120,7 @@ class SjekkUtApi: Alamofire.Manager {
             "lon":currentLocation.longitude
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
-        let request = self.request(.POST, requestUrl, parameters:someParameters, headers:authenticationHeaders, encoding: .JSON)
+        self.request(.POST, requestUrl, parameters:someParameters, headers:authenticationHeaders, encoding: .JSON)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -102,8 +138,5 @@ class SjekkUtApi: Alamofire.Manager {
                 }
                 finishHandler(result: response.result)
         }
-
-        debugPrint(request)
     }
-    
 }

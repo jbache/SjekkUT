@@ -54,11 +54,11 @@
     setIfNotEqual(self.user, [DntUser insertOrUpdate:[json[@"dnt_user_id"] stringValue]]);
     [self updatePlace:[NSString stringWithFormat:@"%@", json[@"ntb_steder_id"]]];
     [self updateLocation:json[@"location"][@"coordinates"]];
-
-    for (Project *project in self.place.projects)
-    {
-        [project updateHasCheckin];
-    }
+    //
+    //    for (Project *project in self.place.projects)
+    //    {
+    //        [project updateHasCheckin];
+    //    }
 }
 
 - (void)updatePlace:(NSString *)identifier

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateDistance;
 - (void)updatePlacesDistance;
-- (void)updateHasCheckin;
+//- (void)updateHasCheckin;
 - (Place *)findNearest;
 - (NSString *)progressDescriptionLong;
 - (NSString *)progressDescriptionShort;
@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)foregroundImageURLforSize:(CGSize)aSize;
 - (NSString *)distanceDescription;
 - (NSString *)countyMunicipalityDescription;
++ (instancetype)findWithId:(id)identifier;
 
 @end
 
