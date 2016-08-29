@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Espen on 28.08.2016.
@@ -19,6 +20,11 @@ public class UserCheckins {
     public boolean hasVisited(String placeId) {
         initLookupMap();
         return mCheckinMap.containsKey(placeId);
+    }
+
+    public Set<String> getVisitedPlaceIds() {
+        initLookupMap();
+        return mCheckinMap.keySet();
     }
 
     private void initLookupMap() {

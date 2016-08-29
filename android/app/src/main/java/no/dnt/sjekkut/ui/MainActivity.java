@@ -31,7 +31,6 @@ import java.util.Date;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.dummy.DummyContent;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.CheckinLocation;
 import no.dnt.sjekkut.network.CheckinResult;
@@ -387,11 +386,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .replace(R.id.container, new ProfileStatsFragment())
                 .addToBackStack(ProfileStatsFragment.class.getCanonicalName())
                 .commit();
-    }
-
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        Utils.showToast(MainActivity.this, "Todo");
     }
 
     @Override

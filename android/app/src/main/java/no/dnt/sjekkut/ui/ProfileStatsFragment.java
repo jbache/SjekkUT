@@ -23,10 +23,12 @@ import butterknife.ButterKnife;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.dummy.DummyContent;
-import no.dnt.sjekkut.dummy.DummyContent.DummyItem;
+import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
+import no.dnt.sjekkut.network.Place;
+import no.dnt.sjekkut.network.TripApiSingleton;
+import no.dnt.sjekkut.network.UserCheckins;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,12 +44,15 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     Toolbar mToolbar;
     @BindViews({R.id.statlayout_1, R.id.statlayout_2, R.id.statlayout_3})
     List<View> mStatCountLayouts;
-    List<StatCountHolder> mStatCountHolders = new ArrayList<>();
     @BindView(R.id.logout)
     Button mLogout;
+    private List<StatCountHolder> mStatCountHolders = new ArrayList<>();
+    private PlaceVisitAdapter mPlaceVisitAdapter;
 
     private ProfileStatsListener mListener;
     private Callback<MemberData> mMemberCallback;
+    private Callback<UserCheckins> mUserCheckinsCallback;
+    private Callback<Place> mPlaceCallback;
 
     public ProfileStatsFragment() {
         mMemberCallback = new Callback<MemberData>() {
@@ -65,6 +70,44 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
             public void onFailure(Call<MemberData> call, Throwable t) {
                 mUsername.setText(getString(R.string.username_unknown));
                 Utils.showToast(getContext(), "Failed to get member data: " + t);
+            }
+        };
+
+        mUserCheckinsCallback = new Callback<UserCheckins>() {
+            @Override
+            public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
+                if (response.isSuccessful()) {
+                    mPlaceVisitAdapter.setUserCheckins(response.body());
+                    for (String placeId : response.body().getVisitedPlaceIds()) {
+                        TripApiSingleton.call().getPlace(placeId,
+                                getString(R.string.api_key),
+                                "bilder")
+                                .enqueue(mPlaceCallback);
+                    }
+                } else {
+                    Utils.showToast(getContext(), "Failed to get user checkins: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserCheckins> call, Throwable t) {
+                Utils.showToast(getContext(), "Failed to get user checkins: " + t);
+            }
+        };
+
+        mPlaceCallback = new Callback<Place>() {
+            @Override
+            public void onResponse(Call<Place> call, Response<Place> response) {
+                if (response.isSuccessful()) {
+                    mPlaceVisitAdapter.updatePlace(response.body());
+                } else {
+                    Utils.showToast(getContext(), "Failed to get place: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Place> call, Throwable t) {
+                Utils.showToast(getContext(), "Failed to get place: " + t);
             }
         };
     }
@@ -89,7 +132,8 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
             holder.circle.setColorFilter(ContextCompat.getColor(context, R.color.todo));
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setAdapter(new PlaceVisitAdapter(DummyContent.ITEMS, mListener));
+        mPlaceVisitAdapter = new PlaceVisitAdapter();
+        mRecyclerView.setAdapter(mPlaceVisitAdapter);
         mLogout.setOnClickListener(this);
         return view;
     }
@@ -109,6 +153,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(getContext())).enqueue(mMemberCallback);
+        CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getContext())).enqueue(mUserCheckinsCallback);
     }
 
     @Override
@@ -129,9 +174,6 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     }
 
     interface ProfileStatsListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-
         void onLogout();
     }
 
@@ -143,7 +185,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
         @BindView(R.id.label)
         TextView label;
 
-        public StatCountHolder(View view) {
+        StatCountHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

@@ -7,22 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
-import no.dnt.sjekkut.dummy.DummyContent.DummyItem;
+import no.dnt.sjekkut.network.Place;
+import no.dnt.sjekkut.network.UserCheckins;
 
 class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final ProfileStatsFragment.ProfileStatsListener mListener;
-
-    PlaceVisitAdapter(List<DummyItem> items, ProfileStatsFragment.ProfileStatsListener listener) {
-        mValues = items;
-        mListener = listener;
-    }
+    private final List<PlaceVisit> mPlaceVisits = new ArrayList<>();
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,23 +30,34 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final DummyItem item = mValues.get(position);
+        final PlaceVisit item = mPlaceVisits.get(position);
         Context context = holder.itemView.getContext();
-        holder.mPlaceName.setText(item.name);
-        holder.mNumberOfVisits.setText(context.getString(R.string.antallbesøk, item.visits));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.onListFragmentInteraction(item);
-                }
-            }
-        });
+        holder.mPlaceName.setText(item.getName());
+        holder.mNumberOfVisits.setText(context.getString(R.string.antallbesøk, item.mVisits));
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mPlaceVisits.size();
+    }
+
+    void setUserCheckins(UserCheckins userCheckins) {
+        mPlaceVisits.clear();
+        Set<String> visitedPlaces = userCheckins.getVisitedPlaceIds();
+        for (String id : visitedPlaces) {
+            mPlaceVisits.add(new PlaceVisit(id, userCheckins.getNumberOfVisits(id)));
+
+        }
+        notifyDataSetChanged();
+    }
+
+    void updatePlace(Place place) {
+        for (PlaceVisit placeVisit : mPlaceVisits) {
+            if (placeVisit.mId.equals(place._id)) {
+                placeVisit.mPlace = place;
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -61,6 +69,21 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+    }
+
+    static private class PlaceVisit {
+        String mId;
+        int mVisits;
+        Place mPlace;
+
+        PlaceVisit(String id, int visits) {
+            mId = id;
+            mVisits = visits;
+        }
+
+        String getName() {
+            return mPlace != null ? mPlace.navn : "";
         }
     }
 }
