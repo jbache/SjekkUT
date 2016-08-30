@@ -131,7 +131,7 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onPlaceClicked(place);
+                    mListener.onPlaceClicked(place._id);
                 }
             }
         });

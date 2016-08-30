@@ -220,7 +220,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
         mWrapperAdapter.setLocation(location);
     }
 
-    interface PlaceListListener {
-        void onPlaceClicked(Place place);
+    interface PlaceListListener extends PlaceClickedListener {
     }
 }

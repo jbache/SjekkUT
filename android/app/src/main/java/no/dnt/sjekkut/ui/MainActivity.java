@@ -394,9 +394,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
-    public void onPlaceClicked(Place place) {
+    public void onPlaceClicked(String placeId) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, PlaceFragment.newInstance(place._id))
+                .replace(R.id.container, PlaceFragment.newInstance(placeId))
                 .addToBackStack(PlaceFragment.class.getCanonicalName())
                 .commit();
     }

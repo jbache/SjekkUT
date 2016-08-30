@@ -138,7 +138,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
         }
         mVisitsSeparator.setText(getString(R.string.your_visits));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mPlaceVisitAdapter = new PlaceVisitAdapter();
+        mPlaceVisitAdapter = new PlaceVisitAdapter(mListener);
         mRecyclerView.setAdapter(mPlaceVisitAdapter);
         mLogout.setOnClickListener(this);
         setHasOptionsMenu(true);
@@ -197,7 +197,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    interface ProfileStatsListener {
+    interface ProfileStatsListener extends PlaceClickedListener {
         void onLogout();
     }
 
