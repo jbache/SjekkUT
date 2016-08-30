@@ -73,22 +73,42 @@ class SjekkUtApi: Alamofire.Manager {
         }
     }
 
-    func doJoinProject(aProject:Project) {
+    func doJoinProject(aProject:Project, completionHandler:((Void)->(Void))) {
         let requestUrl = baseUrl + "/lister/\(aProject.identifier!)/blimed"
         self.request(.POST, requestUrl, headers:authenticationHeaders, encoding: .JSON)
             .validate(statusCode: 200..<300)
             .responseSwiftyJSON { response in
                 switch response.result {
                 case .Success:
-                    if let json:JSON = response.result.value!["user"] {
-                        self.parseProfile(json)
+                    if let json:JSON = response.result.value {
+                        self.parseProfile(json["data"])
                     }
                 case .Failure(let error):
                     print("failed to join project: \(error)")
 
                 }
+                completionHandler()
         }
     }
+
+    func doLeaveProject(aProject:Project, completionHandler:((Void)->(Void))) {
+        let requestUrl = baseUrl + "/lister/\(aProject.identifier!)/meldav"
+        self.request(.POST, requestUrl, headers:authenticationHeaders, encoding: .JSON)
+            .validate(statusCode: 200..<300)
+            .responseSwiftyJSON { response in
+                switch response.result {
+                case .Success:
+                    if let json:JSON = response.result.value {
+                        self.parseProfile(json["data"])
+                    }
+                case .Failure(let error):
+                    print("failed to leave project: \(error)")
+
+                }
+                completionHandler()
+        }
+    }
+
 
     // MARK: checkins
 

@@ -8,24 +8,56 @@
 
 import Foundation
 import HockeySDK
+import Alamofire
 
+// TODO: properly reuse the header as a reusable table cell
 
 class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
     let turbasen = TurbasenApi.instance
     var project:Project? = nil
     var places:NSFetchedResultsController? = nil
-    var projectHeader:ProjectCell? = nil
-    var vJoinProjectHeight:Float = 0
+    var vJoinProjectHeight:Float = 50
+    var vLeaveProjectHeight:Float = 0
 
-    var kObserveProjectPlaces = 0
+    var isObserving = false
     var kObserveLocation = 0
     var kObserveParticipation = 0
+    var kObservationContextImages = 0
+    var kObservationContextPlaces = 0
+    var kObservationContextName = 0
+    var kObservationContextDistance = 0
+    var kObservationContextGroups = 0
 
-    @IBOutlet weak var placesTable: UITableView!
-    @IBOutlet weak var checkinButton: UIButton!
-    @IBOutlet weak var feedbackButton: UIButton!
-    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet var placesTable: UITableView!
+    @IBOutlet var checkinButton: UIButton!
+    @IBOutlet var feedbackButton: UIButton!
+    @IBOutlet var countyMunicipalityLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var groupLabel: UILabel!
+    @IBOutlet var progressLabel: UILabel!
+    @IBOutlet var readMoreButton: UIButton!
+    @IBOutlet var readMoreSpacing: NSLayoutConstraint!
+    @IBOutlet var readMoreWidth: NSLayoutConstraint!
+
+    @IBOutlet var backgroundImageView: UIImageView!
+    @IBOutlet var foregroundImageView: UIImageView!
+
+    var backgroundImageRequest: Request?
+    var foregroundImageRequest: Request?
+
+    var backgroundImage: UIImage? = nil {
+        didSet {
+            backgroundImageView.image = backgroundImage
+        }
+    }
+
+    var foregroundImage: UIImage? = nil {
+        didSet {
+            foregroundImageView.image = foregroundImage
+        }
+    }
 
     override func viewDidLoad() {
         setupCheckinButton()
@@ -46,6 +78,12 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         self.navigationController!.pushViewController(feedbackList, animated:true)
     }
 
+    @IBAction func readMoreClicked(sender: AnyObject) {
+        if let aURL = project?.infoUrl?.URL() {
+            UIApplication.sharedApplication().openURL(aURL)
+        }
+    }
+
     func setupTable() {
         let placesFetch = Place.fetchRequest()
         placesFetch.predicate = NSPredicate(format: "%@ IN projects", self.project!)
@@ -57,11 +95,6 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         } catch {
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
-
-        // set a header on the table
-        projectHeader = self.placesTable.dequeueReusableCellWithIdentifier("ProjectCell") as? ProjectCell
-        projectHeader!.project = self.project
-        self.placesTable.tableHeaderView = projectHeader
     }
 
     func updateData() {
@@ -80,12 +113,13 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         }
     }
 
-// MARK: view controller
+    // MARK: view controller
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         checkinButton.alpha = 0
         startObserving()
+        setupReadMore()
         updateData()
     }
 
@@ -108,28 +142,118 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     // MARK: observing
 
     func startObserving() {
-        Location.instance().addObserver(self, forKeyPath: "currentLocation", options: .Initial, context: &kObserveLocation)
-        project!.addObserver(self, forKeyPath: "isParticipating", options: .Initial, context: &kObserveParticipation)
+        if (!isObserving ) {
+            if project != nil {
+                project?.addObserver(self, forKeyPath: "name", options: .Initial, context: &kObservationContextName)
+                project?.addObserver(self, forKeyPath: "distance", options: .Initial, context: &kObservationContextDistance)
+                project?.addObserver(self, forKeyPath: "images", options: .Initial, context: &kObservationContextImages)
+                project?.addObserver(self, forKeyPath: "places", options: .Initial, context: &kObservationContextPlaces)
+                project?.addObserver(self, forKeyPath: "groups", options: .Initial, context: &kObservationContextGroups)
+            }
+            Location.instance().addObserver(self, forKeyPath: "currentLocation", options: .Initial, context: &kObserveLocation)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setupProgressLabel), name: kSjekkUtNotificationCheckinChanged, object: nil)
+            isObserving = true
+        }
     }
 
     func stopObserving() {
-        Location.instance().removeObserver(self, forKeyPath: "currentLocation")
-        project!.removeObserver(self, forKeyPath: "isParticipating")
+        if (isObserving) {
+            project?.removeObserver(self, forKeyPath: "images")
+            project?.removeObserver(self, forKeyPath: "places")
+            project?.removeObserver(self, forKeyPath: "name")
+            project?.removeObserver(self, forKeyPath: "distance")
+            project?.removeObserver(self, forKeyPath: "groups")
+            Location.instance().removeObserver(self, forKeyPath: "currentLocation")
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            isObserving = false
+        }
+        // cancel any in-flight network requests
+        if backgroundImageRequest != nil {
+            backgroundImageRequest!.cancel()
+        }
+        if foregroundImageRequest != nil {
+            foregroundImageRequest?.cancel()
+        }
+
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if (context == &kObserveLocation && Location.instance().currentLocation != nil) {
-            project!.updateDistance()
-            project!.updatePlacesDistance()
-        }
-        if (context == &kObserveParticipation) {
-            placesTable.beginUpdates()
-            vJoinProjectHeight = project!.isParticipating!.boolValue ? 0 : 50
-            placesTable.endUpdates()
+        switch context  {
+        case &kObserveLocation:
+            if Location.instance().currentLocation != nil {
+                project!.updateDistance()
+                project!.updatePlacesDistance()
+            }
+        case &kObservationContextImages:
+            switch project?.images?.count {
+            case 0?:
+                backgroundImage = UIImage(named:"project-background-fallback")
+                foregroundImage = UIImage(named:"project-foreground-fallback")
+            case 1?:
+                fetchBackgroundImage()
+                foregroundImage = UIImage(named:"project-foreground-fallback")
+            default:
+                fetchBackgroundImage()
+                fetchForegroundImage()
+                break
+            }
+        case &kObservationContextPlaces:
+            setupProgressLabel()
+            self.countyMunicipalityLabel.text = project?.countyMunicipalityDescription()
+        case &kObservationContextName:
+            self.nameLabel.text = project?.name
+        case &kObservationContextDistance:
+            self.distanceLabel.text = project?.distanceDescription()
+        case &kObservationContextGroups:
+            if let aGroup:DntGroup = project?.groups?.firstObject as? DntGroup {
+                self.groupLabel.text = aGroup.name
+            }
+            else {
+                self.groupLabel.text = ""
+            }
+        default:
+            break
         }
     }
 
-    // MARK: table sections
+    func setupProgressLabel() {
+        if progressLabel != nil {
+            progressLabel.text = project?.progressDescriptionShort()
+        }
+    }
+
+    func setupReadMore() {
+        let showReadMore:CGFloat = project?.infoUrl?.characters.count>0 ? 1.0 : 0.0
+        if (readMoreButton != nil) {
+            readMoreButton.alpha = 1 * showReadMore
+            readMoreWidth.constant = 33 * showReadMore
+            readMoreSpacing.constant = 8 * showReadMore
+        }
+    }
+
+    func fetchBackgroundImage() {
+        if let backgroundURL = project?.backgroundImageURLforSize(self.backgroundImageView!.bounds.size) {
+            backgroundImageRequest = Alamofire.request(.GET,backgroundURL)
+                .responseImage { response in
+                    if let image = response.result.value {
+                        self.backgroundImage =  image.af_imageAspectScaledToFillSize(self.backgroundImageView.bounds.size)
+                    }
+            }
+        }
+    }
+
+    func fetchForegroundImage() {
+        if let foregroundURL = project?.foregroundImageURLforSize(self.foregroundImageView.bounds.size) {
+            foregroundImageRequest = Alamofire.request(.GET,foregroundURL)
+                .responseImage { response in
+                    if let image = response.result.value {
+                        self.foregroundImage =  image.af_imageAspectScaledToFillSize(self.foregroundImageView.bounds.size)
+                    }
+            }
+        }
+    }
+
+    // MARK: sections
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return (places?.sections?.count)!

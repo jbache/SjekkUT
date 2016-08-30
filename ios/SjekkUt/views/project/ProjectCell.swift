@@ -54,14 +54,6 @@ class ProjectCell: UITableViewCell {
 
     var backgroundImage: UIImage? = nil {
         didSet {
-//            let filter = CIFilter(name: "CISepiaTone")
-//            filter?.setValue(backgroundImage?.CIImage, forKey: kCIInputImageKey)
-//            filter?.setValue(0.5, forKey: kCIInputIntensityKey)
-//
-//            if let output = filter?.valueForKey(kCIOutputImageKey) as? CIImage {
-//                let filteredImage = UIImage(CIImage: output)
-//                self.backgroundImageView.image = filteredImage
-//            }
             backgroundImageView.image = backgroundImage
         }
     }
@@ -71,7 +63,6 @@ class ProjectCell: UITableViewCell {
             foregroundImageView.image = foregroundImage
         }
     }
-
     
     var project:Project? = nil {
         willSet {

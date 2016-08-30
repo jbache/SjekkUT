@@ -8,10 +8,9 @@
 
 import Foundation
 
-@IBDesignable
 class CheckinButton: UIButton {
 
-    @IBInspectable var circleColor: UIColor = DntColor.red() {
+    var circleColor: UIColor = DntColor.red() {
         didSet {
             backgroundColor = circleColor
         }

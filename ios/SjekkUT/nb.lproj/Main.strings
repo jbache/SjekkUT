@@ -16,9 +16,6 @@
 /* Class = "UILabel"; text = "Distance"; ObjectID = "25x-wa-zub"; */
 "25x-wa-zub.text" = "Avstand";
 
-/* Class = "UINavigationItem"; title = "Title"; ObjectID = "75k-d1-Gl6"; */
-"75k-d1-Gl6.title" = "Tittel";
-
 /* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "BES-ZN-c87"; */
 "BES-ZN-c87.normalTitle" = "Sjekk inn!";
 
@@ -63,9 +60,6 @@
 
 /* Class = "UILabel"; text = "Date"; ObjectID = "Vr9-EL-Pxm"; */
 "Vr9-EL-Pxm.text" = "Dato";
-
-/* (No Commment) */
-"X32-B9-KX4.title" = "Sjekk UT";
 
 /* Class = "UILabel"; text = "Description"; ObjectID = "XHg-Uz-lpr"; */
 "XHg-Uz-lpr.text" = "Beskrivelse";

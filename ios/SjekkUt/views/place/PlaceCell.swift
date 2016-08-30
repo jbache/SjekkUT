@@ -58,12 +58,11 @@ class PlaceCell: UITableViewCell {
             UIApplication.sharedApplication().openURL(homepageURL)
         }
     }
-    
 
     // MARK: cell
     override func prepareForReuse() {
         stopObserving()
-        placeImageView.image = nil
+        placeImageView.image = UIImage(named:"project-foreground-fallback")
         nameLabel.text = ""
         distanceLabel.text = ""
         climbCountLabel.text = ""
@@ -123,6 +122,9 @@ class PlaceCell: UITableViewCell {
                             self.foregroundImage = image
                         }
                 }
+            }
+            else {
+                self.foregroundImage = UIImage(named:"project-foreground-fallback")
             }
         }
         if (context == &kObserveUrl) {

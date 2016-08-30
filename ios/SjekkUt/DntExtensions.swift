@@ -37,7 +37,7 @@ extension String {
     }
 
     func URL() -> NSURL? {
-        return NSURL(string:self)
+        return NSURL(string:self.stringByAddingPercentEncodingWithAllowedCharacters(.URLFragmentAllowedCharacterSet())!)
     }
 }
 
