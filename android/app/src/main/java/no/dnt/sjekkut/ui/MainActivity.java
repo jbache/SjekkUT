@@ -24,7 +24,6 @@ import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -107,8 +106,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     TripApiSingleton.call().getProject(
                             lastProject._id,
                             getString(R.string.api_key),
-                            "steder,geojson,bilder,img,kommune,fylke,beskrivelse",
-                            "steder,bilder"
+                            TripApiSingleton.PROJECT_FIELDS,
+                            TripApiSingleton.PROJECT_EXPAND
                     ).enqueue(mProjectCallback);
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get project list: " + response.code());
@@ -131,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     TripApiSingleton.call().getPlace(
                             lastPlace._id,
                             getString(R.string.api_key),
-                            "bilder"
-                    ).enqueue(mPlaceCallback);
+                            TripApiSingleton.PLACE_EXPAND)
+                            .enqueue(mPlaceCallback);
                 } else {
                     Utils.showToast(MainActivity.this, "Failed to get project: " + response.code());
                 }
@@ -251,7 +250,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
-        TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
+        TripApiSingleton.call().getProjectList(
+                getString(R.string.api_key),
+                TripApiSingleton.PROJECTLIST_FIELDS)
+                .enqueue(mProjectListCallback);
     }
 
     @Override

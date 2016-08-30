@@ -142,7 +142,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         TripApiSingleton.call().getPlace(
                 mPlaceId,
                 getString(R.string.api_key),
-                "bilder")
+                TripApiSingleton.PLACE_EXPAND)
                 .enqueue(mPlaceCallback);
         ++mCallbackRefCount;
         CheckinApiSingleton.call().getUserCheckins(

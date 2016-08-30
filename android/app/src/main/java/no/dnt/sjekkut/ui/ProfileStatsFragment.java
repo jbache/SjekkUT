@@ -84,7 +84,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
                     for (String placeId : response.body().getVisitedPlaceIds()) {
                         TripApiSingleton.call().getPlace(placeId,
                                 getString(R.string.api_key),
-                                "bilder")
+                                TripApiSingleton.PLACE_EXPAND)
                                 .enqueue(mPlaceCallback);
                     }
                 } else {

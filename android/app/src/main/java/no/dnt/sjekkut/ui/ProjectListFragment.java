@@ -104,8 +104,13 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
         textPainter.setColor(Color.BLACK);
         textPainter.setTextSize(30);
         mRecyclerView.addItemDecoration(new ProjectSeparator(textPainter, 80));
-        TripApiSingleton.call().getProjectList(getString(R.string.api_key), "steder,bilder,geojson,grupper").enqueue(mProjectListCallback);
-        CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getActivity())).enqueue(mUserCheckinsCallback);
+        TripApiSingleton.call().getProjectList(
+                getString(R.string.api_key),
+                TripApiSingleton.PROJECTLIST_FIELDS)
+                .enqueue(mProjectListCallback);
+        CheckinApiSingleton.call().getUserCheckins(
+                PreferenceUtils.getUserId(getActivity()))
+                .enqueue(mUserCheckinsCallback);
         return view;
     }
 
@@ -212,9 +217,9 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
                     TripApiSingleton.call().getProject(
                             project._id,
                             getString(R.string.api_key),
-                            "steder,geojson,bilder,img,kommune,beskrivelse,grupper",
-                            "steder,bilder,grupper"
-                    ).enqueue(mProjectCallback);
+                            TripApiSingleton.PROJECT_FIELDS,
+                            TripApiSingleton.PROJECT_EXPAND)
+                            .enqueue(mProjectCallback);
                 }
             } else {
                 Utils.showToast(getActivity(), "Failed to get project list: " + response.code());

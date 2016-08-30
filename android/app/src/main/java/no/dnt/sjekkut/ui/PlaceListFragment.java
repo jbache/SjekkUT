@@ -44,15 +44,15 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     private final Callback<Place> mPlaceCallback;
     private final Callback<UserCheckins> mUserCheckinsCallback;
     private final LocationRequest mLocationRequest;
-    private ProjectPlaceWrapperAdapter mWrapperAdapter;
-    private PlaceListListener mListener;
-    private String mProjectId;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.placeList)
     RecyclerView mRecyclerView;
     @BindView(R.id.fab)
     FloatingActionButton mFabButton;
+    private ProjectPlaceWrapperAdapter mWrapperAdapter;
+    private PlaceListListener mListener;
+    private String mProjectId;
 
     public PlaceListFragment() {
         mLocationRequest = LocationRequestUtils.repeatingRequest();
@@ -67,7 +67,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
                     for (Place place : response.body().steder) {
                         TripApiSingleton.call().getPlace(place._id,
                                 getString(R.string.api_key),
-                                "bilder")
+                                TripApiSingleton.PLACE_EXPAND)
                                 .enqueue(mPlaceCallback);
                     }
                 } else {
@@ -183,9 +183,9 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
             TripApiSingleton.call().getProject(
                     mProjectId,
                     getString(R.string.api_key),
-                    "steder,geojson,bilder,img,kommune,fylke,beskrivelse",
-                    "steder,bilder"
-            ).enqueue(mProjectCallback);
+                    TripApiSingleton.PROJECT_FIELDS,
+                    TripApiSingleton.PROJECT_EXPAND)
+                    .enqueue(mProjectCallback);
         }
     }
 

@@ -46,7 +46,7 @@
     <string name="error_did_not_find_position">Vi fant ikke din posisjon</string>
     <string name="error_did_not_find_checkins">Fant ikke checkins</string>
     <string name="error_did_not_find_statistics">Fant ikke statistikk</string>
-    <string name="description_separator">Turbeskrivelse</string>
+    <string name="description_separator">Beskrivelse</string>
     <string name="checkin_separator_title">Innsjekkinger</string>
     <string name="checkin_data_missing">Ingen innsjekkningsdata tilgjengelig</string>
     <string name="checkin_available">Du kan sjekke inn</string>
