@@ -59,6 +59,13 @@ class PlaceView : UITableViewController, UITextViewDelegate {
         }
     }
 
+    @IBAction func readMoreClicked(sender: AnyObject) {
+        if let aURL = place?.url!.URL() {
+            UIApplication.sharedApplication().openURL(aURL)
+        }
+
+    }
+
     func showMap() {
         let aCoordinate = CLLocationCoordinate2DMake(
             (place?.latitude!.doubleValue)!,
@@ -127,7 +134,15 @@ class PlaceView : UITableViewController, UITextViewDelegate {
             let sizeMax = CGSizeMake(self.descriptionLabel.frame.width, CGFloat.max)
             return descriptionLabel.sizeThatFits(sizeMax).height + 16
         }
-        else if (indexPath.row == 5) {
+        else if indexPath.row == 4 {
+            if let aUrlString = place?.url {
+                if aUrlString.URL() != nil {
+                    return 44
+                }
+            }
+            return 0
+        }
+        else if (indexPath.row == 6) {
             checkinCell.setNeedsLayout()
             checkinCell.layoutIfNeeded()
             let sizeMax = CGSizeMake(self.checkinLabel.frame.width, CGFloat.max)
