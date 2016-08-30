@@ -122,7 +122,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_profilestats, container, false);
         ButterKnife.bind(this, view);
         Context context = view.getContext();
-        Utils.setupSupportToolbar(getActivity(), mToolbar, "Profil", true);
+        Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.screen_profile), true);
         for (View layout : mStatCountLayouts) {
             mStatCountHolders.add(new StatCountHolder(layout));
         }

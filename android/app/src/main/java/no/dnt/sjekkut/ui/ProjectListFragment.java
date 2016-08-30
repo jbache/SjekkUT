@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -90,16 +89,14 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_projectlist, container, false);
         ButterKnife.bind(this, view);
-        if (getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-            mToolbar.setNavigationIcon(R.drawable.ic_person);
-            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mListener.onProfileClicked();
-                }
-            });
-        }
+        Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.app_name), false);
+        mToolbar.setNavigationIcon(R.drawable.ic_person);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onProfileClicked();
+            }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mProjectAdapter = new ProjectAdapter(mListener);
         mRecyclerView.setAdapter(mProjectAdapter);

@@ -4,7 +4,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,9 +108,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_place, container, false);
         Toolbar toolbar = (Toolbar) fragmentView.findViewById(R.id.toolbar);
-        if (toolbar != null && getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        }
+        Utils.setupSupportToolbar(getActivity(), toolbar, getString(R.string.screen_place), true);
         return fragmentView;
     }
 
@@ -299,7 +296,6 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
 
     private void setPlace(Place place) {
         mPlace = place;
-        Utils.setActionBarTitle(getActivity(), mPlace != null && mPlace.navn != null ? mPlace.navn : "");
         updateView();
     }
 

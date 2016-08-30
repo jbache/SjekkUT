@@ -126,7 +126,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_placelist, container, false);
         ButterKnife.bind(this, rootView);
-        Utils.setupSupportToolbar(getActivity(), mToolbar, "", true);
+        Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.screen_project), true);
         mWrapperAdapter = new ProjectPlaceWrapperAdapter(getActivity(), mListener);
         mRecyclerView.setAdapter(mWrapperAdapter);
         mFabButton.setOnClickListener(this);
@@ -174,8 +174,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     @Override
     public void onResume() {
         super.onResume();
-        Utils.toggleUpButton(getActivity(), true);
-        Utils.setActionBarTitle(getActivity(), "Prosjekt");
         fetchPlaces();
         fetchCheckins();
     }
