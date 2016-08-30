@@ -137,10 +137,11 @@ class SjekkUtApi: Alamofire.Manager {
         let currentLocation = Location.instance().currentLocation.coordinate
         let someParameters = [
             "lat":currentLocation.latitude,
-            "lon":currentLocation.longitude
+            "lon":currentLocation.longitude,
+            "public":(DntApi.instance.user?.publicCheckins?.boolValue)!
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
-        self.request(.POST, requestUrl, parameters:someParameters, headers:authenticationHeaders, encoding: .JSON)
+        self.request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders, encoding: .JSON)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -157,6 +158,13 @@ class SjekkUtApi: Alamofire.Manager {
 
                 }
                 finishHandler(result: response.result)
+        }
+    }
+
+    func doChangePublicCheckin(enablePublicCheckin:Bool, finishHandler:((Void)->(Void))) {
+        ModelController.instance().saveBlock { 
+            DntApi.instance.user?.publicCheckins = enablePublicCheckin
+            finishHandler()
         }
     }
 }

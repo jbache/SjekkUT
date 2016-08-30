@@ -9,11 +9,18 @@
 import UIKit
 
 class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
-    
+
+    var isObserving = false
+    var kObserveUserName = 0
+    var kObserveUserPublicCheckins = 0
+
+    let dntUser = DntApi.instance.user
+
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var statsCollectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var statHeaderView: UIView!
+    @IBOutlet var publicCheckinsSwitch: UISwitch!
 
     var checkins:[[String:AnyObject]] = [[String:AnyObject]]()
     var tempStatData = [
@@ -26,11 +33,51 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         DntApi.instance.logout()
     }
 
+    @IBAction func publicCheckinChanged(sender: AnyObject) {
+        SjekkUtApi.instance.doChangePublicCheckin(publicCheckinsSwitch.on) {
+
+        }
+    }
+
     // MARK: view controller
 
     override func viewDidLoad() {
-        userNameLabel.text = DntApi.instance.user?.fullName()
         checkins = getCheckins()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        startObserving()
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        stopObserving()
+    }
+
+    func startObserving() {
+        if (!isObserving) {
+            dntUser?.addObserver(self, forKeyPath: "firstName", options: .Initial, context: &kObserveUserName)
+            dntUser?.addObserver(self, forKeyPath: "publicCheckins", options: .Initial, context: &kObserveUserPublicCheckins)
+            isObserving = true
+        }
+    }
+
+    func stopObserving() {
+        if (isObserving) {
+            dntUser?.removeObserver(self, forKeyPath: "firstName")
+            dntUser?.removeObserver(self, forKeyPath: "publicCheckins")
+            isObserving = false
+        }
+    }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        switch(keyPath!, context) {
+        case ("firstName", &kObserveUserName):
+            userNameLabel.text = dntUser?.fullName()
+        case("publicCheckins", &kObserveUserPublicCheckins):
+            publicCheckinsSwitch.setOn((dntUser?.publicCheckins?.boolValue)!, animated: true)
+        default:
+            break
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

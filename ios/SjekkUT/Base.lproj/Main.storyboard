@@ -107,8 +107,35 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ejE-pF-QvR">
                                 <rect key="frame" x="0.0" y="241" width="600" height="295"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="Mni-Uc-Buo">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let new checkins be public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU9-d9-JxX">
+                                            <rect key="frame" x="8" y="8" width="527" height="28"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CD2-9a-A4b">
+                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="publicCheckinChanged:" destination="UVh-iZ-6qI" eventType="valueChanged" id="uXI-3g-GfU"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="fU9-d9-JxX" secondAttribute="bottom" constant="8" id="06U-JQ-zTI"/>
+                                        <constraint firstAttribute="trailing" secondItem="CD2-9a-A4b" secondAttribute="trailing" constant="8" id="8eb-OA-SKJ"/>
+                                        <constraint firstItem="fU9-d9-JxX" firstAttribute="top" secondItem="Mni-Uc-Buo" secondAttribute="top" constant="8" id="HgZ-RA-AkJ"/>
+                                        <constraint firstItem="CD2-9a-A4b" firstAttribute="leading" secondItem="fU9-d9-JxX" secondAttribute="trailing" constant="8" id="YIl-4n-NiZ"/>
+                                        <constraint firstItem="fU9-d9-JxX" firstAttribute="leading" secondItem="Mni-Uc-Buo" secondAttribute="leading" constant="8" id="j1x-NR-xVi"/>
+                                        <constraint firstItem="CD2-9a-A4b" firstAttribute="centerY" secondItem="Mni-Uc-Buo" secondAttribute="centerY" id="wIx-0p-nj2"/>
+                                    </constraints>
+                                </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="T2v-Ra-Psh">
-                                    <rect key="frame" x="0.0" y="72" width="600" height="80"/>
+                                    <rect key="frame" x="0.0" y="116" width="600" height="80"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b95-Ep-JLP">
@@ -132,7 +159,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CheckinCell" id="iCo-Dt-ils" customClass="CheckinCell" customModule="SjekkUT" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iCo-Dt-ils" id="Ht4-HG-lPS">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -192,6 +219,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="Dcr-Fx-N7D"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="publicCheckinsSwitch" destination="CD2-9a-A4b" id="yc8-pe-5aY"/>
                         <outlet property="statsCollectionView" destination="nfF-WF-bGd" id="EWX-zM-IzL"/>
                         <outlet property="tableView" destination="ejE-pF-QvR" id="u1V-zF-G8l"/>
                         <outlet property="userNameLabel" destination="ZJY-j5-pPY" id="1cY-QK-2Mh"/>
@@ -1196,6 +1224,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="TOc-wB-BP5"/>
+        <segue reference="cNC-kT-LwS"/>
     </inferredMetricsTieBreakers>
 </document>

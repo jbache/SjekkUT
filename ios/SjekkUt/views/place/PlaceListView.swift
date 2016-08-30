@@ -60,17 +60,10 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     override func viewDidLoad() {
-        setupCheckinButton()
         setupTable()
     }
 
     // MARK: private
-
-    func setupCheckinButton() {
-        self.checkinButton.titleLabel?.lineBreakMode = .ByWordWrapping
-        self.checkinButton.titleLabel?.numberOfLines = 2
-        self.checkinButton.titleLabel?.textAlignment = .Center
-    }
 
     @IBAction func feedbackClicked(sender: AnyObject) {
         let hockeyManager = BITHockeyManager.sharedHockeyManager()

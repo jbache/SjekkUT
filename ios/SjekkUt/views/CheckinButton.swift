@@ -10,6 +10,12 @@ import Foundation
 
 class CheckinButton: UIButton {
 
+    override func awakeFromNib() {
+        self.titleLabel?.lineBreakMode = .ByWordWrapping
+        self.titleLabel?.numberOfLines = 2
+        self.titleLabel?.textAlignment = .Center
+    }
+
     var circleColor: UIColor = DntColor.red() {
         didSet {
             backgroundColor = circleColor

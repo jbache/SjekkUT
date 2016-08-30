@@ -34,6 +34,7 @@
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publicCheckins" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="checkins" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Checkin" inverseName="user" inverseEntity="Checkin" syncable="YES"/>
         <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="user" inverseEntity="Project" syncable="YES"/>
     </entity>
@@ -72,7 +73,7 @@
         <element name="DntGroup" positionX="99" positionY="153" width="128" height="105"/>
         <element name="DntImage" positionX="18" positionY="63" width="128" height="135"/>
         <element name="DntImageSize" positionX="117" positionY="171" width="128" height="120"/>
-        <element name="DntUser" positionX="99" positionY="153" width="128" height="118"/>
+        <element name="DntUser" positionX="99" positionY="153" width="128" height="135"/>
         <element name="Place" positionX="27" positionY="72" width="128" height="240"/>
         <element name="Project" positionX="160" positionY="192" width="128" height="240"/>
     </elements>
