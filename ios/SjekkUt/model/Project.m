@@ -120,11 +120,11 @@
             [municipalities addObject:aPlace.municipality];
         }
     }
+    return @"";
 
-    NSString *municipalitiesString = [municipalities componentsJoinedByString:@", "];
-    NSString *countiesString = [counties componentsJoinedByString:@", "];
-
-    return [NSString stringWithFormat:@"%@%@%@", countiesString, (municipalitiesString.length > 0 && countiesString.length > 0) ? @"/" : @"", municipalitiesString];
+    //    NSString *municipalitiesString = [municipalities componentsJoinedByString:@", "];
+    //    NSString *countiesString = [counties componentsJoinedByString:@", "];
+    //    return [NSString stringWithFormat:@"%@%@%@", countiesString, (municipalitiesString.length > 0 && countiesString.length > 0) ? @"/" : @"", municipalitiesString];
 }
 
 #pragma mark groups
