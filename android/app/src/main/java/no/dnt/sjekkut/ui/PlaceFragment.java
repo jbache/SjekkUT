@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -109,6 +112,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         View fragmentView = inflater.inflate(R.layout.fragment_place, container, false);
         Toolbar toolbar = (Toolbar) fragmentView.findViewById(R.id.toolbar);
         Utils.setupSupportToolbar(getActivity(), toolbar, getString(R.string.screen_place), true);
+        setHasOptionsMenu(true);
         return fragmentView;
     }
 
@@ -148,6 +152,24 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         mCallbackDescription = getString(R.string.callback_checkins_and_statistics);
         updateView();
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_feedback, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.feedback:
+                MainActivity.showFeedbackActivity(getActivity());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void onLocationChanged(Location location) {

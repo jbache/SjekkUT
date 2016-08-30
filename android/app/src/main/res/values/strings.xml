@@ -65,7 +65,7 @@
     <string name="challenge_joined_toast">Du deltar nå i %s</string>
     <string name="distance_to_you">Din avstand: %s</string>
     <string name="cd_place_image">place image</string>
-    <string name="projectVisitStatus">%1$d/%2$d besøk</string>
+    <string name="projectVisitStatus">Besøkt %1$d av %2$d</string>
     <string name="not_implemented">Ikke implementert</string>
     <string name="action_search">Søk</string>
     <string name="antallbesøk">%d besøk</string>

@@ -119,7 +119,8 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_projectlist_fragment, menu);
+        inflater.inflate(R.menu.menu_search, menu);
+        inflater.inflate(R.menu.menu_feedback, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         mSearchView.setOnQueryTextListener(this);
@@ -128,8 +129,14 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
     }
 
     @Override
-    public void setHasOptionsMenu(boolean hasMenu) {
-        super.setHasOptionsMenu(hasMenu);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.feedback:
+                MainActivity.showFeedbackActivity(getActivity());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
