@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -261,8 +263,9 @@ public class PlaceFragment extends Fragment implements LocationListener {
         }
         TextView descriptionText = (TextView) getView().findViewById(R.id.description);
         if (descriptionText != null) {
-            String mountainDescription = mPlace != null ? mPlace.beskrivelse : getString(R.string.unknown_place_description);
-            descriptionText.setText(mountainDescription);
+            String placeDescription = mPlace != null && mPlace.beskrivelse != null ? mPlace.beskrivelse : getString(R.string.unknown_place_description);
+            SpannableString formattedDescription = new SpannableString(Html.fromHtml(placeDescription));
+            descriptionText.setText(formattedDescription, TextView.BufferType.SPANNABLE);
         }
         TextView checkinSeparator = (TextView) getView().findViewById(R.id.checkin_separator_title);
         if (checkinSeparator != null) {
