@@ -125,6 +125,20 @@
                 tools:text="Some description" />
 
             <include
+                android:id="@+id/homepage_separator_title"
+                layout="@layout/separator_checkin_sections" />
+
+            <TextView
+                android:id="@+id/homepage_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5sp"
+                android:gravity="start|top"
+                android:textColor="@color/text_main"
+                android:textSize="@dimen/textsize_medium"
+                tools:text="Les mer på vår hjemmeside" />
+
+            <include
                 android:id="@+id/checkin_separator_title"
                 layout="@layout/separator_checkin_sections" />
 

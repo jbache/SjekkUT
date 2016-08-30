@@ -12,6 +12,7 @@ import no.dnt.sjekkut.R;
  * Created by espen on 10.08.2016.
  */
 public class Place {
+    private static final String HOMEPAGE = "Hjemmeside";
     public String _id;
     public String navn;
     public String kommune;
@@ -19,6 +20,11 @@ public class Place {
     public String beskrivelse;
     public List<Photo> bilder;
     public GeoJSON geojson;
+    List<Link> lenker;
+
+    public Place(String _id) {
+        this._id = _id;
+    }
 
     public Float getDistanceTo(Location currentLocation) {
         if (geojson != null) {
@@ -38,7 +44,6 @@ public class Place {
         return geojson != null ? geojson.getLocation() : null;
     }
 
-
     public String getImageUrl(int preferredWidth) {
         if (bilder != null && bilder.size() >= 1) {
             return bilder.get(0).getImageUrl(preferredWidth);
@@ -46,11 +51,23 @@ public class Place {
         return null;
     }
 
-    public Place(String _id) {
-        this._id = _id;
-    }
-
     public int getImageFallback() {
         return R.drawable.project_image_fallback;
+    }
+
+    public String getHomePageUrl() {
+        if (lenker != null) {
+            for (Link link : lenker) {
+                if (HOMEPAGE.equals(link.type)) {
+                    return link.url;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static class Link {
+        String type;
+        String url;
     }
 }
