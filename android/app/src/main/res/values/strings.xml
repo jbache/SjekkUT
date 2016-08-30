@@ -70,11 +70,14 @@
     <string name="action_search">Søk</string>
     <string name="antallbesøk">%d besøk</string>
     <string name="logout">Logg ut</string>
+    <string name="place">Sted</string>
+    <string name="count">Antall</string>
     <string name="username_unknown">Ukjent</string>
     <string name="callback_collecting_place_data">Henter informasjon om stedet</string>
     <string name="checkin_no_checkins">Vi greide ikke hente innsjekkinger</string>
     <string name="last_visited">Sist besøkt %s</string>
     <string name="not_visited">Ikke besøkt</string>
+    <string name="your_visits">Dine besøk</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

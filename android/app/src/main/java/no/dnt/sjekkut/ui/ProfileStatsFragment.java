@@ -49,6 +49,8 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     List<View> mStatCountLayouts;
     @BindView(R.id.logout)
     Button mLogout;
+    @BindView(R.id.visits_separator)
+    TextView mVisitsSeparator;
     private List<StatCountHolder> mStatCountHolders = new ArrayList<>();
     private PlaceVisitAdapter mPlaceVisitAdapter;
 
@@ -134,6 +136,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
             holder.counter.setText(Integer.toString((int) (Math.random() * 10)));
             holder.circle.setColorFilter(ContextCompat.getColor(context, R.color.todo));
         }
+        mVisitsSeparator.setText(getString(R.string.your_visits));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mPlaceVisitAdapter = new PlaceVisitAdapter();
         mRecyclerView.setAdapter(mPlaceVisitAdapter);

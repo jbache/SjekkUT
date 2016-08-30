@@ -18,6 +18,7 @@
         android:id="@+id/name_and_stats_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:layout_below="@id/toolbar">
 
         <TextView
@@ -61,8 +62,6 @@
                 android:layout_weight="1" />
 
         </LinearLayout>
-
-
     </RelativeLayout>
 
     <Button
@@ -74,16 +73,47 @@
         android:layout_centerHorizontal="true"
         android:text="@string/logout" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/visitlist"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_above="@id/logout"
         android:layout_below="@id/name_and_stats_container"
-        app:layoutManager="LinearLayoutManager"
-        tools:context="no.dnt.sjekkut.ui.ProfileStatsFragment"
-        tools:listitem="@layout/item_placevisit" />
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/visits_separator"
+            layout="@layout/separator_checkin_sections" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".75"
+                android:text="@string/place"
+                android:textAppearance="@style/ProfilePlaceTitle" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:text="@string/count"
+                android:textAppearance="@style/ProfilePlaceTitle" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/visitlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context="no.dnt.sjekkut.ui.ProfileStatsFragment"
+            tools:listitem="@layout/item_placevisit" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
