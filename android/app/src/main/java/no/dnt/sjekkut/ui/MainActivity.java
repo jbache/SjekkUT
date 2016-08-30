@@ -36,7 +36,6 @@ import no.dnt.sjekkut.network.CheckinLocation;
 import no.dnt.sjekkut.network.CheckinResult;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
-import no.dnt.sjekkut.network.OppturApi;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckinList;
 import no.dnt.sjekkut.network.PlaceCheckinStats;
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        OppturApi.sActivityReference = new WeakReference<Activity>(this);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)

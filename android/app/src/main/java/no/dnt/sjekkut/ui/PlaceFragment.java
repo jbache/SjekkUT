@@ -61,7 +61,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
                 if (response.isSuccessful()) {
                     setPlace(response.body());
                 } else {
-                    Utils.showToast(getActivity(), getString(R.string.checkin_no_mountain));
+                    Utils.showToast(getActivity(), getString(R.string.checkin_no_place));
                     updateView();
                 }
             }
@@ -69,7 +69,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
             @Override
             public void onFailure(Call<Place> call, Throwable t) {
                 --mCallbackRefCount;
-                Utils.showToast(getActivity(), getString(R.string.checkin_no_mountain));
+                Utils.showToast(getActivity(), getString(R.string.checkin_no_place));
                 updateView();
             }
         };
@@ -201,19 +201,18 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
 
         TextView name = (TextView) getView().findViewById(R.id.name);
         if (name != null) {
-            String mountainName = mPlace != null ? mPlace.navn : getString(R.string.unknown_mountain_name);
-            name.setText(mountainName);
+            String placeName = mPlace != null ? mPlace.navn : getString(R.string.unknown_place);
+            name.setText(placeName);
         }
-        TextView countyAndHeight = (TextView) getView().findViewById(R.id.county_and_height);
+        TextView countyAndHeight = (TextView) getView().findViewById(R.id.county);
         if (countyAndHeight != null) {
-            String county = mPlace != null ? mPlace.fylke : getString(R.string.unknown_mountain_county);
-            double height = 0.0d; // TODO: add or remove height info
-            countyAndHeight.setText(getString(R.string.county_and_height, county, height));
+            String county = mPlace != null ? mPlace.fylke : getString(R.string.unknown_county);
+            countyAndHeight.setText(getString(R.string.county, county));
         }
-        TextView summits = (TextView) getView().findViewById(R.id.summits);
-        if (summits != null && mUserCheckins != null) {
+        TextView visits = (TextView) getView().findViewById(R.id.visits);
+        if (visits != null && mUserCheckins != null) {
             int count = mUserCheckins.getNumberOfVisits(mPlaceId);
-            summits.setText(getString(R.string.summits, count));
+            visits.setText(getString(R.string.visits, count));
         }
         TextView distance = (TextView) getView().findViewById(R.id.distance);
         if (distance != null) {
@@ -280,7 +279,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         }
         TextView descriptionText = (TextView) getView().findViewById(R.id.description);
         if (descriptionText != null) {
-            String mountainDescription = mPlace != null ? mPlace.beskrivelse : getString(R.string.unknown_mountain_description);
+            String mountainDescription = mPlace != null ? mPlace.beskrivelse : getString(R.string.unknown_place_description);
             descriptionText.setText(mountainDescription);
         }
         TextView checkinSeparator = (TextView) getView().findViewById(R.id.checkin_separator_title);

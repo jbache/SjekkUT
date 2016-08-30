@@ -33,11 +33,11 @@ import no.dnt.sjekkut.network.UserCheckins;
 class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
 
     private final List<Place> mPlaces;
-    private UserCheckins mUserCheckins;
     private final Comparator<Place> mPlaceComparator;
     private final int mDisplayWidth;
-    private Location mLocation;
     private final PlaceListFragment.PlaceListListener mListener;
+    private UserCheckins mUserCheckins;
+    private Location mLocation;
 
     PlaceAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
         mDisplayWidth = Utils.getDisplayWidth(context);
@@ -109,8 +109,7 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
                 .centerCrop()
                 .into(holder.image);
         holder.name.setText(place.navn);
-        // TODO: height of place needs to be fetched from somewhere
-        holder.countyAndHeight.setText(context.getString(R.string.county_and_height, place.fylke, 0.0f));
+        holder.county.setText(context.getString(R.string.county, place.fylke));
         // TODO: number of checkins needs to be fetched from somewhere
         String distanceString = context.getString(R.string.not_available);
         if (mLocation != null && place.hasLocation()) {
@@ -119,13 +118,13 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
         holder.distance.setText(context.getString(R.string.distance_to_you, distanceString));
         int visits = 0;
         PlaceCheckin latestCheckin = null;
-        String checkinString = "Ikke besteget";
+        String checkinString = context.getString(R.string.not_visited);
         if (mUserCheckins != null && mUserCheckins.hasVisited(place._id)) {
             visits = mUserCheckins.getNumberOfVisits(place._id);
             latestCheckin = mUserCheckins.getLatestCheckin(place._id);
             checkinString = context.getString(R.string.last_visited, Utils.getTimeSpanFromNow(latestCheckin.timestamp));
         }
-        holder.summits.setText(context.getString(R.string.summits, visits));
+        holder.visits.setText(context.getString(R.string.visits, visits));
         holder.checkin.setChecked(latestCheckin != null);
         holder.checkinText.setText(checkinString);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -146,10 +145,10 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
     static class PlaceViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.name)
         TextView name;
-        @BindView(R.id.county_and_height)
-        TextView countyAndHeight;
-        @BindView(R.id.summits)
-        TextView summits;
+        @BindView(R.id.county)
+        TextView county;
+        @BindView(R.id.visits)
+        TextView visits;
         @BindView(R.id.distance)
         TextView distance;
         @BindView(R.id.image)

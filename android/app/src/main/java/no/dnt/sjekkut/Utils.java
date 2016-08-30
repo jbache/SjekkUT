@@ -30,8 +30,6 @@ import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
 
-import no.dnt.sjekkut.network.Checkin;
-import no.dnt.sjekkut.network.Mountain;
 import no.dnt.sjekkut.ui.LoginActivity;
 
 /**
@@ -44,13 +42,6 @@ public class Utils {
     private static Toast sGlobalToast = null;
     private static final int MAP_MAX_SIZE = 640;
     private static final float MAX_DISTANCE_FOR_USER_MARKER_METERS = 3000.0f;
-
-    public static String getDeviceID(Context context) {
-        if (context == null)
-            return null;
-
-        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-    }
 
     public static void setupSupportToolbar(Activity activity, Toolbar toolbar, String title, boolean upButton) {
         setSupportActionToolbar(activity, toolbar);
@@ -81,23 +72,6 @@ public class Utils {
                 actionBar.setDisplayHomeAsUpEnabled(enabled);
             }
         }
-    }
-
-    public static void shareCheckin(Activity activity, Checkin checkin, Mountain mMountain) {
-        if (activity == null || checkin == null || mMountain == null)
-            return;
-
-        String timespan = getTimeSpanFromNow(checkin.timestamp);
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        String shareString = activity.getString(R.string.share_text, checkin.mountain, activity.getString(R.string.app_name), timespan);
-        String shareUrl = mMountain.getInfoUrl();
-        if (shareUrl != null) {
-            shareString += " " + shareUrl;
-        }
-        sendIntent.putExtra(Intent.EXTRA_TEXT, shareString);
-        sendIntent.setType("text/plain");
-        activity.startActivity(Intent.createChooser(sendIntent, activity.getResources().getText(R.string.share_choose_title)));
     }
 
     public static boolean isAccurateGPSEnabled(Context context) {
@@ -139,20 +113,6 @@ public class Utils {
         }
         sGlobalToast = Toast.makeText(context, text, length);
         sGlobalToast.show();
-    }
-
-    public static Checkin getLatestCheckin(List<Checkin> checkins, Mountain mountain) {
-        Checkin latest = null;
-        for (Checkin checkin : checkins) {
-            if (mountain != null && checkin.mountainId == mountain.id) {
-                if (latest == null) {
-                    latest = checkin;
-                } else if (checkin.timestamp.after(latest.timestamp)) {
-                    latest = checkin;
-                }
-            }
-        }
-        return latest;
     }
 
     public static String getTimeSpanFromNow(Date then) {

@@ -38,7 +38,7 @@
                     android:layout_marginRight="4sp" />
 
                 <include
-                    layout="@layout/layout_mountaininfo"
+                    layout="@layout/layout_placeinfo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
