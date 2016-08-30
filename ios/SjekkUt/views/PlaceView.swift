@@ -10,11 +10,11 @@ import Foundation
 import AlamofireImage
 import MapKit
 
-class PlaceView : UITableViewController, UITextViewDelegate {
+class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
 
     var place:Place? = nil
     var checkin:Checkin? = nil
-
+    var vWebContentHeight:CGFloat = 0
     var kObserveLocation = 0
 
     let sjekkUtApi:SjekkUtApi = SjekkUtApi.instance
@@ -28,6 +28,8 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     @IBOutlet weak var checkinCell: UITableViewCell!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet var placeCell: PlaceCell!
+    @IBOutlet var descriptionWebView: UIWebView!
+    @IBOutlet var descriptionWebViewHeight: NSLayoutConstraint!
 
     // MARK: private
     func didCheckInTo(notification:NSNotification) {
@@ -43,11 +45,6 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     }
 
     // MARK: actions
-    @IBAction func checkinClicked(sender: AnyObject) {
-        sjekkUtApi.doPlaceCheckin(place!) { result in
-            
-        }
-    }
 
     @IBAction func shareClicked(sender: AnyObject) {
         if let aURL = NSURL(string:(checkin?.url)!) {
@@ -82,6 +79,7 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     // MARK: viewcontroller
     override func viewDidLoad() {
         shareButton.hidden = true
+
         if (place != nil) {
             placeCell.place = place
             TurbasenApi.instance.getPlace(place!)
@@ -101,12 +99,18 @@ class PlaceView : UITableViewController, UITextViewDelegate {
         tableView.beginUpdates()
         fetchAndSetupMapImage()
 
-        descriptionLabel.text = place?.descriptionText
-        descriptionLabel.sizeToFit()
         checkinLabel.text = place?.checkinDescription()
         checkinLabel.sizeToFit()
 
         tableView.endUpdates()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        if place?.descriptionText != nil {
+            tableView.beginUpdates()
+            descriptionWebView.loadHTMLString((place?.descriptionText)!, baseURL: nil)
+            tableView.endUpdates()
+        }
     }
 
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
@@ -130,9 +134,11 @@ class PlaceView : UITableViewController, UITextViewDelegate {
     // MARK: table view
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row == 2) {
+            return vWebContentHeight == 0 ? 0 : super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        }
         if (indexPath.row == 3) {
-            let sizeMax = CGSizeMake(self.descriptionLabel.frame.width, CGFloat.max)
-            return descriptionLabel.sizeThatFits(sizeMax).height + 16
+            return vWebContentHeight
         }
         else if indexPath.row == 4 {
             if let aUrlString = place?.url {
@@ -149,6 +155,21 @@ class PlaceView : UITableViewController, UITextViewDelegate {
             return checkinLabel.sizeThatFits(sizeMax).height + 16
         }
         return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+    }
+
+    // MARK: web view delegate
+    func webViewDidFinishLoad(webView: UIWebView) {
+        var frame = descriptionWebView.frame
+        frame.size.height = 1
+        descriptionWebView.frame = frame
+
+        let fitSize:CGSize = descriptionWebView.sizeThatFits(CGSizeZero)
+        frame.size = fitSize
+        descriptionWebView.frame = frame
+
+        tableView.beginUpdates()
+        vWebContentHeight = fitSize.height + frame.origin.y * 2
+        tableView.endUpdates()
     }
 
 }

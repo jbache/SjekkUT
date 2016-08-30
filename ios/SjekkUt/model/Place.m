@@ -82,12 +82,18 @@
 
 - (void)updateUrl:(NSDictionary *)urls
 {
+    BOOL didSetUrl = NO;
     for (NSDictionary *url in urls)
     {
         if ([url[@"type"] isEqual:@"Hjemmeside"] && [(NSString *)url[@"url"] length] > 0)
         {
+            didSetUrl = YES;
             setIfNotEqual(self.url, url[@"url"]);
         }
+    }
+    if (!didSetUrl)
+    {
+        setIfNotEqual(self.url, nil);
     }
 }
 
