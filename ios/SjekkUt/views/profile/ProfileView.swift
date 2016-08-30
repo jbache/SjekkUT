@@ -114,11 +114,22 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
 
-    // MARK: table data
+    // MARK: table sections
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let aHeader = tableView.dequeueReusableCellWithIdentifier("CheckinHeaderCell") as! CheckinHeaderCell
+        return aHeader
+    }
+
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 69
+    }
+
+    // MARK: table rows
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return checkins.count
@@ -136,10 +147,6 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
         let aPlace = Place.findWithId(aPlaceId!)
         aCheckinCell.place = aPlace
         aCheckinCell.dateLabel.text = "\(checkinCount!)"
-    }
-
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return NSLocalizedString("Checkins", comment: "section header in checkin log")
     }
 
     func getCheckins() -> [[String:AnyObject]] {

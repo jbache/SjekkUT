@@ -13,6 +13,7 @@
 		6C04BE3A1D61C60500741C42 /* DntImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C04BE381D61C60500741C42 /* DntImageSize.m */; };
 		6C08F6791A8A0ACD0091D70A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C08F67B1A8A0ACD0091D70A /* Localizable.strings */; };
 		6C0B635E1D6EDD14007F737A /* CheckinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B635D1D6EDD14007F737A /* CheckinButton.swift */; };
+		6C163BAA1D75BC2E00833E96 /* CheckinHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C163BA91D75BC2E00833E96 /* CheckinHeaderCell.swift */; };
 		6C1F114A1B1087DA0003DD2B /* NSDateFormatter+instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */; };
 		6C2F4EF11AE6348400E12F4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2F4EEF1AE6348400E12F4E /* InfoPlist.strings */; };
 		6C35DAAC1D535A930048114B /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35DAAB1D535A930048114B /* PlaceSearch.swift */; };
@@ -130,6 +131,7 @@
 		6C08F6801A8A2B9B0091D70A /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		6C0B635D1D6EDD14007F737A /* CheckinButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckinButton.swift; path = views/CheckinButton.swift; sourceTree = "<group>"; };
 		6C0E0DE61A9E0AE2004C760A /* 1.0.3.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.3.5.xcdatamodel; sourceTree = "<group>"; };
+		6C163BA91D75BC2E00833E96 /* CheckinHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckinHeaderCell.swift; path = views/profile/CheckinHeaderCell.swift; sourceTree = "<group>"; };
 		6C1D7A051B14BFF900007FAB /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		6C1F11481B1087DA0003DD2B /* NSDateFormatter+instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+instance.h"; path = "utils/NSDateFormatter+instance.h"; sourceTree = "<group>"; };
 		6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+instance.m"; path = "utils/NSDateFormatter+instance.m"; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				6C92E3741D66F3B500464AAE /* ProfileView.swift */,
 				6C92E3761D66F9D200464AAE /* StatisticCell.swift */,
 				6C92E37E1D6C513100464AAE /* CheckinCell.swift */,
+				6C163BA91D75BC2E00833E96 /* CheckinHeaderCell.swift */,
 			);
 			name = profile;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				6CD174E41D7467A3000FC40C /* JoinProjectCell.swift in Sources */,
 				6C92E37F1D6C513100464AAE /* CheckinCell.swift in Sources */,
 				6CE0762F1D4751E8000ACAAA /* ProjectListView.swift in Sources */,
+				6C163BAA1D75BC2E00833E96 /* CheckinHeaderCell.swift in Sources */,
 				6CDE75951AEA50F10067110C /* Comment.m in Sources */,
 				6C36A13C1B0C99B100169E98 /* Summit.m in Sources */,
 				6C1F114A1B1087DA0003DD2B /* NSDateFormatter+instance.m in Sources */,
