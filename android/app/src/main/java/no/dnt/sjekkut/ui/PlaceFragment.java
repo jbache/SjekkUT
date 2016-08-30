@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,16 +30,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
  * Copyright Den Norske Turistforening 2015
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceFragment extends Fragment implements LocationListener, View.OnClickListener {
+public class PlaceFragment extends Fragment implements LocationListener {
 
-    private final static long CHECKIN_TIMESPAN_THRESHOLD_MILLISECONDS = 24 * 60 * 60 * 1000;
-    private final static float CHECKIN_DISTANCE_THRESHOLD_METERS = 200.0f;
     private final static int MAP_ZOOMLEVEL = 14;
     private static final String BUNDLE_PLACE_ID = "bundle_place_id";
 
@@ -98,7 +94,7 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         };
     }
 
-    public static PlaceFragment newInstance(String placeId) {
+    static PlaceFragment newInstance(String placeId) {
         PlaceFragment fragment = new PlaceFragment();
         Bundle args = new Bundle();
         args.putSerializable(BUNDLE_PLACE_ID, placeId);
@@ -121,13 +117,6 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         super.onActivityCreated(savedInstanceState);
         mPlaceId = getArguments().getString(BUNDLE_PLACE_ID, "");
         Utils.toggleUpButton(getActivity(), true);
-        if (getView() != null) {
-            Button checkinButton = (Button) getView().findViewById(R.id.checkin);
-            if (checkinButton != null) {
-                checkinButton.setOnClickListener(this);
-            }
-        }
-
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
             ++mCallbackRefCount;
@@ -192,9 +181,6 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
         if (getView() == null)
             return;
 
-        boolean timespanOK = 0 > CHECKIN_TIMESPAN_THRESHOLD_MILLISECONDS; // TODO: calculate proper timespan since last checkin
-        boolean distanceOK = mPlace != null && mPlace.hasLocation() && mLocation != null && mLocation.distanceTo(mPlace.getLocation()) < CHECKIN_DISTANCE_THRESHOLD_METERS;
-        boolean viewButtonChecksIn = timespanOK && distanceOK;
         boolean callbacksInProgress = mCallbackRefCount > 0;
         int progressVisibility = callbacksInProgress ? View.VISIBLE : View.INVISIBLE;
         int viewVisibility = callbacksInProgress ? View.INVISIBLE : View.VISIBLE;
@@ -269,32 +255,6 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
             scaleBar.setText(Utils.formatDistance(getActivity(), mapMeters));
         }
 
-        Button checkinButton = (Button) getView().findViewById(R.id.checkin);
-        if (checkinButton != null) {
-            if (viewButtonChecksIn) {
-                checkinButton.setText(getString(R.string.checkin_button));
-                Utils.setColorFilter(checkinButton, getResources().getColor(R.color.dntRed));
-                checkinButton.setTextColor(getResources().getColor(R.color.white));
-            } else {
-                checkinButton.setText(getString(R.string.checkin_back));
-                Utils.setColorFilter(checkinButton, getResources().getColor(R.color.dntLightGray));
-                checkinButton.setTextColor(getResources().getColor(R.color.black));
-            }
-        }
-        TextView checkinButtonText = (TextView) getView().findViewById(R.id.checkin_button_text);
-        if (checkinButtonText != null) {
-            if (viewButtonChecksIn) {
-                checkinButtonText.setText(getString(R.string.checkin_available));
-            } else {
-                if (!distanceOK && !timespanOK) {
-                    checkinButtonText.setText(getString(R.string.checkin_not_available_because_distance_and_timespan));
-                } else if (!distanceOK) {
-                    checkinButtonText.setText(getString(R.string.checkin_not_available_because_distance));
-                } else {
-                    checkinButtonText.setText(getString(R.string.checkin_not_available_because_timespan));
-                }
-            }
-        }
         TextView descriptionSeparator = (TextView) getView().findViewById(R.id.description_separator);
         if (descriptionSeparator != null) {
             descriptionSeparator.setText(getString(R.string.description_separator));
@@ -318,15 +278,6 @@ public class PlaceFragment extends Fragment implements LocationListener, View.On
     private void setPlace(Place place) {
         mPlace = place;
         updateView();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.checkin:
-                // TODO: actually implement some checkin stuff
-                Utils.showToast(getActivity(), "Not implemented");
-        }
     }
 
     private String getCheckinStatsString() {
