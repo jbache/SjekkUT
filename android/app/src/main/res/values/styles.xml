@@ -52,22 +52,22 @@
     </style>
 
     <style name="ProfilePlaceTitle" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/textsize_small</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="StatsCircleCounter" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/textsize_large</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="StatsCircleLabel" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/textsize_small</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="UserName" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/textsize_large</item>
         <item name="android:textColor">@color/black</item>
     </style>
 </resources>
