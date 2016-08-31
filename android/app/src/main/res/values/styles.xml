@@ -70,4 +70,11 @@
         <item name="android:textSize">@dimen/textsize_large</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="ParticipantText" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/textsize_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
 </resources>

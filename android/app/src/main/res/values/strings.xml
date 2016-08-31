@@ -81,6 +81,10 @@
     <string name="homepage_separator">Hjemmeside</string>
     <string name="no_homepage">Ingen hjemmeside</string>
     <string name="more_on_homepage"><![CDATA[ Les mer på <a href="%s">hjemmesiden</a> ]]></string>
+    <string name="join_project">Bli med</string>
+    <string name="project_not_joined">Du deltar ikke i dette turprosjektet</string>
+    <string name="leave_project">Meld av</string>
+    <string name="project_joined">Du deltar i dette turprosjektet</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

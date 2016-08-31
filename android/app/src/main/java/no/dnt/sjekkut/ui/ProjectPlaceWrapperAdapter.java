@@ -19,9 +19,11 @@ import no.dnt.sjekkut.network.UserCheckins;
 class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final ProjectAdapter mProjectAdapter;
+    private final ParticipantAdapter mParticipantAdapter;
     private final PlaceAdapter mPlaceAdapter;
     private final int VIEW_TYPE_PROJECT = 0;
-    private final int VIEW_TYPE_PLACE = 1;
+    private final int VIEW_TYPE_PARTICIPATING = 1;
+    private final int VIEW_TYPE_PLACE = 2;
 
     ProjectPlaceWrapperAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
         RecyclerView.AdapterDataObserver mAdapterObserver = new RecyclerView.AdapterDataObserver() {
@@ -32,6 +34,8 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         };
         mProjectAdapter = new ProjectAdapter(null);
         mProjectAdapter.registerAdapterDataObserver(mAdapterObserver);
+        mParticipantAdapter = new ParticipantAdapter();
+        mParticipantAdapter.registerAdapterDataObserver(mAdapterObserver);
         mPlaceAdapter = new PlaceAdapter(context, listener);
         mPlaceAdapter.registerAdapterDataObserver(mAdapterObserver);
     }
@@ -41,6 +45,8 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (viewType) {
             case VIEW_TYPE_PROJECT:
                 return mProjectAdapter.createViewHolder(parent, viewType);
+            case VIEW_TYPE_PARTICIPATING:
+                return mParticipantAdapter.createViewHolder(parent, viewType);
             default:
                 return mPlaceAdapter.createViewHolder(parent, viewType);
         }
@@ -50,6 +56,8 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemViewType(int position) {
         if (position < mProjectAdapter.getItemCount()) {
             return VIEW_TYPE_PROJECT;
+        } else if (position - mProjectAdapter.getItemCount() < mParticipantAdapter.getItemCount()) {
+            return VIEW_TYPE_PARTICIPATING;
         } else {
             return VIEW_TYPE_PLACE;
         }
@@ -61,20 +69,25 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case VIEW_TYPE_PROJECT:
                 mProjectAdapter.onBindViewHolder((ProjectAdapter.ProjectHolder) holder, position);
                 break;
+            case VIEW_TYPE_PARTICIPATING:
+                mParticipantAdapter.onBindViewHolder((ParticipantAdapter.ParticipantHolder) holder, position - mProjectAdapter.getItemCount());
+                break;
             case VIEW_TYPE_PLACE:
-                mPlaceAdapter.onBindViewHolder((PlaceAdapter.PlaceViewHolder) holder, position - mProjectAdapter.getItemCount());
+                mPlaceAdapter.onBindViewHolder((PlaceAdapter.PlaceViewHolder) holder, position - mParticipantAdapter.getItemCount() - mProjectAdapter.getItemCount());
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return mProjectAdapter.getItemCount() + mPlaceAdapter.getItemCount();
+        return mProjectAdapter.getItemCount() + mParticipantAdapter.getItemCount() + mPlaceAdapter.getItemCount();
     }
 
     void setProjectAndPlaces(Project project) {
-        mPlaceAdapter.setPlaces(project.steder);
         mProjectAdapter.setProjects(Collections.singletonList(project));
+        mParticipantAdapter.setProjectIds(Collections.singletonList(project._id));
+        mPlaceAdapter.setPlaces(project.steder);
+
     }
 
     void updatePlace(Place place) {
@@ -82,8 +95,9 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     void setUserCheckins(UserCheckins userCheckins) {
-        mPlaceAdapter.setUserCheckins(userCheckins);
         mProjectAdapter.setUserCheckins(userCheckins);
+        mParticipantAdapter.setUserCheckins(userCheckins);
+        mPlaceAdapter.setUserCheckins(userCheckins);
     }
 
     void setLocation(Location location) {

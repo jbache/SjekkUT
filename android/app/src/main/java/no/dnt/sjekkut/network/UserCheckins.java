@@ -65,11 +65,16 @@ public class UserCheckins {
         return mCheckinMap.containsKey(placeId) ? mCheckinMap.get(placeId) : new ArrayList<PlaceCheckin>();
     }
 
+    public boolean hasJoined(String projectId) {
+        return data != null && data.lister != null && data.lister.contains(projectId);
+    }
+
     private static class UserCheckinsData {
         String _id;
         String epost;
         String navn;
         String __v;
         List<PlaceCheckin> innsjekkinger;
+        Set<String> lister;
     }
 }
