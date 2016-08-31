@@ -6,10 +6,10 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FontAwesome.otf">
-            <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -257,6 +257,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="Yc4-gY-n1L">
                         <barButtonItem key="backBarButtonItem" title=" " id="Dcr-Fx-N7D"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="pN3-yH-pxg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fx0-46-DwB" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
+                                <rect key="frame" x="536" y="7" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="publicCheckinsSwitch" destination="CD2-9a-A4b" id="yc8-pe-5aY"/>
@@ -346,15 +352,15 @@
                                                         <action selector="readMoreClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fpe-x8-Yce"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMy-VC-0SO">
-                                                    <rect key="frame" x="85" y="0.0" width="71" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMy-VC-0SO">
+                                                    <rect key="frame" x="85" y="0.0" width="57" height="17"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-JC-7T1">
-                                                    <rect key="frame" x="527" y="0.0" width="57" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-JC-7T1">
+                                                    <rect key="frame" x="529" y="0.0" width="55" height="17"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="highlightedColor"/>
                                                     <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -615,18 +621,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Project" id="X32-B9-KX4">
                         <barButtonItem key="backBarButtonItem" title=" " id="yWX-Ux-bPF"/>
-                        <barButtonItem key="rightBarButtonItem" width="44" id="Xz8-rr-Ue2">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oJ6-8u-0f3">
-                                <rect key="frame" x="536" y="0.0" width="44" height="44"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="0Gu-dj-Whf">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RwY-ru-13e" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
+                                <rect key="frame" x="536" y="7" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                <state key="normal" title="">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="feedbackClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nOD-jY-Q0U"/>
-                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -635,7 +633,6 @@
                         <outlet property="checkinButton" destination="IBq-T2-jaY" id="oCf-37-j43"/>
                         <outlet property="countyMunicipalityLabel" destination="jzR-oT-Ns0" id="BSu-F5-mph"/>
                         <outlet property="distanceLabel" destination="bpZ-JC-7T1" id="18Y-wQ-AaW"/>
-                        <outlet property="feedbackButton" destination="oJ6-8u-0f3" id="pqs-IM-StD"/>
                         <outlet property="foregroundImageView" destination="FSv-1N-PqJ" id="XrG-Sq-gbk"/>
                         <outlet property="groupLabel" destination="Bkq-2M-BGK" id="3h9-Nd-diF"/>
                         <outlet property="nameLabel" destination="q2N-fQ-e7r" id="BUr-8R-rYg"/>
@@ -674,7 +671,14 @@
                             <constraint firstItem="b7z-cB-lSp" firstAttribute="top" secondItem="lZa-tx-nhM" secondAttribute="bottom" id="Zaa-Ua-CE3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="j5Q-5s-WRl"/>
+                    <navigationItem key="navigationItem" id="j5Q-5s-WRl">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="tJf-tX-fsI">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X60-wR-q56" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
+                                <rect key="frame" x="536" y="7" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="progressView" destination="b7z-cB-lSp" id="7JW-T4-JJ1"/>
                         <segue destination="9SR-Ed-eAi" kind="show" identifier="showProjects" id="imk-vY-cVJ"/>
@@ -839,6 +843,12 @@
                                 <connections>
                                     <segue destination="UVh-iZ-6qI" kind="show" identifier="showProfile" id="CVj-3i-phD"/>
                                 </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="a1h-5G-ggN">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pWN-Ua-NVr" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
+                                <rect key="frame" x="536" y="7" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -1207,19 +1217,27 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Place" id="75k-d1-Gl6">
                         <barButtonItem key="backBarButtonItem" title=" " id="rZL-mB-JJ6"/>
-                        <barButtonItem key="rightBarButtonItem" id="5cP-WR-erQ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hQM-Dp-f9c">
-                                <rect key="frame" x="540" y="7" width="40" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                <state key="normal" title="">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="shareClicked:" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="AP7-Gu-Tz4"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem id="5cP-WR-erQ">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hQM-Dp-f9c">
+                                    <rect key="frame" x="540" y="7" width="40" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                    <state key="normal" title="">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="shareClicked:" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="AP7-Gu-Tz4"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="sOX-3e-A78">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mN5-Lv-ywC" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
+                                    <rect key="frame" x="488" y="7" width="44" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="checkinCell" destination="98B-3h-n0s" id="PnE-lj-vRO"/>
@@ -1264,6 +1282,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="cNC-kT-LwS"/>
+        <segue reference="TOc-wB-BP5"/>
     </inferredMetricsTieBreakers>
 </document>
