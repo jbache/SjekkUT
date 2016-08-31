@@ -41,12 +41,6 @@
 /* Class = "UILabel"; text = "Not climbed"; ObjectID = "Y7P-p5-GVc"; */
 "Y7P-p5-GVc.text" = "Not climbed";
 
-/* Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "bGD-Db-PQW"; */
-"bGD-Db-PQW.normalTitle" = "Read more on our web";
-
-/* Class = "UILabel"; text = "climb count"; ObjectID = "bfX-bI-S5E"; */
-"bfX-bI-S5E.text" = "climb count";
-
 /* Class = "UIButton"; normalTitle = "SH"; ObjectID = "hQM-Dp-f9c"; */
 "hQM-Dp-f9c.normalTitle" = "SH";
 

@@ -145,7 +145,6 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let projectCell = cell as? ProjectCell {
             configureCell(projectCell, forRowAtIndexPath:indexPath)
-            projectCell.hideReadMore()
         }
     }
 

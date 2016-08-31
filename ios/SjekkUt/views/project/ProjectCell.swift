@@ -134,12 +134,6 @@ class ProjectCell: UITableViewCell {
         }
     }
 
-    func hideReadMore() {
-        readMoreSpacing.constant = 0
-        readMoreWidth.constant = 0
-        setNeedsLayout()
-    }
-
     // MARK: background image
 
     func fetchBackgroundImage() {
