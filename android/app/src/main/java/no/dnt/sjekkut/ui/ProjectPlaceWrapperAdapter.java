@@ -25,7 +25,9 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final int VIEW_TYPE_PARTICIPATING = 1;
     private final int VIEW_TYPE_PLACE = 2;
 
-    ProjectPlaceWrapperAdapter(Context context, PlaceListFragment.PlaceListListener listener) {
+    ProjectPlaceWrapperAdapter(Context context,
+                               PlaceListFragment.PlaceListListener placeListener,
+                               ParticipantAdapter.ParticipantClickedListener participantListener) {
         RecyclerView.AdapterDataObserver mAdapterObserver = new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -34,9 +36,9 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         };
         mProjectAdapter = new ProjectAdapter(null);
         mProjectAdapter.registerAdapterDataObserver(mAdapterObserver);
-        mParticipantAdapter = new ParticipantAdapter();
+        mParticipantAdapter = new ParticipantAdapter(participantListener);
         mParticipantAdapter.registerAdapterDataObserver(mAdapterObserver);
-        mPlaceAdapter = new PlaceAdapter(context, listener);
+        mPlaceAdapter = new PlaceAdapter(context, placeListener);
         mPlaceAdapter.registerAdapterDataObserver(mAdapterObserver);
     }
 
@@ -103,5 +105,9 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     void setLocation(Location location) {
         mProjectAdapter.setLocation(location);
         mPlaceAdapter.setLocation(location);
+    }
+
+    void updateUserCheckinsProjects(UserCheckins userCheckins) {
+        mParticipantAdapter.updateUserCheckinsProjects(userCheckins);
     }
 }

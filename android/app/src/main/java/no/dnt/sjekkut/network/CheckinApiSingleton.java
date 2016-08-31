@@ -39,6 +39,19 @@ public enum CheckinApiSingleton {
         Call<UserCheckins> getUserCheckins(@Path("id") String userId);
 
         @POST("steder/{id}/besok")
-        Call<CheckinResult> postPlaceCheckin(@Header("X-User-Id") String userId, @Header("X-User-Token") String userToken, @Path("id") String placeId, @Body CheckinLocation location);
+        Call<CheckinResult> postPlaceCheckin(@Header("X-User-Id") String userId,
+                                             @Header("X-User-Token") String userToken,
+                                             @Path("id") String placeId,
+                                             @Body CheckinLocation location);
+
+        @POST("lister/{id}/blimed")
+        Call<UserCheckins> postJoinProject(@Header("X-User-Id") String userId,
+                                           @Header("X-User-Token") String userToken,
+                                           @Path("id") String projectId);
+
+        @POST("lister/{id}/meldav")
+        Call<UserCheckins> postLeaveProject(@Header("X-User-Id") String userId,
+                                            @Header("X-User-Token") String userToken,
+                                            @Path("id") String projectId);
     }
 }

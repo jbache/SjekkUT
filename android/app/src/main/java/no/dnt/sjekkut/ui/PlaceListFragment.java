@@ -37,12 +37,13 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceListFragment extends Fragment implements LocationListener, View.OnClickListener {
+public class PlaceListFragment extends Fragment implements LocationListener, View.OnClickListener, ParticipantAdapter.ParticipantClickedListener {
 
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final Callback<Project> mProjectCallback;
     private final Callback<Place> mPlaceCallback;
     private final Callback<UserCheckins> mUserCheckinsCallback;
+    private final Callback<UserCheckins> mJoinLeaveProjectCallback;
     private final LocationRequest mLocationRequest;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -112,6 +113,23 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
                 Utils.showToast(getActivity(), "Failed to get user checkins: " + t);
             }
         };
+        mJoinLeaveProjectCallback = new Callback<UserCheckins>() {
+            @Override
+            public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
+                if (response.isSuccessful()) {
+                    mWrapperAdapter.updateUserCheckinsProjects(response.body());
+                } else {
+                    Utils.showToast(getActivity(), "Failed to post join/leave project: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserCheckins> call, Throwable t) {
+                Utils.showToast(getActivity(), "Failed to post join/leave project: " + t);
+            }
+        };
+
+
     }
 
     static PlaceListFragment newInstance(String projectId) {
@@ -127,7 +145,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
         View rootView = inflater.inflate(R.layout.fragment_placelist, container, false);
         ButterKnife.bind(this, rootView);
         Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.screen_project), true);
-        mWrapperAdapter = new ProjectPlaceWrapperAdapter(getActivity(), mListener);
+        mWrapperAdapter = new ProjectPlaceWrapperAdapter(getActivity(), mListener, this);
         mRecyclerView.setAdapter(mWrapperAdapter);
         mFabButton.setOnClickListener(this);
         setHasOptionsMenu(true);
@@ -218,6 +236,24 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
 
     public void onLocationChanged(Location location) {
         mWrapperAdapter.setLocation(location);
+    }
+
+    @Override
+    public void onJoinProjectClicked(String projectId) {
+        CheckinApiSingleton.call().postJoinProject(
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                projectId)
+                .enqueue(mJoinLeaveProjectCallback);
+    }
+
+    @Override
+    public void onLeaveProjectClicked(String projectId) {
+        CheckinApiSingleton.call().postLeaveProject(
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                projectId)
+                .enqueue(mJoinLeaveProjectCallback);
     }
 
     interface PlaceListListener extends PlaceClickedListener {

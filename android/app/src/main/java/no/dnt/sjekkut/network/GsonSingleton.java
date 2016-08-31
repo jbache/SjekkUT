@@ -15,6 +15,7 @@ public enum GsonSingleton {
 
     private final Gson adaptersAll = new GsonBuilder()
             .registerTypeAdapter(Date.class, new DateSerializer())
+            .registerTypeAdapter(PlaceCheckin.class, new PlaceCheckinDeserializer())
             .registerTypeAdapter(Place.class, new PlaceDeserializer())
             .registerTypeAdapter(Photo.class, new PhotoDeserializer())
             .registerTypeAdapter(Group.class, new GroupDeserializer())

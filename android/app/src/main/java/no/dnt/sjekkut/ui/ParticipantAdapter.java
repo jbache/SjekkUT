@@ -23,8 +23,14 @@ import no.dnt.sjekkut.network.UserCheckins;
  */
 public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.ParticipantHolder> {
 
+    private final ParticipantAdapter.ParticipantClickedListener mListener;
     private final List<String> mProjectIds = new ArrayList<>();
     private UserCheckins mUserCheckins;
+
+
+    ParticipantAdapter(ParticipantClickedListener listener) {
+        mListener = listener;
+    }
 
     @Override
     public ParticipantHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,15 +41,27 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
 
     @Override
     public void onBindViewHolder(ParticipantHolder holder, int position) {
-        String projectId = mProjectIds.get(position);
+        final String projectId = mProjectIds.get(position);
         Context context = holder.itemView.getContext();
+        final boolean hasJoined = mUserCheckins != null && mUserCheckins.hasJoined(projectId);
         String button = context.getString(R.string.join_project);
         String text = context.getString(R.string.project_not_joined);
-        if (mUserCheckins != null && mUserCheckins.hasJoined(projectId)) {
+        if (hasJoined) {
             button = context.getString(R.string.leave_project);
             text = context.getString(R.string.project_joined);
         }
         holder.mButton.setText(button);
+        if (mListener != null)
+            holder.mButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (hasJoined) {
+                        mListener.onLeaveProjectClicked(projectId);
+                    } else {
+                        mListener.onJoinProjectClicked(projectId);
+                    }
+                }
+            });
         holder.mText.setText(text);
     }
 
@@ -61,6 +79,18 @@ public class ParticipantAdapter extends RecyclerView.Adapter<ParticipantAdapter.
     void setUserCheckins(UserCheckins userCheckins) {
         mUserCheckins = userCheckins;
         notifyDataSetChanged();
+    }
+
+    void updateUserCheckinsProjects(UserCheckins userCheckins) {
+        if (mUserCheckins != null && mUserCheckins.updateJoinedProjects(userCheckins)) {
+            notifyDataSetChanged();
+        }
+    }
+
+    interface ParticipantClickedListener {
+        void onJoinProjectClicked(String projectId);
+
+        void onLeaveProjectClicked(String projectId);
     }
 
     class ParticipantHolder extends RecyclerView.ViewHolder {

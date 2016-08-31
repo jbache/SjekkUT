@@ -2,6 +2,7 @@ package no.dnt.sjekkut.network;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -67,6 +68,25 @@ public class UserCheckins {
 
     public boolean hasJoined(String projectId) {
         return data != null && data.lister != null && data.lister.contains(projectId);
+    }
+
+    private Set<String> getJoinedProjects() {
+        return data != null ? data.lister : null;
+    }
+
+    public boolean updateJoinedProjects(UserCheckins userCheckins) {
+        if (data != null) {
+            if (data.lister == null) {
+                data.lister = new HashSet<>();
+            }
+            data.lister.clear();
+            Set<String> updatedList = userCheckins.getJoinedProjects();
+            if (updatedList != null) {
+                data.lister.addAll(updatedList);
+            }
+            return true;
+        }
+        return false;
     }
 
     private static class UserCheckinsData {
