@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
+class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
     let turbasen = TurbasenApi.instance
     let dntApi = DntApi.instance
@@ -64,7 +64,7 @@ class ProjectListView: UITableViewController, NSFetchedResultsControllerDelegate
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPlaces" {
-            let projectView = segue.destinationViewController as! PlaceListView
+            let projectView = segue.destinationViewController as! ProjectView
             projectView.project = sender as? Project
         }
     }

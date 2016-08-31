@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import HockeySDK
 import Alamofire
 
 // TODO: properly reuse the header as a reusable table cell
 
-class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+class ProjectView: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 
     let turbasen = TurbasenApi.instance
     var project:Project? = nil
@@ -64,12 +63,6 @@ class PlaceListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
 
     // MARK: private
-
-    @IBAction func feedbackClicked(sender: AnyObject) {
-        let hockeyManager = BITHockeyManager.sharedHockeyManager()
-        let feedbackList = hockeyManager.feedbackManager.feedbackListViewController(false)
-        self.navigationController!.pushViewController(feedbackList, animated:true)
-    }
 
     @IBAction func readMoreClicked(sender: AnyObject) {
         if let aURL = project?.infoUrl?.URL() {

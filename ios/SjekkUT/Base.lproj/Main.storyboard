@@ -272,7 +272,7 @@
         <!--Project-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="PlaceListView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ProjectView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -688,7 +688,7 @@
         <!--Sjekk UT-->
         <scene sceneID="Pw6-dt-SFQ">
             <objects>
-                <tableViewController title="Sjekk UT" id="9SR-Ed-eAi" customClass="ProjectListView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Sjekk UT" id="9SR-Ed-eAi" customClass="MainView" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="xtL-AG-p58">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
