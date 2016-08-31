@@ -188,13 +188,11 @@
                 else
                 {
                     [weakSelf.locationManager startUpdatingLocation];
-                    NSLog(@"started updating location");
                 }
                 break;
             case kCLAuthorizationStatusAuthorizedWhenInUse:
             case kCLAuthorizationStatusAuthorizedAlways:
                 [weakSelf.locationManager startUpdatingLocation];
-                NSLog(@"started updating location");
                 break;
 
             case kCLAuthorizationStatusRestricted:;
@@ -219,7 +217,6 @@
     currentLocation = locations.firstObject;
     [self didChangeValueForKey:@"currentLocation"];
 
-    NSLog(@"got location update: %@", currentLocation);
 
     if (singleUpdateInProgress && currentLocation.horizontalAccuracy <= minAccuracy)
     {
@@ -237,13 +234,11 @@
     updateEnabled = NO;
     [locationManager stopUpdatingLocation];
     self.singleUpdateInProgress = NO;
-    NSLog(@"stopped updating location");
 }
 
 - (void)locationManager:(CLLocationManager *)manager
     didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    NSLog(@"authorization status: %d", status);
 
     switch (status)
     {
