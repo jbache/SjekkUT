@@ -27,7 +27,8 @@ class DntApi: Alamofire.Manager {
     }
     var clientId:String?
     var clientSecret:String?
-    var loginBlock:( () -> Void) = {}
+    var successBlock:( () -> Void) = {}
+    var failBlock:(()->Void) = {}
 
     var isLoggedIn:Bool {
         get {
@@ -74,7 +75,7 @@ class DntApi: Alamofire.Manager {
         return aRequest
     }
 
-    func getTokenOrFail(authCode aCode:String, failure aFailureHandler: () -> Void) {
+    func getToken(authCode aCode:String) {
         let someParameters = [
             "grant_type": "authorization_code",
             "code": aCode,
@@ -92,20 +93,21 @@ class DntApi: Alamofire.Manager {
                         let tokenAuthentication = JSON["access_token"] as! String
                         let tokenExpiry = JSON["expires_in"] as! Double
                         self.authorized(tokenAuthentication, refreshToken: tokenRefresh, expiry: tokenExpiry)
+                        self.didSucceed()
                     }
                 case .Failure(let error):
                     print("failed to get token: \(error)")
-                    aFailureHandler()
+                    self.didFail()
                 }
             }
     }
 
-    func refreshTokenOrFail(aFailHandler: () -> Void) {
+    func refreshToken() {
 
         let refreshToken = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsRefreshToken)
 
         if (refreshToken == nil) {
-            self.logout()
+            self.didFail()
             return
         }
 
@@ -125,13 +127,13 @@ class DntApi: Alamofire.Manager {
                     if let JSON = response.result.value {
                         let tokenAccess = JSON["access_token"] as! String
                         let tokenRefresh = JSON["refresh_token"] as! String
-
                         self.authorized(tokenAccess, refreshToken: tokenRefresh)
+                        self.didSucceed()
                         print("refreshed token: \(JSON)")
                     }
                 case .Failure(let anError):
                     print("token refresh failed: \(anError)")
-                    aFailHandler()
+                    self.didFail()
                 }
         }
     }
@@ -161,18 +163,11 @@ class DntApi: Alamofire.Manager {
 
         SAMKeychain.setPassword(authenticationCode, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
 
-        // attempt to call member details, while verifying the current authorization token
-        updateMemberDetailsOrFail {
-            self.logout()
-        }
-
         NSNotificationCenter.defaultCenter().postNotificationName(kSjekkUtNotificationAuthorized, object: nil)
     }
 
     func login(aUser:DntUser) {
         SAMKeychain.setPassword(aUser.identifier, forService: SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId)
-        self.loginBlock()
-        self.loginBlock = {}
         user = aUser
     }
 
@@ -204,9 +199,16 @@ class DntApi: Alamofire.Manager {
 
     // MARK: REST api
 
-    func updateMemberDetailsOrFail( aFailureHandler : () -> Void ) {
+    func updateMemberDetails() {
 
         let aToken = SAMKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+
+        // if there is no token, assume failure
+        if (aToken == nil) {
+            didFail()
+            return
+        }
+
         let someHeaders = ["Authorization":"Bearer " + aToken]
 
         self.request(.GET, baseUrl! + "/api/oauth/medlemsdata/", headers: someHeaders)
@@ -216,19 +218,30 @@ class DntApi: Alamofire.Manager {
                 case .Success:
                     if let aUser:DntUser = DntUser.insertOrUpdate(response.result.value as! [String: AnyObject]) {
                         self.login(aUser)
+                        self.didSucceed()
+                    }
+                    else {
+                        self.didFail()
                     }
                 case .Failure(let error):
                     if let httpStatusCode = response.response?.statusCode {
                         switch httpStatusCode {
                         case 403:
-                            self.loginBlock = { self.updateMemberDetailsOrFail{} }
-                            self.refreshTokenOrFail(aFailureHandler)
+                            self.refreshToken()
                         default:
                             print("Validation failed: \(error)")
-                            aFailureHandler()
+                            self.didFail()
                         }
                     }
                 }
         }
+    }
+
+    func didSucceed() {
+        successBlock()
+    }
+
+    func didFail() {
+        failBlock()
     }
 }

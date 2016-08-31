@@ -21,16 +21,17 @@ class LoginView: UIViewController, WKNavigationDelegate {
     // MARK: viewcontroller
 
     override func viewDidLoad() {
+        self.setupLogin()
+
         ModelController.instance().delayUntilReady {
             // need to wait until database is ready to allow fetching persisted user data
             self.dntApi = DntApi.instance
-            self.setupLogin()
+            self.tryLogin()
         }
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showProjectsView), name:kSjekkUtNotificationLoggedIn, object: nil)
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -44,13 +45,6 @@ class LoginView: UIViewController, WKNavigationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showLoginForm), name:kSjekkUtNotificationLoggedOut, object: nil)
 
         setupLoginForm()
-
-        if (dntApi!.isLoggedIn) {
-            performSegueWithIdentifier("showProjectsImmediately", sender: nil)
-        }
-        else {
-            dntApi!.logout()
-        }
     }
 
     func setupLoginForm() {
@@ -62,20 +56,39 @@ class LoginView: UIViewController, WKNavigationDelegate {
             // Fallback on earlier versions
         }
 
-        self.webView = WKWebView(frame: self.view.bounds, configuration: webConfig)
-        self.webView?.navigationDelegate = self
-        self.webView?.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-        self.webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .Initial, context: &kProgressContext)
+        webView = WKWebView(frame: view.bounds, configuration: webConfig)
+        webView?.navigationDelegate = self
+        webView?.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .Initial, context: &kProgressContext)
         // insert at index 0 to land under the progress bar
-        self.view.insertSubview(self.webView!, atIndex: 0)
+        view.insertSubview(self.webView!, atIndex: 0)
     }
 
     // MARK: actions
 
+    func tryLogin() {
+        dntApi?.successBlock = {
+            self.showMainView()
+        }
+        dntApi?.failBlock = {
+            self.dntApi?.logout()
+        }
+        dntApi?.updateMemberDetails()
+    }
+
     // jumps back to this view when client is logged out
     func showLoginForm() {
-        self.navigationController?.popToViewController(self, animated: true)
-        self.loadLoginForm()
+        navigationController?.popToViewController(self, animated: true)
+        loadLoginForm()
+
+        // initial authorization will steal success and fail blocks in 'tryLogin' to progress
+        // with login
+        dntApi?.failBlock = {
+            self.dntApi?.logout()
+        }
+        dntApi?.successBlock = {
+            self.tryLogin()
+        }
     }
 
     func loadLoginForm() {
@@ -87,11 +100,11 @@ class LoginView: UIViewController, WKNavigationDelegate {
                 self.webView?.loadRequest(urlRequest)
             })
         } else {
-            self.webView?.loadRequest(urlRequest)
+            webView?.loadRequest(urlRequest)
         }
     }
 
-    func showProjectsView() {
+    func showMainView() {
         ModelController.instance().delayUntilReady {
             self.performSegueWithIdentifier("showProjects", sender: nil)
         }
@@ -101,10 +114,10 @@ class LoginView: UIViewController, WKNavigationDelegate {
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &kProgressContext {
-            let progressValue = Float((self.webView?.estimatedProgress)!)
-            self.progressView.progress = progressValue
+            let progressValue = Float((webView?.estimatedProgress)!)
+            progressView.progress = progressValue
             // only show progress when it's between 0 and 1
-            self.progressView.hidden = !(progressValue > 0 && progressValue < 1)
+            progressView.hidden = !(progressValue > 0 && progressValue < 1)
         }
     }
 
@@ -118,10 +131,10 @@ class LoginView: UIViewController, WKNavigationDelegate {
             decisionHandler(.Cancel)
             if navigationUrl!.containsString("code=") {
                 let authCode = (navigationUrl?.componentsSeparatedByString("code=").last!)?.componentsSeparatedByString("&").first
-                self.dntApi!.getTokenOrFail(authCode:authCode!, failure:{ self.dntApi!.logout()})
+                self.dntApi!.getToken(authCode:authCode!)
             }
             else {
-                dntApi!.logout()
+                dntApi!.didFail()
             }
         }
         else {

@@ -35,7 +35,6 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     @IBAction func publicCheckinChanged(sender: AnyObject) {
         SjekkUtApi.instance.doChangePublicCheckin(publicCheckinsSwitch.on) {
-
         }
     }
 
@@ -46,11 +45,13 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         startObserving()
     }
 
     override func viewWillDisappear(animated: Bool) {
         stopObserving()
+        super.viewWillDisappear(animated)
     }
 
     func startObserving() {
@@ -70,6 +71,10 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        // user fields be nil if deleted in logout
+        if dntUser?.publicCheckins == nil {
+            return
+        }
         switch(keyPath!, context) {
         case ("firstName", &kObserveUserName):
             userNameLabel.text = dntUser?.fullName()
