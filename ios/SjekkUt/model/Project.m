@@ -253,13 +253,13 @@
     if (distance < 1000)
     {
         unit = @"m";
+        return [NSString stringWithFormat:@"%ld %@", (long)distance, unit];
     }
     else
     {
-        distance /= 1000;
+        distance /= 1000.0;
+        return [NSString stringWithFormat:@"%.1f %@", distance, unit];
     }
-    return [NSString stringWithFormat:@"%ld %@",
-                                      (long)distance, unit];
 }
 
 - (Place *)findNearest
