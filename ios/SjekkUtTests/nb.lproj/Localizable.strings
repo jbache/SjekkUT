@@ -1,3 +1,6 @@
+/* time since */
+"(dateRelativeString!) ago" = "(dateRelativeString!) siden";
+
 /* title for location request */
 "Allow using location" = "Tillat å bruke stedstjenester";
 
@@ -5,25 +8,25 @@
 "Check in to (firstPlace.name!)" = "Besøk (firstPlace.name!)";
 
 /* location timeout notification text */
-"Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne sted. Pass på at du kan se himmelen for å la GPS finne din posisjon.";
+"Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne turpost. Pass på at du kan se himmelen for å la GPS finne din posisjon.";
 
 /* location timeout notification text */
-"Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne sted. Pass på at du har tillatt bruk av stedstjenester.";
+"Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne turpost. Pass på at du har tillatt bruk av stedstjenester.";
 
 /* section header with checkins */
-"My projects" = "Mine prosjekter";
+"My projects" = "Mine turprosjekter";
 
 /* cancel button title for location request */
 "No" = "Nei";
 
 /* no checkin label */
-"Not climbed" = "Ikke besteget";
+"Not climbed" = "Ikke besøkt";
 
 /* cancel button title for restricted location */
 "OK" = "OK";
 
 /* section header without checkins */
-"Other projects" = "Anre prosjekter";
+"Other projects" = "Anre turprosjekter";
 
 /* title for generic location failure */
 "Positioning Failure" = "Posisjoneringsfeil";
@@ -32,10 +35,10 @@
 "Search results" = "Søkeresultater";
 
 /* summit count label singular */
-"Summited %ld time" = "Besteget en gang";
+"Summited %ld time" = "Besøkt en gang";
 
 /* summit count label plural */
-"Summited %ld times" = "Besteget %ld ganger";
+"Summited %ld times" = "Besøkt %ld ganger";
 
 /* message for restricted location */
 "This app is not authorized to use Location services, possibly because of parental controls" = "Denne appen er ikke auorisert til stedstjenester, kanskje på grunn av foreldresperre.";
@@ -67,14 +70,14 @@
 "You can check in." = "Du kan sjekke inn.";
 
 /* count summits in challenge */
-"You have summited %@ of %@ so far!" = "Du har besteget %1$@ av %2$@ til nå!";
+"You have summited %@ of %@ so far!" = "Du har besøkt %1$@ av %2$@ til nå!";
 
 /* can't check in time and distance */
-"You have to be 200 meter from the summit and wait 24 hours before you can check in." = "Du må være 200 meter fra toppen og vente 24 timer før du kan sjekke inn.";
+"You have to be 200 meter from the summit and wait 24 hours before you can check in." = "Du må være 200 meter fra turposten og vente 24 timer før du kan besøke.";
 
 /* can't check in distance */
-"You have to be 200 meter from the summit before you can check in." = "Du må være 200 meter fra toppen før du kan sjekke inn.";
+"You have to be 200 meter from the summit before you can check in." = "Du må være 200 meter fra turposten før du kan besøke.";
 
 /* can't check in time */
-"You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan sjekke inn.";
+"You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan besøke.";
 

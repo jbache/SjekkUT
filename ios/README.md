@@ -4,7 +4,7 @@ To build, ensure Cocoapods is installed, then run
 
 `pod install`
    
-and open Opptur.xcworkspace
+and open SjekkUT.xcworkspace
 
 To release a new build, run the 
 

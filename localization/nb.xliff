@@ -21,83 +21,81 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
     </header>
     <body>
-      <trans-unit id="1hP-bX-jT4.text">
-        <source>Not climbed</source>
-        <target>Ikke besøkt</target>
-        <note>Class = "UILabel"; text = "Not climbed"; ObjectID = "1hP-bX-jT4";</note>
+      <trans-unit id="1ja-I8-jJY.text">
+        <source>#</source>
+        <note>Class = "UILabel"; text = "#"; ObjectID = "1ja-I8-jJY";</note>
       </trans-unit>
       <trans-unit id="3Xd-S5-Acu.text">
         <source>county, altitude</source>
         <target>fylke, høyde</target>
       </trans-unit>
       <trans-unit id="4bq-KB-5bn.text">
-        <source>Distance</source>
-        <target>Avstand</target>
-        <note>Class = "UILabel"; text = "Distance"; ObjectID = "4bq-KB-5bn";</note>
-      </trans-unit>
-      <trans-unit id="4xf-6c-zdk.normalTitle">
-        <source>Read more on our web</source>
-        <target>Les mer på websiden</target>
-        <note>Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "4xf-6c-zdk";</note>
+        <source>distance</source>
+        <note>Class = "UILabel"; text = "distance"; ObjectID = "4bq-KB-5bn";</note>
       </trans-unit>
       <trans-unit id="6BL-4R-YAG.text">
         <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</source>
         <note>Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "6BL-4R-YAG";</note>
       </trans-unit>
-      <trans-unit id="6Qf-y5-0pm.text">
-        <source>County, Municipality</source>
-        <target>Fylke, Kommune</target>
-        <note>Class = "UILabel"; text = "County, Municipality"; ObjectID = "6Qf-y5-0pm";</note>
+      <trans-unit id="6Wd-8M-15N.title">
+        <source>Sjekk UT</source>
+        <note>Class = "UINavigationItem"; title = "Sjekk UT"; ObjectID = "6Wd-8M-15N";</note>
       </trans-unit>
       <trans-unit id="6pE-DR-y7O.text">
         <source>county, elevation</source>
-        <target>fylke, høyde</target>
+      </trans-unit>
+      <trans-unit id="7VL-AM-YmR.text">
+        <source>climb count</source>
+        <note>Class = "UILabel"; text = "climb count"; ObjectID = "7VL-AM-YmR";</note>
       </trans-unit>
       <trans-unit id="9SR-Ed-eAi.title">
         <source>Sjekk UT</source>
         <note>Class = "UITableViewController"; title = "Sjekk UT"; ObjectID = "9SR-Ed-eAi";</note>
       </trans-unit>
-      <trans-unit id="25x-wa-zub.text">
-        <source>Distance</source>
-        <target>Avstand</target>
-        <note>Class = "UILabel"; text = "Distance"; ObjectID = "25x-wa-zub";</note>
-      </trans-unit>
       <trans-unit id="75k-d1-Gl6.title">
         <source>Title</source>
-        <target>Tittel</target>
-        <note>Class = "UINavigationItem"; title = "Title"; ObjectID = "75k-d1-Gl6";</note>
+        <note>Class = "UINavigationItem"; title = "Place"; ObjectID = "75k-d1-Gl6";</note>
       </trans-unit>
       <trans-unit id="BES-ZN-c87.normalTitle">
         <source>Check in!</source>
-        <target>Sjekk inn!</target>
-        <note>Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "BES-ZN-c87";</note>
+        <target>Besøk!</target>
       </trans-unit>
       <trans-unit id="BJb-op-u41.text">
         <source>text</source>
-        <target>tekst</target>
         <note>Class = "UILabel"; text = "text"; ObjectID = "BJb-op-u41";</note>
       </trans-unit>
-      <trans-unit id="CVA-0O-3fp.normalTitle">
-        <source></source>
-        <note>Class = "UIButton"; normalTitle = ""; ObjectID = "CVA-0O-3fp";</note>
+      <trans-unit id="Bcx-SZ-h4j.text">
+        <source>Not climbed</source>
+        <target>Ikke besøkt</target>
+        <note>Class = "UILabel"; text = "Not climbed"; ObjectID = "Bcx-SZ-h4j";</note>
+      </trans-unit>
+      <trans-unit id="Bkq-2M-BGK.text">
+        <source>group name</source>
+        <note>Class = "UILabel"; text = "group name"; ObjectID = "Bkq-2M-BGK";</note>
+      </trans-unit>
+      <trans-unit id="D1E-Qc-Sor.text">
+        <source>climb count</source>
+        <note>Class = "UILabel"; text = "climb count"; ObjectID = "D1E-Qc-Sor";</note>
+      </trans-unit>
+      <trans-unit id="Dcr-Fx-N7D.title">
+        <source> </source>
+        <note>Class = "UIBarButtonItem"; title = " "; ObjectID = "Dcr-Fx-N7D";</note>
       </trans-unit>
       <trans-unit id="HGd-kH-adL.text">
         <source>name</source>
-        <target>navn</target>
       </trans-unit>
       <trans-unit id="HoO-s9-mNS.normalTitle">
-        <source></source>
-        <note>Class = "UIButton"; normalTitle = ""; ObjectID = "HoO-s9-mNS";</note>
+        <source></source>
+        <note>Class = "UIButton"; normalTitle = ""; ObjectID = "HoO-s9-mNS";</note>
       </trans-unit>
       <trans-unit id="IBq-T2-jaY.normalTitle">
         <source>Check in!</source>
-        <target>Sjekk inn!</target>
+        <target>Besøk!</target>
         <note>Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "IBq-T2-jaY";</note>
       </trans-unit>
-      <trans-unit id="IZR-xG-8Qf.text">
-        <source>Distance</source>
-        <target>Avstand</target>
-        <note>Class = "UILabel"; text = "Distance"; ObjectID = "IZR-xG-8Qf";</note>
+      <trans-unit id="Kb8-dH-CSE.text">
+        <source>county, elevation</source>
+        <note>Class = "UILabel"; text = "county, elevation"; ObjectID = "Kb8-dH-CSE";</note>
       </trans-unit>
       <trans-unit id="Kxj-xj-gTr.normalTitle">
         <source>Click here to join!</source>
@@ -105,57 +103,67 @@
       </trans-unit>
       <trans-unit id="N6j-fg-bgj.text">
         <source>climber count</source>
-        <target>antall besteget</target>
+      </trans-unit>
+      <trans-unit id="Nfn-4H-tNh.normalTitle">
+        <source>Read More</source>
+        <target>Les mer</target>
+        <note>Class = "UIButton"; normalTitle = "Read More"; ObjectID = "Nfn-4H-tNh";</note>
       </trans-unit>
       <trans-unit id="OXH-wX-4GR.text">
         <source>Congratulations! You have summited all 24 summits! This is totally awesome and you rock!</source>
-        <target>Gratulerer! Du har besteget alle toppene!</target>
+        <target>Gratulerer! Du har besøkt alle toppene!</target>
+      </trans-unit>
+      <trans-unit id="OhE-7H-O9J.normalTitle">
+        <source></source>
+        <note>Class = "UIButton"; normalTitle = ""; ObjectID = "OhE-7H-O9J";</note>
+      </trans-unit>
+      <trans-unit id="OsL-MX-TzC.text">
+        <source>Not climbed</source>
+        <target>Ikke besøkt</target>
+        <note>Class = "UILabel"; text = "Not climbed"; ObjectID = "OsL-MX-TzC";</note>
       </trans-unit>
       <trans-unit id="R5u-WJ-Jhc.text">
         <source>Distance</source>
         <target>Avstand</target>
       </trans-unit>
-      <trans-unit id="Tpt-2q-Edn.text">
-        <source>county, elevation</source>
-        <target>fylke, høyde</target>
-        <note>Class = "UILabel"; text = "county, elevation"; ObjectID = "Tpt-2q-Edn";</note>
+      <trans-unit id="SkN-9c-XwY.text">
+        <source>distance</source>
+        <note>Class = "UILabel"; text = "distance"; ObjectID = "SkN-9c-XwY";</note>
+      </trans-unit>
+      <trans-unit id="Sqc-dr-SmM.normalTitle">
+        <source>Join</source>
+        <target>Bli med</target>
+        <note>Class = "UIButton"; normalTitle = "Join"; ObjectID = "Sqc-dr-SmM";</note>
       </trans-unit>
       <trans-unit id="U0G-m3-VQp.text">
-        <source>Visited 0/0</source>
-        <target>Besøkt 0/0</target>
-        <note>Class = "UILabel"; text = "Visited 0/0"; ObjectID = "U0G-m3-VQp";</note>
+        <source>progress</source>
+        <note>Class = "UILabel"; text = "progress"; ObjectID = "U0G-m3-VQp";</note>
       </trans-unit>
       <trans-unit id="UVh-iZ-6qI.title">
         <source>Profile</source>
         <target>Profil</target>
         <note>Class = "UIViewController"; title = "Profile"; ObjectID = "UVh-iZ-6qI";</note>
       </trans-unit>
-      <trans-unit id="VRa-9U-b97.text">
+      <trans-unit id="V0A-hG-0ji.text">
         <source>name</source>
-        <target>navn</target>
-        <note>Class = "UILabel"; text = "name"; ObjectID = "VRa-9U-b97";</note>
+        <note>Class = "UILabel"; text = "name"; ObjectID = "V0A-hG-0ji";</note>
       </trans-unit>
       <trans-unit id="VUz-fz-7Ol.text">
         <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</source>
-        <note>Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "VUz-fz-7Ol";</note>
-      </trans-unit>
-      <trans-unit id="VmB-of-5bj.text">
-        <source>climb count</source>
-        <target>antall besøk</target>
-        <note>Class = "UILabel"; text = "climb count"; ObjectID = "VmB-of-5bj";</note>
       </trans-unit>
       <trans-unit id="Vr9-EL-Pxm.text">
-        <source>Date</source>
+        <source>Count</source>
         <target>Dato</target>
-        <note>Class = "UILabel"; text = "Date"; ObjectID = "Vr9-EL-Pxm";</note>
+        <note>Class = "UILabel"; text = "Count"; ObjectID = "Vr9-EL-Pxm";</note>
       </trans-unit>
       <trans-unit id="Vsf-P8-Qcl.text">
         <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</source>
         <note>Class = "UILabel"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "Vsf-P8-Qcl";</note>
       </trans-unit>
       <trans-unit id="X32-B9-KX4.title">
-        <source>Opptur</source>
-        <target>Sjekk UT</target>
+        <source>Project</source>
+        <target>Turprosjekt</target>
+        <note>Class = "UINavigationItem"; title = "Project"; ObjectID = "X32-B9-KX4";</note>
       </trans-unit>
       <trans-unit id="XHg-Uz-lpr.text">
         <source>Description</source>
@@ -164,26 +172,16 @@
       </trans-unit>
       <trans-unit id="Y7P-p5-GVc.text">
         <source>Not climbed</source>
-        <target>Ikke besteget</target>
+        <target>Ikke besøkt</target>
+      </trans-unit>
+      <trans-unit id="Yc4-gY-n1L.title">
+        <source>Profile</source>
+        <target>Profil</target>
+        <note>Class = "UINavigationItem"; title = "Profile"; ObjectID = "Yc4-gY-n1L";</note>
       </trans-unit>
       <trans-unit id="ZJY-j5-pPY.text">
-        <source>Label</source>
-        <target>Merkelapp</target>
-        <note>Class = "UILabel"; text = "Label"; ObjectID = "ZJY-j5-pPY";</note>
-      </trans-unit>
-      <trans-unit id="Zpb-Sf-7NT.text">
-        <source>county, elevation</source>
-        <target>fylke, høyde</target>
-        <note>Class = "UILabel"; text = "county, elevation"; ObjectID = "Zpb-Sf-7NT";</note>
-      </trans-unit>
-      <trans-unit id="ZxV-H7-Wj5.text">
-        <source>Group name</source>
-        <target>Gruppenavn</target>
-        <note>Class = "UILabel"; text = "Group name"; ObjectID = "ZxV-H7-Wj5";</note>
-      </trans-unit>
-      <trans-unit id="aMz-JV-QjW.text">
-        <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</source>
-        <note>Class = "UILabel"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "aMz-JV-QjW";</note>
+        <source>name label</source>
+        <note>Class = "UILabel"; text = "name label"; ObjectID = "ZJY-j5-pPY";</note>
       </trans-unit>
       <trans-unit id="b95-Ep-JLP.normalTitle">
         <source>Logout</source>
@@ -196,17 +194,33 @@
       </trans-unit>
       <trans-unit id="bfX-bI-S5E.text">
         <source>climb count</source>
-        <target>toppturer</target>
+      </trans-unit>
+      <trans-unit id="bpZ-JC-7T1.text">
+        <source>distance</source>
+        <note>Class = "UILabel"; text = "distance"; ObjectID = "bpZ-JC-7T1";</note>
+      </trans-unit>
+      <trans-unit id="cxI-Pn-Ak7.text">
+        <source>name</source>
+        <note>Class = "UILabel"; text = "name"; ObjectID = "cxI-Pn-Ak7";</note>
+      </trans-unit>
+      <trans-unit id="dWZ-Qi-X6O.text">
+        <source>Join project to track progress</source>
+        <target>Bli med for å se fremdrift</target>
+        <note>Class = "UILabel"; text = "Join project to track progress"; ObjectID = "dWZ-Qi-X6O";</note>
       </trans-unit>
       <trans-unit id="eO8-IV-Qld.text">
-        <source>Group name</source>
-        <target>Gruppenavn</target>
-        <note>Class = "UILabel"; text = "Group name"; ObjectID = "eO8-IV-Qld";</note>
+        <source>group name</source>
+        <note>Class = "UILabel"; text = "group name"; ObjectID = "eO8-IV-Qld";</note>
       </trans-unit>
       <trans-unit id="ei6-iL-drw.text">
-        <source>Place name</source>
-        <target>Stedsnavn</target>
-        <note>Class = "UILabel"; text = "Place name"; ObjectID = "ei6-iL-drw";</note>
+        <source>Place</source>
+        <target>Sted</target>
+        <note>Class = "UILabel"; text = "Place"; ObjectID = "ei6-iL-drw";</note>
+      </trans-unit>
+      <trans-unit id="fU9-d9-JxX.text">
+        <source>Let new checkins be public</source>
+        <target>La nye besøk være synlige for alle</target>
+        <note>Class = "UILabel"; text = "Let new checkins be public"; ObjectID = "fU9-d9-JxX";</note>
       </trans-unit>
       <trans-unit id="gpV-Ql-Ote.text">
         <source>x/y</source>
@@ -218,67 +232,77 @@
       </trans-unit>
       <trans-unit id="hY6-0v-phf.text">
         <source>No Challenge</source>
-        <target>Ingen utfordinger</target>
+        <target>Ingen prosjekter</target>
       </trans-unit>
       <trans-unit id="iDh-5N-jVo.text">
         <source>Summit Name</source>
-        <target>Toppnavn</target>
+        <target>Stedsnavn</target>
       </trans-unit>
-      <trans-unit id="ja8-RB-6dF.text">
-        <source>Not climbed</source>
-        <target>Ikke besteget</target>
-        <note>Class = "UILabel"; text = "Not climbed"; ObjectID = "ja8-RB-6dF";</note>
+      <trans-unit id="jzR-oT-Ns0.text">
+        <source>county, municipality</source>
+        <note>Class = "UILabel"; text = "county, municipality"; ObjectID = "jzR-oT-Ns0";</note>
       </trans-unit>
-      <trans-unit id="nxI-Mn-Mtu.text">
-        <source>Distance</source>
-        <target>Avstand</target>
-        <note>Class = "UILabel"; text = "Distance"; ObjectID = "nxI-Mn-Mtu";</note>
+      <trans-unit id="kMy-VC-0SO.text">
+        <source>progress</source>
+        <note>Class = "UILabel"; text = "progress"; ObjectID = "kMy-VC-0SO";</note>
+      </trans-unit>
+      <trans-unit id="l4x-dx-ab4.text">
+        <source>distance</source>
+        <note>Class = "UILabel"; text = "distance"; ObjectID = "l4x-dx-ab4";</note>
+      </trans-unit>
+      <trans-unit id="mhv-g4-58x.text">
+        <source>name</source>
+        <note>Class = "UILabel"; text = "name"; ObjectID = "mhv-g4-58x";</note>
+      </trans-unit>
+      <trans-unit id="mzu-RJ-UKp.text">
+        <source>county, elevation</source>
+        <note>Class = "UILabel"; text = "county, elevation"; ObjectID = "mzu-RJ-UKp";</note>
       </trans-unit>
       <trans-unit id="oJ6-8u-0f3.normalTitle">
         <source>FB</source>
-        <note>Class = "UIButton"; normalTitle = ""; ObjectID = "oJ6-8u-0f3";</note>
+      </trans-unit>
+      <trans-unit id="q2N-fQ-e7r.text">
+        <source>Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</source>
+        <note>Class = "UILabel"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; ObjectID = "q2N-fQ-e7r";</note>
+      </trans-unit>
+      <trans-unit id="qxA-rX-KSH.text">
+        <source>Your visits</source>
+        <target>Dine besøk</target>
+        <note>Class = "UILabel"; text = "Your visits"; ObjectID = "qxA-rX-KSH";</note>
       </trans-unit>
       <trans-unit id="rWK-ld-6gP.text">
-        <source>County, Municipality</source>
-        <target>Fylke, Kommune</target>
-        <note>Class = "UILabel"; text = "County, Municipality"; ObjectID = "rWK-ld-6gP";</note>
+        <source>county, municipality</source>
+        <note>Class = "UILabel"; text = "county, municipality"; ObjectID = "rWK-ld-6gP";</note>
       </trans-unit>
-      <trans-unit id="tBf-p9-Krp.text">
-        <source>name</source>
-        <target>navn</target>
-        <note>Class = "UILabel"; text = "name"; ObjectID = "tBf-p9-Krp";</note>
+      <trans-unit id="rZL-mB-JJ6.title">
+        <source> </source>
+        <note>Class = "UIBarButtonItem"; title = " "; ObjectID = "rZL-mB-JJ6";</note>
       </trans-unit>
       <trans-unit id="tEg-Wm-Uvi.title">
         <source> </source>
-        <target> </target>
       </trans-unit>
       <trans-unit id="ted-f3-dIE.normalTitle">
         <source>Read more on our web</source>
         <target>Les mer på websiden</target>
         <note>Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "ted-f3-dIE";</note>
       </trans-unit>
-      <trans-unit id="uT5-Xn-xFE.text">
-        <source>climb count</source>
-        <target>toppturer</target>
-        <note>Class = "UILabel"; text = "climb count"; ObjectID = "uT5-Xn-xFE";</note>
-      </trans-unit>
       <trans-unit id="vCl-Zk-4Rc.text">
         <source>Distance</source>
-        <target>Label</target>
+        <target>Avstand</target>
       </trans-unit>
       <trans-unit id="y2A-QB-aS5.text">
         <source>Finding your location...</source>
         <target>Finner posisjonen din...</target>
         <note>Class = "UILabel"; text = "Finding your location..."; ObjectID = "y2A-QB-aS5";</note>
       </trans-unit>
+      <trans-unit id="yWX-Ux-bPF.title">
+        <source> </source>
+        <note>Class = "UIBarButtonItem"; title = " "; ObjectID = "yWX-Ux-bPF";</note>
+      </trans-unit>
       <trans-unit id="z17-1s-HLU.text">
         <source>Checkins</source>
-        <target>Innsjekkinger</target>
+        <target>Besøk</target>
         <note>Class = "UILabel"; text = "Checkins"; ObjectID = "z17-1s-HLU";</note>
-      </trans-unit>
-      <trans-unit id="zfR-Hg-UFf.text">
-        <source>Visited 0/0</source>
-        <note>Class = "UILabel"; text = "Visited 0/0"; ObjectID = "zfR-Hg-UFf";</note>
       </trans-unit>
     </body>
   </file>
@@ -294,7 +318,7 @@
         <source>$(PRODUCT_NAME)</source>
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
-        <source>0.1.5</source>
+        <source>0.2</source>
       </trans-unit>
     </body>
   </file>
@@ -305,7 +329,7 @@
     <body>
       <trans-unit id="%@ people have checked in here today.">
         <source>%@ people have checked in here today.</source>
-        <target>%@ personer har sjekket inn her i dag.</target>
+        <target>%@ personer har besøkt i dag.</target>
         <note>daily checkin description</note>
       </trans-unit>
       <trans-unit id="(dateRelativeString!) ago">
@@ -325,13 +349,8 @@
       </trans-unit>
       <trans-unit id="Checking in...">
         <source>Checking in...</source>
-        <target>Sjekker inn...</target>
+        <target>Besøker...</target>
         <note>Checking in label in summit search</note>
-      </trans-unit>
-      <trans-unit id="Checkins">
-        <source>Checkins</source>
-        <target>Innsjekkinger</target>
-        <note>section header in checkin log</note>
       </trans-unit>
       <trans-unit id="Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.">
         <source>Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.</source>
@@ -345,17 +364,37 @@
       </trans-unit>
       <trans-unit id="In total, %@ people have checked in here.">
         <source>In total, %@ people have checked in here.</source>
-        <target>Totalt har %@ personer sjekket inn her.</target>
+        <target>%@ personer har besøkt.</target>
         <note>total checkin description</note>
       </trans-unit>
       <trans-unit id="In total, one person have checked in here.">
         <source>In total, one person have checked in here.</source>
-        <target>Totalt har en person sjekket inn her.</target>
+        <target>En person har besøkt.</target>
         <note>single checkin description</note>
+      </trans-unit>
+      <trans-unit id="Join">
+        <source>Join</source>
+        <target>Bli med</target>
+        <note>Leave project button</note>
+      </trans-unit>
+      <trans-unit id="Join project to track progress">
+        <source>Join project to track progress</source>
+        <target>Bli med for å se fremdrift</target>
+        <note>Leave project label</note>
+      </trans-unit>
+      <trans-unit id="Leave">
+        <source>Leave</source>
+        <target>Meld av</target>
+        <note>Leave project button</note>
+      </trans-unit>
+      <trans-unit id="Leave project">
+        <source>Leave project</source>
+        <target>Meld av turprosjekt</target>
+        <note>Leave project label</note>
       </trans-unit>
       <trans-unit id="My projects">
         <source>My projects</source>
-        <target>Mine prosjekter</target>
+        <target>Mine turprosjekter</target>
         <note>section header with checkins</note>
       </trans-unit>
       <trans-unit id="No">
@@ -365,17 +404,17 @@
       </trans-unit>
       <trans-unit id="Nobody have checked in here today.">
         <source>Nobody have checked in here today.</source>
-        <target>Ingen har sjekket inn her i dag.</target>
+        <target>Ingen besøk i dag.</target>
         <note>daily checkin description</note>
       </trans-unit>
       <trans-unit id="Nobody have checked in here.">
         <source>Nobody have checked in here.</source>
-        <target>Ingen har sjekket inn her.</target>
+        <target>Ingen besøk.</target>
         <note>total checkin description</note>
       </trans-unit>
       <trans-unit id="Not climbed">
         <source>Not climbed</source>
-        <target>Ikke besteget</target>
+        <target>Ikke besøkt</target>
         <note>no checkin label</note>
       </trans-unit>
       <trans-unit id="OK">
@@ -385,12 +424,12 @@
       </trans-unit>
       <trans-unit id="Only one person have checked in here today.">
         <source>Only one person have checked in here today.</source>
-        <target>Kun en person har sjekket inn her i dag.</target>
+        <target>Kun ett besøk i dag.</target>
         <note>daily checkin description</note>
       </trans-unit>
       <trans-unit id="Other projects">
         <source>Other projects</source>
-        <target>Andre prosjekter</target>
+        <target>Andre turprosjekter</target>
         <note>section header without checkins</note>
       </trans-unit>
       <trans-unit id="Positioning Failure">
@@ -405,12 +444,12 @@
       </trans-unit>
       <trans-unit id="Summited %ld time">
         <source>Summited %ld time</source>
-        <target>Besteget en gang</target>
+        <target>Besøkt en gang</target>
         <note>summit count label singular</note>
       </trans-unit>
       <trans-unit id="Summited %ld times">
         <source>Summited %ld times</source>
-        <target>Besteget %ld ganger</target>
+        <target>Besøkt %ld ganger</target>
         <note>summit count label plural</note>
       </trans-unit>
       <trans-unit id="This app is not authorized to use Location services, possibly because of parental controls">
@@ -430,12 +469,12 @@
       </trans-unit>
       <trans-unit id="Unable to Locate">
         <source>Unable to Locate</source>
-        <target>Klarer ikke finne sted</target>
+        <target>Klarer ikke finne turpost</target>
         <note>location timeout title</note>
       </trans-unit>
       <trans-unit id="Unable to locate">
         <source>Unable to locate</source>
-        <target>Klarer ikke å finne sted</target>
+        <target>Klarer ikke å finne turpost</target>
         <note>locate permission error message
    title for missing location
    title for restricted location</note>
@@ -450,9 +489,14 @@
         <target>Besøkt %1$@ av %2$@</target>
         <note>count visits in project cell</note>
       </trans-unit>
+      <trans-unit id="Working..">
+        <source>Working..</source>
+        <target>Jobber..</target>
+        <note>join/leave in progress</note>
+      </trans-unit>
       <trans-unit id="Yay! Checked in to %@">
         <source>Yay! Checked in to %@</source>
-        <target>Yay! Sjekket inn på %@</target>
+        <target>Yay! Besøkte %@</target>
         <note>check in notification text</note>
       </trans-unit>
       <trans-unit id="Yes!">
@@ -462,47 +506,47 @@
       </trans-unit>
       <trans-unit id="You can check in.">
         <source>You can check in.</source>
-        <target>Du kan sjekke inn.</target>
+        <target>Du kan besøke.</target>
         <note>can check in</note>
       </trans-unit>
       <trans-unit id="You checked in to %@ %@.">
         <source>You checked in to %1$@ %2$@.</source>
-        <target>Du sjekket inn på %@ %@.</target>
+        <target>Du besøkte %@ %@.</target>
         <note>last checkin time ago</note>
       </trans-unit>
       <trans-unit id="You have checked in here %@ times.">
         <source>You have checked in here %@ times.</source>
-        <target>Du har sjekket inn her %@ ganger.</target>
+        <target>Du har besøkt %@ ganger.</target>
         <note>personal checkin description</note>
       </trans-unit>
       <trans-unit id="You have checked in here once.">
         <source>You have checked in here once.</source>
-        <target>Du har sjekket inn her èn gang.</target>
+        <target>Du har besøkt èn gang.</target>
         <note>personal checkin description</note>
       </trans-unit>
       <trans-unit id="You have never checked in here.">
         <source>You have never checked in here.</source>
-        <target>Du har aldri sjekket inn her.</target>
+        <target>Du har aldri besøkt her.</target>
         <note>personal checkin description</note>
       </trans-unit>
       <trans-unit id="You have summited %@ of %@ so far!">
         <source>You have summited %1$@ of %2$@ so far!</source>
-        <target>Du har sjekket inn på %1$@ av %2$@ til nå!</target>
+        <target>Du har besøkt %1$@ av %2$@ til nå!</target>
         <note>count summits in challenge</note>
       </trans-unit>
       <trans-unit id="You have to be 200 meter from the summit and wait 24 hours before you can check in.">
         <source>You have to be 200 meter from the summit and wait 24 hours before you can check in.</source>
-        <target>Du må være maks 200 meter fra punktet og vente 24 timer før du kan sjekke inn.</target>
+        <target>Du må være maks 200 meter fra turposten og vente 24 timer før du kan besøke.</target>
         <note>can't check in time and distance</note>
       </trans-unit>
       <trans-unit id="You have to be 200 meter from the summit before you can check in.">
         <source>You have to be 200 meter from the summit before you can check in.</source>
-        <target>Du må være maks 200 meter fra punktet for å sjekke inn.</target>
+        <target>Du må være maks 200 meter fra turposten for å besøke.</target>
         <note>can't check in distance</note>
       </trans-unit>
       <trans-unit id="You have to wait 24 hours before you can check in.">
         <source>You have to wait 24 hours before you can check in.</source>
-        <target>Du må vente 24 timer før du kan sjekke inn</target>
+        <target>Du må vente 24 timer før du kan besøke</target>
         <note>can't check in time</note>
       </trans-unit>
     </body>
@@ -525,30 +569,25 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
     </header>
     <body>
+      <trans-unit id="(dateRelativeString!) ago">
+        <source>(dateRelativeString!) ago</source>
+        <target>(dateRelativeString!) siden</target>
+        <note>time since</note>
+      </trans-unit>
       <trans-unit id="Allow using location">
         <source>Allow using location</source>
         <target>Tillat å bruke stedstjenester</target>
         <note>title for location request</note>
       </trans-unit>
-      <trans-unit id="Check in to (firstPlace.name!)">
-        <source>Check in to (firstPlace.name!)</source>
-        <target>Besøk (firstPlace.name!)</target>
-        <note>check in button title</note>
-      </trans-unit>
       <trans-unit id="Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.">
         <source>Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.</source>
-        <target>Klarte ikke finne sted. Pass på at du kan se himmelen for å la GPS finne din posisjon.</target>
+        <target>Klarte ikke finne turpost. Pass på at du kan se himmelen for å la GPS finne din posisjon.</target>
         <note>location timeout notification text</note>
       </trans-unit>
       <trans-unit id="Could not get a location. Make sure you have authorized the use of location services.">
         <source>Could not get a location. Make sure you have authorized the use of location services.</source>
-        <target>Klarte ikke finne sted. Pass på at du har tillatt bruk av stedstjenester.</target>
+        <target>Klarte ikke finne turpost. Pass på at du har tillatt bruk av stedstjenester.</target>
         <note>location timeout notification text</note>
-      </trans-unit>
-      <trans-unit id="My projects">
-        <source>My projects</source>
-        <target>Mine prosjekter</target>
-        <note>section header with checkins</note>
       </trans-unit>
       <trans-unit id="No">
         <source>No</source>
@@ -557,7 +596,7 @@
       </trans-unit>
       <trans-unit id="Not climbed">
         <source>Not climbed</source>
-        <target>Ikke besteget</target>
+        <target>Ikke besøkt</target>
         <note>no checkin label</note>
       </trans-unit>
       <trans-unit id="OK">
@@ -565,29 +604,19 @@
         <target>OK</target>
         <note>cancel button title for restricted location</note>
       </trans-unit>
-      <trans-unit id="Other projects">
-        <source>Other projects</source>
-        <target>Anre prosjekter</target>
-        <note>section header without checkins</note>
-      </trans-unit>
       <trans-unit id="Positioning Failure">
         <source>Positioning Failure</source>
         <target>Posisjoneringsfeil</target>
         <note>title for generic location failure</note>
       </trans-unit>
-      <trans-unit id="Search results">
-        <source>Search results</source>
-        <target>Søkeresultater</target>
-        <note>project header when searching</note>
-      </trans-unit>
       <trans-unit id="Summited %ld time">
         <source>Summited %ld time</source>
-        <target>Besteget en gang</target>
+        <target>Besøkt en gang</target>
         <note>summit count label singular</note>
       </trans-unit>
       <trans-unit id="Summited %ld times">
         <source>Summited %ld times</source>
-        <target>Besteget %ld ganger</target>
+        <target>Besøkt %ld ganger</target>
         <note>summit count label plural</note>
       </trans-unit>
       <trans-unit id="This app is not authorized to use Location services, possibly because of parental controls">
@@ -639,22 +668,22 @@
       </trans-unit>
       <trans-unit id="You have summited %@ of %@ so far!">
         <source>You have summited %1$@ of %2$@ so far!</source>
-        <target>Du har besteget %1$@ av %2$@ til nå!</target>
+        <target>Du har besøkt %1$@ av %2$@ til nå!</target>
         <note>count summits in challenge</note>
       </trans-unit>
       <trans-unit id="You have to be 200 meter from the summit and wait 24 hours before you can check in.">
         <source>You have to be 200 meter from the summit and wait 24 hours before you can check in.</source>
-        <target>Du må være 200 meter fra toppen og vente 24 timer før du kan sjekke inn.</target>
+        <target>Du må være 200 meter fra turposten og vente 24 timer før du kan besøke.</target>
         <note>can't check in time and distance</note>
       </trans-unit>
       <trans-unit id="You have to be 200 meter from the summit before you can check in.">
         <source>You have to be 200 meter from the summit before you can check in.</source>
-        <target>Du må være 200 meter fra toppen før du kan sjekke inn.</target>
+        <target>Du må være 200 meter fra turposten før du kan besøke.</target>
         <note>can't check in distance</note>
       </trans-unit>
       <trans-unit id="You have to wait 24 hours before you can check in.">
         <source>You have to wait 24 hours before you can check in.</source>
-        <target>Du må vente 24 timer før du kan sjekke inn.</target>
+        <target>Du må vente 24 timer før du kan besøke.</target>
         <note>can't check in time</note>
       </trans-unit>
     </body>

@@ -1,5 +1,5 @@
 /* daily checkin description */
-"%@ people have checked in here today." = "%@ personer har sjekket inn her i dag.";
+"%@ people have checked in here today." = "%@ personer har besøkt i dag.";
 
 /* time since */
 "(dateRelativeString!) ago" = "(dateRelativeString!) siden";
@@ -11,10 +11,7 @@
 "Check in to (firstPlace.name!)" = "Besøk (firstPlace.name!)";
 
 /* Checking in label in summit search */
-"Checking in..." = "Sjekker inn...";
-
-/* section header in checkin log */
-"Checkins" = "Innsjekkinger";
+"Checking in..." = "Besøker...";
 
 /* location timeout notification text */
 "Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne sted. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne sted.";
@@ -23,34 +20,46 @@
 "Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne sted. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.";
 
 /* total checkin description */
-"In total, %@ people have checked in here." = "Totalt har %@ personer sjekket inn her.";
+"In total, %@ people have checked in here." = "%@ personer har besøkt.";
 
 /* single checkin description */
-"In total, one person have checked in here." = "Totalt har en person sjekket inn her.";
+"In total, one person have checked in here." = "En person har besøkt.";
+
+/* Leave project button */
+"Join" = "Bli med";
+
+/* Leave project label */
+"Join project to track progress" = "Bli med for å se fremdrift";
+
+/* Leave project button */
+"Leave" = "Meld av";
+
+/* Leave project label */
+"Leave project" = "Meld av turprosjekt";
 
 /* section header with checkins */
-"My projects" = "Mine prosjekter";
+"My projects" = "Mine turprosjekter";
 
 /* cancel button title for location request */
 "No" = "Nei";
 
 /* daily checkin description */
-"Nobody have checked in here today." = "Ingen har sjekket inn her i dag.";
+"Nobody have checked in here today." = "Ingen besøk i dag.";
 
 /* total checkin description */
-"Nobody have checked in here." = "Ingen har sjekket inn her.";
+"Nobody have checked in here." = "Ingen besøk.";
 
 /* no checkin label */
-"Not climbed" = "Ikke besteget";
+"Not climbed" = "Ikke besøkt";
 
 /* cancel button title for restricted location */
 "OK" = "Ok";
 
 /* daily checkin description */
-"Only one person have checked in here today." = "Kun en person har sjekket inn her i dag.";
+"Only one person have checked in here today." = "Kun ett besøk i dag.";
 
 /* section header without checkins */
-"Other projects" = "Andre prosjekter";
+"Other projects" = "Andre turprosjekter";
 
 /* title for generic location failure */
 "Positioning Failure" = "Feil i stedstjenester";
@@ -59,10 +68,10 @@
 "Search results" = "Søkeresultater";
 
 /* summit count label singular */
-"Summited %ld time" = "Besteget en gang";
+"Summited %ld time" = "Besøkt en gang";
 
 /* summit count label plural */
-"Summited %ld times" = "Besteget %ld ganger";
+"Summited %ld times" = "Besøkt %ld ganger";
 
 /* message for restricted location */
 "This app is not authorized to use Location services, possibly because of parental controls" = "Denne appen er ikke autorisert til å bruke stedstjenester, muligens på grunn av foreldrekontroll.";
@@ -74,12 +83,12 @@
 "This app requires using Location services. Is it OK to request permissions for using your device position?" = "Denne appen krever bruk av stedstjenester. Er det greit å be om tillatelse til å bruke posisjonen din?";
 
 /* location timeout title */
-"Unable to Locate" = "Klarer ikke finne sted";
+"Unable to Locate" = "Klarer ikke finne turpost";
 
 /* locate permission error message
    title for missing location
    title for restricted location */
-"Unable to locate" = "Klarer ikke å finne sted";
+"Unable to locate" = "Klarer ikke å finne turpost";
 
 /* locate permission error message */
 "Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls." = "Klarer ikke finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.";
@@ -87,36 +96,39 @@
 /* count visits in project cell */
 "Visited %@ of %@" = "Besøkt %1$@ av %2$@";
 
+/* join/leave in progress */
+"Working.." = "Jobber..";
+
 /* check in notification text */
-"Yay! Checked in to %@" = "Yay! Sjekket inn på %@";
+"Yay! Checked in to %@" = "Yay! Besøkte %@";
 
 /* Ok button title for location request */
 "Yes!" = "Ja!";
 
 /* can check in */
-"You can check in." = "Du kan sjekke inn.";
+"You can check in." = "Du kan besøke.";
 
 /* last checkin time ago */
-"You checked in to %@ %@." = "Du sjekket inn på %@ %@.";
+"You checked in to %@ %@." = "Du besøkte %@ %@.";
 
 /* personal checkin description */
-"You have checked in here %@ times." = "Du har sjekket inn her %@ ganger.";
+"You have checked in here %@ times." = "Du har besøkt %@ ganger.";
 
 /* personal checkin description */
-"You have checked in here once." = "Du har sjekket inn her èn gang.";
+"You have checked in here once." = "Du har besøkt èn gang.";
 
 /* personal checkin description */
-"You have never checked in here." = "Du har aldri sjekket inn her.";
+"You have never checked in here." = "Du har aldri besøkt her.";
 
 /* count summits in challenge */
-"You have summited %@ of %@ so far!" = "Du har sjekket inn på %1$@ av %2$@ til nå!";
+"You have summited %@ of %@ so far!" = "Du har besøkt %1$@ av %2$@ til nå!";
 
 /* can't check in time and distance */
-"You have to be 200 meter from the summit and wait 24 hours before you can check in." = "Du må være maks 200 meter fra punktet og vente 24 timer før du kan sjekke inn.";
+"You have to be 200 meter from the summit and wait 24 hours before you can check in." = "Du må være maks 200 meter fra turposten og vente 24 timer før du kan besøke.";
 
 /* can't check in distance */
-"You have to be 200 meter from the summit before you can check in." = "Du må være maks 200 meter fra punktet for å sjekke inn.";
+"You have to be 200 meter from the summit before you can check in." = "Du må være maks 200 meter fra turposten for å besøke.";
 
 /* can't check in time */
-"You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan sjekke inn";
+"You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan besøke";
 

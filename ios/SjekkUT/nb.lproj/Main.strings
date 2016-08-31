@@ -1,80 +1,47 @@
-/* Class = "UILabel"; text = "Not climbed"; ObjectID = "1hP-bX-jT4"; */
-"1hP-bX-jT4.text" = "Ikke besøkt";
-
 /* (No Commment) */
 "3Xd-S5-Acu.text" = "fylke, høyde";
 
-/* Class = "UILabel"; text = "Distance"; ObjectID = "4bq-KB-5bn"; */
-"4bq-KB-5bn.text" = "Avstand";
-
-/* Class = "UILabel"; text = "County, Municipality"; ObjectID = "6Qf-y5-0pm"; */
-"6Qf-y5-0pm.text" = "Fylke, Kommune";
-
 /* (No Commment) */
-"6pE-DR-y7O.text" = "fylke, høyde";
+"BES-ZN-c87.normalTitle" = "Besøk!";
 
-/* Class = "UILabel"; text = "Distance"; ObjectID = "25x-wa-zub"; */
-"25x-wa-zub.text" = "Avstand";
-
-/* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "BES-ZN-c87"; */
-"BES-ZN-c87.normalTitle" = "Sjekk inn!";
-
-/* Class = "UILabel"; text = "text"; ObjectID = "BJb-op-u41"; */
-"BJb-op-u41.text" = "tekst";
-
-/* (No Commment) */
-"HGd-kH-adL.text" = "navn";
+/* Class = "UILabel"; text = "Not climbed"; ObjectID = "Bcx-SZ-h4j"; */
+"Bcx-SZ-h4j.text" = "Ikke besøkt";
 
 /* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "IBq-T2-jaY"; */
-"IBq-T2-jaY.normalTitle" = "Sjekk inn!";
-
-/* Class = "UILabel"; text = "Distance"; ObjectID = "IZR-xG-8Qf"; */
-"IZR-xG-8Qf.text" = "Avstand";
+"IBq-T2-jaY.normalTitle" = "Besøk!";
 
 /* (No Commment) */
 "Kxj-xj-gTr.normalTitle" = "Trykk her for å bli med!";
 
-/* (No Commment) */
-"N6j-fg-bgj.text" = "antall besteget";
+/* Class = "UIButton"; normalTitle = "Read More"; ObjectID = "Nfn-4H-tNh"; */
+"Nfn-4H-tNh.normalTitle" = "Les mer";
 
 /* (No Commment) */
-"OXH-wX-4GR.text" = "Gratulerer! Du har besteget alle toppene!";
+"OXH-wX-4GR.text" = "Gratulerer! Du har besøkt alle toppene!";
+
+/* Class = "UILabel"; text = "Not climbed"; ObjectID = "OsL-MX-TzC"; */
+"OsL-MX-TzC.text" = "Ikke besøkt";
 
 /* (No Commment) */
 "R5u-WJ-Jhc.text" = "Avstand";
 
-/* Class = "UILabel"; text = "county, elevation"; ObjectID = "Tpt-2q-Edn"; */
-"Tpt-2q-Edn.text" = "fylke, høyde";
-
-/* Class = "UILabel"; text = "Visited 0/0"; ObjectID = "U0G-m3-VQp"; */
-"U0G-m3-VQp.text" = "Besøkt 0/0";
+/* Class = "UIButton"; normalTitle = "Join"; ObjectID = "Sqc-dr-SmM"; */
+"Sqc-dr-SmM.normalTitle" = "Bli med";
 
 /* Class = "UIViewController"; title = "Profile"; ObjectID = "UVh-iZ-6qI"; */
 "UVh-iZ-6qI.title" = "Profil";
 
-/* Class = "UILabel"; text = "name"; ObjectID = "VRa-9U-b97"; */
-"VRa-9U-b97.text" = "navn";
-
-/* Class = "UILabel"; text = "climb count"; ObjectID = "VmB-of-5bj"; */
-"VmB-of-5bj.text" = "antall besøk";
-
-/* Class = "UILabel"; text = "Date"; ObjectID = "Vr9-EL-Pxm"; */
+/* Class = "UILabel"; text = "Count"; ObjectID = "Vr9-EL-Pxm"; */
 "Vr9-EL-Pxm.text" = "Dato";
 
 /* Class = "UILabel"; text = "Description"; ObjectID = "XHg-Uz-lpr"; */
 "XHg-Uz-lpr.text" = "Beskrivelse";
 
 /* (No Commment) */
-"Y7P-p5-GVc.text" = "Ikke besteget";
+"Y7P-p5-GVc.text" = "Ikke besøkt";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "ZJY-j5-pPY"; */
-"ZJY-j5-pPY.text" = "Merkelapp";
-
-/* Class = "UILabel"; text = "county, elevation"; ObjectID = "Zpb-Sf-7NT"; */
-"Zpb-Sf-7NT.text" = "fylke, høyde";
-
-/* Class = "UILabel"; text = "Group name"; ObjectID = "ZxV-H7-Wj5"; */
-"ZxV-H7-Wj5.text" = "Gruppenavn";
+/* Class = "UINavigationItem"; title = "Profile"; ObjectID = "Yc4-gY-n1L"; */
+"Yc4-gY-n1L.title" = "Profil";
 
 /* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "b95-Ep-JLP"; */
 "b95-Ep-JLP.normalTitle" = "Logg ut";
@@ -82,48 +49,33 @@
 /* (No Commment) */
 "bGD-Db-PQW.normalTitle" = "Les mer på våre websider";
 
-/* (No Commment) */
-"bfX-bI-S5E.text" = "toppturer";
+/* Class = "UILabel"; text = "Join project to track progress"; ObjectID = "dWZ-Qi-X6O"; */
+"dWZ-Qi-X6O.text" = "Bli med for å se fremdrift";
 
-/* Class = "UILabel"; text = "Group name"; ObjectID = "eO8-IV-Qld"; */
-"eO8-IV-Qld.text" = "Gruppenavn";
+/* Class = "UILabel"; text = "Place"; ObjectID = "ei6-iL-drw"; */
+"ei6-iL-drw.text" = "Sted";
 
-/* Class = "UILabel"; text = "Place name"; ObjectID = "ei6-iL-drw"; */
-"ei6-iL-drw.text" = "Stedsnavn";
-
-/* (No Commment) */
-"hY6-0v-phf.text" = "Ingen utfordinger";
+/* Class = "UILabel"; text = "Let new checkins be public"; ObjectID = "fU9-d9-JxX"; */
+"fU9-d9-JxX.text" = "La nye besøk være synlige for alle";
 
 /* (No Commment) */
-"iDh-5N-jVo.text" = "Toppnavn";
-
-/* Class = "UILabel"; text = "Not climbed"; ObjectID = "ja8-RB-6dF"; */
-"ja8-RB-6dF.text" = "Ikke besteget";
-
-/* Class = "UILabel"; text = "Distance"; ObjectID = "nxI-Mn-Mtu"; */
-"nxI-Mn-Mtu.text" = "Avstand";
-
-/* Class = "UILabel"; text = "County, Municipality"; ObjectID = "rWK-ld-6gP"; */
-"rWK-ld-6gP.text" = "Fylke, Kommune";
-
-/* Class = "UILabel"; text = "name"; ObjectID = "tBf-p9-Krp"; */
-"tBf-p9-Krp.text" = "navn";
+"hY6-0v-phf.text" = "Ingen prosjekter";
 
 /* (No Commment) */
-"tEg-Wm-Uvi.title" = " ";
+"iDh-5N-jVo.text" = "Stedsnavn";
+
+/* Class = "UILabel"; text = "Your visits"; ObjectID = "qxA-rX-KSH"; */
+"qxA-rX-KSH.text" = "Dine besøk";
 
 /* Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "ted-f3-dIE"; */
 "ted-f3-dIE.normalTitle" = "Les mer på websiden";
 
-/* Class = "UILabel"; text = "climb count"; ObjectID = "uT5-Xn-xFE"; */
-"uT5-Xn-xFE.text" = "toppturer";
-
 /* (No Commment) */
-"vCl-Zk-4Rc.text" = "Label";
+"vCl-Zk-4Rc.text" = "Avstand";
 
 /* Class = "UILabel"; text = "Finding your location..."; ObjectID = "y2A-QB-aS5"; */
 "y2A-QB-aS5.text" = "Finner posisjonen din...";
 
 /* Class = "UILabel"; text = "Checkins"; ObjectID = "z17-1s-HLU"; */
-"z17-1s-HLU.text" = "Innsjekkinger";
+"z17-1s-HLU.text" = "Besøk";
 
