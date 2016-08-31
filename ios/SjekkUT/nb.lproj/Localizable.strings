@@ -14,10 +14,10 @@
 "Checking in..." = "Besøker...";
 
 /* location timeout notification text */
-"Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne sted. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne sted.";
+"Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place." = "Klarte ikke finne turpost. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne turpost.";
 
 /* location timeout notification text */
-"Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne sted. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.";
+"Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne turpost. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.";
 
 /* total checkin description */
 "In total, %@ people have checked in here." = "%@ personer har besøkt.";

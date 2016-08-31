@@ -188,13 +188,6 @@
         <target>Logg ut</target>
         <note>Class = "UIButton"; normalTitle = "Logout"; ObjectID = "b95-Ep-JLP";</note>
       </trans-unit>
-      <trans-unit id="bGD-Db-PQW.normalTitle">
-        <source>Read more on our web</source>
-        <target>Les mer på våre websider</target>
-      </trans-unit>
-      <trans-unit id="bfX-bI-S5E.text">
-        <source>climb count</source>
-      </trans-unit>
       <trans-unit id="bpZ-JC-7T1.text">
         <source>distance</source>
         <note>Class = "UILabel"; text = "distance"; ObjectID = "bpZ-JC-7T1";</note>
@@ -214,7 +207,7 @@
       </trans-unit>
       <trans-unit id="ei6-iL-drw.text">
         <source>Place</source>
-        <target>Sted</target>
+        <target>Turpost</target>
         <note>Class = "UILabel"; text = "Place"; ObjectID = "ei6-iL-drw";</note>
       </trans-unit>
       <trans-unit id="fU9-d9-JxX.text">
@@ -236,7 +229,7 @@
       </trans-unit>
       <trans-unit id="iDh-5N-jVo.text">
         <source>Summit Name</source>
-        <target>Stedsnavn</target>
+        <target>Turpost</target>
       </trans-unit>
       <trans-unit id="jzR-oT-Ns0.text">
         <source>county, municipality</source>
@@ -280,11 +273,6 @@
       </trans-unit>
       <trans-unit id="tEg-Wm-Uvi.title">
         <source> </source>
-      </trans-unit>
-      <trans-unit id="ted-f3-dIE.normalTitle">
-        <source>Read more on our web</source>
-        <target>Les mer på websiden</target>
-        <note>Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "ted-f3-dIE";</note>
       </trans-unit>
       <trans-unit id="vCl-Zk-4Rc.text">
         <source>Distance</source>
@@ -354,12 +342,12 @@
       </trans-unit>
       <trans-unit id="Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.">
         <source>Could not get a location. Make sure you are in view of the sky to allow GPS positioning to take place.</source>
-        <target>Klarte ikke finne sted. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne sted.</target>
+        <target>Klarte ikke finne turpost. Pass på at du er under åpen himmel slik at GPS-posisjonering kan finne turpost.</target>
         <note>location timeout notification text</note>
       </trans-unit>
       <trans-unit id="Could not get a location. Make sure you have authorized the use of location services.">
         <source>Could not get a location. Make sure you have authorized the use of location services.</source>
-        <target>Klarte ikke finne sted. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.</target>
+        <target>Klarte ikke finne turpost. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.</target>
         <note>location timeout notification text</note>
       </trans-unit>
       <trans-unit id="In total, %@ people have checked in here.">

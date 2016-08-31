@@ -34,6 +34,9 @@
 /* Class = "UILabel"; text = "Count"; ObjectID = "Vr9-EL-Pxm"; */
 "Vr9-EL-Pxm.text" = "Dato";
 
+/* Class = "UINavigationItem"; title = "Project"; ObjectID = "X32-B9-KX4"; */
+"X32-B9-KX4.title" = "Turprosjekt";
+
 /* Class = "UILabel"; text = "Description"; ObjectID = "XHg-Uz-lpr"; */
 "XHg-Uz-lpr.text" = "Beskrivelse";
 
@@ -46,14 +49,11 @@
 /* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "b95-Ep-JLP"; */
 "b95-Ep-JLP.normalTitle" = "Logg ut";
 
-/* (No Commment) */
-"bGD-Db-PQW.normalTitle" = "Les mer på våre websider";
-
 /* Class = "UILabel"; text = "Join project to track progress"; ObjectID = "dWZ-Qi-X6O"; */
 "dWZ-Qi-X6O.text" = "Bli med for å se fremdrift";
 
 /* Class = "UILabel"; text = "Place"; ObjectID = "ei6-iL-drw"; */
-"ei6-iL-drw.text" = "Sted";
+"ei6-iL-drw.text" = "Turpost";
 
 /* Class = "UILabel"; text = "Let new checkins be public"; ObjectID = "fU9-d9-JxX"; */
 "fU9-d9-JxX.text" = "La nye besøk være synlige for alle";
@@ -62,13 +62,10 @@
 "hY6-0v-phf.text" = "Ingen prosjekter";
 
 /* (No Commment) */
-"iDh-5N-jVo.text" = "Stedsnavn";
+"iDh-5N-jVo.text" = "Turpost";
 
 /* Class = "UILabel"; text = "Your visits"; ObjectID = "qxA-rX-KSH"; */
 "qxA-rX-KSH.text" = "Dine besøk";
-
-/* Class = "UIButton"; normalTitle = "Read more on our web"; ObjectID = "ted-f3-dIE"; */
-"ted-f3-dIE.normalTitle" = "Les mer på websiden";
 
 /* (No Commment) */
 "vCl-Zk-4Rc.text" = "Avstand";
