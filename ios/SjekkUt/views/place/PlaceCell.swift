@@ -62,7 +62,6 @@ class PlaceCell: UITableViewCell {
     // MARK: cell
     override func prepareForReuse() {
         stopObserving()
-        placeImageView.image = UIImage(named:"project-foreground-fallback")
         nameLabel.text = ""
         distanceLabel.text = ""
         climbCountLabel.text = ""
@@ -115,16 +114,26 @@ class PlaceCell: UITableViewCell {
             }
         }
         if (context == &kObserveImages) {
+            let loadPlaceholder = {
+                self.foregroundImage = UIImage(named:"project-foreground-fallback")
+            }
+
             if let imageURL:NSURL = place!.foregroundImageURLforSize(placeImageView.bounds.size) {
                 imageRequest = Alamofire.request(.GET,imageURL)
+                    .validate(statusCode:200..<300)
                     .responseImage { response in
-                        if let image = response.result.value {
-                            self.foregroundImage = image
+                        switch(response.result) {
+                        case .Success:
+                            if let image = response.result.value {
+                                self.foregroundImage = image
+                            }
+                        case .Failure:
+                            loadPlaceholder()
                         }
                 }
             }
             else {
-                self.foregroundImage = UIImage(named:"project-foreground-fallback")
+                loadPlaceholder()
             }
         }
         if (context == &kObserveUrl) {
