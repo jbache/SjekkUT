@@ -61,14 +61,25 @@ class SjekkUtApi: Alamofire.Manager {
 
     func updateProjects(projectsArray:[JSON]) {
         ModelController.instance().saveBlock {
-            // prevent upstream deleted projects from showing
-            for aProject:Project in Project.allEntities() as! [Project] {
-                aProject.isParticipating = false
-            }
+            var leaveProject = Project.allEntities() as! [Project]
 
             for projectJSON in projectsArray {
                 let aProject = Project.findWithId(projectJSON.string!)
-                aProject.isParticipating = true
+                if (aProject.isParticipating == nil) {
+                    aProject.isParticipating = true
+                }
+                // only change record if it's different
+                if (!aProject.isParticipating!.boolValue) {
+                    aProject.isParticipating = true
+                }
+                leaveProject.removeAtIndex(leaveProject.indexOf(aProject)!)
+            }
+
+            // not participating in remaining objects
+            for aProject:Project in leaveProject {
+                if (aProject.isParticipating!.boolValue) {
+                    aProject.isParticipating = false
+                }
             }
         }
     }
