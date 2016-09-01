@@ -42,6 +42,7 @@ static DntUser *_currentUser = nil;
     {
         theEntity = [DntUser insert];
         theEntity.identifier = identifier;
+        theEntity.publicCheckins = @(NO);
     }
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
@@ -72,6 +73,10 @@ static DntUser *_currentUser = nil;
 {
     setIfNotEqual(self.firstName, json[@"fornavn"]);
     setIfNotEqual(self.lastName, json[@"etternavn"]);
+    if (self.publicCheckins == nil)
+    {
+        self.publicCheckins = @(NO);
+    }
 }
 
 - (NSString *)fullName
