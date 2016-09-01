@@ -132,7 +132,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
             mStatCountHolders.add(new StatCountHolder(layout));
         }
         for (StatCountHolder holder : mStatCountHolders) {
-            holder.label.setText("Antall foo");
+            holder.label.setText("Antall foo"); // TODO: add real numbers here
             holder.counter.setText(Integer.toString((int) (Math.random() * 10)));
             holder.circle.setColorFilter(ContextCompat.getColor(context, R.color.todo));
         }
@@ -159,8 +159,14 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(getContext())).enqueue(mMemberCallback);
-        CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getContext())).enqueue(mUserCheckinsCallback);
+        LoginApiSingleton.call().getMember(
+                PreferenceUtils.getBearerAuthorization(getContext()))
+                .enqueue(mMemberCallback);
+        CheckinApiSingleton.call().getUserCheckins(
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                PreferenceUtils.getUserId(getContext()))
+                .enqueue(mUserCheckinsCallback);
     }
 
     @Override

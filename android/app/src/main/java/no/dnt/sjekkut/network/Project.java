@@ -16,11 +16,10 @@ import no.dnt.sjekkut.Utils;
 public class Project {
     public String _id;
     public String navn;
-    public String beskrivelse;
     public List<Place> steder;
     public List<Photo> bilder;
     public List<Group> grupper;
-
+    List<Link> lenker;
 
     public int getPlaceCount() {
         return steder != null ? steder.size() : 0;

@@ -109,7 +109,9 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
                 TripApiSingleton.PROJECTLIST_FIELDS)
                 .enqueue(mProjectListCallback);
         CheckinApiSingleton.call().getUserCheckins(
-                PreferenceUtils.getUserId(getActivity()))
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                PreferenceUtils.getUserId(getContext()))
                 .enqueue(mUserCheckinsCallback);
         return view;
     }

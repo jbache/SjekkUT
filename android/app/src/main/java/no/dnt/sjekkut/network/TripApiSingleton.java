@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 public enum TripApiSingleton {
     INSTANCE;
 
-    public static final String PROJECT_FIELDS = "steder,geojson,bilder,img,kommune,fylke,beskrivelse,grupper";
+    public static final String PROJECT_FIELDS = "steder,geojson,bilder,img,grupper,lenker,start,stopp,fylke,kommune";
     public static final String PROJECT_EXPAND = "steder,bilder,grupper";
     public static final String PLACE_EXPAND = "bilder";
     public static final String PROJECTLIST_FIELDS = "steder,bilder,geojson,grupper";

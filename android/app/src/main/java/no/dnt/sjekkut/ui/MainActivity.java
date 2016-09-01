@@ -30,17 +30,9 @@ import java.util.Date;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.network.CheckinApiSingleton;
-import no.dnt.sjekkut.network.CheckinLocation;
-import no.dnt.sjekkut.network.CheckinResult;
 import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
-import no.dnt.sjekkut.network.Place;
-import no.dnt.sjekkut.network.PlaceCheckinList;
-import no.dnt.sjekkut.network.PlaceCheckinStats;
 import no.dnt.sjekkut.network.Project;
-import no.dnt.sjekkut.network.ProjectList;
-import no.dnt.sjekkut.network.TripApiSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,12 +46,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private boolean mResolvingError = false;
     private ArrayList<Pair<LocationListener, LocationRequest>> mPendingListener = new ArrayList<>();
     private Callback<MemberData> mMemberCallback;
-    private Callback<ProjectList> mProjectListCallback;
-    private Callback<Project> mProjectCallback;
-    private Callback<Place> mPlaceCallback;
-    private Callback<PlaceCheckinList> mPlaceCheckinList;
-    private Callback<PlaceCheckinStats> mPlaceCheckinStats;
-    private Callback<CheckinResult> mPostCheckin;
 
     static void showFeedbackActivity(Activity activity) {
         if (activity == null)
@@ -96,127 +82,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         };
 
-        mProjectListCallback = new Callback<ProjectList>() {
-            @Override
-            public void onResponse(Call<ProjectList> call, Response<ProjectList> response) {
-                if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got " + response.body().total + " projects");
-                    int lastProjectIndex = response.body().documents.size() - 1;
-                    Project lastProject = response.body().documents.get(lastProjectIndex);
-                    TripApiSingleton.call().getProject(
-                            lastProject._id,
-                            getString(R.string.api_key),
-                            TripApiSingleton.PROJECT_FIELDS,
-                            TripApiSingleton.PROJECT_EXPAND
-                    ).enqueue(mProjectCallback);
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to get project list: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProjectList> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get project list: " + t.getLocalizedMessage());
-            }
-        };
-
-        mProjectCallback = new Callback<Project>() {
-            @Override
-            public void onResponse(Call<Project> call, Response<Project> response) {
-                if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got project " + response.body().navn);
-                    int lastPlaceIndex = response.body().steder.size();
-                    Place lastPlace = response.body().steder.get(lastPlaceIndex - 1);
-                    TripApiSingleton.call().getPlace(
-                            lastPlace._id,
-                            getString(R.string.api_key),
-                            TripApiSingleton.PLACE_EXPAND)
-                            .enqueue(mPlaceCallback);
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to get project: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Project> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get project: " + t.getLocalizedMessage());
-
-            }
-        };
-
-        mPlaceCallback = new Callback<Place>() {
-            @Override
-            public void onResponse(Call<Place> call, Response<Place> response) {
-                if (response.isSuccessful()) {
-                    Place place = response.body();
-                    Utils.showToast(MainActivity.this, "Got place: " + place.navn);
-                    CheckinApiSingleton.call().getPlaceCheckinList(place._id).enqueue(mPlaceCheckinList);
-                    CheckinApiSingleton.call().getPlaceCheckinStats(place._id).enqueue(mPlaceCheckinStats);
-                    CheckinApiSingleton.call().postPlaceCheckin(
-                            PreferenceUtils.getUserId(MainActivity.this),
-                            PreferenceUtils.getAccessToken(MainActivity.this),
-                            place._id,
-                            new CheckinLocation()
-                    ).enqueue(mPostCheckin);
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to get place: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Place> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get place: " + t.getLocalizedMessage());
-            }
-        };
-
-        mPlaceCheckinList = new Callback<PlaceCheckinList>() {
-            @Override
-            public void onResponse(Call<PlaceCheckinList> call, Response<PlaceCheckinList> response) {
-                if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got place checkin list: " + response.body().data.size());
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to get place checkin list: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PlaceCheckinList> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get place checkin list: " + t.getLocalizedMessage());
-            }
-        };
-
-        mPlaceCheckinStats = new Callback<PlaceCheckinStats>() {
-            @Override
-            public void onResponse(Call<PlaceCheckinStats> call, Response<PlaceCheckinStats> response) {
-                if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Got place checkin stats count: " + response.body().data.count);
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to get place checkin stats: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PlaceCheckinStats> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get place checkin stats: " + t.getLocalizedMessage());
-            }
-        };
-
-        mPostCheckin = new Callback<CheckinResult>() {
-            @Override
-            public void onResponse(Call<CheckinResult> call, Response<CheckinResult> response) {
-                if (response.isSuccessful()) {
-                    Utils.showToast(MainActivity.this, "Checkin at: " + response.body().message);
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to checkin: " + response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CheckinResult> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to checkin: " + t.getLocalizedMessage());
-            }
-        };
-
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -250,10 +115,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onResume();
         checkForCrashes();
         LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
-        TripApiSingleton.call().getProjectList(
-                getString(R.string.api_key),
-                TripApiSingleton.PROJECTLIST_FIELDS)
-                .enqueue(mProjectListCallback);
     }
 
     @Override

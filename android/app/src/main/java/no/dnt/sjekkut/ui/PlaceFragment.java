@@ -48,17 +48,6 @@ public class PlaceFragment extends Fragment implements LocationListener {
     private static final String BUNDLE_PLACE_ID = "bundle_place_id";
 
     private final LocationRequest mLocationRequest;
-    private Location mLocation;
-    private Callback<Place> mPlaceCallback;
-    private Callback<UserCheckins> mUserCheckinsCallback;
-    private int mCallbackRefCount = 0;
-    private String mCallbackDescription = "";
-    private String mPlaceId = null;
-    private Place mPlace = null;
-    private PlaceAdapter mPlaceAdapter;
-    private PlaceAdapter.PlaceViewHolder mPlaceViewHolder;
-    private UserCheckins mUserCheckins = null;
-
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.progress)
@@ -85,6 +74,16 @@ public class PlaceFragment extends Fragment implements LocationListener {
     TextView mCheckinSeparator;
     @BindView(R.id.checkin_text)
     TextView mCheckinText;
+    private Location mLocation;
+    private Callback<Place> mPlaceCallback;
+    private Callback<UserCheckins> mUserCheckinsCallback;
+    private int mCallbackRefCount = 0;
+    private String mCallbackDescription = "";
+    private String mPlaceId = null;
+    private Place mPlace = null;
+    private PlaceAdapter mPlaceAdapter;
+    private PlaceAdapter.PlaceViewHolder mPlaceViewHolder;
+    private UserCheckins mUserCheckins = null;
 
     public PlaceFragment() {
         mLocationRequest = LocationRequestUtils.singleShotRequest();
@@ -175,7 +174,9 @@ public class PlaceFragment extends Fragment implements LocationListener {
                 .enqueue(mPlaceCallback);
         ++mCallbackRefCount;
         CheckinApiSingleton.call().getUserCheckins(
-                PreferenceUtils.getUserId(getActivity()))
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                PreferenceUtils.getUserId(getContext()))
                 .enqueue(mUserCheckinsCallback);
         ++mCallbackRefCount;
         mCallbackDescription = getString(R.string.callback_checkins_and_statistics);

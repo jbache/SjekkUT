@@ -36,7 +36,9 @@ public enum CheckinApiSingleton {
         Call<PlaceCheckinStats> getPlaceCheckinStats(@Path("id") String placeId);
 
         @GET("brukere/{id}")
-        Call<UserCheckins> getUserCheckins(@Path("id") String userId);
+        Call<UserCheckins> getUserCheckins(@Header("X-User-Id") String userId,
+                                           @Header("X-User-Token") String userToken,
+                                           @Path("id") String pathUserId);
 
         @POST("steder/{id}/besok")
         Call<CheckinResult> postPlaceCheckin(@Header("X-User-Id") String userId,

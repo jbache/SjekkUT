@@ -208,7 +208,11 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     }
 
     private void fetchCheckins() {
-        CheckinApiSingleton.call().getUserCheckins(PreferenceUtils.getUserId(getActivity())).enqueue(mUserCheckinsCallback);
+        CheckinApiSingleton.call().getUserCheckins(
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                PreferenceUtils.getUserId(getContext()))
+                .enqueue(mUserCheckinsCallback);
     }
 
     @Override

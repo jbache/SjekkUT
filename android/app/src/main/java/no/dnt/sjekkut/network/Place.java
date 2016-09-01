@@ -66,8 +66,4 @@ public class Place {
         return null;
     }
 
-    private static class Link {
-        String type;
-        String url;
-    }
 }
