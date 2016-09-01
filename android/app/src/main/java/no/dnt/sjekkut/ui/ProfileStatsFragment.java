@@ -2,6 +2,7 @@ package no.dnt.sjekkut.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -40,6 +41,7 @@ import retrofit2.Response;
 
 public class ProfileStatsFragment extends Fragment implements View.OnClickListener {
 
+    private final Handler mFabHandler = new Handler();
     @BindView(R.id.visitlist)
     RecyclerView mRecyclerView;
     @BindView(R.id.username)
@@ -54,11 +56,10 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     TextView mVisitsSeparator;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
-
-
+    @BindView(R.id.fabInfoText)
+    TextView mFabInfoText;
     private List<StatCountHolder> mStatCountHolders = new ArrayList<>();
     private PlaceVisitAdapter mPlaceVisitAdapter;
-
     private ProfileStatsListener mListener;
     private Callback<MemberData> mMemberCallback;
     private Callback<UserCheckins> mUserCheckinsCallback;
@@ -207,7 +208,17 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
                 }
                 break;
             case R.id.fab:
-                Utils.showToast(getContext(), "FAB!");
+                mFabInfoText.setVisibility(View.VISIBLE);
+                mFabHandler.removeCallbacksAndMessages(null);
+                mFabHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (getView() == null)
+                            return;
+
+                        mFabInfoText.setVisibility(View.INVISIBLE);
+                    }
+                }, 2000);
                 break;
         }
     }
