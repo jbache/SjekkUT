@@ -13,7 +13,7 @@ public class TurbasenApi: Alamofire.Manager {
 
     static let instance = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
 
-    let projectFields:String = "steder,geojson,bilder,img,grupper,lenker,start,stopp,url,fylke,kommune"
+    let projectFields:String = "steder,geojson,bilder,img,grupper,lenker,start,stopp,fylke,kommune"
     var baseUrl:String = ""
     var api_key = ""
     let locationController = Location.instance()
