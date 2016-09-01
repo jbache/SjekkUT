@@ -25,10 +25,11 @@ class CheckinButton: UIButton {
     }
     
     func setup() {
-        self.titleLabel?.lineBreakMode = .ByWordWrapping
-        self.titleLabel!.numberOfLines = 3
-        self.titleLabel?.textAlignment = .Center
-        self.titleLabel?.font = UIFont.systemFontOfSize(12)
+        titleLabel?.lineBreakMode = .ByWordWrapping
+        titleLabel!.numberOfLines = 3
+        titleLabel?.textAlignment = .Center
+        titleLabel?.font = UIFont.systemFontOfSize(12)
+        alpha = 0
 
         backgroundColor = UIColor.grayColor()
         setBackgroundImage(DntColor.red().imageWithSize(self.bounds.size), forState: .Normal)
@@ -67,7 +68,7 @@ class CheckinButton: UIButton {
     }
 
     func updateLocation() {
-
+        var theAlpha:CGFloat = 0
         if let nearestPlace = nearestPlace() {
             let enabledString = NSLocalizedString("Check in to \(nearestPlace.name!)",
                                                   comment:"check in button title")
@@ -79,9 +80,15 @@ class CheckinButton: UIButton {
             self.setTitle(enabledString , forState:.Normal)
             self.setTitle(nearestPlace.canCheckinTime() ? disabledDistanceString : disabledTimeString, forState: .Disabled)
             self.enabled = nearestPlace.canCheckIn()
+            theAlpha = 1
         }
         else {
-            self.enabled = false
+            theAlpha = 0
+            enabled = false
+        }
+        // hide or show the button
+        UIView.animateWithDuration(kSjekkUtConstantAnimationDuration) { 
+            self.alpha = theAlpha
         }
     }
 
