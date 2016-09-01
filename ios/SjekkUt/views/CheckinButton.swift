@@ -55,7 +55,9 @@ class CheckinButton: UIButton {
 
     func startObserving() {
         if (!isObserving) {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateLocation), name: kSjekkUtNotificationLocationChanged, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateButton), name: kSjekkUtNotificationLocationChanged, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateButton), name: SjekkUtCheckedInNotification, object: nil)
+
             isObserving = true
         }
     }
@@ -67,14 +69,14 @@ class CheckinButton: UIButton {
         }
     }
 
-    func updateLocation() {
+    func updateButton() {
         var theAlpha:CGFloat = 0
         if let nearestPlace = nearestPlace() {
-            let enabledString = NSLocalizedString("Check in to \(nearestPlace.name!)",
+            let enabledString = NSLocalizedString("Visit \(nearestPlace.name!)",
                                                   comment:"check in button title")
             let disabledDistanceString = NSLocalizedString("\(nearestPlace.distanceDescription()) left",
                                                            comment:"distance checkin button title")
-            let disabledTimeString = NSLocalizedString("Visited \(nearestPlace.name!) \(nearestPlace.lastCheckin().timeAgo())",
+            let disabledTimeString = NSLocalizedString("Visited \(nearestPlace.name!) \(nearestPlace.lastCheckin().timeAgo()) ago",
                                                        comment: "time checkin button title")
 
             self.setTitle(enabledString , forState:.Normal)
