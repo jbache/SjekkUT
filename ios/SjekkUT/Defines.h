@@ -20,6 +20,7 @@ static NSString *__nonnull kSjekkUtNotificationGetPlace = @"com.dnt.sjekkut.noti
 static NSString *__nonnull kSjekkUtNotificationAuthorized = @"com.dnt.sjekkut.notification.authorized";
 static NSString *__nonnull kSjekkUtNotificationLoggedIn = @"com.dnt.sjekkut.notification.loggedin";
 static NSString *__nonnull kSjekkUtNotificationCheckinChanged = @"com.dnt.sjekkut.notification.checkinchanged";
+static NSString *__nonnull kSjekkUtNotificationLocationChanged = @"com.dnt.sjekkut.notification.locationchanged";
 
 static NSTimeInterval kSjekkUtConstantAnimationDuration = 0.250;
 

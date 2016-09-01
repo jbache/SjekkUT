@@ -18,7 +18,7 @@
 
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (retain, nonatomic) CLLocation *currentLocation;
-@property (copy, nonatomic) void (^singleUpdateHandler)(CLLocation *);
+@property (copy, nonatomic) void (^updateHandler)(CLLocation *);
 @property NSInteger minAccuracy;
 @property BOOL singleUpdateInProgress;
 
@@ -26,5 +26,7 @@
 + (Location *)instance;
 
 - (void)getSingleUpdate:(void (^)(CLLocation *))updateHandler;
+- (void)startUpdate;
+- (void)stopUpdate;
 
 @end

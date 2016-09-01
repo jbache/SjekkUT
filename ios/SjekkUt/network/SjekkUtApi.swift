@@ -64,7 +64,7 @@ class SjekkUtApi: Alamofire.Manager {
             var leaveProject = Project.allEntities() as! [Project]
 
             for projectJSON in projectsArray {
-                let aProject = Project.findWithId(projectJSON.string!)
+                let aProject = Project.insertOrUpdate(projectJSON.string!)
                 if (aProject.isParticipating == nil) {
                     aProject.isParticipating = true
                 }

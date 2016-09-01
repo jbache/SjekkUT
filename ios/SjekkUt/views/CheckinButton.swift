@@ -10,21 +10,95 @@ import Foundation
 
 class CheckinButton: UIButton {
 
-    override func awakeFromNib() {
+    let locationController = Location.instance()
+    var kObserveLocation = 0
+    var isObserving = false
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func setup() {
         self.titleLabel?.lineBreakMode = .ByWordWrapping
-        self.titleLabel?.numberOfLines = 2
+        self.titleLabel!.numberOfLines = 3
         self.titleLabel?.textAlignment = .Center
+        self.titleLabel?.font = UIFont.systemFontOfSize(12)
+
+        backgroundColor = UIColor.grayColor()
+        setBackgroundImage(DntColor.red().imageWithSize(self.bounds.size), forState: .Normal)
+        setBackgroundImage(UIColor.grayColor().imageWithSize(self.bounds.size), forState: .Disabled)
+
+        startObserving()
+
+        addTarget(self, action: #selector(checkinClicked), forControlEvents: .TouchUpInside)
     }
 
-    var circleColor: UIColor = DntColor.red() {
-        didSet {
-            backgroundColor = circleColor
-        }
+    deinit {
+
+        locationController.stopUpdate()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         self.layer.cornerRadius = self.bounds.size.width / 2
-        self.layer.masksToBounds = false
+        self.layer.masksToBounds = true
+    }
+
+    // MARK: observer
+
+    func startObserving() {
+        if (!isObserving) {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateLocation), name: kSjekkUtNotificationLocationChanged, object: nil)
+            isObserving = true
+        }
+    }
+
+    func stopObserving() {
+        if (isObserving) {
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            isObserving = false
+        }
+    }
+
+    func updateLocation() {
+
+        if let nearestPlace = nearestPlace() {
+            let enabledString = NSLocalizedString("Check in to \(nearestPlace.name!)",
+                                                  comment:"check in button title")
+            let disabledDistanceString = NSLocalizedString("\(nearestPlace.distanceDescription()) left",
+                                                           comment:"distance checkin button title")
+            let disabledTimeString = NSLocalizedString("Visited \(nearestPlace.name!) \(nearestPlace.lastCheckin().timeAgo())",
+                                                       comment: "time checkin button title")
+
+            self.setTitle(enabledString , forState:.Normal)
+            self.setTitle(nearestPlace.canCheckinTime() ? disabledDistanceString : disabledTimeString, forState: .Disabled)
+            self.enabled = nearestPlace.canCheckIn()
+        }
+        else {
+            self.enabled = false
+        }
+    }
+
+    func nearestPlace() -> Place? {
+        let allPlaces = Place.allEntities() as NSArray
+
+        let sortedPlaces = allPlaces.sortedArrayUsingDescriptors( [NSSortDescriptor(key: "distance", ascending: true)] ) as! [Place]
+
+        if let firstPlace = sortedPlaces.first {
+            return firstPlace
+        }
+        return nil
+    }
+
+    func checkinClicked() {
+        let aPlaceSearchView = PlaceSearch.storyboardInstance("PlaceSearch") as! PlaceSearch
+        aPlaceSearchView.place = nearestPlace()
+        (UIApplication.sharedApplication().keyWindow?.rootViewController as! UINavigationController).pushViewController(aPlaceSearchView, animated: true)
     }
 }

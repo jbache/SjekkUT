@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)foregroundImageURLforSize:(CGSize)aSize;
 - (NSString *)checkinDescription;
 - (BOOL)canCheckIn;
+- (BOOL)canCheckinTime;
 
 @end
 

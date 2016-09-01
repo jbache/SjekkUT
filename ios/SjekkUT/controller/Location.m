@@ -34,7 +34,7 @@
 
 @synthesize currentLocation;
 @synthesize locationManager;
-@synthesize singleUpdateHandler;
+@synthesize updateHandler;
 @synthesize minAccuracy;
 @synthesize singleUpdateInProgress;
 
@@ -45,10 +45,10 @@
         return nil;
 
     locationManager = [[CLLocationManager alloc] init];
-    locationManager.distanceFilter = 0;
+    locationManager.distanceFilter = DISTANCE_FILTER / 4;
     locationManager.delegate = self;
-    locationManager.pausesLocationUpdatesAutomatically = NO;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locationManager.pausesLocationUpdatesAutomatically = YES;
+    locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     locationManager.activityType = CLActivityTypeFitness;
 
     [defaultNotifyer addObserver:self selector:@selector(locationDidTimeOut:)
@@ -217,14 +217,23 @@
     currentLocation = locations.firstObject;
     [self didChangeValueForKey:@"currentLocation"];
 
-
-    if (singleUpdateInProgress && currentLocation.horizontalAccuracy <= minAccuracy)
+    // continue looking if the accuracy is too low
+    if (currentLocation.horizontalAccuracy > minAccuracy)
     {
-        if (self.singleUpdateHandler)
-        {
-            self.singleUpdateHandler(currentLocation);
-            self.singleUpdateHandler = nil;
-        }
+        return;
+    }
+
+    [NSNotificationCenter.defaultCenter postNotificationName:kSjekkUtNotificationLocationChanged object:nil];
+
+    if (self.updateHandler)
+    {
+        self.updateHandler(currentLocation);
+    }
+
+    // if we're doing only a single update we can stop now
+    if (singleUpdateInProgress)
+    {
+        self.updateHandler = nil;
         [self stopUpdate];
     }
 }
@@ -239,7 +248,6 @@
 - (void)locationManager:(CLLocationManager *)manager
     didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-
     switch (status)
     {
         case kCLAuthorizationStatusAuthorizedAlways:
@@ -260,15 +268,15 @@
 {
     [self showError:NSLocalizedString(@"Positioning Failure", @"title for generic location failure")
             message:error.localizedDescription];
-    [self stopUpdate];
+    //    [self stopUpdate];
 }
 
-- (void)getSingleUpdate:(void (^)(CLLocation *location))updateHandler
+- (void)getSingleUpdate:(void (^)(CLLocation *location))anUpdateHandler
 {
     if (!singleUpdateInProgress)
     {
         singleUpdateInProgress = YES;
-        self.singleUpdateHandler = updateHandler;
+        self.updateHandler = anUpdateHandler;
         [self startUpdate];
     }
 }

@@ -16,17 +16,25 @@ public class TurbasenApi: Alamofire.Manager {
     let projectFields:String = "steder,geojson,bilder,img,grupper,lenker,start,stopp,url,fylke,kommune"
     var baseUrl:String = ""
     var api_key = ""
+    let locationController = Location.instance()
 
-    init() {
-        super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(getPlaceNotification), name: kSjekkUtNotificationGetPlace, object: nil)
-    }
+    var isObserving:Bool = false
+    var kObserveLocation = 0
 
     convenience init(forDomain aDomain:String) {
         self.init()
         self.baseUrl = "https://" + aDomain
         self.api_key = (aDomain + ".api_key").loadFileContents(inClass:self.dynamicType)!
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(getPlaceNotification), name: kSjekkUtNotificationGetPlace, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateDistance), name: kSjekkUtNotificationLocationChanged, object: nil)
+        locationController.startUpdate()
     }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        locationController.stopUpdate()
+    }
+
 
     // MARK: place
 
@@ -133,6 +141,15 @@ public class TurbasenApi: Alamofire.Manager {
             for place in theProject.places! {
                 // fetch place with images
                 self.getPlace(place as! Place)
+            }
+        }
+    }
+
+    // MARK: distance
+    @objc func updateDistance() {
+        ModelController.instance().saveBlock {
+            for aProject in Project.allEntities() as! [Project] {
+                aProject.updateDistance()
             }
         }
     }

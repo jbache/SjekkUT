@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Project : EntityScaffold
 
 + (NSFetchRequest *)fetchRequest;
-+ (instancetype)insertOrUpdate:(NSDictionary *)json;
++ (instancetype)insertOrUpdate:(id)jsonOrId;
 
 - (void)updateDistance;
 - (void)updatePlacesDistance;

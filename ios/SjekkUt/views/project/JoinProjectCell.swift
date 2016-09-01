@@ -8,16 +8,6 @@
 
 import Foundation
 
-func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
-    let rect = CGRectMake(0, 0, size.width, size.height)
-    UIGraphicsBeginImageContextWithOptions(size, false, 0)
-    color.setFill()
-    UIRectFill(rect)
-    let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    return image
-}
-
 class JoinProjectCell: UITableViewCell {
 
     var isObserving:Bool = false
@@ -26,7 +16,7 @@ class JoinProjectCell: UITableViewCell {
     var project:Project? = nil {
         didSet {
             stopObserving()
-            joinLeaveButton.setBackgroundImage(getImageWithColor(UIColor.grayColor(), size: joinLeaveButton.bounds.size), forState: .Disabled)
+            joinLeaveButton.setBackgroundImage(UIColor.grayColor().imageWithSize(joinLeaveButton.bounds.size), forState: .Disabled)
             joinLeaveButton.setTitle(NSLocalizedString("Working..", comment: "join/leave in progress"), forState: .Disabled)
             joinLeaveButton.setTitleColor(UIColor.whiteColor(), forState: .Disabled)
             startObserving()

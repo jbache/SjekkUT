@@ -29,8 +29,6 @@ class ProjectView: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var kObservationContextGroups = 0
 
     @IBOutlet var placesTable: UITableView!
-    @IBOutlet var checkinButton: UIButton!
-    @IBOutlet var feedbackButton: UIButton!
     @IBOutlet var countyMunicipalityLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
@@ -85,25 +83,12 @@ class ProjectView: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
     func updateData() {
         turbasen.getProjectAndPlaces(project!)
-        Location.instance().getSingleUpdate { location in
-            self.project!.updateDistance()
-            let sortedPlaces = self.project!.places!.sortedArrayUsingDescriptors( [NSSortDescriptor(key: "distance", ascending: true)] ) as! [Place]
-            if let firstPlace = sortedPlaces.first {
-                self.checkinButton.titleLabel!.numberOfLines = 3
-                self.checkinButton.setTitle( NSLocalizedString("Check in to \(firstPlace.name!)",comment:"check in button title"), forState:.Normal)
-                UIView.animateWithDuration(kSjekkUtConstantAnimationDuration) {
-                    self.checkinButton.alpha = CGFloat( firstPlace.canCheckIn() )
-                }
-            }
-
-        }
     }
 
     // MARK: view controller
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        checkinButton.alpha = 0
         startObserving()
         setupReadMore()
         updateData()
@@ -118,10 +103,6 @@ class ProjectView: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if segue.identifier == "showPlace" {
             let placeView = segue.destinationViewController as! PlaceView
             placeView.place = sender as? Place
-        }
-        else if segue.identifier == "startSearch" {
-            let searchView = segue.destinationViewController as! PlaceSearch
-            searchView.project = self.project! as Project
         }
     }
 

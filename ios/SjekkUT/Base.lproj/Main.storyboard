@@ -588,33 +588,13 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="LQZ-ln-9Pn"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="IBq-T2-jaY" userLabel="Checkin" customClass="CheckinButton" customModule="SjekkUT" customModuleProvider="target">
-                                <rect key="frame" x="520" y="456" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="LPd-ia-cVq"/>
-                                    <constraint firstAttribute="height" constant="64" id="MGk-cN-xKh"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                <state key="normal" title="Check in!"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="circleColor">
-                                        <color key="value" red="0.84705882349999995" green="0.1764705882" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="vp9-r5-EBP" kind="show" identifier="startSearch" id="xEe-uE-bxi"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="GnW-WU-cKB" secondAttribute="bottom" id="5eS-TX-NgC"/>
                             <constraint firstItem="GnW-WU-cKB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Ife-dQ-e6j"/>
-                            <constraint firstAttribute="trailing" secondItem="IBq-T2-jaY" secondAttribute="trailing" constant="16" id="NOU-Ep-fdm"/>
                             <constraint firstAttribute="trailing" secondItem="GnW-WU-cKB" secondAttribute="trailing" id="Rqp-BK-XfE"/>
                             <constraint firstItem="GnW-WU-cKB" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="YL3-IF-6Fi"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="IBq-T2-jaY" secondAttribute="bottom" constant="16" id="a3z-F7-0Yy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Project" id="X32-B9-KX4">
@@ -628,7 +608,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="gOj-1b-VF9" id="cvZ-EM-nNK"/>
-                        <outlet property="checkinButton" destination="IBq-T2-jaY" id="oCf-37-j43"/>
                         <outlet property="countyMunicipalityLabel" destination="jzR-oT-Ns0" id="BSu-F5-mph"/>
                         <outlet property="distanceLabel" destination="bpZ-JC-7T1" id="18Y-wQ-AaW"/>
                         <outlet property="foregroundImageView" destination="FSv-1N-PqJ" id="XrG-Sq-gbk"/>
@@ -857,20 +836,20 @@
         <!--Place Search-->
         <scene sceneID="Lk1-xu-eMU">
             <objects>
-                <viewController id="vp9-r5-EBP" customClass="PlaceSearch" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaceSearch" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vp9-r5-EBP" customClass="PlaceSearch" customModule="SjekkUT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xj7-vH-TNY"/>
                         <viewControllerLayoutGuide type="bottom" id="ISq-Tj-Slc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Lkq-Zt-8kU">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JBX-UF-8HP">
-                                <rect key="frame" x="290" y="258" width="20" height="20"/>
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding your location..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2A-QB-aS5">
-                                <rect key="frame" x="16" y="214" width="568" height="24"/>
+                                <rect key="frame" x="16" y="246" width="568" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

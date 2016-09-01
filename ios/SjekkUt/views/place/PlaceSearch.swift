@@ -10,7 +10,7 @@ import Foundation
 
 class PlaceSearch: UIViewController {
 
-    var project:Project? = nil
+    var place:Place! = nil
     @IBOutlet weak var checkinLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
@@ -20,18 +20,16 @@ class PlaceSearch: UIViewController {
         super.viewDidAppear(animated)
         popViewControllerIfTimeout()
         activityIndicator.startAnimating()
-        Location.instance().getSingleUpdate { (location:CLLocation!) in
+        self.checkinLabel.text = NSLocalizedString("Checking in...", comment: "Checking in label in summit search")
+        SjekkUtApi.instance.doPlaceCheckin(self.place) {
+            result in
             self.activityIndicator.stopAnimating()
-            self.checkinLabel.text = NSLocalizedString("Checking in...", comment: "Checking in label in summit search")
-            let aPlace = self.project!.findNearest()
-            SjekkUtApi.instance.doPlaceCheckin(aPlace) {
-                result in
-                switch result {
-                case .Success:
-                    self.performSegueWithIdentifier("showPlace", sender: aPlace)
-                case .Failure(let error):
-                    self.performSegueWithIdentifier("showPlace", sender: error)
-                }
+            switch result {
+            case .Success:
+                self.performSegueWithIdentifier("showPlace", sender: self.place)
+            case .Failure(let error):
+                print("failed to visit \(self.place.name): \(error)")
+                self.performSegueWithIdentifier("showPlace", sender: self.place)
             }
         }
     }

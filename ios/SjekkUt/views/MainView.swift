@@ -15,9 +15,9 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
     let sjekkUtApi = SjekkUtApi.instance
     var projects:NSFetchedResultsController?
     let searchController = UISearchController(searchResultsController:nil)
+    var checkinButton:CheckinButton!
 
     @IBOutlet weak var projectsTable: UITableView!
-    @IBOutlet weak var profileButton: UIButton!
 
     // MARK: view controller
     required init?(coder aDecoder: NSCoder) {
@@ -26,6 +26,8 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        checkinButton.removeFromSuperview()
+        checkinButton = nil
     }
 
     override func viewDidLoad() {
@@ -36,6 +38,7 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
 
         setupTable()
         setupSearchResults()
+        setupCheckinButton()
     }
 
     override func viewWillAppear(animated:Bool) {
@@ -50,11 +53,6 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        Location.instance().getSingleUpdate { location in
-            for project:Project in self.projects?.fetchedObjects! as! [Project] {
-                project.updateDistance()
-            }
-        }
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -73,6 +71,15 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
         #if DEBUG
             dntApi.logout()
         #endif
+    }
+
+    // MARK: private
+    func setupCheckinButton() {
+        let nSize = navigationController!.view.bounds.size
+        let cSize = CGSizeMake(64, 64)
+        let cPoint = CGPointMake(nSize.width-cSize.width-8, nSize.height-cSize.height-8)
+        checkinButton = CheckinButton(frame: CGRect(origin: cPoint, size: cSize))
+        navigationController?.view.addSubview(checkinButton)
     }
 
     // MARK: table data
@@ -150,7 +157,9 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
 
     func configureCell(aCell:ProjectCell, forRowAtIndexPath anIndexPath:NSIndexPath) {
         if let project:Project = self.projects?.objectAtIndexPath(anIndexPath) as? Project {
-            aCell.project = project
+            if (aCell.project != project) {
+                aCell.project = project
+            }
         }
     }
 

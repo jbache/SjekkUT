@@ -25,9 +25,18 @@
     return aFetchRequest;
 }
 
-+ (instancetype)insertOrUpdate:(NSDictionary *)json
++ (instancetype)insertOrUpdate:(id)jsonOrId
 {
-    NSString *identifier = [NSString stringWithFormat:@"%@", json[@"_id"]];
+    NSString *identifier = nil;
+    if ([jsonOrId isKindOfClass:[NSDictionary class]])
+    {
+        identifier = jsonOrId[@"_id"];
+    }
+    else if ([jsonOrId isKindOfClass:[NSString class]])
+    {
+        identifier = jsonOrId;
+    }
+
     Project *theEntity = [self findWithId:identifier];
 
     if (!theEntity)
@@ -38,7 +47,10 @@
 
     NSAssert(theEntity != nil, @"Unable to aquire new or existing object");
 
-    [theEntity update:json];
+    if ([jsonOrId isKindOfClass:NSDictionary.class])
+    {
+        [theEntity update:jsonOrId];
+    }
 
     return theEntity;
 }
@@ -221,6 +233,7 @@
     NSArray *sortedPlaces = [self.places sortedArrayUsingDescriptors:@[ sortDistance ]];
     NSArray *filteredPlaces = [sortedPlaces filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"distance > 0"]];
     Place *nearestPlace = [filteredPlaces firstObject];
+    [self willChangeValueForKey:@"distance"];
     if (nearestPlace.latitude != nil && nearestPlace.longitude != nil)
     {
         NSNumber *newDistance = nearestPlace.distance;
@@ -230,6 +243,7 @@
     {
         setIfNotEqual(self.distance, @(DBL_MAX));
     }
+    [self didChangeValueForKey:@"distance"];
 }
 
 - (void)updatePlacesDistance
@@ -313,12 +327,22 @@
 
 - (NSString *)progressDescriptionLong
 {
+    if (!self.isParticipating.boolValue && self.progress.doubleValue == 0)
+    {
+        return @"";
+    }
+
     NSString *formatString = NSLocalizedString(@"You have summited %@ of %@ so far!", "count summits in challenge");
     return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
 }
 
 - (NSString *)progressDescriptionShort
 {
+    if (!self.isParticipating.boolValue && self.progress.doubleValue == 0)
+    {
+        return @"";
+    }
+
     NSString *formatString = NSLocalizedString(@"Visited %@ of %@", "count visits in project cell");
     return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
 }

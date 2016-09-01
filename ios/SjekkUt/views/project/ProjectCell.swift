@@ -40,9 +40,6 @@ class ProjectCell: UITableViewCell {
     @IBOutlet weak var backgroundContainer: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var foregroundImageView: UIImageView!
-    @IBOutlet weak var readMoreButton: UIButton!
-    @IBOutlet weak var readMoreWidth: NSLayoutConstraint!
-    @IBOutlet weak var readMoreSpacing: NSLayoutConstraint!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var countyMunicipalityLabel: UILabel!
@@ -69,10 +66,7 @@ class ProjectCell: UITableViewCell {
             stopObserving()
         }
         didSet {
-
-            setupReadMore()
             setupProgressLabel()
-
             startObserving()
         }
     }
@@ -100,13 +94,6 @@ class ProjectCell: UITableViewCell {
         setupName()
     }
 
-    override func prepareForReuse() {
-        stopObserving()
-        nameLabel.text = ""
-        distanceLabel.text = ""
-        progressLabel.text = ""
-    }
-
     // MARK: private
 
     func setupName() {
@@ -117,15 +104,6 @@ class ProjectCell: UITableViewCell {
         var aFrame = nameLabel.frame
         aFrame.size = rect.size
         nameLabel.frame = aFrame
-    }
-
-    func setupReadMore() {
-        let showReadMore:CGFloat = project?.infoUrl?.characters.count>0 ? 1.0 : 0.0
-        if (readMoreButton != nil) {
-            readMoreButton.alpha = 1 * showReadMore
-            readMoreWidth.constant = 33 * showReadMore
-            readMoreSpacing.constant = 8 * showReadMore
-        }
     }
 
     func setupProgressLabel() {
@@ -189,7 +167,6 @@ class ProjectCell: UITableViewCell {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setupProgressLabel), name: kSjekkUtNotificationCheckinChanged, object: nil)
             isObserving = true
         }
-
     }
 
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {

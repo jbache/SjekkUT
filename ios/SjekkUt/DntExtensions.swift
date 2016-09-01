@@ -8,6 +8,14 @@
 
 import Foundation
 
+extension UIViewController {
+    class func storyboardInstance(anIdentifier:String) -> UIViewController {
+        let aStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let aViewController = aStoryboard.instantiateViewControllerWithIdentifier(anIdentifier)
+        return aViewController
+    }
+}
+
 extension NSDate {
 
     @objc func timeAgo() -> String {
@@ -67,5 +75,18 @@ extension Place {
             countyElevationTexts.append(elevationText)
         }
         return countyElevationTexts.joinWithSeparator(" ")
+    }
+}
+
+extension UIColor {
+
+    func imageWithSize(size: CGSize) -> UIImage {
+        let rect = CGRectMake(0, 0, size.width, size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        self.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }
