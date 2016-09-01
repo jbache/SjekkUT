@@ -34,7 +34,7 @@ class ProjectPlaceWrapperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 notifyDataSetChanged();
             }
         };
-        mProjectAdapter = new ProjectAdapter(null);
+        mProjectAdapter = new ProjectAdapter(null, true);
         mProjectAdapter.registerAdapterDataObserver(mAdapterObserver);
         mParticipantAdapter = new ParticipantAdapter(participantListener);
         mParticipantAdapter.registerAdapterDataObserver(mAdapterObserver);

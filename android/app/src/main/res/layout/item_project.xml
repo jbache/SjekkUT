@@ -65,6 +65,16 @@
             android:textAppearance="@style/ProjectMediumTitle"
             tools:text="Bergen Toppturlag" />
 
+        <ImageView
+            android:id="@+id/homepage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignBottom="@id/group"
+            android:layout_alignEnd="@id/group"
+            android:layout_alignRight="@id/group"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_www" />
+
         <TextView
             android:id="@+id/distance"
             android:layout_width="wrap_content"

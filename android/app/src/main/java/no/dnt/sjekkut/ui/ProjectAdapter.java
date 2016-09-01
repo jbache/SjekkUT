@@ -1,7 +1,9 @@
 package no.dnt.sjekkut.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +32,15 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     private final List<Project> mProjectList;
     private final Comparator<Project> mProjectComparator;
     private final ProjectListListener mListener;
+    private final boolean mShowHomepageLink;
     private List<Project> mProjectListCopy = null;
     private Location mUserLocation = null;
     private int mDisplayWidth = 1080;
     private UserCheckins mUserCheckins = null;
 
-    ProjectAdapter(ProjectListFragment.ProjectListListener listener) {
+    ProjectAdapter(ProjectListFragment.ProjectListListener listener, boolean showHomepageLink) {
         mListener = listener;
+        mShowHomepageLink = showHomepageLink;
         mProjectList = new ArrayList<>();
         mProjectComparator = new Comparator<Project>() {
             @Override
@@ -88,7 +92,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
     @Override
     public void onBindViewHolder(final ProjectHolder holder, int position) {
         final Project project = mProjectList.get(position);
-        Context context = holder.itemView.getContext();
+        final Context context = holder.itemView.getContext();
         holder.mProjectTitle.setText(project.navn);
         holder.mGroupTitle.setText(project.getFirstGroupName());
         holder.mDistanceToProject.setText(project.getDistanceToString(context, mUserLocation));
@@ -117,6 +121,18 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
                 }
             }
         });
+        boolean showHomepageLink = mShowHomepageLink && project.getHomePageUrl() != null;
+        holder.mHomepage.setVisibility(showHomepageLink ? View.VISIBLE : View.GONE);
+        if (showHomepageLink) {
+            holder.mHomepage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(project.getHomePageUrl())));
+                }
+            });
+        } else {
+            holder.mHomepage.setOnClickListener(null);
+        }
     }
 
     private boolean hasUserVisited(Project project) {
@@ -215,6 +231,8 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         ImageView mBackground;
         @BindView(R.id.image)
         ImageView mImage;
+        @BindView(R.id.homepage)
+        ImageView mHomepage;
 
         ProjectHolder(View view) {
             super(view);

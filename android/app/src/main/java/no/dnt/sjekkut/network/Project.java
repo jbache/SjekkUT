@@ -14,6 +14,7 @@ import no.dnt.sjekkut.Utils;
  * Created by espen on 09.08.2016.
  */
 public class Project {
+    private static final String HOMEPAGE = "Hjemmeside";
     public String _id;
     public String navn;
     public List<Place> steder;
@@ -80,5 +81,16 @@ public class Project {
 
     public int getBackgroundFallback() {
         return R.drawable.project_background_fallback;
+    }
+
+    public String getHomePageUrl() {
+        if (lenker != null) {
+            for (Link link : lenker) {
+                if (HOMEPAGE.equals(link.type)) {
+                    return link.url;
+                }
+            }
+        }
+        return null;
     }
 }

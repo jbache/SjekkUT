@@ -98,7 +98,7 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        mProjectAdapter = new ProjectAdapter(mListener);
+        mProjectAdapter = new ProjectAdapter(mListener, false);
         mRecyclerView.setAdapter(mProjectAdapter);
         Paint textPainter = new Paint();
         textPainter.setColor(Color.BLACK);
