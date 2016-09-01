@@ -2,6 +2,7 @@ package no.dnt.sjekkut.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,10 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     Button mLogout;
     @BindView(R.id.visits_separator)
     TextView mVisitsSeparator;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
+
+
     private List<StatCountHolder> mStatCountHolders = new ArrayList<>();
     private PlaceVisitAdapter mPlaceVisitAdapter;
 
@@ -137,6 +142,7 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
             holder.circle.setColorFilter(ContextCompat.getColor(context, R.color.todo));
         }
         mVisitsSeparator.setText(getString(R.string.your_visits));
+        mFab.setOnClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mPlaceVisitAdapter = new PlaceVisitAdapter(mListener);
         mRecyclerView.setAdapter(mPlaceVisitAdapter);
@@ -199,6 +205,9 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
                 if (mListener != null) {
                     mListener.onLogout();
                 }
+                break;
+            case R.id.fab:
+                Utils.showToast(getContext(), "FAB!");
                 break;
         }
     }

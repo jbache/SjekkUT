@@ -18,8 +18,8 @@
         android:id="@+id/name_and_stats_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="@dimen/margin_medium">
 
         <TextView
             android:id="@+id/username"
@@ -114,6 +114,20 @@
             tools:listitem="@layout/item_placevisit" />
 
     </LinearLayout>
+
+
+    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/margin_medium"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:rippleColor="#ffffff"
+        app:srcCompat="@drawable/ic_www" />
 
 
 </RelativeLayout>
