@@ -45,7 +45,7 @@
         return nil;
 
     locationManager = [[CLLocationManager alloc] init];
-    locationManager.distanceFilter = DISTANCE_FILTER / 4;
+    locationManager.distanceFilter = 5;
     locationManager.delegate = self;
     locationManager.pausesLocationUpdatesAutomatically = YES;
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
