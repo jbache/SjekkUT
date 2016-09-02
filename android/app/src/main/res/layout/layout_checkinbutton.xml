@@ -28,9 +28,10 @@
         android:layout_alignRight="@id/fabButton"
         android:layout_alignStart="@id/fabButton"
         android:layout_centerVertical="true"
+        android:elevation="6dp"
         android:gravity="center"
         android:maxLines="2"
-        tools:ignore="PrivateResource"
+        tools:ignore="PrivateResource,UnusedAttribute"
         tools:text="23 km" />
 
     <TextView
@@ -44,10 +45,11 @@
         android:layout_toLeftOf="@id/fabButton"
         android:layout_toStartOf="@id/fabButton"
         android:background="@color/dntLightGray"
+        android:elevation="6dp"
         android:gravity="center"
         android:padding="@dimen/margin_small"
         android:visibility="invisible"
-        tools:ignore="PrivateResource"
+        tools:ignore="PrivateResource,UnusedAttribute"
         tools:visibility="visible" />
 
 </merge>

@@ -3,6 +3,7 @@ package no.dnt.sjekkut.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.location.Location;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -177,8 +178,10 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
         inflater.inflate(R.layout.layout_checkinbutton, this);
         ButterKnife.bind(this);
         mButton.setOnClickListener(this);
-        ViewCompat.setElevation(mInfo, mButton.getCompatElevation());
-        ViewCompat.setElevation(mLabel, mButton.getCompatElevation());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            ViewCompat.setElevation(mInfo, mButton.getCompatElevation());
+            ViewCompat.setElevation(mLabel, mButton.getCompatElevation());
+        }
     }
 
     @Override
