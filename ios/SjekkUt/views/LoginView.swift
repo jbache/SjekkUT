@@ -69,9 +69,13 @@ class LoginView: UIViewController, WKNavigationDelegate {
     func tryLogin() {
         dntApi?.successBlock = {
             self.showMainView()
+            self.dntApi?.successBlock = {}
+            self.dntApi?.failBlock = {}
         }
         dntApi?.failBlock = {
             self.dntApi?.logout()
+            self.dntApi?.successBlock = {}
+            self.dntApi?.failBlock = {}
         }
         dntApi?.updateMemberDetails()
     }
