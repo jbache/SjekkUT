@@ -49,6 +49,8 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.checkinButton)
+    CheckinButton mCheckinButton;
     private ProjectAdapter mProjectAdapter;
     private ProjectListListener mListener;
 
@@ -179,6 +181,9 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
     public void onLocationChanged(Location location) {
         if (mProjectAdapter != null) {
             mProjectAdapter.setLocation(location);
+        }
+        if (mCheckinButton != null) {
+            mCheckinButton.setLocation(location);
         }
     }
 

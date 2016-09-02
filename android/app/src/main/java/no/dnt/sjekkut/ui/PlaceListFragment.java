@@ -48,6 +48,9 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
     Toolbar mToolbar;
     @BindView(R.id.placeList)
     RecyclerView mRecyclerView;
+    @BindView(R.id.checkinButton)
+    CheckinButton mCheckinButton;
+
     private ProjectPlaceWrapperAdapter mWrapperAdapter;
     private PlaceListListener mListener;
     private String mProjectId;
@@ -224,6 +227,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
 
     public void onLocationChanged(Location location) {
         mWrapperAdapter.setLocation(location);
+        mCheckinButton.setLocation(location);
     }
 
     @Override

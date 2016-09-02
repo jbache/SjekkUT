@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:layout_height="wrap_content"
     tools:layout_width="match_parent"
@@ -12,18 +13,29 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_medium"
         app:elevation="6dp"
         app:fabSize="normal"
         app:rippleColor="#ffffff"
-        app:srcCompat="@drawable/ic_www" />
+        app:useCompatPadding="true" />
 
     <TextView
-        android:id="@+id/fabText"
-        style="@style/FabText"
+        android:id="@+id/fabButtonText"
+        style="@style/FabButtonText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/design_fab_size_normal"
+        android:layout_alignEnd="@id/fabButton"
+        android:layout_alignLeft="@id/fabButton"
+        android:layout_alignRight="@id/fabButton"
+        android:layout_alignStart="@id/fabButton"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:maxLines="2"
+        tools:ignore="PrivateResource"
+        tools:text="23 km" />
+
+    <TextView
+        android:id="@+id/fabInfoText"
+        style="@style/FabInfoText"
         android:layout_width="match_parent"
         android:layout_height="@dimen/design_fab_size_normal"
         android:layout_centerVertical="true"
@@ -32,9 +44,10 @@
         android:layout_toLeftOf="@id/fabButton"
         android:layout_toStartOf="@id/fabButton"
         android:background="@color/dntLightGray"
+        android:gravity="center"
         android:padding="@dimen/margin_small"
-        android:text="@string/challenge_joined_completed"
         android:visibility="invisible"
+        tools:ignore="PrivateResource"
         tools:visibility="visible" />
 
 </merge>

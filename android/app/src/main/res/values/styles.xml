@@ -76,8 +76,13 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="FabText" parent="@style/TextAppearance.AppCompat">
+    <style name="FabInfoText" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/textsize_small</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FabButtonText" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/textsize_micro</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
