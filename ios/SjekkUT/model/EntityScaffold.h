@@ -27,5 +27,6 @@
 + (NSArray *)allEntities;
 + (NSArray *)entitiesWithPredicate:(NSPredicate *)predicate;
 + (void)deleteAll;
+- (void) delete;
 
 @end

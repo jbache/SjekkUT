@@ -255,7 +255,7 @@ class DntApi: DntManager {
         }
 
         // if we're offline we can just move on
-        if (isOffline) {
+        if (isOffline || !reachability!.isReachable()) {
             didSucceed()
             return
         }

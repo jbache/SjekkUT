@@ -94,4 +94,13 @@
     [model save];
 }
 
+- (void) delete
+{
+    if (model.managedObjectContext == nil)
+    {
+        return;
+    }
+    [model.managedObjectContext deleteObject:self];
+}
+
 @end

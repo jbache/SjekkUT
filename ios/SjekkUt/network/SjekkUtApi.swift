@@ -199,6 +199,9 @@ class SjekkUtApi: DntManager {
         offlineCheckinsFetch.predicate = NSPredicate(format: "isOffline == YES")
         do {
             let offlineCheckins = try ModelController.instance().managedObjectContext.executeFetchRequest(offlineCheckinsFetch) as! [Checkin]
+            if offlineCheckins.count > 0 {
+                print("found \(offlineCheckins.count) offline checkins")
+            }
             for aCheckin in offlineCheckins {
                 self.doOfflineCheckin(aCheckin)
             }
@@ -209,6 +212,7 @@ class SjekkUtApi: DntManager {
     }
 
     func doOfflineCheckin(aCheckin:Checkin) {
+        // build a new checkin payload based on stored values
         let someParameters = [
             "timestamp": aCheckin.dateFormatter().stringFromDate(aCheckin.date!),
             "lat": aCheckin.latitute!,
@@ -221,18 +225,27 @@ class SjekkUtApi: DntManager {
             .responseSwiftyJSON { response in
                 switch response.result {
                 case .Success:
-                    if let json = response.result.value!["data"].dictionary {
+                    if let json:JSON = response.result.value!["data"] {
                         // convert the offline checkin objecect to a real checkin
                         ModelController.instance().saveBlock {
-                            aCheckin.identifier = json["_id"]?.string
-                            aCheckin.update((json["data"]?.dictionaryObject)!)
+                            aCheckin.identifier = json["_id"].string
+                            aCheckin.update(json.dictionaryObject!)
                             aCheckin.isOffline = false
                         }
                         NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:aCheckin);
                     }
                 case .Failure(let error):
-                    print("failed to sync offline checkin: \(error)")
-
+                        print("failed to sync offline checkin: \(error)")
+                        if let httpStatusCode = response.response?.statusCode {
+                            switch httpStatusCode {
+                            // if validation failed, and we get 400 - Bad request, delete the checkin to prevent attempting
+                            // it again later
+                            case 400:
+                                aCheckin.delete()
+                            default:
+                                break
+                            }
+                        }
                 }
         }
     }
