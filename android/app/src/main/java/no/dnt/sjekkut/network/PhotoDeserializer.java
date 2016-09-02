@@ -7,8 +7,6 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
-import timber.log.Timber;
-
 /**
  * Copyright Den Norske Turistforening 2016
  * <p>

@@ -35,7 +35,6 @@ import no.dnt.sjekkut.network.UserCheckins;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
 
 /**
  * Copyright Den Norske Turistforening 2016
@@ -188,7 +187,6 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         updateView();
-        Timber.i("CheckinButton is calling shit");
         CheckinApiSingleton.call().getUserCheckins(
                 PreferenceUtils.getUserId(getContext()),
                 PreferenceUtils.getAccessToken(getContext()),
