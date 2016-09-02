@@ -15,7 +15,7 @@
         android:layout_centerVertical="true"
         app:elevation="6dp"
         app:fabSize="normal"
-        app:rippleColor="#ffffff"
+        app:rippleColor="@color/fab_ripple"
         app:useCompatPadding="true" />
 
     <TextView

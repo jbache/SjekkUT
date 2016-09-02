@@ -1,12 +1,10 @@
 package no.dnt.sjekkut.ui;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.location.Location;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -163,11 +161,6 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
             }
             mLabel.setText(label);
             mInfo.setText(info);
-            if (mUserCheckins != null && !mUserCheckins.getVisitedPlaceIds().isEmpty()) {
-                mButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.todo)));
-            } else {
-                mButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dntBlue)));
-            }
         }
     }
 
