@@ -18,16 +18,11 @@
         tools:context="no.dnt.sjekkut.ui.PlaceListFragment"
         tools:listitem="@layout/item_place" />
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <no.dnt.sjekkut.ui.CheckinButton
+        android:id="@+id/checkinButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_fab"
-        app:fab_colorNormal="@color/fab_normal"
-        app:fab_colorPressed="@color/fab_pressed"
-        app:fab_colorRipple="@color/fab_ripple" />
+        android:animateLayoutChanges="true" />
+
 </RelativeLayout>

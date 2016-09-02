@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-import com.melnykov.fab.FloatingActionButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +36,7 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceListFragment extends Fragment implements LocationListener, View.OnClickListener, ParticipantAdapter.ParticipantClickedListener {
+public class PlaceListFragment extends Fragment implements LocationListener, ParticipantAdapter.ParticipantClickedListener {
 
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final Callback<Project> mProjectCallback;
@@ -49,8 +48,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
     Toolbar mToolbar;
     @BindView(R.id.placeList)
     RecyclerView mRecyclerView;
-    @BindView(R.id.fab)
-    FloatingActionButton mFabButton;
     private ProjectPlaceWrapperAdapter mWrapperAdapter;
     private PlaceListListener mListener;
     private String mProjectId;
@@ -147,7 +144,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
         Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.screen_project), true);
         mWrapperAdapter = new ProjectPlaceWrapperAdapter(getActivity(), mListener, this);
         mRecyclerView.setAdapter(mWrapperAdapter);
-        mFabButton.setOnClickListener(this);
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -213,18 +209,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Vie
                 PreferenceUtils.getAccessToken(getContext()),
                 PreferenceUtils.getUserId(getContext()))
                 .enqueue(mUserCheckinsCallback);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab:
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, PlaceFragment.newInstance(null))
-                        .addToBackStack(PlaceFragment.class.getCanonicalName())
-                        .commit();
-                break;
-        }
     }
 
     @Override

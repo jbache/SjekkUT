@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_height="wrap_content"
+    tools:layout_width="match_parent"
+    tools:showIn="@layout/checkin_helper_layout">
+
+    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fabButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:rippleColor="#ffffff"
+        app:srcCompat="@drawable/ic_www" />
+
+    <TextView
+        android:id="@+id/fabText"
+        style="@style/FabText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/design_fab_size_normal"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_toLeftOf="@id/fabButton"
+        android:layout_toStartOf="@id/fabButton"
+        android:background="@color/dntLightGray"
+        android:padding="@dimen/margin_small"
+        android:text="@string/challenge_joined_completed"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+</merge>

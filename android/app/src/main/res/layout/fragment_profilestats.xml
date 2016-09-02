@@ -8,11 +8,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        layout="@layout/toolbar" />
 
     <RelativeLayout
         android:id="@+id/name_and_stats_container"
@@ -115,44 +111,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/fabContainer"
+    <no.dnt.sjekkut.ui.CheckinButton
+        android:id="@+id/checkinButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:animateLayoutChanges="true">
-
-        <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/margin_medium"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:rippleColor="#ffffff"
-            app:srcCompat="@drawable/ic_www" />
-
-        <TextView
-            android:id="@+id/fabInfoText"
-            style="@style/FabInfoText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_alignBottom="@id/fab"
-            android:layout_alignTop="@id/fab"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_toLeftOf="@id/fab"
-            android:layout_toStartOf="@id/fab"
-            android:background="@color/dntLightGray"
-            android:padding="@dimen/margin_small"
-            android:text="@string/challenge_joined_completed"
-            android:visibility="invisible"
-            tools:visibility="visible"
-            android:layout_marginLeft="@dimen/margin_medium" />
-
-    </RelativeLayout>
-
+        android:animateLayoutChanges="true" />
 
 </RelativeLayout>
