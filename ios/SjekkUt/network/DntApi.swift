@@ -10,13 +10,20 @@ import Foundation
 import Alamofire
 import SAMKeychain
 import WebKit
+import ReachabilitySwift
 
-
-class DntApi: Alamofire.Manager {
+class DntApi: DntManager {
 
     static let instance = DntApi(forDomain:"www.dnt.no")
 
     var baseUrl:String?
+    var clientId:String?
+    var clientSecret:String?
+    var successBlock:( () -> Void) = {}
+    var failBlock:(()->Void) = {}
+    var reachability:Reachability?
+    var isOffline:Bool = false
+
     var user:DntUser? {
         didSet {
             DntUser.setCurrentUser(user)
@@ -25,10 +32,6 @@ class DntApi: Alamofire.Manager {
             }
         }
     }
-    var clientId:String?
-    var clientSecret:String?
-    var successBlock:( () -> Void) = {}
-    var failBlock:(()->Void) = {}
 
     var isLoggedIn:Bool {
         get {
@@ -48,20 +51,62 @@ class DntApi: Alamofire.Manager {
         }
     }
 
+
     convenience init(forDomain aDomain:String) {
         self.init()
         baseUrl = "https://" + aDomain
         setupCredentials(domain:aDomain)
-        if let aUserId = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId) {
-            user = DntUser.findWithId(aUserId)
-            DntUser.setCurrentUser(user)
-        }
+        setupUser()
+        setupOffline()
+    }
+
+    deinit {
+        reachability!.stopNotifier()
     }
 
     // MARK: setup
     func setupCredentials(domain aDomain:String) {
         clientId = (aDomain + ".client_id").loadFileContents(inClass: self.dynamicType)
         clientSecret = (aDomain + ".client_secret").loadFileContents(inClass: self.dynamicType)
+    }
+
+    func setupUser() {
+        if let aUserId = SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsUserId) {
+            user = DntUser.findWithId(aUserId)
+            DntUser.setCurrentUser(user)
+        }
+    }
+
+    func setupOffline() {
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+        } catch {
+            print("Unable to create Reachability")
+            return
+        }
+        reachability!.whenReachable = { reachability in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.isOffline = false
+                self.updateMemberDetails()
+                SjekkUtApi.instance.syncOffline()
+            }
+        }
+        reachability!.whenUnreachable = { reachability in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                print("Not reachable")
+                self.isOffline = true
+            }
+        }
+        
+        do {
+            try reachability!.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
     }
 
     // MARK: Oauth 2
@@ -206,6 +251,12 @@ class DntApi: Alamofire.Manager {
         // if there is no token, assume failure
         if (aToken == nil) {
             didFail()
+            return
+        }
+
+        // if we're offline we can just move on
+        if (isOffline) {
+            didSucceed()
             return
         }
 

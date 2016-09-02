@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Checkin : EntityScaffold
 
 + (Checkin *)insertOrUpdate:(NSDictionary *)json;
+- (NSDateFormatter *)dateFormatter;
+- (void)update:(NSDictionary *)json;
 - (NSString *)timeAgo;
 
 @end

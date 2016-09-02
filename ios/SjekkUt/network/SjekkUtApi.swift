@@ -12,7 +12,7 @@ import SwiftyJSON
 import AlamofireSwiftyJSON
 import SAMKeychain
 
-class SjekkUtApi: Alamofire.Manager {
+class SjekkUtApi: DntManager {
 
     static let instance = SjekkUtApi(forDomain:"sjekkut.app.dnt.no")
     let authenticationHeaders:[String:String]? = [
@@ -43,7 +43,7 @@ class SjekkUtApi: Alamofire.Manager {
                 case .Success:
                     self.parseProfile(response.result.value!["data"])
                 case .Failure(let error):
-                    print("failed to get profile: \(error)")
+                    self.failHandler(error)
                 }
         }
     }
@@ -147,8 +147,8 @@ class SjekkUtApi: Alamofire.Manager {
     func doPlaceCheckin(aPlace:Place, finishHandler:(result:Result<AnyObject,NSError>)->()) {
         let currentLocation = Location.instance().currentLocation.coordinate
         let someParameters = [
-            "lat":currentLocation.latitude,
-            "lon":currentLocation.longitude,
+            "lat": currentLocation.latitude,
+            "lon": currentLocation.longitude,
             "public":(DntApi.instance.user?.publicCheckins?.boolValue)!
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
@@ -165,8 +165,22 @@ class SjekkUtApi: Alamofire.Manager {
                         }
                     }
                 case .Failure(let error):
+                    if (DntApi.instance.isOffline || (error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet)) {
+                        ModelController.instance().saveBlock {
+                            let checkin = Checkin.insert() as! Checkin
+                            let aRandomId = NSUUID().UUIDString
+                            checkin.identifier = "offline-\(aRandomId)"
+                            checkin.date = NSDate()
+                            checkin.latitute = currentLocation.latitude
+                            checkin.longitude = currentLocation.longitude
+                            checkin.isOffline = true
+                            checkin.isPublic = (DntApi.instance.user?.publicCheckins?.boolValue)!
+                            aPlace.addCheckinsObject(checkin)
+                            NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);
+                            print("did offline checkin")
+                        }
+                    }
                     print("failed to visit place: \(error)")
-
                 }
                 finishHandler(result: response.result)
         }
@@ -176,6 +190,50 @@ class SjekkUtApi: Alamofire.Manager {
         ModelController.instance().saveBlock { 
             DntApi.instance.user?.publicCheckins = enablePublicCheckin
             finishHandler()
+        }
+    }
+
+    // MARK: offline
+    func syncOffline() {
+        let offlineCheckinsFetch = Checkin.fetch()
+        offlineCheckinsFetch.predicate = NSPredicate(format: "isOffline == YES")
+        do {
+            let offlineCheckins = try ModelController.instance().managedObjectContext.executeFetchRequest(offlineCheckinsFetch) as! [Checkin]
+            for aCheckin in offlineCheckins {
+                self.doOfflineCheckin(aCheckin)
+            }
+        }
+        catch {
+            print("\(error)")
+        }
+    }
+
+    func doOfflineCheckin(aCheckin:Checkin) {
+        let someParameters = [
+            "timestamp": aCheckin.dateFormatter().stringFromDate(aCheckin.date!),
+            "lat": aCheckin.latitute!,
+            "lon": aCheckin.longitude!,
+            "public": (aCheckin.isPublic!.boolValue)
+        ]
+        let requestUrl = baseUrl + "/steder/\(aCheckin.place!.identifier!)/besok"
+        self.request(.POST, requestUrl, parameters:someParameters, headers:authenticationHeaders, encoding: .JSON)
+            .validate(statusCode: 200..<300)
+            .responseSwiftyJSON { response in
+                switch response.result {
+                case .Success:
+                    if let json = response.result.value!["data"].dictionary {
+                        // convert the offline checkin objecect to a real checkin
+                        ModelController.instance().saveBlock {
+                            aCheckin.identifier = json["_id"]?.string
+                            aCheckin.update((json["data"]?.dictionaryObject)!)
+                            aCheckin.isOffline = false
+                        }
+                        NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:aCheckin);
+                    }
+                case .Failure(let error):
+                    print("failed to sync offline checkin: \(error)")
+
+                }
         }
     }
 }

@@ -12,6 +12,7 @@ end
 
 target 'SjekkUt' do
    shared_pods
+   pod 'ReachabilitySwift'
    pod 'AlamofireSwiftyJSON'
    pod 'HockeySDK', '~> 4.0.1'
    pod 'NSURLRequest-cURL', '~> 0.0.1'
