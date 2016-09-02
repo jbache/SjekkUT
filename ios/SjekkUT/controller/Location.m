@@ -284,7 +284,6 @@
 - (void)locationDidTimeOut:(NSNotification *)notification
 {
     singleUpdateInProgress = NO;
-    [self stopUpdate];
 
     NSString *text = @"";
     switch ([CLLocationManager authorizationStatus])
