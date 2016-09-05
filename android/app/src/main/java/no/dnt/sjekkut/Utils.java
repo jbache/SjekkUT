@@ -119,9 +119,9 @@ public class Utils {
         return DateUtils.getRelativeTimeSpanString(then.getTime(), new Date().getTime(), 0).toString();
     }
 
-    public static String getTimeSpanFromMS(long timespanMS) {
+    public static String getTimeSpanFromMS(long milliseconds) {
         long now = new Date().getTime();
-        long then = now - timespanMS;
+        long then = now - milliseconds;
         return DateUtils.getRelativeTimeSpanString(then, now, 0).toString();
     }
 

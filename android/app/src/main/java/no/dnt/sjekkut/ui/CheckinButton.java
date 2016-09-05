@@ -47,7 +47,7 @@ import retrofit2.Response;
 public class CheckinButton extends RelativeLayout implements View.OnClickListener {
 
     private static final double CHECKIN_MAX_DISTANCE_METERS = 200.0d; // 200 meters
-    private static final long CHECKIN_MIN_TIMESPAN_MS = 1000 * 60 * 60 * 24; // 24 hrs in milliseconds
+    private static final long CHECKIN_MIN_DELTA_MS = 1000 * 60 * 60 * 24; // 24 hrs in milliseconds
     private final Handler mHandler = new Handler();
     private final Map<String, Place> mPlaceMap = new HashMap<>();
     @BindView(R.id.fabButton)
@@ -189,18 +189,18 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
                     Place nearestPlace = findNearestPlace();
                     if (nearestPlace != null) {
                         double distanceM = nearestPlace.getDistanceTo(mLocation);
-                        long timespanMS = msSinceLastCheckin(nearestPlace);
-                        if (distanceM < CHECKIN_MAX_DISTANCE_METERS && timespanMS > CHECKIN_MIN_TIMESPAN_MS) {
+                        long checkinDeltaMS = msSinceLastCheckin(nearestPlace);
+                        if (distanceM < CHECKIN_MAX_DISTANCE_METERS && checkinDeltaMS > CHECKIN_MIN_DELTA_MS) {
                             label = getContext().getString(R.string.register_visit);
                             info = getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn);
                             mButton.setTag(R.id.place_id, nearestPlace._id);
                         } else {
                             label = Utils.formatDistance(getContext(), distanceM);
-                            if (timespanMS < Long.MAX_VALUE) {
+                            if (checkinDeltaMS < Long.MAX_VALUE) {
                                 info = getContext().getString(
                                         R.string.nearest_place_last_visited,
                                         nearestPlace.navn,
-                                        Utils.getTimeSpanFromMS(timespanMS));
+                                        Utils.getTimeSpanFromMS(checkinDeltaMS));
                             } else {
                                 info = getContext().getString(R.string.nearest_place_is, nearestPlace.navn);
                             }

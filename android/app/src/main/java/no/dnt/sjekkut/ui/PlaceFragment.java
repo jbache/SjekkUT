@@ -31,6 +31,7 @@ import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.Place;
+import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.UserCheckins;
 import retrofit2.Call;
@@ -42,7 +43,7 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceFragment extends Fragment implements LocationListener {
+public class PlaceFragment extends Fragment implements LocationListener, CheckinButton.CheckinListener {
 
     private final static int MAP_ZOOMLEVEL = 14;
     private static final String BUNDLE_PLACE_ID = "bundle_place_id";
@@ -148,6 +149,7 @@ public class PlaceFragment extends Fragment implements LocationListener {
         mPlaceAdapter = new PlaceAdapter(getActivity(), null);
         mPlaceViewHolder = mPlaceAdapter.onCreateViewHolder(mPlaceContainer, 0);
         mPlaceContainer.addView(mPlaceViewHolder.itemView);
+        mCheckinButton.setListener(this);
         Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.screen_place), true);
         setHasOptionsMenu(true);
         return fragmentView;
@@ -169,12 +171,22 @@ public class PlaceFragment extends Fragment implements LocationListener {
     @Override
     public void onResume() {
         super.onResume();
+        fetchPlace();
+        fetchUserCheckins();
+        updateView();
+    }
+
+    private void fetchPlace() {
         TripApiSingleton.call().getPlace(
                 mPlaceId,
                 getString(R.string.api_key),
                 TripApiSingleton.PLACE_EXPAND)
                 .enqueue(mPlaceCallback);
         ++mCallbackRefCount;
+        mCallbackDescription = getString(R.string.callback_collecting_place_data);
+    }
+
+    private void fetchUserCheckins() {
         CheckinApiSingleton.call().getUserCheckins(
                 PreferenceUtils.getUserId(getContext()),
                 PreferenceUtils.getAccessToken(getContext()),
@@ -182,7 +194,6 @@ public class PlaceFragment extends Fragment implements LocationListener {
                 .enqueue(mUserCheckinsCallback);
         ++mCallbackRefCount;
         mCallbackDescription = getString(R.string.callback_checkins_and_statistics);
-        updateView();
     }
 
     @Override
@@ -282,5 +293,10 @@ public class PlaceFragment extends Fragment implements LocationListener {
 
     private String getCheckinStatsString() {
         return getString(R.string.checkin_data_missing);
+    }
+
+    @Override
+    public void onCheckin(PlaceCheckin checkin) {
+        fetchUserCheckins();
     }
 }

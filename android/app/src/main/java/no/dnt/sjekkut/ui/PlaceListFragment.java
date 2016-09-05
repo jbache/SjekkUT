@@ -24,6 +24,7 @@ import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.Place;
+import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.UserCheckins;
@@ -36,7 +37,7 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceListFragment extends Fragment implements LocationListener, ParticipantAdapter.ParticipantClickedListener {
+public class PlaceListFragment extends Fragment implements LocationListener, ParticipantAdapter.ParticipantClickedListener, CheckinButton.CheckinListener {
 
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final Callback<Project> mProjectCallback;
@@ -147,6 +148,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
         Utils.setupSupportToolbar(getActivity(), mToolbar, getString(R.string.screen_project), true);
         mWrapperAdapter = new ProjectPlaceWrapperAdapter(getActivity(), mListener, this);
         mRecyclerView.setAdapter(mWrapperAdapter);
+        mCheckinButton.setListener(this);
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -192,7 +194,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
     public void onResume() {
         super.onResume();
         fetchPlaces();
-        fetchCheckins();
+        fetchUserCheckins();
     }
 
     private void fetchPlaces() {
@@ -206,7 +208,7 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
         }
     }
 
-    private void fetchCheckins() {
+    private void fetchUserCheckins() {
         CheckinApiSingleton.call().getUserCheckins(
                 PreferenceUtils.getUserId(getContext()),
                 PreferenceUtils.getAccessToken(getContext()),
@@ -246,6 +248,11 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
                 PreferenceUtils.getAccessToken(getContext()),
                 projectId)
                 .enqueue(mJoinLeaveProjectCallback);
+    }
+
+    @Override
+    public void onCheckin(PlaceCheckin checkin) {
+        fetchUserCheckins();
     }
 
     interface PlaceListListener extends PlaceClickedListener {
