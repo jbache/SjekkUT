@@ -26,6 +26,8 @@ import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
+import no.dnt.sjekkut.network.CheckinLocation;
+import no.dnt.sjekkut.network.CheckinResult;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
@@ -60,6 +62,8 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     private final Callback<Project> mProjectCallback = createProjectCallback();
     private final Callback<ProjectList> mProjectListCallback = createProjectListCallback();
     private final Callback<UserCheckins> mUserCheckinsCallback = createUserCheckinsCallback();
+    private CheckinListener mListener;
+    private Callback<CheckinResult> mCheckinResultCallback = createCheckinResultCallback();
 
     public CheckinButton(Context context) {
         super(context);
@@ -74,6 +78,27 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     public CheckinButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflateView(context);
+    }
+
+    private Callback<CheckinResult> createCheckinResultCallback() {
+        return new Callback<CheckinResult>() {
+            @Override
+            public void onResponse(Call<CheckinResult> call, Response<CheckinResult> response) {
+                if (response.isSuccessful()) {
+                    fetchUserCheckins();
+                    if (mListener != null) {
+                        mListener.onCheckin(response.body().data);
+                    }
+                } else {
+                    Utils.showToast(getContext(), "Failed to checkin: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CheckinResult> call, Throwable t) {
+                Utils.showToast(getContext(), "Failed to checkin: " + t);
+            }
+        };
     }
 
     private Comparator<Place> createComparator() {
@@ -158,6 +183,7 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
         if (ViewCompat.isAttachedToWindow(this)) {
             String label;
             String info;
+            mButton.setTag(R.id.place_id, null);
             if (mLocation != null) {
                 if (mUserCheckins != null) {
                     Place nearestPlace = findNearestPlace();
@@ -167,9 +193,17 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
                         if (distanceM < CHECKIN_MAX_DISTANCE_METERS && timespanMS > CHECKIN_MIN_TIMESPAN_MS) {
                             label = getContext().getString(R.string.register_visit);
                             info = getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn);
+                            mButton.setTag(R.id.place_id, nearestPlace._id);
                         } else {
                             label = Utils.formatDistance(getContext(), distanceM);
-                            info = getContext().getString(R.string.nearest_place_is, nearestPlace.navn);
+                            if (timespanMS < Long.MAX_VALUE) {
+                                info = getContext().getString(
+                                        R.string.nearest_place_last_visited,
+                                        nearestPlace.navn,
+                                        Utils.getTimeSpanFromMS(timespanMS));
+                            } else {
+                                info = getContext().getString(R.string.nearest_place_is, nearestPlace.navn);
+                            }
                         }
                     } else {
                         label = getContext().getString(R.string.place_missing);
@@ -214,21 +248,35 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         updateView();
-        CheckinApiSingleton.call().getUserCheckins(
-                PreferenceUtils.getUserId(getContext()),
-                PreferenceUtils.getAccessToken(getContext()),
-                PreferenceUtils.getUserId(getContext()))
-                .enqueue(mUserCheckinsCallback);
+        fetchUserCheckins();
         TripApiSingleton.call().getProjectList(
                 getContext().getString(R.string.api_key),
                 TripApiSingleton.PROJECTLIST_FIELDS)
                 .enqueue(mProjectListCallback);
     }
 
+    private void fetchUserCheckins() {
+        CheckinApiSingleton.call().getUserCheckins(
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                PreferenceUtils.getUserId(getContext()))
+                .enqueue(mUserCheckinsCallback);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fabButton:
+                String visit_place_id = (String) v.getTag(R.id.place_id);
+                if (visit_place_id != null) {
+                    CheckinApiSingleton.call().postPlaceCheckin(
+                            PreferenceUtils.getUserId(getContext()),
+                            PreferenceUtils.getAccessToken(getContext()),
+                            visit_place_id,
+                            new CheckinLocation(mLocation))
+                            .enqueue(mCheckinResultCallback);
+
+                }
                 mInfo.setVisibility(View.VISIBLE);
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler.postDelayed(new Runnable() {
@@ -257,5 +305,13 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
         Collections.sort(mPlaceList, mComparator);
 
         return mPlaceList.get(0);
+    }
+
+    void setListener(CheckinListener listener) {
+        mListener = listener;
+    }
+
+    interface CheckinListener {
+        void onCheckin(PlaceCheckin checkin);
     }
 }

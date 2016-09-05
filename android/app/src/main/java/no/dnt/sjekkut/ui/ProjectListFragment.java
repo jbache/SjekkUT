@@ -31,6 +31,7 @@ import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
+import no.dnt.sjekkut.network.PlaceCheckin;
 import no.dnt.sjekkut.network.Project;
 import no.dnt.sjekkut.network.ProjectList;
 import no.dnt.sjekkut.network.TripApiSingleton;
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProjectListFragment extends Fragment implements LocationListener, SearchView.OnQueryTextListener {
+public class ProjectListFragment extends Fragment implements LocationListener, SearchView.OnQueryTextListener, CheckinButton.CheckinListener {
 
     final private ProjectListCallback mProjectListCallback = new ProjectListCallback();
     final private ProjectCallback mProjectCallback = new ProjectCallback();
@@ -106,16 +107,22 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
         textPainter.setColor(Color.BLACK);
         textPainter.setTextSize(30);
         mRecyclerView.addItemDecoration(new ProjectSeparator(textPainter, 80));
+        mCheckinButton.setListener(this);
         TripApiSingleton.call().getProjectList(
                 getString(R.string.api_key),
                 TripApiSingleton.PROJECTLIST_FIELDS)
                 .enqueue(mProjectListCallback);
+        fetchUserCheckins();
+        return view;
+    }
+
+    private void fetchUserCheckins() {
         CheckinApiSingleton.call().getUserCheckins(
                 PreferenceUtils.getUserId(getContext()),
                 PreferenceUtils.getAccessToken(getContext()),
                 PreferenceUtils.getUserId(getContext()))
                 .enqueue(mUserCheckinsCallback);
-        return view;
+
     }
 
     @Override
@@ -204,6 +211,11 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
             mProjectAdapter.filter(newText);
         }
         return true;
+    }
+
+    @Override
+    public void onCheckin(PlaceCheckin checkin) {
+        fetchUserCheckins();
     }
 
     interface ProjectListListener {

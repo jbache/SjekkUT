@@ -85,7 +85,8 @@
     <string name="project_not_joined">Du deltar ikke i dette turprosjektet</string>
     <string name="leave_project">Meld av</string>
     <string name="project_joined">Du deltar i dette turprosjektet</string>
-    <string name="nearest_place_is">Din nærmeste turpost er %s</string>
+    <string name="nearest_place_is">Din nærmeste turpost er %s.</string>
+    <string name="nearest_place_last_visited">Din nærmeste turpost er %1$s som du sist besøkte %2$s</string>
     <string name="cannot_locate_your_position">Vi finner ikke din posisjon</string>
     <string name="position_missing">Posisjon mangler</string>
     <string name="place_missing">Sted mangler</string>

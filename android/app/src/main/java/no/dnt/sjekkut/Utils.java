@@ -39,9 +39,9 @@ import no.dnt.sjekkut.ui.LoginActivity;
  */
 public class Utils {
 
-    private static Toast sGlobalToast = null;
     private static final int MAP_MAX_SIZE = 640;
     private static final float MAX_DISTANCE_FOR_USER_MARKER_METERS = 3000.0f;
+    private static Toast sGlobalToast = null;
 
     public static void setupSupportToolbar(Activity activity, Toolbar toolbar, String title, boolean upButton) {
         setSupportActionToolbar(activity, toolbar);
@@ -117,6 +117,12 @@ public class Utils {
 
     public static String getTimeSpanFromNow(Date then) {
         return DateUtils.getRelativeTimeSpanString(then.getTime(), new Date().getTime(), 0).toString();
+    }
+
+    public static String getTimeSpanFromMS(long timespanMS) {
+        long now = new Date().getTime();
+        long then = now - timespanMS;
+        return DateUtils.getRelativeTimeSpanString(then, now, 0).toString();
     }
 
     public static int getDisplayWidth(Context context) {
