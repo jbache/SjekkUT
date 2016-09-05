@@ -74,6 +74,8 @@ public class PlaceFragment extends Fragment implements LocationListener {
     TextView mCheckinSeparator;
     @BindView(R.id.checkin_text)
     TextView mCheckinText;
+    @BindView(R.id.checkinButton)
+    CheckinButton mCheckinButton;
     private Location mLocation;
     private Callback<Place> mPlaceCallback;
     private Callback<UserCheckins> mUserCheckinsCallback;
@@ -205,6 +207,7 @@ public class PlaceFragment extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
         --mCallbackRefCount;
         mLocation = location;
+        mCheckinButton.setLocation(location);
         mPlaceAdapter.setLocation(mLocation);
         if (isAdded()) {
             if (mLocation == null) {
