@@ -15,7 +15,7 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
     let sjekkUtApi = SjekkUtApi.instance
     var projects:NSFetchedResultsController?
     let searchController = UISearchController(searchResultsController:nil)
-    var checkinButton:CheckinButton!
+    var checkinPanel:CheckinPanel!
 
     @IBOutlet weak var projectsTable: UITableView!
 
@@ -26,8 +26,8 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        checkinButton.removeFromSuperview()
-        checkinButton = nil
+        checkinPanel.removeFromSuperview()
+        checkinPanel = nil
     }
 
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
 
         setupTable()
         setupSearchResults()
-        setupCheckinButton()
+        setupCheckinPanel()
     }
 
     override func viewWillAppear(animated:Bool) {
@@ -60,6 +60,13 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
         searchController.active = false
     }
 
+    override func viewDidLayoutSubviews() {
+        let nSize = navigationController!.view.bounds.size
+        let cSize = CGSizeMake(nSize.width, 80)
+        let cPoint = CGPointMake(nSize.width-cSize.width, nSize.height-cSize.height-8)
+        checkinPanel.frame = CGRect(origin: cPoint, size: cSize)
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPlaces" {
             let projectView = segue.destinationViewController as! ProjectView
@@ -74,12 +81,9 @@ class MainView: UITableViewController, NSFetchedResultsControllerDelegate, UISea
     }
 
     // MARK: private
-    func setupCheckinButton() {
-        let nSize = navigationController!.view.bounds.size
-        let cSize = CGSizeMake(64, 64)
-        let cPoint = CGPointMake(nSize.width-cSize.width-8, nSize.height-cSize.height-8)
-        checkinButton = CheckinButton(frame: CGRect(origin: cPoint, size: cSize))
-        navigationController?.view.addSubview(checkinButton)
+    func setupCheckinPanel() {
+        checkinPanel = NSBundle.mainBundle().loadNibNamed("CheckinPanel", owner: nil, options: nil)[0] as! CheckinPanel
+        navigationController?.view.addSubview(checkinPanel)
     }
 
     // MARK: table data

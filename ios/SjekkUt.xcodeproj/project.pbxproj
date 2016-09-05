@@ -18,6 +18,7 @@
 		6C163BAE1D76C4DE00833E96 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C163BAD1D76C4DE00833E96 /* MainView.swift */; };
 		6C163BB01D76C60900833E96 /* FeedbackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C163BAF1D76C60900833E96 /* FeedbackButton.swift */; };
 		6C1F114A1B1087DA0003DD2B /* NSDateFormatter+instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */; };
+		6C2826F41D799D7B007A1458 /* CheckinPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2826F31D799D7B007A1458 /* CheckinPanel.swift */; };
 		6C2F4EF11AE6348400E12F4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C2F4EEF1AE6348400E12F4E /* InfoPlist.strings */; };
 		6C35DAAC1D535A930048114B /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35DAAB1D535A930048114B /* PlaceSearch.swift */; };
 		6C36A12C1B0C855300169E98 /* Challenge+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C36A12B1B0C855300169E98 /* Challenge+Extension.m */; };
@@ -65,6 +66,7 @@
 		6CA3E13F1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */; };
 		6CA3E1401D49EF57003BA194 /* www.dnt.no.client_id in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */; };
 		6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3E1421D4A4908003BA194 /* PlaceView.swift */; };
+		6CA44AA61D7998CA008B0662 /* CheckinPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CA44AA51D7998CA008B0662 /* CheckinPanel.xib */; };
 		6CB04DC01D48C9AC0024DE11 /* SjekkUtApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */; };
 		6CB40DF81D460D260030433D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
 		6CC799AF1D51E96800DFAF10 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC799AE1D51E96800DFAF10 /* ProjectCell.swift */; };
@@ -137,6 +139,7 @@
 		6C1D7A051B14BFF900007FAB /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		6C1F11481B1087DA0003DD2B /* NSDateFormatter+instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+instance.h"; path = "utils/NSDateFormatter+instance.h"; sourceTree = "<group>"; };
 		6C1F11491B1087DA0003DD2B /* NSDateFormatter+instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+instance.m"; path = "utils/NSDateFormatter+instance.m"; sourceTree = "<group>"; };
+		6C2826F31D799D7B007A1458 /* CheckinPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckinPanel.swift; path = views/checkin/CheckinPanel.swift; sourceTree = "<group>"; };
 		6C2F4EF01AE6348400E12F4E /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6C35DAAB1D535A930048114B /* PlaceSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceSearch.swift; path = views/place/PlaceSearch.swift; sourceTree = "<group>"; };
 		6C36A1261B0C836300169E98 /* 1.0.10.31.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.10.31.xcdatamodel; sourceTree = "<group>"; };
@@ -215,6 +218,7 @@
 		6CA3E13B1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dev.nasjonalturbase.no.api_key; path = ../../secret/dev.nasjonalturbase.no.api_key; sourceTree = "<group>"; };
 		6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = www.dnt.no.client_id; path = ../../secret/www.dnt.no.client_id; sourceTree = "<group>"; };
 		6CA3E1421D4A4908003BA194 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceView.swift; path = views/place/PlaceView.swift; sourceTree = "<group>"; };
+		6CA44AA51D7998CA008B0662 /* CheckinPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckinPanel.xib; path = views/checkin/CheckinPanel.xib; sourceTree = "<group>"; };
 		6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SjekkUtApi.swift; path = network/SjekkUtApi.swift; sourceTree = "<group>"; };
 		6CB40DF51D460D250030433D /* SjekkUt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SjekkUt-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CB40DF71D460D260030433D /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = views/LoginView.swift; sourceTree = "<group>"; };
@@ -377,13 +381,13 @@
 		6C6FE17A1A823B5A002B5DD5 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				6CA44AA41D799893008B0662 /* checkin */,
 				6CB40DF71D460D260030433D /* LoginView.swift */,
 				6C163BAD1D76C4DE00833E96 /* MainView.swift */,
 				6C92E3731D66F3A000464AAE /* profile */,
 				6CE076311D47537A000ACAAA /* projects */,
 				6CE076321D475388000ACAAA /* place */,
 				6C72A3FC1A8B833600A47AEE /* style */,
-				6C0B635D1D6EDD14007F737A /* CheckinButton.swift */,
 				6C6FE15A1A82332C002B5DD5 /* Main.storyboard */,
 				6C163BAF1D76C60900833E96 /* FeedbackButton.swift */,
 			);
@@ -500,6 +504,16 @@
 				6CDC3E0A1D54ABF2003A0F3B /* maps.google.com.static.api_key */,
 			);
 			name = secret;
+			sourceTree = "<group>";
+		};
+		6CA44AA41D799893008B0662 /* checkin */ = {
+			isa = PBXGroup;
+			children = (
+				6C0B635D1D6EDD14007F737A /* CheckinButton.swift */,
+				6CA44AA51D7998CA008B0662 /* CheckinPanel.xib */,
+				6C2826F31D799D7B007A1458 /* CheckinPanel.swift */,
+			);
+			name = checkin;
 			sourceTree = "<group>";
 		};
 		6CE0760B1D474C89000ACAAA /* SjekkUtTests */ = {
@@ -662,6 +676,7 @@
 				6C36A1441B0CA8A100169E98 /* besselvassheia.gpx in Resources */,
 				6C740AAF1B187F9C00176D2E /* opptur-splash-compressed.jpg in Resources */,
 				6CA3E13D1D49EF57003BA194 /* www.dnt.no.client_secret in Resources */,
+				6CA44AA61D7998CA008B0662 /* CheckinPanel.xib in Resources */,
 				6C92E38B1D6DC92500464AAE /* FontAwesome.otf in Resources */,
 				6C6FE15E1A82332C002B5DD5 /* Images.xcassets in Resources */,
 				6C740AB11B187FA600176D2E /* dnt-logo.png in Resources */,
@@ -814,6 +829,7 @@
 				6C6FE1561A82332C002B5DD5 /* SjekkUt.xcdatamodeld in Sources */,
 				6CE526911D507BA700D3419B /* DntExtensions.swift in Sources */,
 				6C163BB01D76C60900833E96 /* FeedbackButton.swift in Sources */,
+				6C2826F41D799D7B007A1458 /* CheckinPanel.swift in Sources */,
 				6C72A3FB1A8B80E700A47AEE /* SjekkUtStyle.m in Sources */,
 				6C92E3771D66F9D200464AAE /* StatisticCell.swift in Sources */,
 				6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */,

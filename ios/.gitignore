@@ -2,3 +2,4 @@ DerivedData/
 Pods/
 *xcuserdata*
 build
+.idea
