@@ -78,7 +78,7 @@ class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
 
     // MARK: viewcontroller
     override func viewDidLoad() {
-        shareButton.hidden = true
+        shareButton.enabled = false
 
         if (place != nil) {
             placeCell.place = place
@@ -90,7 +90,7 @@ class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
         // don't bother with sharing if there is nothing to share
         if let aCheckin = checkin {
             if let urlString = aCheckin.url {
-                shareButton.hidden = !UIApplication.sharedApplication().canOpenURL(NSURL(string: urlString)!)
+                shareButton.enabled = !UIApplication.sharedApplication().canOpenURL(NSURL(string: urlString)!)
             }
         }
     }

@@ -15,6 +15,11 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
+            <string>FontAwesome</string>
+            <string>FontAwesome</string>
+            <string>FontAwesome</string>
+            <string>FontAwesome</string>
+            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -259,6 +264,8 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fx0-46-DwB" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
                                 <rect key="frame" x="536" y="7" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                <state key="normal" title=""/>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -603,6 +610,8 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RwY-ru-13e" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
                                 <rect key="frame" x="536" y="7" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                <state key="normal" title=""/>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -653,6 +662,8 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X60-wR-q56" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
                                 <rect key="frame" x="536" y="7" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                <state key="normal" title=""/>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -810,6 +821,8 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pWN-Ua-NVr" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
                                 <rect key="frame" x="536" y="7" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                <state key="normal" title=""/>
                             </button>
                         </barButtonItem>
                     </navigationItem>
@@ -1196,6 +1209,8 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mN5-Lv-ywC" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
                                     <rect key="frame" x="488" y="7" width="44" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                    <state key="normal" title=""/>
                                 </button>
                             </barButtonItem>
                         </rightBarButtonItems>
