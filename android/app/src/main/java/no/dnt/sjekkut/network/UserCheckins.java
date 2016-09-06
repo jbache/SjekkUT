@@ -89,6 +89,34 @@ public class UserCheckins {
         return false;
     }
 
+    public int getTotalNumberOfVisits() {
+        if (data != null && data.innsjekkinger != null) {
+            return data.innsjekkinger.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public int getNumberOfVisitsAfter(long time) {
+        int result = 0;
+        if (data != null && data.innsjekkinger != null) {
+            for (PlaceCheckin checkin : data.innsjekkinger) {
+                if (checkin.timestamp != null && checkin.timestamp.getTime() > time) {
+                    ++result;
+                }
+            }
+        }
+        return result;
+    }
+
+    public int getNumberOfProjects() {
+        if (data != null && data.lister != null) {
+            return data.lister.size();
+        } else {
+            return 0;
+        }
+    }
+
     private static class UserCheckinsData {
         String _id;
         String epost;

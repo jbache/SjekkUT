@@ -11,27 +11,47 @@
         layout="@layout/toolbar" />
 
     <RelativeLayout
-        android:id="@+id/name_and_stats_container"
+        android:id="@+id/name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginBottom="@dimen/margin_medium">
+        android:layout_below="@id/toolbar">
 
         <TextView
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_margin="@dimen/margin_small"
             android:gravity="center"
             android:textAppearance="@style/UserName"
             tools:text="Username Surname" />
 
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/logout"
+            android:theme="@style/WhiteButton" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/stats_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_container"
+        android:layout_marginBottom="@dimen/margin_medium">
+
+        <include
+            android:id="@+id/merits_separator"
+            layout="@layout/separator_checkin_sections" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/username"
+            android:layout_below="@id/merits_separator"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="3">
@@ -60,20 +80,10 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/logout"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/logout" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/logout"
-        android:layout_below="@id/name_and_stats_container"
+        android:layout_below="@id/stats_container"
         android:orientation="vertical">
 
         <include

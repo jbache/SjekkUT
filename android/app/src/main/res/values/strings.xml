@@ -97,6 +97,10 @@
     <string name="visiting_nearest_place_is">Registrerer besøk på %s</string>
     <string name="visit_registered">Besøk registrert</string>
     <string name="gps_missing">GPS mangler</string>
+    <string name="your_merits">Dine meritter</string>
+    <string name="merit_total_visits">Besøk totalt</string>
+    <string name="merit_number_of_projects">Turprosjekter påmeldt</string>
+    <string name="merit_visits_last_30days">Besøk siste 30 dager</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

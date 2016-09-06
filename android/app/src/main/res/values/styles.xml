@@ -86,4 +86,9 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="WhiteButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

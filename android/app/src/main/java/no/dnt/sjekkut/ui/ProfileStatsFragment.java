@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +40,10 @@ import retrofit2.Response;
 
 public class ProfileStatsFragment extends LocationFragment implements View.OnClickListener {
 
+    private static final int MERIT_TOTAL_VISITS = 0;
+    private static final int MERIT_PROJECT_COUNT = 1;
+    private static final int MERIT_VISITS_LAST_30 = 2;
+    private static final long THIRTY_DAYS_MS = 2592000000L;
     @BindView(R.id.visitlist)
     RecyclerView mRecyclerView;
     @BindView(R.id.username)
@@ -51,6 +56,8 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
     Button mLogout;
     @BindView(R.id.visits_separator)
     TextView mVisitsSeparator;
+    @BindView(R.id.merits_separator)
+    TextView mMeritsSeparator;
     @BindView(R.id.checkinButton)
     CheckinButton mCheckinButton;
 
@@ -85,6 +92,7 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 if (response.isSuccessful()) {
                     mPlaceVisitAdapter.setUserCheckins(response.body());
+                    updateMeritsView(response.body());
                     for (String placeId : response.body().getVisitedPlaceIds()) {
                         TripApiSingleton.call().getPlace(placeId,
                                 getString(R.string.api_key),
@@ -123,6 +131,34 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
         return new ProfileStatsFragment();
     }
 
+    private void updateMeritsView(UserCheckins userCheckins) {
+        String totalVisits = "0";
+        String totalProjects = "0";
+        String visitsLast30 = "0";
+        if (userCheckins != null) {
+            totalVisits = Integer.toString(userCheckins.getTotalNumberOfVisits());
+            totalProjects = Integer.toString(userCheckins.getNumberOfProjects());
+            visitsLast30 = Integer.toString(userCheckins.getNumberOfVisitsAfter(new Date().getTime() - THIRTY_DAYS_MS));
+        }
+        for (int i = 0; i < mStatCountHolders.size(); ++i) {
+            StatCountHolder holder = mStatCountHolders.get(i);
+            switch (i) {
+                case MERIT_TOTAL_VISITS:
+                    holder.counter.setText(totalVisits);
+                    break;
+                case MERIT_PROJECT_COUNT:
+                    holder.counter.setText(totalProjects);
+                    break;
+                case MERIT_VISITS_LAST_30:
+                    holder.counter.setText(visitsLast30);
+                    break;
+                default:
+                    holder.counter.setText("");
+                    break;
+            }
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -133,11 +169,12 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
         for (View layout : mStatCountLayouts) {
             mStatCountHolders.add(new StatCountHolder(layout));
         }
-        for (StatCountHolder holder : mStatCountHolders) {
-            holder.label.setText("Antall foo"); // TODO: add real numbers here
-            holder.counter.setText(Integer.toString((int) (Math.random() * 10)));
-            holder.circle.setColorFilter(ContextCompat.getColor(context, R.color.todo));
+        for (int i = 0; i < mStatCountHolders.size(); ++i) {
+            StatCountHolder holder = mStatCountHolders.get(i);
+            holder.label.setText(getMeritLabel(i));
+            holder.circle.setColorFilter(getMeritColor(i));
         }
+        mMeritsSeparator.setText(getString(R.string.your_merits));
         mVisitsSeparator.setText(getString(R.string.your_visits));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mPlaceVisitAdapter = new PlaceVisitAdapter(mListener);
@@ -145,6 +182,32 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
         mLogout.setOnClickListener(this);
         setHasOptionsMenu(true);
         return view;
+    }
+
+    private int getMeritColor(int merit) {
+        switch (merit) {
+            case MERIT_TOTAL_VISITS:
+                return ContextCompat.getColor(getContext(), R.color.dntRed);
+            case MERIT_PROJECT_COUNT:
+                return ContextCompat.getColor(getContext(), R.color.todo);
+            case MERIT_VISITS_LAST_30:
+                return ContextCompat.getColor(getContext(), R.color.dntBlue);
+            default:
+                return ContextCompat.getColor(getContext(), R.color.todo);
+        }
+    }
+
+    private String getMeritLabel(int merit) {
+        switch (merit) {
+            case MERIT_TOTAL_VISITS:
+                return getContext().getString(R.string.merit_total_visits);
+            case MERIT_PROJECT_COUNT:
+                return getContext().getString(R.string.merit_number_of_projects);
+            case MERIT_VISITS_LAST_30:
+                return getContext().getString(R.string.merit_visits_last_30days);
+            default:
+                return "";
+        }
     }
 
     @Override
