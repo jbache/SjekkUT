@@ -54,7 +54,7 @@ public class TurbasenApi: DntManager {
                         }
                     }
                 case .Failure(let error):
-                    print("failed to get place \(placeUrl): \(error)")
+                    self.failHandler(error)
                 }
 
         }
@@ -126,7 +126,7 @@ public class TurbasenApi: DntManager {
                         }
                     }
                 case .Failure(let error):
-                    print("failed to get list \(projectUrl): \(error)")
+                    self.failHandler(error)
                 }
         }
     }

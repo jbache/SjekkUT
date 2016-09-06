@@ -122,7 +122,7 @@ class DntApi: DntManager {
                         self.didSucceed()
                     }
                 case .Failure(let error):
-                    print("failed to get token: \(error)")
+                    self.failHandler(error)
                     self.didFail()
                 }
             }
@@ -158,7 +158,7 @@ class DntApi: DntManager {
                         print("refreshed token: \(JSON)")
                     }
                 case .Failure(let anError):
-                    print("token refresh failed: \(anError)")
+                    self.failHandler(anError)
                     self.didFail()
                 }
         }
@@ -261,7 +261,7 @@ class DntApi: DntManager {
                         case 403:
                             self.refreshToken()
                         default:
-                            print("Validation failed: \(error)")
+                            self.failHandler(error)
                             self.didFail()
                         }
                     }

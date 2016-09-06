@@ -97,7 +97,7 @@ class SjekkUtApi: DntManager {
                         self.parseProfile(json["data"])
                     }
                 case .Failure(let error):
-                    print("failed to join project: \(error)")
+                    self.failHandler(error)
 
                 }
                 completionHandler()
@@ -115,7 +115,7 @@ class SjekkUtApi: DntManager {
                         self.parseProfile(json["data"])
                     }
                 case .Failure(let error):
-                    print("failed to leave project: \(error)")
+                    self.failHandler(error)
 
                 }
                 completionHandler()
@@ -182,11 +182,12 @@ class SjekkUtApi: DntManager {
                             NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);
                             print("did offline checkin to \(aPlace.name!)")
                         }
+                        // fake correct result
                         finishHandler(result: Result.Success(""))
                         return
                     }
                     else {
-                        print("failed to visit place: \(error)")
+                        self.failHandler(error)
                     }
                 }
                 finishHandler(result: response.result)
@@ -242,7 +243,7 @@ class SjekkUtApi: DntManager {
                         NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:aCheckin);
                     }
                 case .Failure(let error):
-                        print("failed to sync offline checkin: \(error)")
+                        self.failHandler(error)
                         if let httpStatusCode = response.response?.statusCode {
                             switch httpStatusCode {
                             // if validation failed, and we get 400 - Bad request, delete the checkin to prevent attempting
