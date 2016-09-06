@@ -109,7 +109,7 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
                 .centerCrop()
                 .into(holder.image);
         holder.name.setText(place.navn);
-        holder.county.setText(context.getString(R.string.county, place.fylke));
+        holder.county.setText(context.getString(R.string.county, place.fylke != null ? place.fylke : ""));
         String distanceString = "";
         if (mLocation != null && place.hasLocation()) {
             distanceString = Utils.formatDistance(context, place.getDistanceTo(mLocation));
