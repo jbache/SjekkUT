@@ -25,7 +25,6 @@ public class TurbasenApi: DntManager {
         self.init()
         self.baseUrl = "https://" + aDomain
         self.api_key = (aDomain + ".api_key").loadFileContents(inClass:self.dynamicType)!
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(getPlaceNotification), name: kSjekkUtNotificationGetPlace, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateDistance), name: kSjekkUtNotificationLocationChanged, object: nil)
         locationController.startUpdate()
     }
@@ -37,10 +36,6 @@ public class TurbasenApi: DntManager {
 
 
     // MARK: place
-
-    @objc func getPlaceNotification(aNotification:NSNotification) {
-        getPlace(aNotification.object as! Place)
-    }
 
     func getPlace(aPlace:Place) {
         let parameters = [

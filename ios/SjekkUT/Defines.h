@@ -16,7 +16,6 @@ static NSString *__nonnull kSjekkUtDefaultsTokenExpiry = @"com.dnt.sjekkut.defau
 static NSString *__nonnull kSjekkUtDefaultsRefreshToken = @"com.dnt.sjekkut.defaults.refreshtoken";
 static NSString *__nonnull kSjekkUtDefaultsUserId = @"com.dnt.sjekkut.defaults.user.id";
 static NSString *__nonnull kSjekkUtNotificationLoggedOut = @"com.dnt.sjekkut.notification.loggedout";
-static NSString *__nonnull kSjekkUtNotificationGetPlace = @"com.dnt.sjekkut.notification.getplace";
 static NSString *__nonnull kSjekkUtNotificationAuthorized = @"com.dnt.sjekkut.notification.authorized";
 static NSString *__nonnull kSjekkUtNotificationLoggedIn = @"com.dnt.sjekkut.notification.loggedin";
 static NSString *__nonnull kSjekkUtNotificationCheckinChanged = @"com.dnt.sjekkut.notification.checkinchanged";
