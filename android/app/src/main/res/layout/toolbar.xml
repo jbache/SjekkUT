@@ -6,4 +6,4 @@
     android:background="@color/dntRed"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:elevation="4dp"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
