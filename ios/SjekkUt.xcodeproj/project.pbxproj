@@ -33,6 +33,7 @@
 		6C4A967D1D64492C00EA0B50 /* ObjCHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A967C1D64492C00EA0B50 /* ObjCHelpers.swift */; };
 		6C54213F1AC98D8100F8315F /* CheckinStatistics+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C54213E1AC98D8100F8315F /* CheckinStatistics+Extension.m */; };
 		6C5421471AC98FDE00F8315F /* EntityScaffold.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5421461AC98FDE00F8315F /* EntityScaffold.m */; };
+		6C5E83ED1D7EB035004997BA /* holdalsheia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6C5E83EC1D7EB035004997BA /* holdalsheia.gpx */; };
 		6C5FDB161D48CFE300B7D25E /* DntApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5FDB151D48CFE300B7D25E /* DntApi.swift */; };
 		6C6FE1501A82332C002B5DD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6FE14F1A82332C002B5DD5 /* main.m */; };
 		6C6FE1531A82332C002B5DD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6FE1521A82332C002B5DD5 /* AppDelegate.m */; };
@@ -164,6 +165,7 @@
 		6C54213E1AC98D8100F8315F /* CheckinStatistics+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CheckinStatistics+Extension.m"; path = "model/CheckinStatistics+Extension.m"; sourceTree = "<group>"; };
 		6C5421451AC98FDE00F8315F /* EntityScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityScaffold.h; path = model/EntityScaffold.h; sourceTree = "<group>"; };
 		6C5421461AC98FDE00F8315F /* EntityScaffold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityScaffold.m; path = model/EntityScaffold.m; sourceTree = "<group>"; };
+		6C5E83EC1D7EB035004997BA /* holdalsheia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = holdalsheia.gpx; sourceTree = "<group>"; };
 		6C5FDB151D48CFE300B7D25E /* DntApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DntApi.swift; sourceTree = "<group>"; };
 		6C6FE14A1A82332C002B5DD5 /* SjekkUT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SjekkUT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C6FE14E1A82332C002B5DD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 		6C36A1421B0CA7E300169E98 /* positioning */ = {
 			isa = PBXGroup;
 			children = (
+				6C5E83EC1D7EB035004997BA /* holdalsheia.gpx */,
 				6C36A1471B0CA8BB00169E98 /* cutehacks.gpx */,
 				6C36A1431B0CA8A100169E98 /* besselvassheia.gpx */,
 				6C36A1401B0CA7DB00169E98 /* storskrymten.gpx */,
@@ -363,7 +366,7 @@
 				6C740AB61B1888F700176D2E /* ut-name.png */,
 				6C740AB01B187FA600176D2E /* dnt-logo.png */,
 				6C740AAE1B187F9C00176D2E /* opptur-splash-compressed.jpg */,
-				6C36A1421B0CA7E300169E98 /* positioning */,
+				6C36A1421B0CA7E300169E98 /* position-gpx */,
 				6C2F4EF21AE634B600E12F4E /* nb.lproj */,
 				6C08F67B1A8A0ACD0091D70A /* Localizable.strings */,
 				6C6FE15D1A82332C002B5DD5 /* Images.xcassets */,
@@ -662,6 +665,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C5E83ED1D7EB035004997BA /* holdalsheia.gpx in Resources */,
 				6C36A1481B0CA8BB00169E98 /* cutehacks.gpx in Resources */,
 				6CA3E13E1D49EF57003BA194 /* api.nasjonalturbase.no.api_key in Resources */,
 				6CA3E13F1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key in Resources */,

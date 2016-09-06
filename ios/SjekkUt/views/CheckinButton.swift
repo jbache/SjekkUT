@@ -11,6 +11,7 @@ import Foundation
 typealias CheckinMessage = (title:String, message:String)
 
 protocol CheckinButtonDelegate {
+    var showingPanel: Bool { get set }
     func showInfo(aMessage:CheckinMessage)
     func hideInfo()
 }
@@ -20,7 +21,7 @@ class CheckinButton: UIButton {
     let locationController = Location.instance()
     var kObserveLocation = 0
     var isObserving = false
-    var delegate:CheckinButtonDelegate? = nil
+    var delegate:CheckinButtonDelegate!
     var updateTimer:NSTimer!
     var place:Place?
 
@@ -119,13 +120,20 @@ class CheckinButton: UIButton {
     }
 
     func checkinClicked() {
-        if CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
+
+        // if the panel is displaying, hide it
+        if delegate.showingPanel {
+            delegate.hideInfo()
+        }
+        else if CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
             setTitle(noGpsMessage().title, forState: .Normal)
-            delegate?.showInfo(noGpsMessage())
+            delegate.showInfo(noGpsMessage())
         }
         else if let aPlace = nearestPlace() {
+            // prevent double-tapping checkin
             if aPlace.canCheckIn() {
-                delegate?.showInfo(self.visitingMessage())
+                delegate.showInfo(self.visitingMessage())
+                enabled = false
                 SjekkUtApi.instance.doPlaceCheckin(aPlace) {
                     result in
                     switch result {
@@ -134,10 +142,12 @@ class CheckinButton: UIButton {
                     case .Failure(let error):
                         self.delegate!.showInfo(self.failedMessage(error))
                     }
+                    // re-enable checkin button
+                    self.enabled = true
                 }
             }
             else {
-                delegate?.showInfo(disabledMessage())
+                delegate.showInfo(disabledMessage())
             }
         }
     }
@@ -169,7 +179,7 @@ class CheckinButton: UIButton {
         if place!.canCheckinTime() {
 //            let distanceLimit = "200m"
             return (NSLocalizedString("\(place!.distanceDescription()) left", comment:"distance visit button title"),
-                    NSLocalizedString("Nearest post is \(place!.name).", comment:"distance visit button message"))
+                    NSLocalizedString("Nearest post is \(place!.name!).", comment:"distance visit button message"))
         }
         else {
             return (NSLocalizedString("Visit registered", comment: "title of visit panel when not possible to visit"),

@@ -18,23 +18,31 @@ class CheckinPanel: UIView, CheckinButtonDelegate {
     @IBOutlet var panelInset: NSLayoutConstraint!
     var hideTimer:NSTimer?
 
-    var showingPanel:Bool = false {
+    var showingPanel:Bool = true {
         didSet {
-            panelInset.constant = showingPanel ? 0 : panelContainer.bounds.size.width
-            UIView.animateWithDuration(kSjekkUtConstantAnimationDuration) {
-                self.layoutIfNeeded()
-            }
+            updatePanelVisibility()
         }
     }
 
     override func awakeFromNib() {
-        self.panelView.layer.cornerRadius = 5
-        self.panelView.clipsToBounds = true
-
-        self.panelInset.constant = panelContainer.bounds.size.width
-
-        //checkinButton.addTarget(self, action: #selector(togglePanel), forControlEvents: .TouchUpInside)
+        panelView.layer.cornerRadius = 5
+        panelView.clipsToBounds = true
+        panelInset.constant = panelContainer.bounds.size.width
         checkinButton.delegate = self
+        panelView.alpha = 0
+    }
+
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        showingPanel = false
+    }
+
+    func updatePanelVisibility() {
+        panelInset.constant = showingPanel ? 0 : panelContainer.bounds.size.width
+        UIView.animateWithDuration(kSjekkUtConstantAnimationDuration) {
+            self.layoutIfNeeded()
+            self.panelView.alpha = self.showingPanel ? 1 : 0
+        }
     }
 
     override func layoutSubviews() {
@@ -51,6 +59,8 @@ class CheckinPanel: UIView, CheckinButtonDelegate {
         cutCircle.fillColor = UIColor.blackColor().CGColor
         cutCircle.fillRule = kCAFillRuleEvenOdd
         panelView.layer.mask = cutCircle
+
+        updatePanelVisibility()
     }
 
     func togglePanel() {
@@ -77,6 +87,6 @@ class CheckinPanel: UIView, CheckinButtonDelegate {
 
     func hideInfo() {
         hideTimer?.invalidate()
-        self.showingPanel = false
+        showingPanel = false
     }
 }
