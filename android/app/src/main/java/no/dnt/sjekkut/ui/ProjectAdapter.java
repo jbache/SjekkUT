@@ -162,20 +162,20 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         return mProjectListCopy == null;
     }
 
-    String getSeparatorTitle(int position) {
-        if (position >= 0 && mProjectList.size() > position) {
+    String getSeparatorTitle(Context context, int position) {
+        if (context != null && position >= 0 && mProjectList.size() > position) {
             if (noFilters()) {
                 if (position == 0) {
                     boolean hasVisited = hasUserVisited(mProjectList.get(position));
-                    return hasVisited ? "Mine prosjekter" : "Andre prosjekter";
+                    return hasVisited ? context.getString(R.string.my_projects) : context.getString(R.string.other_projects);
                 } else {
                     boolean hasVisited = hasUserVisited(mProjectList.get(position));
                     boolean hasPreviousVisited = hasUserVisited(mProjectList.get(position - 1));
-                    return !hasVisited && hasPreviousVisited ? "Andre prosjekter" : null;
+                    return !hasVisited && hasPreviousVisited ? context.getString(R.string.other_projects) : null;
                 }
             } else {
                 if (position == 0) {
-                    return "Søkeresultater";
+                    return context.getString(R.string.search_results);
                 }
             }
         }

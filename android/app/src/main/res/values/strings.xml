@@ -101,6 +101,9 @@
     <string name="merit_total_visits">Besøk totalt</string>
     <string name="merit_number_of_projects">Turprosjekter påmeldt</string>
     <string name="merit_visits_last_30days">Besøk siste 30 dager</string>
+    <string name="my_projects">Mine turprosjekter</string>
+    <string name="other_projects">Andre turprosjekter</string>
+    <string name="search_results">Søkeresultater</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

@@ -56,7 +56,7 @@ class ProjectSeparator extends RecyclerView.ItemDecoration {
     private String getSeparatorTitle(RecyclerView recycler, View view) {
         if (recycler.getAdapter() instanceof ProjectAdapter) {
             int adapterPosition = recycler.getChildAdapterPosition(view);
-            return ((ProjectAdapter) recycler.getAdapter()).getSeparatorTitle(adapterPosition);
+            return ((ProjectAdapter) recycler.getAdapter()).getSeparatorTitle(recycler.getContext(), adapterPosition);
         }
         return null;
     }
