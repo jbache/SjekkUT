@@ -184,38 +184,44 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
             String label;
             String info;
             mButton.setTag(R.id.place_id, null);
-            if (mLocation != null) {
-                if (mUserCheckins != null) {
-                    Place nearestPlace = findNearestPlace();
-                    if (nearestPlace != null) {
-                        double distanceM = nearestPlace.getDistanceTo(mLocation);
-                        long checkinDeltaMS = msSinceLastCheckin(nearestPlace);
-                        if (distanceM < CHECKIN_MAX_DISTANCE_METERS && checkinDeltaMS > CHECKIN_MIN_DELTA_MS) {
-                            label = getContext().getString(R.string.register_visit);
-                            info = getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn);
-                            mButton.setTag(R.id.place_id, nearestPlace._id);
-                        } else {
-                            label = Utils.formatDistance(getContext(), distanceM);
-                            if (checkinDeltaMS < Long.MAX_VALUE) {
-                                info = getContext().getString(
-                                        R.string.nearest_place_last_visited,
-                                        nearestPlace.navn,
-                                        Utils.getTimeSpanFromMS(checkinDeltaMS));
-                            } else {
+            if (Utils.isAccurateGPSEnabled(getContext())) {
+                if (mLocation != null) {
+                    if (mUserCheckins != null) {
+                        Place nearestPlace = findNearestPlace();
+                        if (nearestPlace != null) {
+                            double distanceM = nearestPlace.getDistanceTo(mLocation);
+                            long checkinDeltaMS = msSinceLastCheckin(nearestPlace);
+                            if (distanceM > CHECKIN_MAX_DISTANCE_METERS) {
+                                label = Utils.formatDistance(getContext(), distanceM);
                                 info = getContext().getString(R.string.nearest_place_is, nearestPlace.navn);
+                            } else {
+                                if (checkinDeltaMS > CHECKIN_MIN_DELTA_MS) {
+                                    label = getContext().getString(R.string.register_visit);
+                                    info = getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn);
+                                    mButton.setTag(R.id.place_id, nearestPlace._id);
+                                } else {
+                                    label = getContext().getString(R.string.visit_registered);
+                                    info = getContext().getString(
+                                            R.string.nearest_place_last_visited,
+                                            nearestPlace.navn,
+                                            Utils.getTimeSpanFromMS(checkinDeltaMS));
+                                }
                             }
+                        } else {
+                            label = getContext().getString(R.string.place_missing);
+                            info = getContext().getString(R.string.cannot_locate_nearest_place);
                         }
                     } else {
-                        label = getContext().getString(R.string.place_missing);
-                        info = getContext().getString(R.string.cannot_locate_nearest_place);
+                        label = getContext().getString(R.string.checkins_missing);
+                        info = getContext().getString(R.string.user_checkins_missing);
                     }
                 } else {
-                    label = getContext().getString(R.string.checkins_missing);
-                    info = getContext().getString(R.string.user_checkins_missing);
+                    label = getContext().getString(R.string.position_missing);
+                    info = getContext().getString(R.string.cannot_locate_your_position);
                 }
             } else {
-                label = getContext().getString(R.string.position_missing);
-                info = getContext().getString(R.string.cannot_locate_your_position);
+                label = getContext().getString(R.string.gps_missing);
+                info = getContext().getString(R.string.gps_warning);
             }
             mLabel.setText(label);
             mInfo.setText(info);

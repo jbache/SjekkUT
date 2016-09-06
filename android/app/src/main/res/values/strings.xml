@@ -95,6 +95,8 @@
     <string name="checkins_missing">Innsjekkinger mangler</string>
     <string name="register_visit">Registrer besøk</string>
     <string name="visiting_nearest_place_is">Registrerer besøk på %s</string>
+    <string name="visit_registered">Besøk registrert</string>
+    <string name="gps_missing">GPS mangler</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>
