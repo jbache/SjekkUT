@@ -17,7 +17,6 @@ class JoinProjectCell: UITableViewCell {
         didSet {
             stopObserving()
             joinLeaveButton.setBackgroundImage(UIColor.grayColor().imageWithSize(joinLeaveButton.bounds.size), forState: .Disabled)
-            joinLeaveButton.setTitle(NSLocalizedString("Working..", comment: "join/leave in progress"), forState: .Disabled)
             joinLeaveButton.setTitleColor(UIColor.whiteColor(), forState: .Disabled)
             startObserving()
         }
@@ -34,6 +33,7 @@ class JoinProjectCell: UITableViewCell {
 
         joinLeaveButton.enabled = false
 
+        self.joinLeaveButton.setTitle(NSLocalizedString("Working..", comment: "join/leave in progress"), forState: .Normal)
         if project!.isParticipating!.boolValue {
             SjekkUtApi.instance.doLeaveProject(project!) {
                 self.joinLeaveButton.enabled = true

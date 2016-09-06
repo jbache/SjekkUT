@@ -11,6 +11,7 @@ import Alamofire
 import CFNetwork
 
 public class DntManager: Alamofire.Manager {
+    
     override public func request(URLRequest: URLRequestConvertible) -> Request {
         // force using cache when offline
         if (DntApi.instance.isOffline) {

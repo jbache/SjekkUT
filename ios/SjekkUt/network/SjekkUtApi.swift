@@ -15,21 +15,23 @@ import SAMKeychain
 class SjekkUtApi: DntManager {
 
     static let instance = SjekkUtApi(forDomain:"sjekkut.app.dnt.no")
+    var reachability:NetworkReachabilityManager? = nil
     let authenticationHeaders:[String:String]? = [
         "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
         "X-User-Token": SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
     ]
 
-
     var baseUrl:String = ""
-
-    init() {
-        super.init()
-    }
 
     convenience init(forDomain aDomain:String) {
         self.init()
         baseUrl = "https://" + aDomain + "/v2"
+        reachability = NetworkReachabilityManager(host: aDomain)
+        reachability?.startListening()
+    }
+
+    deinit {
+        reachability?.stopListening()
     }
 
     // MARK: profile
@@ -175,12 +177,17 @@ class SjekkUtApi: DntManager {
                             checkin.longitude = currentLocation.longitude
                             checkin.isOffline = true
                             checkin.isPublic = (DntApi.instance.user?.publicCheckins?.boolValue)!
+                            checkin.user = DntApi.instance.user
                             aPlace.addCheckinsObject(checkin)
                             NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);
-                            print("did offline checkin")
+                            print("did offline checkin to \(aPlace.name!)")
                         }
+                        finishHandler(result: Result.Success(""))
+                        return
                     }
-                    print("failed to visit place: \(error)")
+                    else {
+                        print("failed to visit place: \(error)")
+                    }
                 }
                 finishHandler(result: response.result)
         }

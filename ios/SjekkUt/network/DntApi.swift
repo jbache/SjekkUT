@@ -10,18 +10,16 @@ import Foundation
 import Alamofire
 import SAMKeychain
 import WebKit
-import ReachabilitySwift
 
 class DntApi: DntManager {
 
     static let instance = DntApi(forDomain:"www.dnt.no")
-
     var baseUrl:String?
     var clientId:String?
     var clientSecret:String?
     var successBlock:( () -> Void) = {}
     var failBlock:(()->Void) = {}
-    var reachability:Reachability?
+    var reachability:NetworkReachabilityManager? = nil
     var isOffline:Bool = false
 
     var user:DntUser? {
@@ -61,7 +59,7 @@ class DntApi: DntManager {
     }
 
     deinit {
-        reachability!.stopNotifier()
+        reachability?.stopListening()
     }
 
     // MARK: setup
@@ -78,35 +76,18 @@ class DntApi: DntManager {
     }
 
     func setupOffline() {
-        do {
-            reachability = try Reachability.reachabilityForInternetConnection()
-        } catch {
-            print("Unable to create Reachability")
-            return
-        }
-        reachability!.whenReachable = { reachability in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            dispatch_async(dispatch_get_main_queue()) {
+        reachability = NetworkReachabilityManager(host:"www.dnt.no")
+        reachability?.listener = { status in
+            switch status {
+            case .Reachable:
                 self.isOffline = false
                 self.updateMemberDetails()
                 SjekkUtApi.instance.syncOffline()
-            }
-        }
-        reachability!.whenUnreachable = { reachability in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            dispatch_async(dispatch_get_main_queue()) {
-                print("Not reachable")
+            default:
                 self.isOffline = true
             }
         }
-        
-        do {
-            try reachability!.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
+        reachability?.startListening()
     }
 
     // MARK: Oauth 2
@@ -255,7 +236,7 @@ class DntApi: DntManager {
         }
 
         // if we're offline we can just move on
-        if (isOffline || !reachability!.isReachable()) {
+        if (isOffline || !(reachability?.isReachable)! ) {
             didSucceed()
             return
         }

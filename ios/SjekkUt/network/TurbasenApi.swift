@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class TurbasenApi: Alamofire.Manager {
+public class TurbasenApi: DntManager {
 
     static let instance = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
 
@@ -96,7 +96,7 @@ public class TurbasenApi: Alamofire.Manager {
                         }
                     }
                 case .Failure(let error):
-                    print("failed to get lists: \(error)")
+                    self.failHandler(error)
             }
             finishHandler()
         }

@@ -42,11 +42,7 @@ static NSTimeInterval kSjekkUtConstantAnimationDuration = 0.250;
 #define SjekkUtEtagChallenges @"com.dnt.opptur.etag.Challenges"
 
 #define SjekkUtLocationTimeout 30
-#ifndef DEBUG
 #define SjekkUtCheckinTimeLimit 60 * 60 * 24
-#else
-#define SjekkUtCheckinTimeLimit 60
-#endif
 #define SjekkUtCheckinDistanceLimit 200
 
 #define SjekkUtMapZoomLevel 14.0f

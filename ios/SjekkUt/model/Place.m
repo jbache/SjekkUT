@@ -205,7 +205,6 @@
     }
 
     NSTimeInterval timeSinceLastCheckin = [[NSDate date] timeIntervalSinceDate:aLastCheckin.date];
-    NSLog(@"time since last: %f", timeSinceLastCheckin);
     return timeSinceLastCheckin > SjekkUtCheckinTimeLimit;
 }
 

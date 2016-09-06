@@ -14,22 +14,20 @@ PODS:
   - HockeySDK/AllFeaturesLib (4.0.2)
   - NSURLRequest-cURL (0.0.1)
   - OCMock (3.3.1)
-  - ReachabilitySwift (2.3.3)
   - SAMKeychain (1.5.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.4)
-  - AlamofireImage (~> 2.0)
-  - AlamofireNetworkActivityIndicator (~> 1.0)
+  - Alamofire
+  - AlamofireImage
+  - AlamofireNetworkActivityIndicator
   - AlamofireSwiftyJSON
-  - DateTools (~> 1.5.0)
-  - FontAwesome+iOS (~> 0.1.4)
-  - HockeySDK (~> 4.0.1)
-  - NSURLRequest-cURL (~> 0.0.1)
-  - OCMock (~> 3.3)
-  - ReachabilitySwift
-  - SAMKeychain (~> 1.5.0)
+  - DateTools
+  - FontAwesome+iOS
+  - HockeySDK
+  - NSURLRequest-cURL
+  - OCMock
+  - SAMKeychain
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
@@ -41,10 +39,9 @@ SPEC CHECKSUMS:
   HockeySDK: ebaabf41808b4e4ea85b4d5266d425aef0d19c88
   NSURLRequest-cURL: 02e6df7c7cec07365ae2a812c85f0419fdeb3d62
   OCMock: f3f61e6eaa16038c30caa5798c5e49d3307b6f22
-  ReachabilitySwift: e0f6b6f280effb47731acfaaa2d5ffe223703793
   SAMKeychain: 1fc9ae02f576365395758b12888c84704eebc423
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 13818f4382cc5543be8f3eedeb99d1df24e2b736
+PODFILE CHECKSUM: 031843a0726ea036485596bfc0f910bb6ca9eef8
 
 COCOAPODS: 1.0.1
