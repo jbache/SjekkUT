@@ -30,7 +30,7 @@ public class Project {
         if (grupper != null && !grupper.isEmpty() && grupper.get(0).navn != null) {
             return grupper.get(0).navn;
         } else {
-            return "n/a";
+            return "";
         }
     }
 
@@ -57,7 +57,7 @@ public class Project {
                 return Utils.formatDistance(context, distance);
             }
         }
-        return "n/a";
+        return "";
     }
 
     public String getImageUrl(int preferredWidth) {

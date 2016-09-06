@@ -110,8 +110,7 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
                 .into(holder.image);
         holder.name.setText(place.navn);
         holder.county.setText(context.getString(R.string.county, place.fylke));
-        // TODO: number of checkins needs to be fetched from somewhere
-        String distanceString = context.getString(R.string.not_available);
+        String distanceString = "";
         if (mLocation != null && place.hasLocation()) {
             distanceString = Utils.formatDistance(context, place.getDistanceTo(mLocation));
         }

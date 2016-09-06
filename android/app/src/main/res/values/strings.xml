@@ -27,7 +27,6 @@
     <string name="checkin_success">Du sjekket inn på %1$s %2$s.</string>
     <string name="checkin_never">Du har aldri sjekket inn på %1$s!</string>
     <string name="unknown_place_description">Ukjent beskrivelse</string>
-    <string name="not_available">n/a</string>
     <string name="checkin_personal_count_zero">Du har aldri sjekket inn her.</string>
     <plurals name="checkin_personal_count">
         <item quantity="one">Du har sjekket inn her en gang.</item>
