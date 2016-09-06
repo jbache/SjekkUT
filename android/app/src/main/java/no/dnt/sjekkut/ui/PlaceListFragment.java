@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -13,9 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,14 +33,13 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceListFragment extends Fragment implements LocationListener, ParticipantAdapter.ParticipantClickedListener, CheckinButton.CheckinListener {
+public class PlaceListFragment extends LocationFragment implements ParticipantAdapter.ParticipantClickedListener, CheckinButton.CheckinListener {
 
     private static final java.lang.String BUNDLE_PROJECT_ID = "project_id";
     private final Callback<Project> mProjectCallback;
     private final Callback<Place> mPlaceCallback;
     private final Callback<UserCheckins> mUserCheckinsCallback;
     private final Callback<UserCheckins> mJoinLeaveProjectCallback;
-    private final LocationRequest mLocationRequest;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.placeList)
@@ -57,7 +52,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
     private String mProjectId;
 
     public PlaceListFragment() {
-        mLocationRequest = LocationRequestUtils.repeatingRequest();
         mProjectCallback = new Callback<Project>() {
             @Override
             public void onResponse(Call<Project> call, Response<Project> response) {
@@ -185,9 +179,6 @@ public class PlaceListFragment extends Fragment implements LocationListener, Par
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mProjectId = getArguments().getString(BUNDLE_PROJECT_ID, "");
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
-        }
     }
 
     @Override

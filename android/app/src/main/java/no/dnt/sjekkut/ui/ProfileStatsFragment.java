@@ -1,8 +1,8 @@
 package no.dnt.sjekkut.ui;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ProfileStatsFragment extends Fragment implements View.OnClickListener {
+public class ProfileStatsFragment extends LocationFragment implements View.OnClickListener {
 
     @BindView(R.id.visitlist)
     RecyclerView mRecyclerView;
@@ -51,6 +51,8 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
     Button mLogout;
     @BindView(R.id.visits_separator)
     TextView mVisitsSeparator;
+    @BindView(R.id.checkinButton)
+    CheckinButton mCheckinButton;
 
     private List<StatCountHolder> mStatCountHolders = new ArrayList<>();
     private PlaceVisitAdapter mPlaceVisitAdapter;
@@ -201,6 +203,11 @@ public class ProfileStatsFragment extends Fragment implements View.OnClickListen
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mCheckinButton.setLocation(location);
     }
 
     interface ProfileStatsListener extends PlaceClickedListener {

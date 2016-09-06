@@ -3,7 +3,6 @@ package no.dnt.sjekkut.ui;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.SpannableString;
@@ -18,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -43,12 +40,11 @@ import retrofit2.Response;
  * <p/>
  * Created by espen on 05.02.2015.
  */
-public class PlaceFragment extends Fragment implements LocationListener, CheckinButton.CheckinListener {
+public class PlaceFragment extends LocationFragment implements CheckinButton.CheckinListener {
 
     private final static int MAP_ZOOMLEVEL = 14;
     private static final String BUNDLE_PLACE_ID = "bundle_place_id";
 
-    private final LocationRequest mLocationRequest;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.progress)
@@ -77,7 +73,6 @@ public class PlaceFragment extends Fragment implements LocationListener, Checkin
     TextView mCheckinText;
     @BindView(R.id.checkinButton)
     CheckinButton mCheckinButton;
-    private Location mLocation;
     private Callback<Place> mPlaceCallback;
     private Callback<UserCheckins> mUserCheckinsCallback;
     private int mCallbackRefCount = 0;
@@ -87,10 +82,9 @@ public class PlaceFragment extends Fragment implements LocationListener, Checkin
     private PlaceAdapter mPlaceAdapter;
     private PlaceAdapter.PlaceViewHolder mPlaceViewHolder;
     private UserCheckins mUserCheckins = null;
+    private Location mLocation;
 
     public PlaceFragment() {
-        mLocationRequest = LocationRequestUtils.singleShotRequest();
-
         mPlaceCallback = new Callback<Place>() {
             @Override
             public void onResponse(Call<Place> call, Response<Place> response) {
@@ -160,12 +154,6 @@ public class PlaceFragment extends Fragment implements LocationListener, Checkin
         super.onActivityCreated(savedInstanceState);
         mPlaceId = getArguments().getString(BUNDLE_PLACE_ID, "");
         Utils.toggleUpButton(getActivity(), true);
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
-            ++mCallbackRefCount;
-            mCallbackDescription = getString(R.string.callback_finding_posisjon);
-            updateView();
-        }
     }
 
     @Override
@@ -213,23 +201,18 @@ public class PlaceFragment extends Fragment implements LocationListener, Checkin
         }
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
-        --mCallbackRefCount;
         mLocation = location;
         mCheckinButton.setLocation(location);
-        mPlaceAdapter.setLocation(mLocation);
+        mPlaceAdapter.setLocation(location);
         if (isAdded()) {
-            if (mLocation == null) {
+            if (location == null) {
                 Utils.showToast(getActivity(), getString(R.string.error_did_not_find_position));
                 updateView();
             } else {
                 updateView();
             }
-        }
-        if (getActivity() instanceof MainActivity && getView() != null) {
-            ((MainActivity) getActivity()).stopLocationUpdates(this);
         }
     }
 

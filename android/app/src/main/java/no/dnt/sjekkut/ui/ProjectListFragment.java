@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 
 import java.util.List;
 
@@ -40,12 +35,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProjectListFragment extends Fragment implements LocationListener, SearchView.OnQueryTextListener, CheckinButton.CheckinListener {
+public class ProjectListFragment extends LocationFragment implements SearchView.OnQueryTextListener, CheckinButton.CheckinListener {
 
     final private ProjectListCallback mProjectListCallback = new ProjectListCallback();
     final private ProjectCallback mProjectCallback = new ProjectCallback();
     final private Callback<UserCheckins> mUserCheckinsCallback;
-    final private LocationRequest mLocationRequest = LocationRequestUtils.repeatingRequest();
     @BindView(R.id.projectlist)
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar)
@@ -123,14 +117,6 @@ public class ProjectListFragment extends Fragment implements LocationListener, S
                 PreferenceUtils.getUserId(getContext()))
                 .enqueue(mUserCheckinsCallback);
 
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).startLocationUpdates(this, mLocationRequest);
-        }
     }
 
     @Override
