@@ -84,7 +84,7 @@
     <string name="leave_project">Meld av</string>
     <string name="project_joined">Du deltar i dette turprosjektet</string>
     <string name="nearest_place_is">Din nærmeste turpost er %s.</string>
-    <string name="nearest_place_last_visited">Din nærmeste turpost er %1$s som du sist besøkte %2$s</string>
+    <string name="you_visited_place_at">Du besøkte %1$s %2$s</string>
     <string name="cannot_locate_your_position">Vi finner ikke din posisjon</string>
     <string name="position_missing">Posisjon mangler</string>
     <string name="place_missing">Sted mangler</string>
@@ -102,6 +102,7 @@
     <string name="my_projects">Mine turprosjekter</string>
     <string name="other_projects">Andre turprosjekter</string>
     <string name="search_results">Søkeresultater</string>
+    <string name="just_now">akkurat nå</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

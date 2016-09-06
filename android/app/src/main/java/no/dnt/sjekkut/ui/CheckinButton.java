@@ -57,6 +57,7 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     @BindView(R.id.fabInfoText)
     TextView mInfo;
     private Location mLocation;
+    private StringProvider mInfoProvider;
     private final Comparator<Place> mComparator = createComparator();
     private UserCheckins mUserCheckins;
     private final Callback<Project> mProjectCallback = createProjectCallback();
@@ -182,60 +183,75 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     private void updateView() {
         if (ViewCompat.isAttachedToWindow(this)) {
             String label;
-            String info;
             mButton.setTag(R.id.place_id, null);
             if (Utils.isAccurateGPSEnabled(getContext())) {
                 if (mLocation != null) {
                     if (mUserCheckins != null) {
-                        Place nearestPlace = findNearestPlace();
+                        final Place nearestPlace = findNearestPlace();
                         if (nearestPlace != null) {
                             double distanceM = nearestPlace.getDistanceTo(mLocation);
-                            long checkinDeltaMS = msSinceLastCheckin(nearestPlace);
                             if (distanceM > CHECKIN_MAX_DISTANCE_METERS) {
                                 label = Utils.formatDistance(getContext(), distanceM);
-                                info = getContext().getString(R.string.nearest_place_is, nearestPlace.navn);
+                                mInfoProvider = staticProvider(getContext().getString(R.string.nearest_place_is, nearestPlace.navn));
                             } else {
-                                if (checkinDeltaMS > CHECKIN_MIN_DELTA_MS) {
+                                final Date latest = getLatestCheckin(nearestPlace);
+                                if (latest == null || new Date().getTime() - latest.getTime() > CHECKIN_MIN_DELTA_MS) {
                                     label = getContext().getString(R.string.register_visit);
-                                    info = getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn);
+                                    mInfoProvider = staticProvider(getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn));
                                     mButton.setTag(R.id.place_id, nearestPlace._id);
                                 } else {
                                     label = getContext().getString(R.string.visit_registered);
-                                    info = getContext().getString(
-                                            R.string.nearest_place_last_visited,
-                                            nearestPlace.navn,
-                                            Utils.getTimeSpanFromMS(checkinDeltaMS));
+                                    mInfoProvider = new StringProvider() {
+                                        @Override
+                                        public String getString() {
+                                            return getContext().getString(
+                                                    R.string.you_visited_place_at,
+                                                    nearestPlace.navn,
+                                                    Utils.getTimeSpanFromNow(
+                                                            latest,
+                                                            getContext().getString(R.string.just_now)));
+                                        }
+                                    };
                                 }
                             }
                         } else {
                             label = getContext().getString(R.string.place_missing);
-                            info = getContext().getString(R.string.cannot_locate_nearest_place);
+                            mInfoProvider = staticProvider(getContext().getString(R.string.cannot_locate_nearest_place));
                         }
                     } else {
                         label = getContext().getString(R.string.checkins_missing);
-                        info = getContext().getString(R.string.user_checkins_missing);
+                        mInfoProvider = staticProvider(getContext().getString(R.string.user_checkins_missing));
                     }
                 } else {
                     label = getContext().getString(R.string.position_missing);
-                    info = getContext().getString(R.string.cannot_locate_your_position);
+                    mInfoProvider = staticProvider(getContext().getString(R.string.cannot_locate_your_position));
                 }
             } else {
                 label = getContext().getString(R.string.gps_missing);
-                info = getContext().getString(R.string.gps_warning);
+                mInfoProvider = staticProvider(getContext().getString(R.string.gps_warning));
             }
             mLabel.setText(label);
-            mInfo.setText(info);
+            mInfo.setText(mInfoProvider.getString());
         }
     }
 
-    private long msSinceLastCheckin(Place nearestPlace) {
-        if (mUserCheckins != null && nearestPlace != null) {
-            PlaceCheckin checkin = mUserCheckins.getLatestCheckin(nearestPlace._id);
-            if (checkin != null && checkin.timestamp != null) {
-                return new Date().getTime() - checkin.timestamp.getTime();
+    private StringProvider staticProvider(final String string) {
+        return new StringProvider() {
+            @Override
+            public String getString() {
+                return string;
+            }
+        };
+    }
+
+    private Date getLatestCheckin(Place place) {
+        if (mUserCheckins != null && place != null) {
+            PlaceCheckin checkin = mUserCheckins.getLatestCheckin(place._id);
+            if (checkin != null) {
+                return checkin.timestamp;
             }
         }
-        return Long.MAX_VALUE;
+        return null;
     }
 
     private void inflateView(Context context) {
@@ -283,6 +299,9 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
                             .enqueue(mCheckinResultCallback);
 
                 }
+                if (mInfoProvider != null) {
+                    mInfo.setText(mInfoProvider.getString());
+                }
                 mInfo.setVisibility(View.VISIBLE);
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler.postDelayed(new Runnable() {
@@ -319,5 +338,9 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
 
     interface CheckinListener {
         void onCheckin(PlaceCheckin checkin);
+    }
+
+    interface StringProvider {
+        String getString();
     }
 }

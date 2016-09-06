@@ -121,7 +121,10 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
         if (mUserCheckins != null && mUserCheckins.hasVisited(place._id)) {
             visits = mUserCheckins.getNumberOfVisits(place._id);
             latestCheckin = mUserCheckins.getLatestCheckin(place._id);
-            checkinString = context.getString(R.string.last_visited, Utils.getTimeSpanFromNow(latestCheckin.timestamp));
+            checkinString = context.getString(R.string.last_visited,
+                    Utils.getTimeSpanFromNow(
+                            latestCheckin.timestamp,
+                            context.getString(R.string.just_now)));
         }
         holder.visits.setText(context.getString(R.string.visits, visits));
         holder.checkin.setChecked(latestCheckin != null);

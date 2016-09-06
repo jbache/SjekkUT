@@ -115,14 +115,14 @@ public class Utils {
         sGlobalToast.show();
     }
 
-    public static String getTimeSpanFromNow(Date then) {
-        return DateUtils.getRelativeTimeSpanString(then.getTime(), new Date().getTime(), 0).toString();
-    }
-
-    public static String getTimeSpanFromMS(long milliseconds) {
+    public static String getTimeSpanFromNow(Date thenDate, String overrideFuture) {
+        long then = thenDate.getTime();
         long now = new Date().getTime();
-        long then = now - milliseconds;
-        return DateUtils.getRelativeTimeSpanString(then, now, 0).toString();
+        if (then > now && overrideFuture != null) {
+            return overrideFuture;
+        } else {
+            return DateUtils.getRelativeTimeSpanString(then, now, 0).toString();
+        }
     }
 
     public static int getDisplayWidth(Context context) {
