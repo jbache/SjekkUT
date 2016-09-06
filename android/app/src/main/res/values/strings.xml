@@ -69,7 +69,7 @@
     <string name="action_search">Søk</string>
     <string name="antallbesøk">%d besøk</string>
     <string name="logout">Logg ut</string>
-    <string name="place">Sted</string>
+    <string name="place">Turpost</string>
     <string name="count">Antall</string>
     <string name="username_unknown">Ukjent</string>
     <string name="callback_collecting_place_data">Henter informasjon om stedet</string>
