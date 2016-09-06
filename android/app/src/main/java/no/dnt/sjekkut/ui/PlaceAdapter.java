@@ -114,7 +114,7 @@ class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder> {
         if (mLocation != null && place.hasLocation()) {
             distanceString = Utils.formatDistance(context, place.getDistanceTo(mLocation));
         }
-        holder.distance.setText(context.getString(R.string.distance_to_you, distanceString));
+        holder.distance.setText(distanceString);
         int visits = 0;
         PlaceCheckin latestCheckin = null;
         String checkinString = context.getString(R.string.not_visited);
