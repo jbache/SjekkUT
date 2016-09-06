@@ -55,7 +55,7 @@ public class Utils {
         }
     }
 
-    public static void setActionBarTitle(Activity activity, String title) {
+    private static void setActionBarTitle(Activity activity, String title) {
         if (activity instanceof AppCompatActivity) {
             ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
             if (actionBar != null) {
@@ -223,7 +223,7 @@ public class Utils {
             return (one == null) ? 1 : -1;
         }
 
-        if (one == null && two == null) {
+        if (one == null) {
             return 0;
         }
 
@@ -235,7 +235,7 @@ public class Utils {
             return (one == null) ? 1 : -1;
         }
 
-        if (one == null && two == null) {
+        if (one == null) {
             return 0;
         }
 

@@ -8,22 +8,37 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import no.dnt.sjekkut.R;
+import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.UserCheckins;
 
 class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolder> {
 
-    private final List<PlaceVisit> mPlaceVisits = new ArrayList<>();
+    private final List<PlaceVisit> mPlaceVisits;
     private final ProfileStatsFragment.ProfileStatsListener mListener;
+    private final Comparator<? super PlaceVisit> mComparator;
 
-    public PlaceVisitAdapter(ProfileStatsFragment.ProfileStatsListener listener) {
+    PlaceVisitAdapter(ProfileStatsFragment.ProfileStatsListener listener) {
+        mPlaceVisits = new ArrayList<>();
         mListener = listener;
+        mComparator = new Comparator<PlaceVisit>() {
+            @Override
+            public int compare(PlaceVisit place1, PlaceVisit place2) {
+                int result = Utils.nullSafeCompareTo(place2.mVisits, place1.mVisits);
+                if (result == 0) {
+                    result = Utils.nullSafeCompareTo(place1.getName(), place2.getName());
+                }
+                return result;
+            }
+        };
     }
 
     @Override
@@ -61,6 +76,7 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
             mPlaceVisits.add(new PlaceVisit(id, userCheckins.getNumberOfVisits(id)));
 
         }
+        Collections.sort(mPlaceVisits, mComparator);
         notifyDataSetChanged();
     }
 
@@ -70,6 +86,7 @@ class PlaceVisitAdapter extends RecyclerView.Adapter<PlaceVisitAdapter.ViewHolde
                 placeVisit.mPlace = place;
             }
         }
+        Collections.sort(mPlaceVisits, mComparator);
         notifyDataSetChanged();
     }
 
