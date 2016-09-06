@@ -234,7 +234,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onProjectClicked(Project project) {
-        Utils.showToast(MainActivity.this, "Clicked on project: " + project.navn);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, PlaceListFragment.newInstance(project._id))
                 .addToBackStack(PlaceListFragment.class.getCanonicalName())

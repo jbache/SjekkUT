@@ -45,7 +45,7 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         mProjectComparator = new Comparator<Project>() {
             @Override
             public int compare(Project o1, Project o2) {
-                int result = Utils.nullSafeCompareTo(!hasUserVisited(o1), !hasUserVisited(o2));
+                int result = Utils.nullSafeCompareTo(!hasUserJoined(o1), !hasUserJoined(o2));
                 if (result == 0)
                     result = Utils.nullSafeCompareTo(o1.getDistanceTo(mUserLocation), o2.getDistanceTo(mUserLocation));
                 if (result == 0)
@@ -135,15 +135,8 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         }
     }
 
-    private boolean hasUserVisited(Project project) {
-        if (project != null && project.steder != null && !project.steder.isEmpty() && mUserCheckins != null) {
-            for (Place place : project.steder) {
-                if (mUserCheckins.hasVisited(place._id)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private boolean hasUserJoined(Project project) {
+        return project != null && mUserCheckins != null && mUserCheckins.hasJoined(project._id);
     }
 
     private int calculatedVisitedPlaces(Project project) {
@@ -166,12 +159,12 @@ class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectHolder> 
         if (context != null && position >= 0 && mProjectList.size() > position) {
             if (noFilters()) {
                 if (position == 0) {
-                    boolean hasVisited = hasUserVisited(mProjectList.get(position));
-                    return hasVisited ? context.getString(R.string.my_projects) : context.getString(R.string.other_projects);
+                    boolean hasJoined = hasUserJoined(mProjectList.get(position));
+                    return hasJoined ? context.getString(R.string.my_projects) : context.getString(R.string.other_projects);
                 } else {
-                    boolean hasVisited = hasUserVisited(mProjectList.get(position));
-                    boolean hasPreviousVisited = hasUserVisited(mProjectList.get(position - 1));
-                    return !hasVisited && hasPreviousVisited ? context.getString(R.string.other_projects) : null;
+                    boolean hasJoined = hasUserJoined(mProjectList.get(position));
+                    boolean hasJoinedPrevious = hasUserJoined(mProjectList.get(position - 1));
+                    return !hasJoined && hasJoinedPrevious ? context.getString(R.string.other_projects) : null;
                 }
             } else {
                 if (position == 0) {
