@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/share"
-        android:icon="@drawable/ic_action_share"
-        android:title="@string/action_feedback"
+        android:icon="@drawable/ic_sharing"
+        android:title="@string/action_share"
         app:showAsAction="always" />
 
 </menu>

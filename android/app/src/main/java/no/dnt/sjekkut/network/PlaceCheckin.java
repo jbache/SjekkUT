@@ -12,6 +12,7 @@ public class PlaceCheckin {
     public String ntb_steder_id;
     public Date timestamp;
     String id;
+    public String sharing_url;
 
     public PlaceCheckin(String checkinId) {
         id = checkinId;

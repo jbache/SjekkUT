@@ -83,6 +83,7 @@ public class PlaceFragment extends LocationFragment implements CheckinButton.Che
     private PlaceAdapter.PlaceViewHolder mPlaceViewHolder;
     private UserCheckins mUserCheckins = null;
     private Location mLocation;
+    private PlaceCheckin mLatestCheckin = null;
 
     public PlaceFragment() {
         mPlaceCallback = new Callback<Place>() {
@@ -110,6 +111,7 @@ public class PlaceFragment extends LocationFragment implements CheckinButton.Che
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
                 --mCallbackRefCount;
                 if (response.isSuccessful()) {
+                    mLatestCheckin = response.body().getLatestCheckin(mPlaceId);
                     mUserCheckins = response.body();
                     mPlaceAdapter.setUserCheckins(mUserCheckins);
                 } else {
@@ -186,6 +188,7 @@ public class PlaceFragment extends LocationFragment implements CheckinButton.Che
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_share, menu);
         inflater.inflate(R.menu.menu_feedback, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -195,6 +198,15 @@ public class PlaceFragment extends LocationFragment implements CheckinButton.Che
         switch (item.getItemId()) {
             case R.id.feedback:
                 MainActivity.showFeedbackActivity(getActivity());
+                return true;
+            case R.id.share:
+                if (mLatestCheckin != null && mLatestCheckin.sharing_url != null && mPlace != null) {
+                    Utils.sharePlaceVisit(getContext(), mPlace.navn, mLatestCheckin.sharing_url);
+                } else if (mLatestCheckin != null) {
+                    Utils.showToast(getActivity(), getString(R.string.server_todo_sharing_url));
+                } else {
+                    Utils.showToast(getActivity(), getString(R.string.sharing_checkin_requires_visit));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

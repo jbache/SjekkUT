@@ -19,7 +19,7 @@
     <string name="distance_km">%1$.1f km</string>
     <string name="checkin_no_place">Vi fant ingen turpost.</string>
     <string name="share_choose_title">Del din tur på</string>
-    <string name="share_text">Jeg besøkte %1$s med %2$s, %3$s!</string>
+    <string name="share_visit_text">Jeg har besøkt %s!</string>
     <string name="gps_warning">Denne appen trenger GPS posisjonering med høy nøyaktighet. Vennligst skru det på i Innstillinger.</string>
     <string name="network_error">Problemer med nettverkstilkoblingen.</string>
     <string name="http_error">Problemer med å kommunisere med server.</string>
@@ -104,6 +104,8 @@
     <string name="search_results">Søkeresultater</string>
     <string name="just_now">akkurat nå</string>
     <string name="checkin_failure">Beklager. Ditt besøk ble ikke registrert</string>
+    <string name="server_todo_sharing_url">TODO: Server må gi oss delingslink</string>
+    <string name="sharing_checkin_requires_visit">Du må besøke turposten for å dele en innsjekking</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>

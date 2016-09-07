@@ -263,4 +263,12 @@ public class Utils {
         }
         return staticMapUrl;
     }
+
+    public static void sharePlaceVisit(Context context, String placeName, String shareUrl) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.share_visit_text, placeName));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareUrl);
+        context.startActivity(Intent.createChooser(shareIntent, "Del ditt besøk"));
+    }
 }
