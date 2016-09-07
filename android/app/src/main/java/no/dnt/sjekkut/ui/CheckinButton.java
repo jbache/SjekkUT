@@ -1,5 +1,8 @@
 package no.dnt.sjekkut.ui;
 
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.location.Location;
@@ -49,7 +52,7 @@ import retrofit2.Response;
 public class CheckinButton extends RelativeLayout implements View.OnClickListener {
 
     private static final double CHECKIN_MAX_DISTANCE_METERS = 200.0d; // 200 meters
-    private static final long CHECKIN_MIN_DELTA_MS = 1000 * 10;// * 60 * 24; // 24 hrs in milliseconds
+    private static final long CHECKIN_MIN_DELTA_MS = 1000 * 60 * 60 * 24; // 24 hrs in milliseconds
     private final Handler mHandler = new Handler();
     private final Map<String, Place> mPlaceMap = new HashMap<>();
     @BindView(R.id.fabButton)
@@ -267,9 +270,16 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
         ButterKnife.bind(this);
         mButton.setOnClickListener(this);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            ViewCompat.setElevation(mInfo, mButton.getCompatElevation());
-            ViewCompat.setElevation(mLabel, mButton.getCompatElevation());
+            ViewCompat.setElevation(mInfo, context.getResources().getDimensionPixelSize(R.dimen.info_elevation));
+            ViewCompat.setElevation(mLabel, context.getResources().getDimensionPixelSize(R.dimen.fab_elevation));
         }
+        int displayWidth = Utils.getDisplayWidth(context);
+        PropertyValuesHolder slideXIn = PropertyValuesHolder.ofFloat("translationX", displayWidth, 0);
+        PropertyValuesHolder fadeIn = PropertyValuesHolder.ofFloat(ALPHA, 0, 1);
+        PropertyValuesHolder slideXOut = PropertyValuesHolder.ofFloat("translationX", 0, displayWidth);
+        PropertyValuesHolder fadeOut = PropertyValuesHolder.ofFloat(ALPHA, displayWidth, 1, 0);
+        getLayoutTransition().setAnimator(LayoutTransition.APPEARING, ObjectAnimator.ofPropertyValuesHolder(this, slideXIn, fadeIn));
+        getLayoutTransition().setAnimator(LayoutTransition.DISAPPEARING, ObjectAnimator.ofPropertyValuesHolder(this, slideXOut, fadeOut));
     }
 
     @Override
