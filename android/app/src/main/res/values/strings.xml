@@ -91,7 +91,7 @@
     <string name="cannot_locate_nearest_place">Vi finner ikke din nærmeste turpost</string>
     <string name="user_checkins_missing">Vi finner ikke dine innsjekkinger</string>
     <string name="checkins_missing">Innsjekkinger mangler</string>
-    <string name="register_visit">Registrer besøk</string>
+    <string name="register_visit">Besøk</string>
     <string name="visiting_nearest_place_is">Registrerer besøk på %s</string>
     <string name="visit_registered">Besøk registrert</string>
     <string name="gps_missing">GPS mangler</string>

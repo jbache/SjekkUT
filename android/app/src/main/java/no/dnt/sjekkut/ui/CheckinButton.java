@@ -1,10 +1,12 @@
 package no.dnt.sjekkut.ui;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.location.Location;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -47,7 +49,7 @@ import retrofit2.Response;
 public class CheckinButton extends RelativeLayout implements View.OnClickListener {
 
     private static final double CHECKIN_MAX_DISTANCE_METERS = 200.0d; // 200 meters
-    private static final long CHECKIN_MIN_DELTA_MS = 1000 * 60 * 60 * 24; // 24 hrs in milliseconds
+    private static final long CHECKIN_MIN_DELTA_MS = 1000 * 10;// * 60 * 24; // 24 hrs in milliseconds
     private final Handler mHandler = new Handler();
     private final Map<String, Place> mPlaceMap = new HashMap<>();
     @BindView(R.id.fabButton)
@@ -57,8 +59,8 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     @BindView(R.id.fabInfoText)
     TextView mInfo;
     private Location mLocation;
-    private StringProvider mInfoProvider;
     private final Comparator<Place> mComparator = createComparator();
+    private StringProvider mInfoProvider;
     private UserCheckins mUserCheckins;
     private final Callback<Project> mProjectCallback = createProjectCallback();
     private final Callback<ProjectList> mProjectListCallback = createProjectListCallback();
@@ -183,7 +185,8 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     private void updateView() {
         if (ViewCompat.isAttachedToWindow(this)) {
             String label;
-            mButton.setTag(R.id.place_id, null);
+            String placeIdTag = null;
+            int colorId = R.color.fabInfo;
             if (Utils.isAccurateGPSEnabled(getContext())) {
                 if (mLocation != null) {
                     if (mUserCheckins != null) {
@@ -198,7 +201,8 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
                                 if (latest == null || new Date().getTime() - latest.getTime() > CHECKIN_MIN_DELTA_MS) {
                                     label = getContext().getString(R.string.register_visit);
                                     mInfoProvider = staticProvider(getContext().getString(R.string.visiting_nearest_place_is, nearestPlace.navn));
-                                    mButton.setTag(R.id.place_id, nearestPlace._id);
+                                    placeIdTag = nearestPlace._id;
+                                    colorId = R.color.fabVisit;
                                 } else {
                                     label = getContext().getString(R.string.visit_registered);
                                     mInfoProvider = new StringProvider() {
@@ -232,6 +236,8 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
             }
             mLabel.setText(label);
             mInfo.setText(mInfoProvider.getString());
+            mButton.setTag(R.id.place_id, placeIdTag);
+            mButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), colorId)));
         }
     }
 

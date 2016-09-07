@@ -17,9 +17,9 @@
     <color name="text_main">@color/black</color>
     <color name="text_additional">@color/dntDarkGray</color>
 
-    <color name="fab_normal">@color/dntRed</color>
-    <color name="fab_pressed">#f84d60</color>
-    <color name="fab_ripple">@color/fab_pressed</color>
+    <color name="fabVisit">@color/dntRed</color>
+    <color name="fabRipple">@color/white</color>
+    <color name="fabInfo">@color/dntDarkGray</color>
 
     <color name="todo">#00ff00</color>
     <color name="background_checkin" >@color/dntLightGray30</color>

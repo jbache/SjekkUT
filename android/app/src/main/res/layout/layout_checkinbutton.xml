@@ -13,9 +13,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        app:backgroundTint="@color/fabInfo"
         app:elevation="6dp"
         app:fabSize="normal"
-        app:rippleColor="@color/fab_ripple"
+        app:rippleColor="@color/fabRipple"
         app:useCompatPadding="true" />
 
     <TextView
