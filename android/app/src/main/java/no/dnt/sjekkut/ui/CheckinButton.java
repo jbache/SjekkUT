@@ -318,14 +318,14 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
                 if (mInfoProvider != null) {
                     mInfo.setText(mInfoProvider.getString());
                 }
-                mInfo.setVisibility(View.VISIBLE);
+                mInfo.setVisibility(mInfo.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mInfo.setVisibility(View.INVISIBLE);
                     }
-                }, 2000);
+                }, 7000);
                 break;
         }
     }
