@@ -68,8 +68,10 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     private final Callback<Project> mProjectCallback = createProjectCallback();
     private final Callback<ProjectList> mProjectListCallback = createProjectListCallback();
     private final Callback<UserCheckins> mUserCheckinsCallback = createUserCheckinsCallback();
+    private Call<CheckinResult> mCheckinCall;
     private CheckinListener mListener;
-    private Callback<CheckinResult> mCheckinResultCallback = createCheckinResultCallback();
+    private final Callback<CheckinResult> mCheckinResultCallback = createCheckinResultCallback();
+    private final Long DEFAULT_HIDE_DELAY = 7000L;
 
     public CheckinButton(Context context) {
         super(context);
@@ -90,18 +92,23 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
         return new Callback<CheckinResult>() {
             @Override
             public void onResponse(Call<CheckinResult> call, Response<CheckinResult> response) {
+                mCheckinCall = null;
                 if (response.isSuccessful()) {
+                    showInfo(getContext().getString(R.string.checkin_success), DEFAULT_HIDE_DELAY);
                     fetchUserCheckins();
                     if (mListener != null) {
                         mListener.onCheckin(response.body().data);
                     }
                 } else {
+                    showInfo(getContext().getString(R.string.checkin_failure), DEFAULT_HIDE_DELAY);
                     Utils.showToast(getContext(), "Failed to checkin: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<CheckinResult> call, Throwable t) {
+                mCheckinCall = null;
+                showInfo(getContext().getString(R.string.checkin_failure), DEFAULT_HIDE_DELAY);
                 Utils.showToast(getContext(), "Failed to checkin: " + t);
             }
         };
@@ -238,7 +245,6 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
                 mInfoProvider = staticProvider(getContext().getString(R.string.gps_warning));
             }
             mLabel.setText(label);
-            mInfo.setText(mInfoProvider.getString());
             mButton.setTag(R.id.place_id, placeIdTag);
             mButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), colorId)));
         }
@@ -305,29 +311,49 @@ public class CheckinButton extends RelativeLayout implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fabButton:
-                String visit_place_id = (String) v.getTag(R.id.place_id);
-                if (visit_place_id != null) {
-                    CheckinApiSingleton.call().postPlaceCheckin(
-                            PreferenceUtils.getUserId(getContext()),
-                            PreferenceUtils.getAccessToken(getContext()),
-                            visit_place_id,
-                            new CheckinLocation(mLocation))
-                            .enqueue(mCheckinResultCallback);
-
+                boolean checkinStarted = postCheckin((String) v.getTag(R.id.place_id));
+                boolean infoVisible = mInfo.getVisibility() == VISIBLE;
+                if (infoVisible) {
+                    hideInfo();
+                } else {
+                    String text = mInfoProvider != null ? mInfoProvider.getString() : "";
+                    Long delayBeforeHide = checkinStarted ? null : DEFAULT_HIDE_DELAY;
+                    showInfo(text, delayBeforeHide);
                 }
-                if (mInfoProvider != null) {
-                    mInfo.setText(mInfoProvider.getString());
-                }
-                mInfo.setVisibility(mInfo.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
-                mHandler.removeCallbacksAndMessages(null);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mInfo.setVisibility(View.INVISIBLE);
-                    }
-                }, 7000);
                 break;
         }
+    }
+
+    private void showInfo(String text, Long delayBeforeHide) {
+        mHandler.removeCallbacksAndMessages(null);
+        mInfo.setText(text);
+        mInfo.setVisibility(View.VISIBLE);
+        if (delayBeforeHide != null) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hideInfo();
+                }
+            }, 7000);
+        }
+    }
+
+    private void hideInfo() {
+        mHandler.removeCallbacksAndMessages(null);
+        mInfo.setVisibility(View.INVISIBLE);
+    }
+
+    private boolean postCheckin(String placeId) {
+        if (mCheckinCall != null || placeId == null)
+            return false;
+
+        mCheckinCall = CheckinApiSingleton.call().postPlaceCheckin(
+                PreferenceUtils.getUserId(getContext()),
+                PreferenceUtils.getAccessToken(getContext()),
+                placeId,
+                new CheckinLocation(mLocation));
+        mCheckinCall.enqueue(mCheckinResultCallback);
+        return false;
     }
 
     public void setLocation(Location location) {

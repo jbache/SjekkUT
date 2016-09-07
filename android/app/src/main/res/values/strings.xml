@@ -24,7 +24,7 @@
     <string name="network_error">Problemer med nettverkstilkoblingen.</string>
     <string name="http_error">Problemer med å kommunisere med server.</string>
     <string name="conversion_error">Problemer å tolke svar fra server.</string>
-    <string name="checkin_success">Du sjekket inn på %1$s %2$s.</string>
+    <string name="checkin_success">Gratulerer! Ditt besøk ble registrert</string>
     <string name="checkin_never">Du har aldri sjekket inn på %1$s!</string>
     <string name="unknown_place_description">Ukjent beskrivelse</string>
     <string name="checkin_personal_count_zero">Du har aldri sjekket inn her.</string>
@@ -103,6 +103,7 @@
     <string name="other_projects">Andre turprosjekter</string>
     <string name="search_results">Søkeresultater</string>
     <string name="just_now">akkurat nå</string>
+    <string name="checkin_failure">Beklager. Ditt besøk ble ikke registrert</string>
     <plurals name="checkin_daily_count">
         <item quantity="one">Kun en person har sjekket inn her idag.</item>
         <item quantity="other">%d personer har sjekket inn her idag.</item>
