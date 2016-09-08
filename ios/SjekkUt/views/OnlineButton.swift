@@ -11,12 +11,11 @@ import Alamofire
 
 class OnlineButton: UIButton {
 
-    let reachability = NetworkReachabilityManager(host: "sjekkut.app.dnt.no")
+    let reachability = NetworkReachabilityManager(host: "www.dnt.no")
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        setBackgroundImage(UIColor.grayColor().imageWithSize(self.bounds.size), forState: .Disabled)
         reachability?.listener = { status in
             switch status {
             case .Reachable:
@@ -25,8 +24,8 @@ class OnlineButton: UIButton {
                 self.enabled = false
             }
         }
-        enabled = (reachability?.isReachable)!
         reachability?.startListening()
+        enabled = (reachability?.isReachable)!
     }
 
     deinit {

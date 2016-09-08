@@ -19,8 +19,8 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
     @IBOutlet var userNameLabel: UILabel!
     @IBOutlet var statsCollectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var statHeaderView: UIView!
     @IBOutlet var publicCheckinsSwitch: UISwitch!
+    @IBOutlet var logoutButton: UIButton!
 
     var checkins:[[String:AnyObject]] = [[String:AnyObject]]()
     var tempStatData = [
@@ -42,6 +42,11 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     override func viewDidLoad() {
         checkins = getCheckins()
+
+        let font = UIFont(name: "FontAwesome", size: 20)!
+        let imageSize = CGSize(width: 25, height: 25)
+        let padlockImage = "".imageWithFont(font, size: imageSize, color: logoutButton.currentTitleColor)
+        logoutButton.setImage(padlockImage, forState: .Normal)
     }
 
     override func viewWillAppear(animated: Bool) {

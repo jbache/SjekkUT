@@ -54,6 +54,22 @@ extension NSString {
         let aString = self as String
         return aString.loadFileContents(inClass: aClass)
     }
+
+    // from http://stackoverflow.com/a/27725519
+    func imageWithFont(font:UIFont, size:CGSize, color:UIColor) -> UIImage {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraph.alignment = .Center // potentially this can be an input param too, but i guess in most use cases we want center align
+
+        let attributedString = NSAttributedString(string: self as String, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName:paragraph])
+
+        let size = attributedString.boundingRectWithSize(size, options:(NSStringDrawingOptions.UsesLineFragmentOrigin), context:nil).size
+        UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
+        attributedString.drawInRect(CGRectMake(0, 0, size.width, size.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 
 func delay(delay:Double, closure:()->()) {

@@ -20,7 +20,6 @@
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
-            <string>FontAwesome</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -45,13 +44,17 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b95-Ep-JLP">
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b95-Ep-JLP" customClass="OnlineButton" customModule="SjekkUT" customModuleProvider="target">
                                 <rect key="frame" x="510" y="0.0" width="90" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="hDd-pg-Jzg"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="8" minY="8" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.29803921570000003" green="0.30196078430000001" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="logoutClicked:" destination="UVh-iZ-6qI" eventType="touchUpInside" id="HHI-gl-J7u"/>
@@ -249,15 +252,6 @@
                                     <outlet property="delegate" destination="UVh-iZ-6qI" id="Gwt-pO-ODg"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrn-f7-Ksx">
-                                <rect key="frame" x="556" y="0.0" width="44" height="33"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="t7y-AN-E6V"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -265,12 +259,9 @@
                             <constraint firstItem="ejE-pF-QvR" firstAttribute="leading" secondItem="15I-mA-Xb1" secondAttribute="leading" id="E8w-47-SiA"/>
                             <constraint firstItem="b95-Ep-JLP" firstAttribute="trailing" secondItem="15I-mA-Xb1" secondAttribute="trailing" id="Gcl-Kj-E58"/>
                             <constraint firstAttribute="trailing" secondItem="ejE-pF-QvR" secondAttribute="trailing" id="Hhf-7l-W71"/>
-                            <constraint firstItem="vrn-f7-Ksx" firstAttribute="top" secondItem="b95-Ep-JLP" secondAttribute="top" id="Koc-BL-lt2"/>
                             <constraint firstItem="b95-Ep-JLP" firstAttribute="leading" secondItem="ZJY-j5-pPY" secondAttribute="trailing" constant="8" id="NAA-J7-cKB"/>
                             <constraint firstItem="ZJY-j5-pPY" firstAttribute="leading" secondItem="15I-mA-Xb1" secondAttribute="leading" id="UmK-Ac-8mC"/>
-                            <constraint firstItem="vrn-f7-Ksx" firstAttribute="trailing" secondItem="b95-Ep-JLP" secondAttribute="trailing" id="Uv8-Wk-w5w"/>
                             <constraint firstItem="b95-Ep-JLP" firstAttribute="top" secondItem="ZJY-j5-pPY" secondAttribute="top" id="WPr-Rd-vjh"/>
-                            <constraint firstItem="vrn-f7-Ksx" firstAttribute="height" secondItem="b95-Ep-JLP" secondAttribute="height" id="Xtp-VG-i1w"/>
                             <constraint firstItem="nfF-WF-bGd" firstAttribute="top" secondItem="ZJY-j5-pPY" secondAttribute="bottom" id="Zpg-X4-5QY"/>
                             <constraint firstItem="ZJY-j5-pPY" firstAttribute="top" secondItem="IAp-W5-plK" secondAttribute="bottom" id="cxI-iD-qBW"/>
                             <constraint firstItem="ejE-pF-QvR" firstAttribute="top" secondItem="nfF-WF-bGd" secondAttribute="bottom" constant="8" id="gN1-lQ-hLW"/>
@@ -291,6 +282,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="logoutButton" destination="b95-Ep-JLP" id="OBl-p1-Lum"/>
                         <outlet property="publicCheckinsSwitch" destination="CD2-9a-A4b" id="yc8-pe-5aY"/>
                         <outlet property="statsCollectionView" destination="nfF-WF-bGd" id="EWX-zM-IzL"/>
                         <outlet property="tableView" destination="ejE-pF-QvR" id="u1V-zF-G8l"/>
@@ -447,7 +439,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sqc-dr-SmM" customClass="OnlineButton" customModule="SjekkUT" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sqc-dr-SmM">
                                                     <rect key="frame" x="512" y="8" width="80" height="33"/>
                                                     <color key="backgroundColor" red="0.84705882349999995" green="0.1764705882" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
