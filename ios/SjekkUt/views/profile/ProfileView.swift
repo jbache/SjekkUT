@@ -24,9 +24,9 @@ class ProfileView: UIViewController, UICollectionViewDelegate, UICollectionViewD
 
     var checkins:[[String:AnyObject]] = [[String:AnyObject]]()
     var tempStatData = [
-        ["name": "one", "value": "1/1"],
-        ["name": "two", "value": "2/2"],
-        ["name": "three", "value": "3"]
+        ["name": NSLocalizedString("Visits", comment:"visit stat"), "value": "\(Checkin.allEntities().count)"],
+        ["name": NSLocalizedString("Projects", comment:"active projects stat"), "value": "\(Project.allParticipating().count)"],
+        ["name": NSLocalizedString("Visits last 30 days", comment:"last 30 dys stat"), "value": "\(Checkin.visitsLast30Days().count)"]
     ]
     
     @IBAction func logoutClicked(sender: AnyObject) {

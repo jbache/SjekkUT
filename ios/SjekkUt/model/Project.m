@@ -347,4 +347,11 @@
     return [NSString stringWithFormat:formatString, @((double)self.places.count * self.progress.doubleValue), @(self.places.count)];
 }
 
++ (NSArray *)allParticipating
+{
+    NSPredicate *participatingPredicate = [NSPredicate predicateWithFormat:@"isParticipating == YES"];
+    NSArray *participatingProjects = [[Project allEntities] filteredArrayUsingPredicate:participatingPredicate];
+    return participatingProjects;
+}
+
 @end

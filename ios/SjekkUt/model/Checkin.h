@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (Checkin *)insertOrUpdate:(NSDictionary *)json;
 + (NSDateFormatter *)dateFormatter;
++ (NSArray *)visitsLast30Days;
 - (void)update:(NSDictionary *)json;
 - (NSString *)timeAgo;
 

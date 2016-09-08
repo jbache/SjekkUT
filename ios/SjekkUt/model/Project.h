@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest *)fetchRequest;
 + (instancetype)insertOrUpdate:(id)jsonOrId;
++ (NSArray *)allParticipating;
 
 - (void)updateDistance;
 - (void)updatePlacesDistance;

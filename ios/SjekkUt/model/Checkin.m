@@ -107,4 +107,12 @@
     return @"";
 }
 
++ (NSArray *)visitsLast30Days
+{
+    NSDate *thirtyDaysAgo = [[NSDate date] dateByAddingTimeInterval:-30 * 24 * 60 * 60];
+    NSPredicate *daysAgoPredicate = [NSPredicate predicateWithFormat:@"date > %@", thirtyDaysAgo];
+    NSArray *daysAgoProjects = [[Checkin allEntities] filteredArrayUsingPredicate:daysAgoPredicate];
+    return daysAgoProjects;
+}
+
 @end
