@@ -90,3 +90,9 @@ extension UIColor {
         return image
     }
 }
+
+extension NSError {
+    var isOffline:Bool {
+        return self.domain == NSURLErrorDomain && self.code == NSURLErrorNotConnectedToInternet
+    }
+}

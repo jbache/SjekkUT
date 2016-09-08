@@ -25,6 +25,14 @@ class SjekkUtApi: DntManager {
         }
     }
 
+    override var isOffline:Bool {
+        didSet {
+            if isOffline != oldValue {
+                getProfile()
+            }
+        }
+    }
+
 
     // MARK: profile
 
@@ -170,7 +178,7 @@ class SjekkUtApi: DntManager {
                     // the device comes back online
                     var aRetryRequest:NSMutableURLRequest? = nil
 
-                    if (self.isOffline || (error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet)) {
+                    if (self.isOffline || error.isOffline) {
 
                         // a random identifier we can use to update the entity with the API data when it POSTs the actual
                         // checkin

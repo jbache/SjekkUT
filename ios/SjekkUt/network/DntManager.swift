@@ -51,12 +51,8 @@ public class DntManager: Alamofire.Manager {
     }
 
     func failHandler(error:NSError!, retryRequest aRequest:NSURLRequest? = nil) {
-        switch (error.domain, error.code) {
-        case(NSURLErrorDomain, NSURLErrorNotConnectedToInternet):
-            isOffline = true
-        default:
-            print("error: \(error)")
-        }
+
+        isOffline = error.isOffline
 
         // if the request failed while offline, and is anything but GET, archive it to disk so it can be retried later
         if isOffline {
@@ -84,6 +80,12 @@ public class DntManager: Alamofire.Manager {
     }
 
     func addOfflineRequest(aRequest:NSURLRequest) {
+
+        // ignore all GET and HEAD requests
+        if aRequest.HTTPMethod == "GET" || aRequest.HTTPMethod == "HEAD" {
+            return
+        }
+
         // add the request
         offlineRequests!.append(aRequest)
         // and update disk storage
