@@ -110,10 +110,13 @@ public class DntManager: Alamofire.Manager {
         }
 
         // copy the array to prevent response handlers from mutating while enumerating
-        let offlineRequestCopy = self.offlineRequests
+        if let remainremainingRequests = self.offlineRequests {
+            processRequestsSequentially(remainremainingRequests)
+        }
+    }
 
-        // retry all offline requests
-        for aRequest in offlineRequestCopy! {
+    func processRequestsSequentially(requests:[NSURLRequest]) {
+        if let aRequest = requests.first {
             self.request(aRequest)
                 .validate(statusCode: 200..<300)
                 .responseJSON { response in
@@ -132,9 +135,13 @@ public class DntManager: Alamofire.Manager {
                         }
                         print("failed syncing offline: \(error)")
                     }
+
+                    // continue with the rest
+                    let remainingCount = requests.count
+                    let slice = requests[1..<remainingCount]
+                    self.processRequestsSequentially(Array(slice))
             }
         }
-
     }
 
     func removeCompletedRequest(aRequest:NSURLRequest) {
