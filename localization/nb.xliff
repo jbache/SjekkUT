@@ -339,20 +339,15 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
     </header>
     <body>
+      <trans-unit id="%@ ago">
+        <source>%@ ago</source>
+        <target>%@ siden</target>
+        <note>time ago above 60s</note>
+      </trans-unit>
       <trans-unit id="%@ left">
         <source>%@ left</source>
         <target>%@ igjen</target>
         <note>distance visit button title</note>
-      </trans-unit>
-      <trans-unit id="%@ people have checked in here today.">
-        <source>%@ people have checked in here today.</source>
-        <target>%@ personer har besøkt i dag.</target>
-        <note>daily checkin description</note>
-      </trans-unit>
-      <trans-unit id="(dateRelativeString!) ago">
-        <source>(dateRelativeString!) ago</source>
-        <target>(dateRelativeString!) siden</target>
-        <note>time since</note>
       </trans-unit>
       <trans-unit id="Allow using location">
         <source>Allow using location</source>
@@ -379,16 +374,6 @@
         <target>Klarte ikke finne turpost. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.</target>
         <note>location timeout notification text</note>
       </trans-unit>
-      <trans-unit id="In total, %@ people have checked in here.">
-        <source>In total, %@ people have checked in here.</source>
-        <target>%@ personer har besøkt.</target>
-        <note>total checkin description</note>
-      </trans-unit>
-      <trans-unit id="In total, one person have checked in here.">
-        <source>In total, one person have checked in here.</source>
-        <target>En person har besøkt.</target>
-        <note>single checkin description</note>
-      </trans-unit>
       <trans-unit id="Join">
         <source>Join</source>
         <target>Bli med</target>
@@ -396,8 +381,18 @@
       </trans-unit>
       <trans-unit id="Join project to track progress">
         <source>Join project to track progress</source>
-        <target>Bli med for å se fremdrift</target>
+        <target>Du deltar ikke i dette turprosjektet</target>
         <note>Leave project label</note>
+      </trans-unit>
+      <trans-unit id="Just now">
+        <source>Just now</source>
+        <target>Akkurat nå</target>
+        <note>time ago below 60s</note>
+      </trans-unit>
+      <trans-unit id="Last visited: %@">
+        <source>Last visited: %@</source>
+        <target>Sist besøkt: %@</target>
+        <note>last visited with time ago</note>
       </trans-unit>
       <trans-unit id="Leave">
         <source>Leave</source>
@@ -406,7 +401,7 @@
       </trans-unit>
       <trans-unit id="Leave project">
         <source>Leave project</source>
-        <target>Meld av turprosjekt</target>
+        <target>Du deltar i dette turprosjektet</target>
         <note>Leave project label</note>
       </trans-unit>
       <trans-unit id="My projects">
@@ -429,16 +424,6 @@
         <target>Ikke GPS</target>
         <note>No GPS signal title</note>
       </trans-unit>
-      <trans-unit id="Nobody have checked in here today.">
-        <source>Nobody have checked in here today.</source>
-        <target>Ingen besøk i dag.</target>
-        <note>daily checkin description</note>
-      </trans-unit>
-      <trans-unit id="Nobody have checked in here.">
-        <source>Nobody have checked in here.</source>
-        <target>Ingen besøk.</target>
-        <note>total checkin description</note>
-      </trans-unit>
       <trans-unit id="Not climbed">
         <source>Not climbed</source>
         <target>Ikke besøkt</target>
@@ -453,11 +438,6 @@
         <source>Ok, we have you visiting %@. Good job!</source>
         <target>Ok, vi har registrert besøk på %@. Bra jobbet!</target>
         <note>message of panel after visiting</note>
-      </trans-unit>
-      <trans-unit id="Only one person have checked in here today.">
-        <source>Only one person have checked in here today.</source>
-        <target>Kun ett besøk i dag.</target>
-        <note>daily checkin description</note>
       </trans-unit>
       <trans-unit id="Other projects">
         <source>Other projects</source>
@@ -526,9 +506,9 @@
         <target>Klarer ikke finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.</target>
         <note>locate permission error message</note>
       </trans-unit>
-      <trans-unit id="Visit %@">
-        <source>Visit %@</source>
-        <target>Besøk %@</target>
+      <trans-unit id="Visit">
+        <source>Visit</source>
+        <target>Besøk</target>
         <note>visit title</note>
       </trans-unit>
       <trans-unit id="Visit registered">
@@ -581,26 +561,6 @@
         <target>Du kan nå besøke %@!</target>
         <note>visit message</note>
       </trans-unit>
-      <trans-unit id="You checked in to %@ %@.">
-        <source>You checked in to %1$@ %2$@.</source>
-        <target>Du besøkte %@ %@.</target>
-        <note>last checkin time ago</note>
-      </trans-unit>
-      <trans-unit id="You have checked in here %@ times.">
-        <source>You have checked in here %@ times.</source>
-        <target>Du har besøkt %@ ganger.</target>
-        <note>personal checkin description</note>
-      </trans-unit>
-      <trans-unit id="You have checked in here once.">
-        <source>You have checked in here once.</source>
-        <target>Du har besøkt èn gang.</target>
-        <note>personal checkin description</note>
-      </trans-unit>
-      <trans-unit id="You have never checked in here.">
-        <source>You have never checked in here.</source>
-        <target>Du har aldri besøkt her.</target>
-        <note>personal checkin description</note>
-      </trans-unit>
       <trans-unit id="You have summited %@ of %@ so far!">
         <source>You have summited %1$@ of %2$@ so far!</source>
         <target>Du har besøkt %1$@ av %2$@ til nå!</target>
@@ -621,9 +581,8 @@
         <target>Du må vente 24 timer før du kan besøke</target>
         <note>can't check in time</note>
       </trans-unit>
-      <trans-unit id="You visited %@ %@ ago">
-        <source>You visited %1$@ %2$@ ago</source>
-        <target>Du besøkte %1$@ %2$@ siden</target>
+      <trans-unit id="You visited %@ %@">
+        <source>You visited %1$@ %2$@</source>
         <note>message of visit panel when not possible to visit</note>
       </trans-unit>
     </body>
@@ -663,11 +622,6 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3.1" build-num="7D1014"/>
     </header>
     <body>
-      <trans-unit id="(dateRelativeString!) ago">
-        <source>(dateRelativeString!) ago</source>
-        <target>(dateRelativeString!) siden</target>
-        <note>time since</note>
-      </trans-unit>
       <trans-unit id="Allow using location">
         <source>Allow using location</source>
         <target>Tillat å bruke stedstjenester</target>
@@ -682,6 +636,10 @@
         <source>Could not get a location. Make sure you have authorized the use of location services.</source>
         <target>Klarte ikke finne turpost. Pass på at du har tillatt bruk av stedstjenester.</target>
         <note>location timeout notification text</note>
+      </trans-unit>
+      <trans-unit id="Last visited: %@">
+        <source>Last visited: %@</source>
+        <note>last visited with time ago</note>
       </trans-unit>
       <trans-unit id="No">
         <source>No</source>
