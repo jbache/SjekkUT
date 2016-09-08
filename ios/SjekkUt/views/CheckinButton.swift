@@ -135,12 +135,21 @@ class CheckinButton: UIButton {
                 delegate.showInfo(self.visitingMessage())
                 enabled = false
                 SjekkUtApi.instance.doPlaceCheckin(aPlace) {
-                    result in
-                    switch result {
+                    response in
+                    switch response.result {
                     case .Success:
                         self.delegate!.showInfo(self.visitedMessage())
                     case .Failure(let error):
-                        self.delegate!.showInfo(self.failedMessage(error))
+                        // try to parse the message from API
+                        var aMessage:String? = nil
+                        do {
+                            let JSON = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions(rawValue: 0)) as! NSDictionary
+                            aMessage = JSON["message"] as? String
+                        }
+                        catch let JSONError as NSError {
+                            print("error: \(JSONError)")
+                        }
+                        self.delegate!.showInfo(self.failedMessage(aMessage ?? error.localizedFailureReason!))
                     }
                     // re-enable checkin button
                     self.enabled = true
@@ -187,8 +196,8 @@ class CheckinButton: UIButton {
         }
     }
 
-    func failedMessage(anError:NSError) -> CheckinMessage {
+    func failedMessage(anError:AnyObject) -> CheckinMessage {
         return (NSLocalizedString("Can't register visit", comment: "title of panel if visit fails"),
-                NSLocalizedString("Something wrong happened: \(anError.localizedDescription).", comment: "message of panel failing to visit"))
+                NSLocalizedString("Something wrong happened: \(anError).", comment: "message of panel failing to visit"))
     }
 }

@@ -141,7 +141,7 @@ class SjekkUtApi: DntManager {
         }
     }
 
-    func doPlaceCheckin(aPlace:Place, finishHandler:(result:Result<AnyObject,NSError>)->()) {
+    func doPlaceCheckin(aPlace:Place, finishHandler:(response:Response<AnyObject, NSError>)->()) {
         let currentLocation = Location.instance().currentLocation.coordinate
         let someParameters = [
             "lat": currentLocation.latitude,
@@ -150,11 +150,11 @@ class SjekkUtApi: DntManager {
             "timestamp": Checkin.dateFormatter().stringFromDate(NSDate()),
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
-        request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders, encoding: .JSON)
+        request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 // in the case of offline checkins we need to fake a successful result for the finish handler
-                var aResult = response.result
+                var aResponse = response
                 switch response.result {
                 case .Success:
                     if let json = response.result.value {
@@ -194,12 +194,12 @@ class SjekkUtApi: DntManager {
                             aRetryRequest = offlineRequest
 
                             // fake correct result
-                            aResult = Result.Success("")
+                            aResponse = Response(request: response.request, response: response.response, data: response.data, result: .Success("asdf"))
                         }
                     }
                     self.failHandler(error, retryRequest: aRetryRequest)
                 }
-                finishHandler(result: aResult)
+                finishHandler(response: aResponse)
         }
     }
 

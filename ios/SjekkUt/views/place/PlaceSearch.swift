@@ -22,9 +22,9 @@ class PlaceSearch: UIViewController {
         activityIndicator.startAnimating()
         self.checkinLabel.text = NSLocalizedString("Checking in...", comment: "Checking in label in summit search")
         SjekkUtApi.instance.doPlaceCheckin(self.place) {
-            result in
+            response in
             self.activityIndicator.stopAnimating()
-            switch result {
+            switch response.result {
             case .Success:
                 self.performSegueWithIdentifier("showPlace", sender: self.place)
             case .Failure(let error):
