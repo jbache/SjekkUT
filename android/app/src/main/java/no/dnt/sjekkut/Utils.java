@@ -9,6 +9,8 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
@@ -270,5 +272,11 @@ public class Utils {
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.share_visit_text, placeName));
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareUrl);
         context.startActivity(Intent.createChooser(shareIntent, "Del ditt besøk"));
+    }
+
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
