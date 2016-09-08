@@ -182,14 +182,14 @@ class CheckinButton: UIButton {
     }
 
     func enabledMessage() -> CheckinMessage {
-        let aTitle = String.localizedStringWithFormat(NSLocalizedString("Visit %@", comment:"visit title"), place!.name!)
+        let aTitle = NSLocalizedString("Visit", comment:"visit title")
         let aMessage = String.localizedStringWithFormat(NSLocalizedString("You can now visit %@!", comment:"visit message"), place!.name!)
         return (aTitle, aMessage)
     }
 
     func disabledMessage() -> CheckinMessage {
         var title = NSLocalizedString("Visit registered", comment: "title of visit panel when not possible to visit")
-        var message = String.localizedStringWithFormat(NSLocalizedString("You visited %@ %@ ago", comment: "message of visit panel when not possible to visit"), place!.name!, place!.lastCheckin().timeAgo())
+        var message = String.localizedStringWithFormat(NSLocalizedString("You visited %@ %@", comment: "message of visit panel when not possible to visit"), place!.name!, place!.lastCheckin().timeAgo())
         if place!.canCheckinTime() {
             title = String.localizedStringWithFormat(NSLocalizedString("%@ left", comment:"distance visit button title"), place!.distanceDescription())
             message = String.localizedStringWithFormat(NSLocalizedString("Nearest post is %@.", comment:"distance visit button message"), place!.name!)

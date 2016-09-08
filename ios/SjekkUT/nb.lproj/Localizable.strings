@@ -1,11 +1,8 @@
+/* time ago above 60s */
+"%@ ago" = "%@ siden";
+
 /* distance visit button title */
 "%@ left" = "%@ igjen";
-
-/* daily checkin description */
-"%@ people have checked in here today." = "%@ personer har besøkt i dag.";
-
-/* time since */
-"(dateRelativeString!) ago" = "(dateRelativeString!) siden";
 
 /* title for location request */
 "Allow using location" = "Tillat å bruke stedstjenester";
@@ -22,23 +19,23 @@
 /* location timeout notification text */
 "Could not get a location. Make sure you have authorized the use of location services." = "Klarte ikke finne turpost. Vennligst sjekk at du har godkjent bruk av stedstjenester for appen i Innstillinger.";
 
-/* total checkin description */
-"In total, %@ people have checked in here." = "%@ personer har besøkt.";
-
-/* single checkin description */
-"In total, one person have checked in here." = "En person har besøkt.";
-
 /* Leave project button */
 "Join" = "Bli med";
 
 /* Leave project label */
-"Join project to track progress" = "Bli med for å se fremdrift";
+"Join project to track progress" = "Du deltar ikke i dette turprosjektet";
+
+/* time ago below 60s */
+"Just now" = "Akkurat nå";
+
+/* last visited with time ago */
+"Last visited: %@" = "Sist besøkt: %@";
 
 /* Leave project button */
 "Leave" = "Meld av";
 
 /* Leave project label */
-"Leave project" = "Meld av turprosjekt";
+"Leave project" = "Du deltar i dette turprosjektet";
 
 /* section header with checkins */
 "My projects" = "Mine turprosjekter";
@@ -52,12 +49,6 @@
 /* No GPS signal title */
 "No GPS" = "Ikke GPS";
 
-/* daily checkin description */
-"Nobody have checked in here today." = "Ingen besøk i dag.";
-
-/* total checkin description */
-"Nobody have checked in here." = "Ingen besøk.";
-
 /* no checkin label */
 "Not climbed" = "Ikke besøkt";
 
@@ -66,9 +57,6 @@
 
 /* message of panel after visiting */
 "Ok, we have you visiting %@. Good job!" = "Ok, vi har registrert besøk på %@. Bra jobbet!";
-
-/* daily checkin description */
-"Only one person have checked in here today." = "Kun ett besøk i dag.";
 
 /* section header without checkins */
 "Other projects" = "Andre turprosjekter";
@@ -112,7 +100,7 @@
 "Unable to locate you. This can occur if you didn't allow using location services, or if your device has parental controls." = "Klarer ikke finne deg. Dette kan skje hvis du ikke tillot å bruke stedstjenester, eller hvis foreldrekontroll er i bruk.";
 
 /* visit title */
-"Visit %@" = "Besøk %@";
+"Visit" = "Besøk";
 
 /* title of visit panel when not possible to visit */
 "Visit registered" = "Besøk registret";
@@ -144,18 +132,6 @@
 /* visit message */
 "You can now visit %@!" = "Du kan nå besøke %@!";
 
-/* last checkin time ago */
-"You checked in to %@ %@." = "Du besøkte %@ %@.";
-
-/* personal checkin description */
-"You have checked in here %@ times." = "Du har besøkt %@ ganger.";
-
-/* personal checkin description */
-"You have checked in here once." = "Du har besøkt èn gang.";
-
-/* personal checkin description */
-"You have never checked in here." = "Du har aldri besøkt her.";
-
 /* count summits in challenge */
 "You have summited %@ of %@ so far!" = "Du har besøkt %1$@ av %2$@ til nå!";
 
@@ -167,7 +143,4 @@
 
 /* can't check in time */
 "You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan besøke";
-
-/* message of visit panel when not possible to visit */
-"You visited %@ %@ ago" = "Du besøkte %1$@ %2$@ siden";
 

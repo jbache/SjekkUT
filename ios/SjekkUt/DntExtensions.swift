@@ -24,9 +24,12 @@ extension NSDate {
         formatter.includesApproximationPhrase = false
         formatter.includesTimeRemainingPhrase = false
         formatter.maximumUnitCount = 1
-        formatter.allowedUnits = [.Second, .Minute, .Hour, .Day, .WeekOfMonth, .Month, .Year]
-        let dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
-        return dateRelativeString!
+        formatter.allowedUnits = [.Minute, .Hour, .Day, .WeekOfMonth, .Month, .Year]
+        var dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
+        if abs(self.timeIntervalSinceNow) <= 60 {
+            dateRelativeString = NSLocalizedString("Just now",comment:"time ago below 60s")
+        }
+        return String.localizedStringWithFormat(NSLocalizedString("%@ ago", comment:"time ago above 60s"), dateRelativeString!)
     }
 }
 
