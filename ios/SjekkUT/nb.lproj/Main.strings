@@ -7,7 +7,7 @@
 /* Class = "UILabel"; text = "Not climbed"; ObjectID = "Bcx-SZ-h4j"; */
 "Bcx-SZ-h4j.text" = "Ikke besøkt";
 
-/* Class = "UIButton"; normalTitle = "Check in!"; ObjectID = "IBq-T2-jaY"; */
+/* (No Commment) */
 "IBq-T2-jaY.normalTitle" = "Besøk!";
 
 /* (No Commment) */
@@ -32,7 +32,7 @@
 "UVh-iZ-6qI.title" = "Profil";
 
 /* Class = "UILabel"; text = "Count"; ObjectID = "Vr9-EL-Pxm"; */
-"Vr9-EL-Pxm.text" = "Dato";
+"Vr9-EL-Pxm.text" = "Antall";
 
 /* Class = "UINavigationItem"; title = "Project"; ObjectID = "X32-B9-KX4"; */
 "X32-B9-KX4.title" = "Turprosjekt";

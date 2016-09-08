@@ -11,7 +11,6 @@
 		5F60BEB69948B0C4E2E79AF0 /* Pods_SjekkUtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF84291107163DE673862F6 /* Pods_SjekkUtTests.framework */; };
 		6C04BE391D61C60500741C42 /* DntImageSize+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C04BE361D61C60500741C42 /* DntImageSize+CoreDataProperties.m */; };
 		6C04BE3A1D61C60500741C42 /* DntImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C04BE381D61C60500741C42 /* DntImageSize.m */; };
-		6C08F6791A8A0ACD0091D70A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C08F67B1A8A0ACD0091D70A /* Localizable.strings */; };
 		6C0B635E1D6EDD14007F737A /* CheckinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0B635D1D6EDD14007F737A /* CheckinButton.swift */; };
 		6C163BAA1D75BC2E00833E96 /* CheckinHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C163BA91D75BC2E00833E96 /* CheckinHeaderCell.swift */; };
 		6C163BAC1D76C4CF00833E96 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C163BAB1D76C4CF00833E96 /* ProjectView.swift */; };
@@ -28,6 +27,8 @@
 		6C36A1411B0CA7DB00169E98 /* storskrymten.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6C36A1401B0CA7DB00169E98 /* storskrymten.gpx */; };
 		6C36A1441B0CA8A100169E98 /* besselvassheia.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6C36A1431B0CA8A100169E98 /* besselvassheia.gpx */; };
 		6C36A1481B0CA8BB00169E98 /* cutehacks.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6C36A1471B0CA8BB00169E98 /* cutehacks.gpx */; };
+		6C38FDF11D81869500F1C827 /* CheckinPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C38FDF31D81869500F1C827 /* CheckinPanel.xib */; };
+		6C38FDF81D8187ED00F1C827 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C08F67B1A8A0ACD0091D70A /* Localizable.strings */; };
 		6C4A967A1D63288D00EA0B50 /* DntGroup+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A96771D63288D00EA0B50 /* DntGroup+CoreDataProperties.m */; };
 		6C4A967B1D63288E00EA0B50 /* DntGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A96791D63288D00EA0B50 /* DntGroup.m */; };
 		6C4A967D1D64492C00EA0B50 /* ObjCHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A967C1D64492C00EA0B50 /* ObjCHelpers.swift */; };
@@ -68,7 +69,6 @@
 		6CA3E1401D49EF57003BA194 /* www.dnt.no.client_id in Resources */ = {isa = PBXBuildFile; fileRef = 6CA3E13C1D49EF57003BA194 /* www.dnt.no.client_id */; };
 		6CA3E1431D4A4908003BA194 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA3E1421D4A4908003BA194 /* PlaceView.swift */; };
 		6CA44AA01D783E86008B0662 /* DntManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA44A9F1D783E86008B0662 /* DntManager.swift */; };
-		6CA44AA61D7998CA008B0662 /* CheckinPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CA44AA51D7998CA008B0662 /* CheckinPanel.xib */; };
 		6CB04DC01D48C9AC0024DE11 /* SjekkUtApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */; };
 		6CB40DF81D460D260030433D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40DF71D460D260030433D /* LoginView.swift */; };
 		6CC373821D7EB803000A6550 /* OnlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC373811D7EB803000A6550 /* OnlineButton.swift */; };
@@ -157,6 +157,9 @@
 		6C36A1401B0CA7DB00169E98 /* storskrymten.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = storskrymten.gpx; path = "position-gpx/storskrymten.gpx"; sourceTree = SOURCE_ROOT; };
 		6C36A1431B0CA8A100169E98 /* besselvassheia.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = besselvassheia.gpx; path = "position-gpx/besselvassheia.gpx"; sourceTree = SOURCE_ROOT; };
 		6C36A1471B0CA8BB00169E98 /* cutehacks.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = cutehacks.gpx; path = "position-gpx/cutehacks.gpx"; sourceTree = SOURCE_ROOT; };
+		6C38FDF21D81869500F1C827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CheckinPanel.xib; sourceTree = "<group>"; };
+		6C38FDF51D81869900F1C827 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CheckinPanel.strings; sourceTree = "<group>"; };
+		6C38FDF71D81869E00F1C827 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/CheckinPanel.strings; sourceTree = "<group>"; };
 		6C4A96761D63288D00EA0B50 /* DntGroup+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DntGroup+CoreDataProperties.h"; path = "model/DntGroup+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6C4A96771D63288D00EA0B50 /* DntGroup+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DntGroup+CoreDataProperties.m"; path = "model/DntGroup+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6C4A96781D63288D00EA0B50 /* DntGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntGroup.h; path = model/DntGroup.h; sourceTree = "<group>"; };
@@ -224,7 +227,6 @@
 		6CA3E1421D4A4908003BA194 /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaceView.swift; path = views/place/PlaceView.swift; sourceTree = "<group>"; };
 		6CA44A9F1D783E86008B0662 /* DntManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DntManager.swift; path = network/DntManager.swift; sourceTree = "<group>"; };
 		6CA44AA31D78663A008B0662 /* 0.3.0-9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "0.3.0-9.xcdatamodel"; sourceTree = "<group>"; };
-		6CA44AA51D7998CA008B0662 /* CheckinPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckinPanel.xib; path = views/checkin/CheckinPanel.xib; sourceTree = "<group>"; };
 		6CB04DBF1D48C9AC0024DE11 /* SjekkUtApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SjekkUtApi.swift; path = network/SjekkUtApi.swift; sourceTree = "<group>"; };
 		6CB40DF51D460D250030433D /* SjekkUt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SjekkUt-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CB40DF71D460D260030433D /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = views/LoginView.swift; sourceTree = "<group>"; };
@@ -519,7 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				6C0B635D1D6EDD14007F737A /* CheckinButton.swift */,
-				6CA44AA51D7998CA008B0662 /* CheckinPanel.xib */,
+				6C38FDF31D81869500F1C827 /* CheckinPanel.xib */,
 				6C2826F31D799D7B007A1458 /* CheckinPanel.swift */,
 			);
 			name = checkin;
@@ -672,12 +674,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C38FDF81D8187ED00F1C827 /* Localizable.strings in Resources */,
 				6C5E83ED1D7EB035004997BA /* holdalsheia.gpx in Resources */,
 				6C36A1481B0CA8BB00169E98 /* cutehacks.gpx in Resources */,
 				6CA3E13E1D49EF57003BA194 /* api.nasjonalturbase.no.api_key in Resources */,
 				6CA3E13F1D49EF57003BA194 /* dev.nasjonalturbase.no.api_key in Resources */,
 				6C72A4051A8B92D300A47AEE /* Settings.bundle in Resources */,
-				6C08F6791A8A0ACD0091D70A /* Localizable.strings in Resources */,
 				6C36A1411B0CA7DB00169E98 /* storskrymten.gpx in Resources */,
 				6C6FE15C1A82332C002B5DD5 /* Main.storyboard in Resources */,
 				6C6FE1611A82332C002B5DD5 /* LaunchScreen.xib in Resources */,
@@ -687,7 +689,7 @@
 				6C36A1441B0CA8A100169E98 /* besselvassheia.gpx in Resources */,
 				6C740AAF1B187F9C00176D2E /* opptur-splash-compressed.jpg in Resources */,
 				6CA3E13D1D49EF57003BA194 /* www.dnt.no.client_secret in Resources */,
-				6CA44AA61D7998CA008B0662 /* CheckinPanel.xib in Resources */,
+				6C38FDF11D81869500F1C827 /* CheckinPanel.xib in Resources */,
 				6C92E38B1D6DC92500464AAE /* FontAwesome.otf in Resources */,
 				6C6FE15E1A82332C002B5DD5 /* Images.xcassets in Resources */,
 				6C740AB11B187FA600176D2E /* dnt-logo.png in Resources */,
@@ -929,6 +931,17 @@
 				6C2F4EF01AE6348400E12F4E /* nb */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6C38FDF31D81869500F1C827 /* CheckinPanel.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C38FDF21D81869500F1C827 /* Base */,
+				6C38FDF51D81869900F1C827 /* en */,
+				6C38FDF71D81869E00F1C827 /* nb */,
+			);
+			name = CheckinPanel.xib;
+			path = views/checkin;
 			sourceTree = "<group>";
 		};
 		6C6FE15A1A82332C002B5DD5 /* Main.storyboard */ = {

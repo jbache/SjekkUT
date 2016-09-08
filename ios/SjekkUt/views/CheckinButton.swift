@@ -164,40 +164,43 @@ class CheckinButton: UIButton {
     // MARK: strings
 
     func noGpsMessage() -> CheckinMessage {
-        return (NSLocalizedString("No GPS", comment: "No GPS signal title"),
-                NSLocalizedString("We need GPS to register visit. Please turn this on in Settings", comment: "No GPS signal message"))
+        let title = NSLocalizedString("No GPS", comment: "No GPS signal title")
+        let message = NSLocalizedString("We need GPS to register visit. Please turn this on in Settings", comment: "No GPS signal message")
+        return (title, message)
     }
 
     func visitingMessage() -> CheckinMessage {
         let titleString = NSLocalizedString("Registering visit", comment: "title of panel when visiting")
-        let messageString = NSLocalizedString("Visiting \(place!.name!), please wait..", comment: "message of panel when visiting")
+        let messageString = String.localizedStringWithFormat(NSLocalizedString("Visiting %@, please wait..", comment: "message of panel when visiting"), place!.name!)
         return (titleString, messageString)
     }
 
     func visitedMessage() -> CheckinMessage {
-        return (NSLocalizedString("Visited \(place!.name!)", comment: "title of panel after visiting"),
-                NSLocalizedString("Ok, we have you visiting \(place!.name!). Good job!", comment: "message of panel after visiting"))
+        let titleString = String.localizedStringWithFormat(NSLocalizedString("Visited %@", comment: "title of panel after visiting"),place!.name!)
+        let messageString = String.localizedStringWithFormat(NSLocalizedString("Ok, we have you visiting %@. Good job!", comment: "message of panel after visiting"), place!.name!)
+        return (titleString, messageString)
     }
 
     func enabledMessage() -> CheckinMessage {
-        return (NSLocalizedString("Visit \(place!.name!)", comment:"visit title"),
-                NSLocalizedString("You can now visit \(place!.name!)!", comment:"visit message"))
+        let aTitle = String.localizedStringWithFormat(NSLocalizedString("Visit %@", comment:"visit title"), place!.name!)
+        let aMessage = String.localizedStringWithFormat(NSLocalizedString("You can now visit %@!", comment:"visit message"), place!.name!)
+        return (aTitle, aMessage)
     }
 
     func disabledMessage() -> CheckinMessage {
+        var title = NSLocalizedString("Visit registered", comment: "title of visit panel when not possible to visit")
+        var message = String.localizedStringWithFormat(NSLocalizedString("You visited %@ %@ ago", comment: "message of visit panel when not possible to visit"), place!.name!, place!.lastCheckin().timeAgo())
         if place!.canCheckinTime() {
-//            let distanceLimit = "200m"
-            return (NSLocalizedString("\(place!.distanceDescription()) left", comment:"distance visit button title"),
-                    NSLocalizedString("Nearest post is \(place!.name!).", comment:"distance visit button message"))
+            title = String.localizedStringWithFormat(NSLocalizedString("%@ left", comment:"distance visit button title"), place!.distanceDescription())
+            message = String.localizedStringWithFormat(NSLocalizedString("Nearest post is %@.", comment:"distance visit button message"), place!.name!)
         }
-        else {
-            return (NSLocalizedString("Visit registered", comment: "title of visit panel when not possible to visit"),
-                    NSLocalizedString("You visited \(place!.name!) \(place!.lastCheckin().timeAgo()) ago", comment: "message of visit panel when not possible to visit"))
-        }
+
+        return (title,message)
     }
 
-    func failedMessage(anError:AnyObject) -> CheckinMessage {
-        return (NSLocalizedString("Can't register visit", comment: "title of panel if visit fails"),
-                NSLocalizedString("Something wrong happened: \(anError).", comment: "message of panel failing to visit"))
+    func failedMessage(anError:String) -> CheckinMessage {
+        let title = NSLocalizedString("Can't register visit", comment: "title of panel if visit fails")
+        let message = String.localizedStringWithFormat(NSLocalizedString("Something wrong happened: %@.", comment: "message of panel failing to visit"), anError)
+        return (title, message)
     }
 }
