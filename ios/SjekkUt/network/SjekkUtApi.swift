@@ -28,7 +28,10 @@ class SjekkUtApi: DntManager {
     override var isOffline:Bool {
         didSet {
             if isOffline != oldValue {
-                getProfile()
+                // delay to allow reporting offline requests
+                delay(2) {
+                    self.getProfile()
+                }
             }
         }
     }
@@ -100,8 +103,14 @@ class SjekkUtApi: DntManager {
                         self.parseProfile(json["data"])
                     }
                 case .Failure(let error):
-                    self.failHandler(error)
-
+                    // in the case of offline we need to specify that the request should be retried when
+                    // the device comes back online
+                    var aRetryRequest:NSURLRequest? = nil
+                    if (self.isOffline || error.isOffline) {
+                        aProject.isParticipating = true
+                        aRetryRequest = response.request
+                    }
+                    self.failHandler(error, retryRequest: aRetryRequest)
                 }
                 completionHandler()
         }
@@ -118,7 +127,14 @@ class SjekkUtApi: DntManager {
                         self.parseProfile(json["data"])
                     }
                 case .Failure(let error):
-                    self.failHandler(error)
+                    // in the case of offline we need to specify that the request should be retried when
+                    // the device comes back online
+                    var aRetryRequest:NSURLRequest? = nil
+                    if (self.isOffline || error.isOffline) {
+                        aProject.isParticipating = false
+                        aRetryRequest = response.request
+                    }
+                    self.failHandler(error, retryRequest: aRetryRequest)
 
                 }
                 completionHandler()
