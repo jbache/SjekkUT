@@ -14,25 +14,17 @@ import SAMKeychain
 
 class SjekkUtApi: DntManager {
 
-    static let instance = SjekkUtApi(forDomain:"sjekkut.app.dnt.no")
-    var reachability:NetworkReachabilityManager? = nil
-    let authenticationHeaders:[String:String]? = [
-        "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
-        "X-User-Token": SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
-    ]
+    static let instance = SjekkUtApi(forDomain:"sjekkut.app.dnt.no/v2")
 
-    var baseUrl:String = ""
-
-    convenience init(forDomain aDomain:String) {
-        self.init()
-        baseUrl = "https://" + aDomain + "/v2"
-        reachability = NetworkReachabilityManager(host: aDomain)
-        reachability?.startListening()
+    var authenticationHeaders:[String:String]! {
+        get {
+            return [
+                "X-User-Id": "\((DntApi.instance.user?.identifier)!)",
+                "X-User-Token": SAMKeychain.passwordForService(SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
+            ]
+        }
     }
 
-    deinit {
-        reachability?.stopListening()
-    }
 
     // MARK: profile
 
@@ -74,7 +66,10 @@ class SjekkUtApi: DntManager {
                 if (!aProject.isParticipating!.boolValue) {
                     aProject.isParticipating = true
                 }
-                leaveProject.removeAtIndex(leaveProject.indexOf(aProject)!)
+
+                if let projectIndex = leaveProject.indexOf(aProject) {
+                    leaveProject.removeAtIndex(projectIndex)
+                }
             }
 
             // not participating in remaining objects
@@ -151,12 +146,15 @@ class SjekkUtApi: DntManager {
         let someParameters = [
             "lat": currentLocation.latitude,
             "lon": currentLocation.longitude,
-            "public":(DntApi.instance.user?.publicCheckins?.boolValue)!
+            "public":(DntApi.instance.user?.publicCheckins?.boolValue)!,
+            "timestamp": Checkin.dateFormatter().stringFromDate(NSDate()),
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
-        self.request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders, encoding: .JSON)
+        request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders, encoding: .JSON)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
+                // in the case of offline checkins we need to fake a successful result for the finish handler
+                var aResult = response.result
                 switch response.result {
                 case .Success:
                     if let json = response.result.value {
@@ -167,11 +165,20 @@ class SjekkUtApi: DntManager {
                         }
                     }
                 case .Failure(let error):
-                    if (DntApi.instance.isOffline || (error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet)) {
+
+                    // in the case of offline checkins we need to specify that the request should be retried when 
+                    // the device comes back online
+                    var aRetryRequest:NSMutableURLRequest? = nil
+
+                    if (self.isOffline || (error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet)) {
+
+                        // a random identifier we can use to update the entity with the API data when it POSTs the actual
+                        // checkin
+                        let aRandomId = "offline-\(NSUUID().UUIDString)"
+
                         ModelController.instance().saveBlock {
                             let checkin = Checkin.insert() as! Checkin
-                            let aRandomId = NSUUID().UUIDString
-                            checkin.identifier = "offline-\(aRandomId)"
+                            checkin.identifier = aRandomId
                             checkin.date = NSDate()
                             checkin.latitute = currentLocation.latitude
                             checkin.longitude = currentLocation.longitude
@@ -180,17 +187,19 @@ class SjekkUtApi: DntManager {
                             checkin.user = DntApi.instance.user
                             aPlace.addCheckinsObject(checkin)
                             NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:checkin);
-                            print("did offline checkin to \(aPlace.name!)")
+
+                            // store the temporary ID and retry the operation later
+                            let offlineRequest:NSMutableURLRequest = response.request?.mutableCopy() as! NSMutableURLRequest
+                            offlineRequest.setValue(checkin.objectID.URIRepresentation().absoluteString, forHTTPHeaderField: kSjekkUtConstantTemporaryManagedObjectIdHeaderKey)
+                            aRetryRequest = offlineRequest
+
+                            // fake correct result
+                            aResult = Result.Success("")
                         }
-                        // fake correct result
-                        finishHandler(result: Result.Success(""))
-                        return
                     }
-                    else {
-                        self.failHandler(error)
-                    }
+                    self.failHandler(error, retryRequest: aRetryRequest)
                 }
-                finishHandler(result: response.result)
+                finishHandler(result: aResult)
         }
     }
 
@@ -198,63 +207,6 @@ class SjekkUtApi: DntManager {
         ModelController.instance().saveBlock { 
             DntApi.instance.user?.publicCheckins = enablePublicCheckin
             finishHandler()
-        }
-    }
-
-    // MARK: offline
-    func syncOffline() {
-        let offlineCheckinsFetch = Checkin.fetch()
-        offlineCheckinsFetch.predicate = NSPredicate(format: "isOffline == YES")
-        do {
-            let offlineCheckins = try ModelController.instance().managedObjectContext.executeFetchRequest(offlineCheckinsFetch) as! [Checkin]
-            if offlineCheckins.count > 0 {
-                print("found \(offlineCheckins.count) offline checkins")
-            }
-            for aCheckin in offlineCheckins {
-                self.doOfflineCheckin(aCheckin)
-            }
-        }
-        catch {
-            print("\(error)")
-        }
-    }
-
-    func doOfflineCheckin(aCheckin:Checkin) {
-        // build a new checkin payload based on stored values
-        let someParameters = [
-            "timestamp": aCheckin.dateFormatter().stringFromDate(aCheckin.date!),
-            "lat": aCheckin.latitute!,
-            "lon": aCheckin.longitude!,
-            "public": (aCheckin.isPublic!.boolValue)
-        ]
-        let requestUrl = baseUrl + "/steder/\(aCheckin.place!.identifier!)/besok"
-        self.request(.POST, requestUrl, parameters:someParameters, headers:authenticationHeaders, encoding: .JSON)
-            .validate(statusCode: 200..<300)
-            .responseSwiftyJSON { response in
-                switch response.result {
-                case .Success:
-                    if let json:JSON = response.result.value!["data"] {
-                        // convert the offline checkin objecect to a real checkin
-                        ModelController.instance().saveBlock {
-                            aCheckin.identifier = json["_id"].string
-                            aCheckin.update(json.dictionaryObject!)
-                            aCheckin.isOffline = false
-                        }
-                        NSNotificationCenter.defaultCenter().postNotificationName(SjekkUtCheckedInNotification, object:aCheckin);
-                    }
-                case .Failure(let error):
-                        self.failHandler(error)
-                        if let httpStatusCode = response.response?.statusCode {
-                            switch httpStatusCode {
-                            // if validation failed, and we get 400 - Bad request, delete the checkin to prevent attempting
-                            // it again later
-                            case 400:
-                                aCheckin.delete()
-                            default:
-                                break
-                            }
-                        }
-                }
         }
     }
 }

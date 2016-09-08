@@ -23,6 +23,7 @@ static NSString *__nonnull kSjekkUtNotificationLocationChanged = @"com.dnt.sjekk
 
 static NSTimeInterval kSjekkUtConstantAnimationDuration = 0.250;
 
+static NSString *__nonnull kSjekkUtConstantTemporaryManagedObjectIdHeaderKey = @"X-SjekkUt-Temporary-Object-Id";
 #define defaultNotifyer [NSNotificationCenter defaultCenter]
 
 #define SjekkUtCheckedInNotification @"com.dnt.opptur.CheckedIn"

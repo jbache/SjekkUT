@@ -48,7 +48,7 @@
 
 - (void)update:(NSDictionary *)json
 {
-    NSDateFormatter *dateFormatter = [self dateFormatter];
+    NSDateFormatter *dateFormatter = [Checkin dateFormatter];
     setIfNotEqual(self.url, json[@"sharing_url"]);
     setIfNotEqual(self.date, [dateFormatter dateFromString:json[@"timestamp"]]);
     setIfNotEqual(self.user, [DntUser insertOrUpdate:[json[@"dnt_user_id"] stringValue]]);
@@ -85,14 +85,15 @@
 
 #pragma mark util
 
-- (NSDateFormatter *)dateFormatter
++ (NSDateFormatter *)dateFormatter
 {
     static NSDateFormatter *_dateFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        [_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"];
+        [_dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     });
     return _dateFormatter;
 }

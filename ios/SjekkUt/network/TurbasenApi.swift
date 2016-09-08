@@ -14,17 +14,16 @@ public class TurbasenApi: DntManager {
     static let instance = TurbasenApi(forDomain:"dev.nasjonalturbase.no")
 
     let projectFields:String = "steder,geojson,bilder,img,grupper,lenker,start,stopp,fylke,kommune"
-    var baseUrl:String = ""
-    var api_key = ""
+    var api_key:String!
     let locationController = Location.instance()
-
     var isObserving:Bool = false
     var kObserveLocation = 0
 
-    convenience init(forDomain aDomain:String) {
-        self.init()
-        self.baseUrl = "https://" + aDomain
-        self.api_key = (aDomain + ".api_key").loadFileContents(inClass:self.dynamicType)!
+
+
+    override init(forDomain aDomain:String) {
+        super.init(forDomain:aDomain)
+        self.api_key = (aDomain + ".api_key").loadFileContents(inClass:self.dynamicType)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateDistance), name: kSjekkUtNotificationLocationChanged, object: nil)
         locationController.startUpdate()
     }

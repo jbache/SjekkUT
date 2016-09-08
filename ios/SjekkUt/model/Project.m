@@ -72,9 +72,9 @@
 - (void)update:(NSDictionary *)json
 {
     setIfNotEqual(self.name, json[@"navn"]);
-    NSDate *start = [[self dateFormatter] dateFromString:json[@"start"]];
+    NSDate *start = [[Project dateFormatter] dateFromString:json[@"start"]];
     setIfNotEqual(self.start, start);
-    NSDate *stop = [[self dateFormatter] dateFromString:json[@"stopp"]];
+    NSDate *stop = [[Project dateFormatter] dateFromString:json[@"stopp"]];
     setIfNotEqual(self.stop, stop);
 
     [self parsePlaces:json[@"steder"]];
@@ -84,7 +84,7 @@
     [self updateDistance];
 }
 
-- (NSDateFormatter *)dateFormatter
++ (NSDateFormatter *)dateFormatter
 {
     static NSDateFormatter *_dateFormatter = nil;
     static dispatch_once_t onceToken;

@@ -14,13 +14,16 @@ import WebKit
 class DntApi: DntManager {
 
     static let instance = DntApi(forDomain:"www.dnt.no")
-    var baseUrl:String?
+    
     var clientId:String?
     var clientSecret:String?
     var successBlock:( () -> Void) = {}
     var failBlock:(()->Void) = {}
-    var reachability:NetworkReachabilityManager? = nil
-    var isOffline:Bool = false
+    override var isOffline:Bool {
+        didSet {
+            self.updateMemberDetails()
+        }
+    }
 
     var user:DntUser? {
         didSet {
@@ -50,16 +53,10 @@ class DntApi: DntManager {
     }
 
 
-    convenience init(forDomain aDomain:String) {
-        self.init()
-        baseUrl = "https://" + aDomain
+    override init(forDomain aDomain:String) {
+        super.init(forDomain:aDomain)
         setupCredentials(domain:aDomain)
         setupUser()
-        setupOffline()
-    }
-
-    deinit {
-        reachability?.stopListening()
     }
 
     // MARK: setup
@@ -75,25 +72,12 @@ class DntApi: DntManager {
         }
     }
 
-    func setupOffline() {
-        reachability = NetworkReachabilityManager(host:"www.dnt.no")
-        reachability?.listener = { status in
-            switch status {
-            case .Reachable:
-                self.isOffline = false
-                self.updateMemberDetails()
-                SjekkUtApi.instance.syncOffline()
-            default:
-                self.isOffline = true
-            }
-        }
-        reachability?.startListening()
-    }
+
 
     // MARK: Oauth 2
 
     func authorizeRequest() -> NSURLRequest {
-        let loginUrl = baseUrl! + "/o/authorize/?" +
+        let loginUrl = baseUrl + "/o/authorize/?" +
             "client_id=\(clientId!)&" +
             "response_type=code"
         let aRequest = NSMutableURLRequest(URL: NSURL(string:loginUrl )!)
@@ -109,7 +93,7 @@ class DntApi: DntManager {
             "client_id" : clientId!,
             "client_secret" : clientSecret!
         ]
-        self.request(.POST, baseUrl! + "/o/token/", parameters:someParameters, encoding: .URL)
+        self.request(.POST, baseUrl + "/o/token/", parameters:someParameters, encoding: .URL)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -145,7 +129,7 @@ class DntApi: DntManager {
             "client_secret" : self.clientSecret!
         ]
 
-        self.request(.POST, baseUrl! + "/o/token/", parameters:someParameters, encoding: .URL)
+        self.request(.POST, baseUrl + "/o/token/", parameters:someParameters, encoding: .URL)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
@@ -227,6 +211,10 @@ class DntApi: DntManager {
 
     func updateMemberDetails() {
 
+        if isOffline {
+            return
+        }
+
         let aToken = SAMKeychain.passwordForService( SjekkUtKeychainServiceName, account: kSjekkUtDefaultsToken)
 
         // if there is no token, assume failure
@@ -243,7 +231,7 @@ class DntApi: DntManager {
 
         let someHeaders = ["Authorization":"Bearer " + aToken]
 
-        self.request(.GET, baseUrl! + "/api/oauth/medlemsdata/", headers: someHeaders)
+        self.request(.GET, baseUrl + "/api/oauth/medlemsdata/", headers: someHeaders)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
