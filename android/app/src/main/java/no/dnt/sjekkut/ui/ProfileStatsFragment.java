@@ -17,6 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +31,7 @@ import butterknife.ButterKnife;
 import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
+import no.dnt.sjekkut.event.ConnectionChangedEvent;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.TripApiSingleton;
@@ -160,6 +165,7 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
         mPlaceVisitAdapter = new PlaceVisitAdapter(mListener);
         mRecyclerView.setAdapter(mPlaceVisitAdapter);
         mLogout.setOnClickListener(this);
+        mLogout.setEnabled(Utils.isConnected(context));
         setHasOptionsMenu(true);
         return view;
     }
@@ -202,6 +208,18 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         CheckinApiSingleton.call().getUserCheckins(
@@ -209,6 +227,12 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
                 PreferenceUtils.getAccessToken(getContext()),
                 PreferenceUtils.getUserId(getContext()))
                 .enqueue(mUserCheckinsCallback);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onConnectionChanged(ConnectionChangedEvent event) {
+        mLogout.setEnabled(event.isConnected);
     }
 
     @Override

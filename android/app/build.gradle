@@ -61,6 +61,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'net.hockeyapp.android:HockeySDK:4.0.2'
+    compile 'org.greenrobot:eventbus:3.0.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
