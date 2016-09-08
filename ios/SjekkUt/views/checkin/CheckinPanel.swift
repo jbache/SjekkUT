@@ -79,10 +79,14 @@ class CheckinPanel: UIView, CheckinButtonDelegate {
 
     // MARK: checkin delegate
     func showInfo(aMessage:CheckinMessage) {
+        showInfo(aMessage, timeout: 7)
+    }
+
+    func showInfo(aMessage:CheckinMessage, timeout:Double) {
         titleLabel.text = aMessage.title
         messageLabel.text = aMessage.message
         showingPanel = true
-        hideTimer = NSTimer.scheduledTimerWithTimeInterval(7, target: self, selector: #selector(hideInfo), userInfo: nil, repeats: false)
+        hideTimer = NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: #selector(hideInfo), userInfo: nil, repeats: false)
     }
 
     func hideInfo() {

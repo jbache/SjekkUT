@@ -13,6 +13,7 @@ typealias CheckinMessage = (title:String, message:String)
 protocol CheckinButtonDelegate {
     var showingPanel: Bool { get set }
     func showInfo(aMessage:CheckinMessage)
+    func showInfo(aMessage:CheckinMessage, timeout:Double)
     func hideInfo()
 }
 
@@ -132,7 +133,8 @@ class CheckinButton: UIButton {
         else if let aPlace = nearestPlace() {
             // prevent double-tapping checkin
             if aPlace.canCheckIn() {
-                delegate.showInfo(self.visitingMessage())
+                let timeout = NSURLSessionConfiguration.defaultSessionConfiguration().timeoutIntervalForRequest - 1
+                delegate.showInfo(self.visitingMessage(), timeout:timeout)
                 enabled = false
                 SjekkUtApi.instance.doPlaceCheckin(aPlace) {
                     response in
