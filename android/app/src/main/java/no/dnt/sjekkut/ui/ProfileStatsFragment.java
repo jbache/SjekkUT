@@ -28,8 +28,6 @@ import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.CheckinApiSingleton;
-import no.dnt.sjekkut.network.LoginApiSingleton;
-import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.Place;
 import no.dnt.sjekkut.network.TripApiSingleton;
 import no.dnt.sjekkut.network.UserCheckins;
@@ -64,29 +62,10 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
     private List<StatCountHolder> mStatCountHolders = new ArrayList<>();
     private PlaceVisitAdapter mPlaceVisitAdapter;
     private ProfileStatsListener mListener;
-    private Callback<MemberData> mMemberCallback;
     private Callback<UserCheckins> mUserCheckinsCallback;
     private Callback<Place> mPlaceCallback;
 
     public ProfileStatsFragment() {
-        mMemberCallback = new Callback<MemberData>() {
-            @Override
-            public void onResponse(Call<MemberData> call, Response<MemberData> response) {
-                if (response.isSuccessful()) {
-                    mUsername.setText(response.body().getFullname());
-                } else {
-                    mUsername.setText(getString(R.string.username_unknown));
-                    Utils.showToast(getContext(), "Failed to get member data: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MemberData> call, Throwable t) {
-                mUsername.setText(getString(R.string.username_unknown));
-                Utils.showToast(getContext(), "Failed to get member data: " + t);
-            }
-        };
-
         mUserCheckinsCallback = new Callback<UserCheckins>() {
             @Override
             public void onResponse(Call<UserCheckins> call, Response<UserCheckins> response) {
@@ -174,6 +153,7 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
             holder.label.setText(getMeritLabel(i));
             holder.circle.setColorFilter(getMeritColor(i));
         }
+        mUsername.setText(PreferenceUtils.getUserFullname(context));
         mMeritsSeparator.setText(getString(R.string.your_merits));
         mVisitsSeparator.setText(getString(R.string.your_visits));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -224,9 +204,6 @@ public class ProfileStatsFragment extends LocationFragment implements View.OnCli
     @Override
     public void onResume() {
         super.onResume();
-        LoginApiSingleton.call().getMember(
-                PreferenceUtils.getBearerAuthorization(getContext()))
-                .enqueue(mMemberCallback);
         CheckinApiSingleton.call().getUserCheckins(
                 PreferenceUtils.getUserId(getContext()),
                 PreferenceUtils.getAccessToken(getContext()),

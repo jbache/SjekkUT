@@ -27,15 +27,11 @@ import net.hockeyapp.android.UpdateManager;
 import java.util.ArrayList;
 import java.util.Date;
 
-import no.dnt.sjekkut.PreferenceUtils;
 import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
-import no.dnt.sjekkut.network.LoginApiSingleton;
 import no.dnt.sjekkut.network.MemberData;
 import no.dnt.sjekkut.network.Project;
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ProjectListFragment.ProjectListListener, ProfileStatsFragment.ProfileStatsListener, PlaceListFragment.PlaceListListener {
 
@@ -64,23 +60,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
-        mMemberCallback = new Callback<MemberData>() {
-            @Override
-            public void onResponse(Call<MemberData> call, Response<MemberData> response) {
-                if (response.isSuccessful()) {
-                    PreferenceUtils.setUserId(MainActivity.this, response.body().sherpa_id);
-                    Utils.showToast(MainActivity.this, "Got member data");
-                } else {
-                    Utils.showToast(MainActivity.this, "Failed to get member data: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MemberData> call, Throwable t) {
-                Utils.showToast(MainActivity.this, "Failed to get member data: " + t.getLocalizedMessage());
-            }
-        };
 
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
@@ -114,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onResume() {
         super.onResume();
         checkForCrashes();
-        LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(this)).enqueue(mMemberCallback);
     }
 
     @Override

@@ -15,6 +15,7 @@ public class PreferenceUtils {
     private final static String ACCESS_TOKEN = "access_token";
     private final static String REFRESH_TOKEN = "refresh_token";
     private final static String USER_ID = "user_id";
+    private final static String USER_FULLNAME = "user_fullname";
 
     public static boolean hasAccessToken(Context context) {
         return getPreferences(context).contains(ACCESS_TOKEN);
@@ -47,12 +48,15 @@ public class PreferenceUtils {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.remove(ACCESS_TOKEN);
         editor.remove(REFRESH_TOKEN);
+        editor.remove(USER_ID);
+        editor.remove(USER_FULLNAME);
         editor.apply();
     }
 
-    public static void setUserId(Context context, String userId) {
+    public static void setUserIdandFullname(Context context, String userId, String fullname) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putString(USER_ID, userId);
+        editor.putString(USER_FULLNAME, fullname);
         editor.apply();
     }
 
@@ -60,7 +64,15 @@ public class PreferenceUtils {
         return getPreferences(context).getString(USER_ID, "user_id_missing");
     }
 
+    public static String getUserFullname(Context context) {
+        return getPreferences(context).getString(USER_FULLNAME, "user_fullname_missing");
+    }
+
     public static String getAccessToken(Context context) {
         return getPreferences(context).getString(ACCESS_TOKEN, "access_token_missing");
+    }
+
+    public static boolean hasUserId(Context context) {
+        return getPreferences(context).contains(USER_ID);
     }
 }

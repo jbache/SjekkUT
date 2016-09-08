@@ -14,22 +14,66 @@ import no.dnt.sjekkut.R;
 import no.dnt.sjekkut.Utils;
 import no.dnt.sjekkut.network.AuthorizationToken;
 import no.dnt.sjekkut.network.LoginApiSingleton;
+import no.dnt.sjekkut.network.MemberData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    final private Callback<MemberData> mMemberCallback = createMemberCallback();
+    final private Callback<AuthorizationToken> mAuthorizeCallback = createAuthorizeCallback();
     private String client_id;
     private String client_secret;
-    private Callback<AuthorizationToken> mAuthorizeCallback;
     private boolean mGettingToken = false;
+
+    private Callback<AuthorizationToken> createAuthorizeCallback() {
+        return new Callback<AuthorizationToken>() {
+
+            @Override
+            public void onResponse(Call<AuthorizationToken> call, Response<AuthorizationToken> response) {
+                if (response.isSuccessful()) {
+                    Utils.showToast(LoginActivity.this, "Authorization success");
+                    AuthorizationToken token = response.body();
+                    PreferenceUtils.setAccessAndRefreshToken(LoginActivity.this, token.access_token, token.refresh_token);
+                    LoginApiSingleton.call().getMember(PreferenceUtils.getBearerAuthorization(LoginActivity.this)).enqueue(mMemberCallback);
+                } else {
+                    Utils.showToast(LoginActivity.this, "Authorization failed: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthorizationToken> call, Throwable t) {
+                Utils.showToast(LoginActivity.this, "Authorization failed: " + t.getLocalizedMessage());
+            }
+        };
+    }
+
+    private Callback<MemberData> createMemberCallback() {
+        return new Callback<MemberData>() {
+            @Override
+            public void onResponse(Call<MemberData> call, Response<MemberData> response) {
+                if (response.isSuccessful()) {
+                    MemberData member = response.body();
+                    PreferenceUtils.setUserIdandFullname(LoginActivity.this, member.sherpa_id, member.getFullname());
+                    finishAndStartMain();
+                } else {
+                    Utils.showToast(LoginActivity.this, "Failed to get member data: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MemberData> call, Throwable t) {
+                Utils.showToast(LoginActivity.this, "Failed to get member data: " + t.getLocalizedMessage());
+            }
+        };
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (PreferenceUtils.hasAccessToken(this)) {
+        if (PreferenceUtils.hasAccessToken(this) && PreferenceUtils.hasUserId(this)) {
             finishAndStartMain();
             return;
         }
@@ -42,26 +86,6 @@ public class LoginActivity extends AppCompatActivity {
                 .appendQueryParameter("client_id", client_id)
                 .appendQueryParameter("response_type", "code")
                 .build().toString();
-
-        mAuthorizeCallback = new Callback<AuthorizationToken>() {
-
-            @Override
-            public void onResponse(Call<AuthorizationToken> call, Response<AuthorizationToken> response) {
-                if (response.isSuccessful()) {
-                    Utils.showToast(LoginActivity.this, "Authorization success");
-                    AuthorizationToken token = response.body();
-                    PreferenceUtils.setAccessAndRefreshToken(LoginActivity.this, token.access_token, token.refresh_token);
-                    finishAndStartMain();
-                } else {
-                    Utils.showToast(LoginActivity.this, "Authorization failed: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthorizationToken> call, Throwable t) {
-                Utils.showToast(LoginActivity.this, "Authorization failed: " + t.getLocalizedMessage());
-            }
-        };
 
         WebView webview = new WebView(this);
         setContentView(webview);
