@@ -176,6 +176,12 @@
                                         timestamp:[NSDate date]];
 }
 
++ (instancetype)nearestPlace
+{
+    NSArray *places = [Place entitiesWithPredicate:[NSPredicate predicateWithFormat:@"latitude != 0 AND longitude!=0"]];
+    return [places sortedArrayUsingDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES] ]].firstObject;
+}
+
 #pragma mark - checkin
 
 - (Checkin *)lastCheckin

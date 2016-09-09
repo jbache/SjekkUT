@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSFetchRequest *)fetchRequest;
 + (instancetype)insertOrUpdate:(NSDictionary *)json;
 + (instancetype)findWithId:(id)identifier;
++ (instancetype)nearestPlace;
 
 - (void)updateDistance;
 - (NSString *)distanceDescription;

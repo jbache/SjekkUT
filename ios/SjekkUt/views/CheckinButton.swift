@@ -83,7 +83,7 @@ class CheckinButton: UIButton {
         var isEnabled:Bool = false
         var theAlpha = 1
 
-        place = nearestPlace()
+        place = Place.nearestPlace()
 
         if CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
             setTitle(noGpsMessage().title, forState: .Normal)
@@ -109,17 +109,6 @@ class CheckinButton: UIButton {
         }
     }
 
-    func nearestPlace() -> Place? {
-        let allPlaces = Place.allEntities() as NSArray
-
-        let sortedPlaces = allPlaces.sortedArrayUsingDescriptors( [NSSortDescriptor(key: "distance", ascending: true)] ) as! [Place]
-
-        if let firstPlace = sortedPlaces.first {
-            return firstPlace
-        }
-        return nil
-    }
-
     func checkinClicked() {
 
         // if the panel is displaying, hide it
@@ -130,7 +119,7 @@ class CheckinButton: UIButton {
             setTitle(noGpsMessage().title, forState: .Normal)
             delegate.showInfo(noGpsMessage())
         }
-        else if let aPlace = nearestPlace() {
+        else if let aPlace:Place = Place.nearestPlace() {
             // prevent double-tapping checkin
             if aPlace.canCheckIn() {
                 let timeout = NSURLSessionConfiguration.defaultSessionConfiguration().timeoutIntervalForRequest - 1
