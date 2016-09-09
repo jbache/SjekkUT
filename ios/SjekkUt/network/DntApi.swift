@@ -21,7 +21,9 @@ class DntApi: DntManager {
     var failBlock:(()->Void) = {}
     override var isOffline:Bool {
         didSet {
-            self.updateMemberDetails()
+            if isLoggedIn {
+                self.updateMemberDetails()
+            }
         }
     }
 
