@@ -103,7 +103,7 @@
 "Visit" = "Besøk";
 
 /* title of visit panel when not possible to visit */
-"Visit registered" = "Besøk registret";
+"Visit registered" = "Besøk registrert";
 
 /* title of panel after visiting */
 "Visited %@" = "Besøkte %@";
@@ -143,4 +143,7 @@
 
 /* can't check in time */
 "You have to wait 24 hours before you can check in." = "Du må vente 24 timer før du kan besøke";
+
+/* message of visit panel when not possible to visit */
+"You visited %@ %@" = "Du besøkte %1$@ %2$@";
 

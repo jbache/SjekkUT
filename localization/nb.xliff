@@ -53,7 +53,7 @@
         <note>Class = "UITableViewController"; title = "Sjekk UT"; ObjectID = "9SR-Ed-eAi";</note>
       </trans-unit>
       <trans-unit id="75k-d1-Gl6.title">
-        <source>Place</source>
+        <source>Title</source>
         <target>Turpost</target>
         <note>Class = "UINavigationItem"; title = "Place"; ObjectID = "75k-d1-Gl6";</note>
       </trans-unit>
@@ -92,6 +92,10 @@
       <trans-unit id="IBq-T2-jaY.normalTitle">
         <source>Check in!</source>
         <target>Besøk!</target>
+      </trans-unit>
+      <trans-unit id="KZF-uT-DrU.text">
+        <source>Your merits</source>
+        <note>Class = "UILabel"; text = "Your merits"; ObjectID = "KZF-uT-DrU";</note>
       </trans-unit>
       <trans-unit id="Kb8-dH-CSE.text">
         <source>county, elevation</source>
@@ -237,7 +241,6 @@
       </trans-unit>
       <trans-unit id="hQM-Dp-f9c.normalTitle">
         <source>SH</source>
-        <note>Class = "UIButton"; normalTitle = ""; ObjectID = "hQM-Dp-f9c";</note>
       </trans-unit>
       <trans-unit id="hY6-0v-phf.text">
         <source>No Challenge</source>
@@ -330,7 +333,7 @@
         <source>$(PRODUCT_NAME)</source>
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
-        <source>0.2</source>
+        <source>0.3.0</source>
       </trans-unit>
     </body>
   </file>
@@ -449,6 +452,10 @@
         <target>Feil i stedstjenester</target>
         <note>title for generic location failure</note>
       </trans-unit>
+      <trans-unit id="Projects">
+        <source>Projects</source>
+        <note>active projects stat</note>
+      </trans-unit>
       <trans-unit id="Registering visit">
         <source>Registering visit</source>
         <target>Registrerer besøk</target>
@@ -513,7 +520,7 @@
       </trans-unit>
       <trans-unit id="Visit registered">
         <source>Visit registered</source>
-        <target>Besøk registret</target>
+        <target>Besøk registrert</target>
         <note>title of visit panel when not possible to visit</note>
       </trans-unit>
       <trans-unit id="Visited %@">
@@ -530,6 +537,14 @@
         <source>Visiting %@, please wait..</source>
         <target>Registrerer besøk på %@</target>
         <note>message of panel when visiting</note>
+      </trans-unit>
+      <trans-unit id="Visits">
+        <source>Visits</source>
+        <note>visit stat</note>
+      </trans-unit>
+      <trans-unit id="Visits last 30 days">
+        <source>Visits last 30 days</source>
+        <note>last 30 dys stat</note>
       </trans-unit>
       <trans-unit id="We need GPS to register visit. Please turn this on in Settings">
         <source>We need GPS to register visit. Please turn this on in Settings</source>
@@ -583,6 +598,7 @@
       </trans-unit>
       <trans-unit id="You visited %@ %@">
         <source>You visited %1$@ %2$@</source>
+        <target>Du besøkte %1$@ %2$@</target>
         <note>message of visit panel when not possible to visit</note>
       </trans-unit>
     </body>
