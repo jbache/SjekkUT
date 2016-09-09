@@ -174,7 +174,7 @@ class SjekkUtApi: DntManager {
             "timestamp": Checkin.dateFormatter().stringFromDate(NSDate()),
         ]
         let requestUrl = baseUrl + "/steder/\(aPlace.identifier!)/besok"
-        request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders)
+        request(.POST, requestUrl, parameters:someParameters as? [String : AnyObject], headers:authenticationHeaders, encoding:.JSON)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 // in the case of offline checkins we need to fake a successful result for the finish handler
