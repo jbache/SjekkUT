@@ -15,6 +15,7 @@ import no.dnt.sjekkut.SjekkUTApplication;
 import no.dnt.sjekkut.Utils;
 import okhttp3.Authenticator;
 import okhttp3.Cache;
+import okhttp3.CacheControl;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -135,12 +136,27 @@ public enum OkHttpSingleton {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
+        Interceptor forceCacheInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                if (Utils.isConnected(mAppContext)) {
+                    return chain.proceed(chain.request());
+                } else {
+                    return chain.proceed(chain.request()
+                            .newBuilder()
+                            .cacheControl(CacheControl.FORCE_CACHE)
+                            .build());
+                }
+            }
+        };
+
         File cacheDirectory = new File(mAppContext.getCacheDir().getAbsolutePath(), CACHE_DIR_NAME);
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .cache(new Cache(cacheDirectory, CACHE_SIZE_BYTES))
                 .addNetworkInterceptor(rewrite403to401Interceptor)
                 .authenticator(refreshAuthenticator)
+                .addInterceptor(forceCacheInterceptor)
                 .addInterceptor(loggingInterceptor);
         if (BuildConfig.DEBUG) {
             builder.addNetworkInterceptor(new StethoInterceptor());
