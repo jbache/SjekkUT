@@ -8,7 +8,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.otf">
+        <mutableArray key="FontAwesome.ttf">
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -1008,15 +1008,14 @@
                                                         </mask>
                                                     </variation>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not climbed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="64" translatesAutoresizingMaskIntoConstraints="NO" id="OsL-MX-TzC">
-                                                    <rect key="frame" x="528" y="59" width="64" height="29"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not climbed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="64" translatesAutoresizingMaskIntoConstraints="NO" id="OsL-MX-TzC">
+                                                    <rect key="frame" x="528" y="46" width="64" height="14"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="29" id="Idy-y2-yk2"/>
                                                         <constraint firstAttribute="height" constant="15" id="Nkf-qj-imT"/>
                                                         <constraint firstAttribute="width" constant="64" id="sUa-9O-u4z"/>
                                                         <constraint firstAttribute="width" constant="64" id="uur-re-282"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
@@ -1028,6 +1027,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="OsL-MX-TzC" firstAttribute="top" secondItem="6mq-Ml-Gf3" secondAttribute="bottom" constant="4" id="0hz-he-cSI"/>
                                                 <constraint firstItem="6mq-Ml-Gf3" firstAttribute="leading" secondItem="mhv-g4-58x" secondAttribute="trailing" constant="22" id="1w1-DB-np6"/>
                                                 <constraint firstItem="l4x-dx-ab4" firstAttribute="leading" secondItem="7VL-AM-YmR" secondAttribute="leading" id="2xw-ga-72f"/>
                                                 <constraint firstItem="7VL-AM-YmR" firstAttribute="top" secondItem="Kb8-dH-CSE" secondAttribute="bottom" id="9kF-i5-86M"/>
@@ -1044,7 +1044,7 @@
                                                 <constraint firstItem="6mq-Ml-Gf3" firstAttribute="top" secondItem="DLK-sU-8gN" secondAttribute="top" constant="6" id="dIq-DW-7j7"/>
                                                 <constraint firstAttribute="bottom" secondItem="OsL-MX-TzC" secondAttribute="bottom" constant="8" id="dut-oV-0sx"/>
                                                 <constraint firstItem="mhv-g4-58x" firstAttribute="leading" secondItem="WhD-nK-c8T" secondAttribute="trailing" constant="8" id="eIQ-h7-SjP"/>
-                                                <constraint firstAttribute="bottom" secondItem="OsL-MX-TzC" secondAttribute="bottom" constant="8" id="eRm-hx-7zH"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OsL-MX-TzC" secondAttribute="bottom" constant="8" id="eRm-hx-7zH"/>
                                                 <constraint firstItem="Kb8-dH-CSE" firstAttribute="top" secondItem="mhv-g4-58x" secondAttribute="bottom" id="etg-Ma-vG4"/>
                                                 <constraint firstItem="mhv-g4-58x" firstAttribute="top" secondItem="DLK-sU-8gN" secondAttribute="topMargin" constant="1" id="f3k-De-Bvk"/>
                                                 <constraint firstItem="WhD-nK-c8T" firstAttribute="top" secondItem="DLK-sU-8gN" secondAttribute="top" constant="8" id="huR-ab-zxR"/>
