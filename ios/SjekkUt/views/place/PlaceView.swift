@@ -24,9 +24,7 @@ class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var checkinTitle: UILabel!
     @IBOutlet weak var checkinLabel: UITextView!
-    @IBOutlet weak var checkinButton: UIButton!
     @IBOutlet weak var checkinCell: UITableViewCell!
-    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet var placeCell: PlaceCell!
     @IBOutlet var descriptionWebView: UIWebView!
     @IBOutlet var descriptionWebViewHeight: NSLayoutConstraint!
@@ -44,23 +42,22 @@ class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
         mapView.af_setImageWithURLRequest(imageRequest, placeholderImage: nil, filter: nil, progress: nil, progressQueue: dispatch_get_main_queue(), imageTransition: .CrossDissolve(0.2), runImageTransitionIfCached: false, completion:nil)
     }
 
-    // MARK: actions
-
-    @IBAction func shareClicked(sender: AnyObject) {
-        if let aURL = NSURL(string:(checkin?.url)!) {
-            let activityView:UIActivityViewController = UIActivityViewController(activityItems: [aURL], applicationActivities: nil)
-            activityView.completionWithItemsHandler = { activity, success, items, error in
-                self.dismissViewControllerAnimated(true, completion:nil)
+    func setupShareButton() {
+        // only add sharing if there is something to share
+        checkin = checkin ?? place?.lastCheckin()
+        if let aCheckin = checkin {
+            if aCheckin.canShare {
+                navigationItem.setRightBarButtonItems([UIBarButtonItem(customView: ShareButton(checkin:checkin!)),navigationItem.rightBarButtonItem!], animated: true)
             }
-            self.navigationController?.presentViewController(activityView, animated: true, completion: nil)
         }
     }
+
+    // MARK: actions
 
     @IBAction func readMoreClicked(sender: AnyObject) {
         if let aURL = place?.url!.URL() {
             UIApplication.sharedApplication().openURL(aURL)
         }
-
     }
 
     func showMap() {
@@ -77,25 +74,16 @@ class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
     }
 
     // MARK: viewcontroller
-    override func viewDidLoad() {
-        shareButton.enabled = false
+
+    override func viewWillAppear(animated: Bool) {
 
         if (place != nil) {
             placeCell.place = place
             TurbasenApi.instance.getPlace(place!)
         }
 
-        checkin = checkin ?? place?.lastCheckin()
+        setupShareButton()
 
-        // don't bother with sharing if there is nothing to share
-        if let aCheckin = checkin {
-            if let urlString = aCheckin.url {
-                shareButton.enabled = !UIApplication.sharedApplication().canOpenURL(NSURL(string: urlString)!)
-            }
-        }
-    }
-
-    override func viewWillAppear(animated: Bool) {
         tableView.beginUpdates()
         fetchAndSetupMapImage()
 
@@ -106,6 +94,8 @@ class PlaceView : UITableViewController, UITextViewDelegate, UIWebViewDelegate {
     }
 
     override func viewDidAppear(animated: Bool) {
+
+        // smoothly update the description view cell height
         if place?.descriptionText != nil {
             tableView.beginUpdates()
             descriptionWebView.loadHTMLString((place?.descriptionText)!, baseURL: nil)

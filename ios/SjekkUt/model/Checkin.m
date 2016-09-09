@@ -115,4 +115,9 @@
     return daysAgoProjects;
 }
 
+- (BOOL)canShare
+{
+    return self.url.length > 0 && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.url]];
+}
+
 @end

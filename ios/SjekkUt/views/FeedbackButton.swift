@@ -11,7 +11,12 @@ import HockeySDK
 
 @IBDesignable
 class FeedbackButton: UIButton {
+
     override func awakeFromNib() {
+        setup()
+    }
+
+    func setup() {
         titleLabel!.font = UIFont(name: "FontAwesome", size: 25)!
         setTitle("", forState: .Normal)
         addTarget(self, action: #selector(feedbackClicked), forControlEvents: .TouchUpInside)

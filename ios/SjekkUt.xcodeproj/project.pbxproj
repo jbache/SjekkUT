@@ -26,6 +26,7 @@
 		6C36A1481B0CA8BB00169E98 /* cutehacks.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6C36A1471B0CA8BB00169E98 /* cutehacks.gpx */; };
 		6C38FDF11D81869500F1C827 /* CheckinPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C38FDF31D81869500F1C827 /* CheckinPanel.xib */; };
 		6C38FDF81D8187ED00F1C827 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C08F67B1A8A0ACD0091D70A /* Localizable.strings */; };
+		6C38FDFA1D829CED00F1C827 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C38FDF91D829CED00F1C827 /* ShareButton.swift */; };
 		6C4A967A1D63288D00EA0B50 /* DntGroup+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A96771D63288D00EA0B50 /* DntGroup+CoreDataProperties.m */; };
 		6C4A967B1D63288E00EA0B50 /* DntGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A96791D63288D00EA0B50 /* DntGroup.m */; };
 		6C4A967D1D64492C00EA0B50 /* ObjCHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4A967C1D64492C00EA0B50 /* ObjCHelpers.swift */; };
@@ -145,6 +146,7 @@
 		6C38FDF21D81869500F1C827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CheckinPanel.xib; sourceTree = "<group>"; };
 		6C38FDF51D81869900F1C827 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CheckinPanel.strings; sourceTree = "<group>"; };
 		6C38FDF71D81869E00F1C827 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/CheckinPanel.strings; sourceTree = "<group>"; };
+		6C38FDF91D829CED00F1C827 /* ShareButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareButton.swift; path = views/ShareButton.swift; sourceTree = "<group>"; };
 		6C4A96761D63288D00EA0B50 /* DntGroup+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DntGroup+CoreDataProperties.h"; path = "model/DntGroup+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6C4A96771D63288D00EA0B50 /* DntGroup+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DntGroup+CoreDataProperties.m"; path = "model/DntGroup+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6C4A96781D63288D00EA0B50 /* DntGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DntGroup.h; path = model/DntGroup.h; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				6C72A3FC1A8B833600A47AEE /* style */,
 				6C6FE15A1A82332C002B5DD5 /* Main.storyboard */,
 				6C163BAF1D76C60900833E96 /* FeedbackButton.swift */,
+				6C38FDF91D829CED00F1C827 /* ShareButton.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 				6C7C027D1D48A00600853166 /* Place.m in Sources */,
 				6CB04DC01D48C9AC0024DE11 /* SjekkUtApi.swift in Sources */,
 				6CE076361D4757EA000ACAAA /* TurbasenApi.swift in Sources */,
+				6C38FDFA1D829CED00F1C827 /* ShareButton.swift in Sources */,
 				6CC799BB1D51F5F700DFAF10 /* DntImage.m in Sources */,
 				6CE0763D1D4763B8000ACAAA /* Project.m in Sources */,
 				6C70642F1A82AE3000291137 /* ModelController.m in Sources */,

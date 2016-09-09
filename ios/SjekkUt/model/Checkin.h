@@ -18,9 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Checkin : EntityScaffold
 
+@property (readonly) BOOL canShare;
+
 + (Checkin *)insertOrUpdate:(NSDictionary *)json;
 + (NSDateFormatter *)dateFormatter;
 + (NSArray *)visitsLast30Days;
+
 - (void)update:(NSDictionary *)json;
 - (NSString *)timeAgo;
 

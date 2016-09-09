@@ -6,11 +6,9 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="FontAwesome.ttf">
-            <string>FontAwesome</string>
+        <mutableArray key="FontAwesome.otf">
             <string>FontAwesome</string>
             <string>FontAwesome</string>
             <string>FontAwesome</string>
@@ -1227,29 +1225,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Place" id="75k-d1-Gl6">
                         <barButtonItem key="backBarButtonItem" title=" " id="rZL-mB-JJ6"/>
-                        <rightBarButtonItems>
-                            <barButtonItem id="5cP-WR-erQ">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hQM-Dp-f9c">
-                                    <rect key="frame" x="540" y="7" width="40" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                    <state key="normal" title="">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="shareClicked:" destination="Jt5-sv-F5Z" eventType="touchUpInside" id="AP7-Gu-Tz4"/>
-                                    </connections>
-                                </button>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="sOX-3e-A78">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mN5-Lv-ywC" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
-                                    <rect key="frame" x="488" y="7" width="44" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
-                                    <state key="normal" title=""/>
-                                </button>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="sOX-3e-A78">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mN5-Lv-ywC" userLabel="Feedback" customClass="FeedbackButton" customModule="SjekkUT" customModuleProvider="target">
+                                <rect key="frame" x="536" y="7" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="25"/>
+                                <state key="normal" title=""/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="checkinCell" destination="98B-3h-n0s" id="PnE-lj-vRO"/>
@@ -1259,7 +1242,6 @@
                         <outlet property="descriptionWebView" destination="O7u-CL-Lvc" id="Cf1-Nh-7G5"/>
                         <outlet property="mapView" destination="Ooa-qg-Hjm" id="8Zi-On-Xff"/>
                         <outlet property="placeCell" destination="G60-6u-wew" id="Tfn-iw-6VC"/>
-                        <outlet property="shareButton" destination="hQM-Dp-f9c" id="EG9-VI-HBV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1aY-Kb-5XL" userLabel="First Responder" sceneMemberID="firstResponder"/>
