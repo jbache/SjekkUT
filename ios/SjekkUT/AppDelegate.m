@@ -42,14 +42,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"no.dnt.launched"] == false)
+    if ([defaults boolForKey:kSjekkUtDefaultsLaunched] == false)
     {
         [SAMKeychain deletePasswordForService:SjekkUtKeychainServiceName
-                                     account:SjekkUtKeychainAccountName];
+                                      account:SjekkUtKeychainAccountName];
 
-        [defaults setBool:YES forKey:@"no.dnt.launched"];
+        [defaults setBool:YES forKey:kSjekkUtDefaultsLaunched];
         [defaults synchronize];
     }
 
