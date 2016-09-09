@@ -20,16 +20,14 @@ extension NSDate {
 
     @objc func timeAgo() -> String {
         let formatter = NSDateComponentsFormatter()
-        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Short
-        formatter.includesApproximationPhrase = false
-        formatter.includesTimeRemainingPhrase = false
-        formatter.maximumUnitCount = 1
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyle.Full
         formatter.allowedUnits = [.Minute, .Hour, .Day, .WeekOfMonth, .Month, .Year]
-        var dateRelativeString = formatter.stringFromDate(self, toDate: NSDate())
+        let dateString = formatter.stringFromDate(self, toDate: NSDate())?.componentsSeparatedByString(", ")
+        var dateRelativeString = dateString!.first ?? ""
         if abs(self.timeIntervalSinceNow) <= 60 {
             dateRelativeString = NSLocalizedString("Just now",comment:"time ago below 60s")
         }
-        return String.localizedStringWithFormat(NSLocalizedString("%@ ago", comment:"time ago above 60s"), dateRelativeString!)
+        return String.localizedStringWithFormat(NSLocalizedString("%@ ago", comment:"time ago above 60s"), dateRelativeString)
     }
 }
 

@@ -332,10 +332,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awE-GM-vUy">
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awE-GM-vUy">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="project-background-fallback" translatesAutoresizingMaskIntoConstraints="NO" id="gOj-1b-VF9">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000596046448" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="project-background-fallback" translatesAutoresizingMaskIntoConstraints="NO" id="gOj-1b-VF9">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                                 </imageView>
                                             </subviews>
@@ -563,15 +563,14 @@
                                                         </mask>
                                                     </variation>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not climbed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="64" translatesAutoresizingMaskIntoConstraints="NO" id="Bcx-SZ-h4j">
-                                                    <rect key="frame" x="528" y="58" width="64" height="29"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not climbed" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="64" translatesAutoresizingMaskIntoConstraints="NO" id="Bcx-SZ-h4j">
+                                                    <rect key="frame" x="528" y="46" width="64" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="64" id="A0A-aA-fLB"/>
                                                         <constraint firstAttribute="width" constant="64" id="EfL-o8-y8G"/>
                                                         <constraint firstAttribute="height" constant="15" id="HgJ-fb-TBk"/>
-                                                        <constraint firstAttribute="height" constant="29" id="XzZ-BG-3XN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
@@ -589,6 +588,7 @@
                                                 <constraint firstItem="cxI-Pn-Ak7" firstAttribute="leading" secondItem="PI8-QU-zsH" secondAttribute="trailing" constant="8" id="Ima-od-VXL"/>
                                                 <constraint firstItem="Bcx-SZ-h4j" firstAttribute="leading" secondItem="mzu-RJ-UKp" secondAttribute="trailing" constant="8" id="NLY-Ca-oQ6"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bcx-SZ-h4j" secondAttribute="trailing" constant="8" id="NRR-VP-KAf"/>
+                                                <constraint firstItem="Bcx-SZ-h4j" firstAttribute="top" secondItem="uBp-wm-udf" secondAttribute="bottom" constant="4" id="Rle-SC-IKe"/>
                                                 <constraint firstItem="cxI-Pn-Ak7" firstAttribute="top" secondItem="vCa-Qd-TbR" secondAttribute="topMargin" constant="1" id="SCq-ba-3xL"/>
                                                 <constraint firstItem="D1E-Qc-Sor" firstAttribute="top" secondItem="mzu-RJ-UKp" secondAttribute="bottom" id="UAn-MR-jo7"/>
                                                 <constraint firstItem="SkN-9c-XwY" firstAttribute="width" secondItem="D1E-Qc-Sor" secondAttribute="width" id="Umt-Z2-q9e"/>
@@ -603,7 +603,7 @@
                                                 <constraint firstItem="SkN-9c-XwY" firstAttribute="top" secondItem="D1E-Qc-Sor" secondAttribute="bottom" id="sX3-fN-6m1"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bcx-SZ-h4j" secondAttribute="trailing" constant="8" id="w9d-MR-9Oq"/>
                                                 <constraint firstAttribute="trailing" secondItem="uBp-wm-udf" secondAttribute="trailing" constant="22" id="wtz-6f-Irc"/>
-                                                <constraint firstAttribute="bottom" secondItem="Bcx-SZ-h4j" secondAttribute="bottom" constant="8" id="y1d-Aw-IdC"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Bcx-SZ-h4j" secondAttribute="bottom" constant="8" id="y1d-Aw-IdC"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -1276,6 +1276,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="imk-vY-cVJ"/>
-        <segue reference="n0t-rS-PYJ"/>
+        <segue reference="TOc-wB-BP5"/>
     </inferredMetricsTieBreakers>
 </document>
